@@ -10,8 +10,9 @@ import edu.harvard.chs.cite.CtsUrn
 */
 class TestCorpusOnline extends GroovyTestCase {
 
-    String testTIFile = "testdata/testCorpusTextInv.xml"
-    String testOnlineTIFile = "testdata/testOnlineCorpusTextInv.xml"
+
+    File tiFile = new File( "testdata/corpus/testinventory.xml")
+    File xml = new File("testdata/corpus/xml")
 
 
     /** Tests contents of TextInventory against
@@ -21,9 +22,7 @@ class TestCorpusOnline extends GroovyTestCase {
         def expectedInvOnline = ["urn:cts:greekLit:tlg0012.tlg001.msA", "urn:cts:greekLit:tlg0012.tlg001.msB"]
 
         def relativeBase = "testdata/archive/"
-        File inv = new File(testTIFile)
-        File dir = new File(relativeBase)
-        Corpus c = new Corpus(inv, dir)
+        Corpus c = new Corpus(tiFile, xml)
 
         assert  c.inventory.allOnline() == expectedInvOnline
 
@@ -39,10 +38,7 @@ class TestCorpusOnline extends GroovyTestCase {
     * the archive.
     */
     @Test void testOnlineMethods() {
-
-        File invFile = new File(testOnlineTIFile)
-        File dir = new File("testdata/testArchive")
-        Corpus c = new Corpus(invFile, dir)
+        Corpus c = new Corpus(tiFile, xml)
 
         def expectedSet = ["A_Iliad_testlines.xml", "B_Iliad_test2.xml", "no-namespace.xml"] as Set
         def actualSet = c.filesInInventory() as Set

@@ -6,14 +6,13 @@ import org.junit.Test
 import edu.harvard.chs.cite.TextInventory
 import edu.harvard.chs.cite.CtsUrn
 
-/** Class testing hocuspocus Corpus class, including a number
-* of tests for bad input.
+/**
 */
-class TestBadCorpus extends GroovyTestCase {
+class TestCorpusConstructor extends GroovyTestCase {
 
 
-    File tiFile = new File( "testdata/corpus/testinventory.xml")
-    File xml = new File("testdata/corpus/xml")
+    File tiFile = new File( "testdata/testcorpus/testinventory.xml")
+    File xml = new File("testdata/testcorpus/xml")
 
     /** Tests parameter requirements for constructor
     * with valid CTS TextInventory and readable text archive.
@@ -38,7 +37,7 @@ class TestBadCorpus extends GroovyTestCase {
     /** Tests requirement that TextInventory validates
     * against schema.
     */
-
+/*
     @Test void testValidator() {
         Corpus c = new Corpus(tiFile, xml)
         c.validateInventory()
@@ -48,5 +47,5 @@ class TestBadCorpus extends GroovyTestCase {
             Corpus badcorpus = new Corpus(badinv, xml)
         }
     }
-
+*/
 }
