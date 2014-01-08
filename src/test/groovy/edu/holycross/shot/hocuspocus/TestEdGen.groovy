@@ -8,7 +8,7 @@ import edu.harvard.chs.cite.CtsUrn
 
 /**
 */
-class TestToken2 extends GroovyTestCase {
+class TestEdGen extends GroovyTestCase {
 
     File testOnlineTIFile = new File("testdata/testOnlineCorpusTextInv.xml")
     TextInventory inv = new TextInventory(testOnlineTIFile)
@@ -19,7 +19,8 @@ class TestToken2 extends GroovyTestCase {
 
     File outDir = new File("testdata/testoutput")
 
-    @Test void testTokenizer() {
+
+    @Test void testSoupToNuts() {
         outDir.deleteDir()
         outDir.mkdir()
         
@@ -38,6 +39,12 @@ class TestToken2 extends GroovyTestCase {
         ArrayList tokens = tokeSys.tokenize(tabulatedOutput, sepChar)
         Integer expectedTokens = 158
         assert tokens.size() == expectedTokens
+
+        /* Then generate a token edition */
+        String extension = "_tokenized"        
+        EditionGenerator eg = new EditionGenerator()
+        eg.generateEdition(tokens, outDir,"testdata_tokenized.ttl", extension, inv)
+        
     }
 
 

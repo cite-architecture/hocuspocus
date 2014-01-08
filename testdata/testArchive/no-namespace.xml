@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <div
+        n="preface" type="preface">
+        <p>Prefatory statement. It is brief, and not repetitive.</p>
+    </div>
+    <div
+        n="1"
+        type="chapter">
+        <div
+            n="1"
+            type="section">
+            <p>First section of text.  It is lengthier.</p>
+	    <p>Its contents, in two distinct paragraphs, although 
+	      a single citable node, include recurring words
+	      and phrases. Some of them occur again and again and again
+	    (and even again).</p>
+        </div>
+    </div>
+</root>
