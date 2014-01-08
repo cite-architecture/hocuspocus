@@ -1,0 +1,4 @@
+
+ext {
+    tischemaurl = "http://www.homermultitext.org/hmtschemas/TextInventory.rng"
+}

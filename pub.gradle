@@ -1,0 +1,6 @@
+
+ext {
+    nexusRepo = "http://beta.hpcc.uh.edu/nexus/content/repositories/releases/"
+    nexusUser = ""
+    nexusPassword = ""
+}
