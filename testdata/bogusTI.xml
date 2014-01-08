@@ -1,0 +1,5 @@
+<NotTextInventory>
+<p>A well-formed XML document that does NOT
+validate against the TextInventory schema.
+</p>
+</NotTextInventory>
