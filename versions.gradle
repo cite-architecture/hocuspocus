@@ -1,0 +1,10 @@
+
+
+ext {
+ citeversion = '0.14.1'
+ groovyversion = '2.1.3'
+ commonsioversion = '1.4'
+ jingversion = '20091111'
+ junitversion = '4.10'
+ xmlunitversion = '1.3'
+}
