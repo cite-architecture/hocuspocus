@@ -11,14 +11,15 @@ import edu.harvard.chs.cite.CtsUrn
 class TestCorpusOnline extends GroovyTestCase {
 
 
-    File tiFile = new File( "testdata/corpus/testinventory.xml")
-    File xml = new File("testdata/corpus/xml")
 
 
     /** Tests contents of TextInventory against
     * contents of archive.
     */
     @Test void testOnline() {
+        File tiFile = new File( "testdata/testcorpus/testinventory.xml")
+        File xml = new File("testdata/testcorpus/xml")
+
         def expectedInvOnline = ["urn:cts:greekLit:tlg0012.tlg001.msA", "urn:cts:greekLit:tlg0012.tlg001.msB"]
 
         def relativeBase = "testdata/archive/"
@@ -38,6 +39,10 @@ class TestCorpusOnline extends GroovyTestCase {
     * the archive.
     */
     @Test void testOnlineMethods() {
+
+        File tiFile = new File( "testdata/testcorpus2/testinventory2.xml")
+        File xml = new File("testdata/testcorpus2/xml")
+
         Corpus c = new Corpus(tiFile, xml)
 
         def expectedSet = ["A_Iliad_testlines.xml", "B_Iliad_test2.xml", "no-namespace.xml"] as Set
