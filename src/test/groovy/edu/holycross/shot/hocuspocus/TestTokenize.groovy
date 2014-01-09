@@ -49,7 +49,7 @@ class TestTokenize extends GroovyTestCase {
         Corpus c = new Corpus(tiFile, archiveDir)
         c.tabulateRepository(outDir)
         DefaultTokenizationSystem tokenSystem = new DefaultTokenizationSystem()
-        c.tokenizeInventory(tokenSystem, outDir)
+        c.tokenizeRepository(tokenSystem, outDir)
         // test output size: 504?
     }
 }

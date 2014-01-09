@@ -199,14 +199,14 @@ class Corpus {
     }
 
 
-    /** First tabulates the entire inventory, then uses the resulting
+    /** First tabulates the entire repository, then uses the resulting
     * tabulated files to tokenize the inventory using the specified
     * Tokenization system, and writes resulting RDF TTL in outputDir.
     * @param tokenSystem TokenizationSystem to apply to the inventory.
     * @param outputDir A writable directory where the output will be created.
     */
-    void tokenizeInventory(TokenizationSystem tokenSystem, File outputDir) {
-        tokenizeInventory(tokenSystem, outputDir, "#")
+    void tokenizeRepository(TokenizationSystem tokenSystem, File outputDir) {
+        tokenizeRepository(tokenSystem, outputDir, "#")
     }
 
     /** First tabulates the entire inventory, then uses the resulting
@@ -218,7 +218,7 @@ class Corpus {
     * @param separatorString String value used to separator fields of 
     * tabulated files.
     */
-    void tokenizeInventory(TokenizationSystem tokenSystem, File outputDir, String separatorString) {
+    void tokenizeRepository(TokenizationSystem tokenSystem, File outputDir, String separatorString) {
         File tokensFile = new File(outputDir, "tokens.txt")
         tabulateRepository(outputDir)
         outputDir.eachFileMatch(~/.*.txt/) { tab ->  
