@@ -1,5 +1,7 @@
 package edu.holycross.shot.hocuspocus
 
+// NEEDS TO BE COMPLETED.
+
 import static org.junit.Assert.*
 import org.junit.Test
 

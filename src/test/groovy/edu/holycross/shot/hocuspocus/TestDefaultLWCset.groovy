@@ -13,6 +13,6 @@ class TestDefaultLWCset extends GroovyTestCase {
         assert lwcset.getLanguageCode() == null
         assert lwcset.getCharSet() == "UTF-8"
         assert lwcset.isValidString("Mhnin")
-
     }
+
 }

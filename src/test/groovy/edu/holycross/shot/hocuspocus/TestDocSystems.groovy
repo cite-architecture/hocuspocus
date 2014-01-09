@@ -11,9 +11,11 @@ import edu.harvard.chs.cite.CtsUrn
 class TestDocSystems extends GroovyTestCase {
 
 
-    File onlineTIFile = new File("testdata/testOnlineCorpusTextInv.xml")
-    TextInventory inv = new TextInventory(onlineTIFile)
-    File archiveDir = new File("testdata/testArchive")
+    File tiFile = new File( "testdata/testcorpus2/testinventory2.xml")
+    TextInventory inv = new TextInventory(tiFile)
+
+
+    File archiveDir =  new File("testdata/testcorpus2/xml")
     File iliadAFile = new File(archiveDir, "A_Iliad_testlines.xml")
 
     File outDir = new File("testdata/testoutput")
@@ -27,7 +29,7 @@ class TestDocSystems extends GroovyTestCase {
         assert ts
         CtsUrn urn = new CtsUrn("urn:cts:test1:test.unclassified.unittest")
 
-        File testFile = new File("testdata/testArchive/no-namespace.xml")
+        File testFile = new File("testdata/testcorpus2/xml/no-namespace.xml")
         DocumentConfiguration docConf = new DefaultDocumentConfiguration(urn,inv,testFile)
         assert docConf.getDescription() == "Unclassified document type."
         assert docConf.getId() == "unclassified"
