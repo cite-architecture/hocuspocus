@@ -17,8 +17,6 @@ import edu.harvard.chs.cite.CtsUrn
 */
 class TestCorpusTtl extends GroovyTestCase {
 
-
-
     File invFile = new File( "testdata/testcorpus2/testinventory2.xml")
     TextInventory inv = new TextInventory(invFile)
     File archive = new File("testdata/testcorpus2/xml")

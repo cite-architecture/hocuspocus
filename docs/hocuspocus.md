@@ -15,8 +15,8 @@ Most generally, a text corpus management system stores texts in their archival f
 
 In traditional collections of print or other physical resources, archives can store unpublished material. Digital resources, on the other hand, must be published in various formats, including their underlying archival format.  The two most fundamental forms of access to archived texts are:
 
-- publication of the archival artifact,
-- export of the text for use in a Canonical Text Service.
+- publication of the archival artifact
+- export of the text for use in a Canonical Text Service
 
 Publishing and managing dependencies on texts in archival formats is no different than publishing and managing code or documentation libraries, and can be implemented with a repository manager.  The simplest form of export for use in a CTS is the tabular data format supported by the CHS implementation of Canonical Text Services.   We can implement the two requirements above as:
 
