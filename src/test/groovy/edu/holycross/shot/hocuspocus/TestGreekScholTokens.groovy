@@ -10,15 +10,21 @@ import edu.harvard.chs.cite.CtsUrn
 */
 class TestGreekScholTokens extends GroovyTestCase {
 
+
+    File invFile = new File( "testdata/testcorpustokens/inventory.xml")
+    TextInventory inv = new TextInventory(invFile)
+    File archive = new File("testdata/testcorpustokens/xml")
+
+
+
     @Test void testGreekScholia() {
-         TokenizationSystem ts = new HmtGreekTokenization()
+        TokenizationSystem ts = new HmtGreekTokenization()
         assert ts
 
-        TextInventory inv = new TextInventory(new File("testdata/tokensTI.xml"))
         CtsUrn urn = new CtsUrn("urn:cts:greekLit:tlg5026.msA.chs01")
 
 
-        File testFile = new File("testdata/tokenarchive/VenetusA-Scholia-A.xml")
+        File testFile = new File("testdata/testcorpustokens/xml/VenetusA-Scholia-A.xml")
 //        Tabulator tab = new Tabulator()
 //        tab.tabulate(urn,inv,testFile,new File("build"))
 

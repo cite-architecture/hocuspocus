@@ -10,9 +10,11 @@ import edu.harvard.chs.cite.CtsUrn
 */
 class TestTokenize extends GroovyTestCase {
 
-    File testOnlineTIFile = new File("testdata/testOnlineCorpusTextInv.xml")
-    TextInventory inv = new TextInventory(testOnlineTIFile)
-    File archiveDir = new File("testdata/testArchive")
+
+    File tiFile = new File( "testdata/testcorpus2/testinventory2.xml")
+
+    TextInventory inv = new TextInventory(tiFile)
+    File archiveDir = new File("testdata/testcorpus2/xml")
     File iliadAFile = new File(archiveDir, "A_Iliad_testlines.xml")
 
     String sepChar = "#"
@@ -44,7 +46,7 @@ class TestTokenize extends GroovyTestCase {
         outDir.deleteDir()
         outDir.mkdir()
 
-        Corpus c = new Corpus(testOnlineTIFile, archiveDir)
+        Corpus c = new Corpus(tiFile, archiveDir)
         c.tabulateRepository(outDir)
         DefaultTokenizationSystem tokenSystem = new DefaultTokenizationSystem()
         c.tokenizeInventory(tokenSystem, outDir)

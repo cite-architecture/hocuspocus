@@ -18,9 +18,12 @@ import edu.harvard.chs.cite.CtsUrn
 class TestSingleEditionTtl extends GroovyTestCase {
     File outDir = new File("testdata/testoutput")
 
-    String testTIFile = "testdata/testOnlineCorpusTextInv.xml"    
-    File invFile = new File(testTIFile)
-    File archive = new File("testdata/testArchive")
+
+
+    File invFile = new File( "testdata/testcorpus2/testinventory2.xml")
+    TextInventory inv = new TextInventory(invFile)
+    File archive = new File("testdata/testcorpus2/xml")
+
     Corpus c = new Corpus(invFile, archive)
 
     void testOne() {

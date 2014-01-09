@@ -18,14 +18,14 @@ import edu.harvard.chs.cite.CtsUrn
 class TestCorpusTtl extends GroovyTestCase {
 
 
-    File outDir = new File("testdata/testoutput")
 
+    File invFile = new File( "testdata/testcorpus2/testinventory2.xml")
+    TextInventory inv = new TextInventory(invFile)
+    File archive = new File("testdata/testcorpus2/xml")
 
-    String testTIFile = "testdata/testOnlineCorpusTextInv.xml"    
-    File invFile = new File(testTIFile)
-    File archive = new File("testdata/testArchive")
     Corpus c = new Corpus(invFile, archive)
 
+    File outDir = new File("testdata/testoutput")
 
     void testCorpusTtl() {
         c.ttl(new File(outDir, "testout.ttl"), outDir)
