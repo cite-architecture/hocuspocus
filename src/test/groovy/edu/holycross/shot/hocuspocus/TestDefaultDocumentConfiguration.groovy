@@ -12,7 +12,9 @@ import org.junit.Test
 */
 class TestDefaultDocumentConfiguration extends GroovyTestCase {
 
-    TextInventory ti  = new TextInventory(new File("testdata/testOnlineCorpusTextInv.xml"))
+    File tiFile = new File( "testdata/testcorpus2/testinventory2.xml")
+
+    TextInventory ti  = new TextInventory(tiFile)
 
     /** Tests behavior of interface with meaningless configuration.
     */
@@ -39,7 +41,7 @@ class TestDefaultDocumentConfiguration extends GroovyTestCase {
 
     @Test void testRealDocument() {
 
-        File sampleIliadLines = new File ("testdata/testArchive/A_Iliad_testlines.xml")
+        File sampleIliadLines = new File ("testdata/testcorpus2/xml/A_Iliad_testlines.xml")
         CtsUrn urn = new CtsUrn("urn:cts:greekLit:tlg0012.tlg001.testlines")
 
         DefaultDocumentConfiguration ddt =  new DefaultDocumentConfiguration(urn, ti, sampleIliadLines)
