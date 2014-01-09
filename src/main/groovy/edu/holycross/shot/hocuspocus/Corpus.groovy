@@ -299,7 +299,7 @@ class Corpus {
     * corresponding "online" entry in the corpus TextInventory.
     * @returns A (possibly empty) list of file names.
     */
-    ArrayList inventoriedMissingFromInventory() {
+    ArrayList filesMissingFromInventory() {
         def missing = []
         def invList = []
         this.inventory.allOnline().each { urn ->
