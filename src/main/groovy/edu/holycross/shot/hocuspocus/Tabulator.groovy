@@ -33,7 +33,7 @@ import javax.xml.transform.stream.StreamResult
 * A class working with texts in a CTS, and formatting them in tabular form.
 */
 class Tabulator {
-    int debug = 5
+    Integer debug = 0
 
     /** String value to use as column separator in tabular text output.
     */
