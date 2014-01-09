@@ -21,7 +21,7 @@ These will now be available as `c.inventory` and `c.baseDirectory`.  Several met
 
 ## Generating secondary data sets from a corpus ##
 
--` tabulateRepository(java.io.File outputDir)` :  converts all XML source files in the inventory to OHCO2-equivalent tabular format, and write output to `outputDir`.
-- `tokenizeRepository(TokenizationSystem tokenSystem, java.io.File outputDir)`:  given a creates a two-column text file where each line is comprised of a token (identified by CTS URN, including subreference), and a type. Both the token and the value of the type depend on the tokenization system selected.
-- `turtleizeRepository(java.io.File outputDir)`:  generates a representation of the entire edited corpus in a single TTL file in `outputDir`.
-- **tokenized editions**:  currently available for individual documents using the `EditionGenerator` class.  A repository-wide method will be added to the `Corpus` class.
+- ` tabulateRepository(java.io.File outputDir)` :  converts all XML source files in the inventory to OHCO2-equivalent tabular format, and writes output to `outputDir`.
+- `tokenizeRepository(TokenizationSystem tokenSystem, java.io.File outputDir)`:  creates a two-column text file where each line is comprised of a token (identified by CTS URN, including subreference), and a type. Both the token and the value of the type depend on the tokenization system selected.
+-  `turtleizeRepository(java.io.File outputDir)`:  generates a representation of the entire edited corpus in a single TTL file in `outputDir`.
+-  **tokenized editions**:  currently available for individual documents using the `EditionGenerator` class.  A repository-wide method will be added to the `Corpus` class.
