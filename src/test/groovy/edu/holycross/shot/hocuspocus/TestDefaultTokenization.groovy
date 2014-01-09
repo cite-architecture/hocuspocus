@@ -8,15 +8,12 @@ import org.junit.Test
 */
 class TestDefaultTokenization extends GroovyTestCase {
 
-    @Test void testInterface() {
+    @Test void testDescription() {
         DefaultTokenizationSystem ts = new DefaultTokenizationSystem()
 
         String expectedDescription =  "Default TokenizationSystem, splitting tokens on white space, but making no distinction among non-whitespace characters, and classifying all tokens as 'unclassified'."
 
         assert ts.getDescription().size() == expectedDescription.size()
-
-        // make a tabular input file.
-        // then test tokenize() method
-
     }
+
 }

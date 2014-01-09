@@ -37,7 +37,6 @@ class TestCorpusConstructor extends GroovyTestCase {
     /** Tests requirement that TextInventory validates
     * against schema.
     */
-/*
     @Test void testValidator() {
         Corpus c = new Corpus(tiFile, xml)
         c.validateInventory()
@@ -47,5 +46,4 @@ class TestCorpusConstructor extends GroovyTestCase {
             Corpus badcorpus = new Corpus(badinv, xml)
         }
     }
-*/
 }
