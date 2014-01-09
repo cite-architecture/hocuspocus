@@ -10,9 +10,12 @@ import edu.harvard.chs.cite.CtsUrn
 */
 class TestGreekPoetry extends GroovyTestCase {
     /* Test values: */
-    File testOnlineTIFile = new File("testdata/testOnlineCorpusTextInv.xml")
-    TextInventory inv = new TextInventory(testOnlineTIFile)
-    File archiveDir = new File("testdata/testArchive")
+
+
+
+    File tiFile = new File( "testdata/testcorpus2/testinventory2.xml")
+    TextInventory inv = new TextInventory(tiFile)
+    File archiveDir = new File("testdata/testcorpus2/xml")
     File iliadAFile = new File(archiveDir, "A_Iliad_testlines.xml")
 
     File outDir = new File("testdata/testoutput")
