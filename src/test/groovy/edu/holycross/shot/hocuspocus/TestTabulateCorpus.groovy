@@ -10,10 +10,9 @@ import edu.harvard.chs.cite.CtsUrn
 */
 class TestTabulateCorpus extends GroovyTestCase {
 
-    /* Test values: */
-    File testOnlineTIFile = new File("testdata/testOnlineCorpusTextInv.xml")
-    TextInventory inv = new TextInventory(testOnlineTIFile)
-    File archiveDir = new File("testdata/testArchive")
+    File tiFile = new File( "testdata/testcorpus2/testinventory2.xml")
+    TextInventory inv = new TextInventory(tiFile)
+    File archiveDir = new File("testdata/testcorpus2/xml")
     File iliadAFile = new File(archiveDir, "A_Iliad_testlines.xml")
 
     File outDir = new File("testdata/testoutput")
@@ -24,7 +23,7 @@ class TestTabulateCorpus extends GroovyTestCase {
         outDir.deleteDir()
         outDir.mkdir()
 
-        Corpus c = new Corpus(testOnlineTIFile, archiveDir)
+        Corpus c = new Corpus(tiFile, archiveDir)
         CtsUrn urn = new CtsUrn("urn:cts:greekLit:tlg0012.tlg001.testlines")
         c.tabulateFile(iliadAFile, urn, outDir)
 
@@ -56,7 +55,7 @@ class TestTabulateCorpus extends GroovyTestCase {
         outDir.deleteDir()
         outDir.mkdir()
 
-        Corpus c = new Corpus(testOnlineTIFile, archiveDir)
+        Corpus c = new Corpus(tiFile, archiveDir)
         c.tabulateRepository(outDir)
         def actualList = outDir.list({d, f-> f ==~ /.*.txt/ } as FilenameFilter
   ).toList() 
