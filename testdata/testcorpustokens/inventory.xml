@@ -85,7 +85,7 @@
           (=822).</description>
         
         <online
-          docname="tokenarchive/VenetusA-Scholia-A.xml">
+          docname="VenetusA-Scholia-A.xml">
           <validate
             schema="chstei.rng"/>
           <namespaceMapping
