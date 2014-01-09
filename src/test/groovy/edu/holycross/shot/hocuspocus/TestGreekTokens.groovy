@@ -10,10 +10,10 @@ import edu.harvard.chs.cite.CtsUrn
 */
 class TestGreekTokens extends GroovyTestCase {
 
-    /* Test values: */
-    File testOnlineTIFile = new File("testdata/testOnlineCorpusTextInv.xml")
-    TextInventory inv = new TextInventory(testOnlineTIFile)
-    File archiveDir = new File("testdata/testArchive")
+    File invFile = new File( "testdata/testcorpus2/testinventory2.xml")
+    TextInventory inv = new TextInventory(invFile)
+    File archiveDir = new File("testdata/testcorpus2/xml")
+
     File iliadAFile = new File(archiveDir, "A_Iliad_testlines.xml")
 
     File outDir = new File("testdata/testoutput")
