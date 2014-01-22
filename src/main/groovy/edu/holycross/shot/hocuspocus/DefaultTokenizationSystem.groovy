@@ -59,7 +59,7 @@ class DefaultTokenizationSystem implements TokenizationSystem {
 	  }
 	}
       } else {
-	System.err.println "OMIT LINE: ${l}"
+	System.err.println "DefaultTokenizationSystem: OMIT non-data line: ${l}"
       }
     }
     return replyList
