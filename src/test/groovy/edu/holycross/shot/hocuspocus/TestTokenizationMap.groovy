@@ -50,7 +50,6 @@ class TestTokenizationMap extends GroovyTestCase {
         def fakeMap = ["eng" : fakeSystem]
         c.languageToTokenSystemMap = fakeMap.clone()
         assert c.tokenSystemForUrn(new CtsUrn(engUrn)) == fakeSystem        
-
     }
 
 }

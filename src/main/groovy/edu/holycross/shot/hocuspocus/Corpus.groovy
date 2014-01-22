@@ -233,16 +233,40 @@ class Corpus {
         tabulateRepository(tabDir)
         turtleizeTabs(tabDir, ttlFile, false)
     }
+  
 
 
-    String tokenSystemForUrn(CtsUrn urn) {
-        String langCode  =  this.inventory.languageForWork(urn)
-        if (this.languageToTokenSystemMap.keySet().contains(langCode)) {
-            return this.languageToTokenSystemMap[langCode]
-        } else {
-            return "edu.holycross.shot.hocuspocus.DefaultTokenizationSystem"
-        }
+  /** Selects a tokenization system based on the language
+   * of a document identified by URN.
+   * @param urn URN to map to a tokenization system.
+   * @returns A String with the full name of a class
+   * implementing the tokenization interface.
+   * @throws Exception if cannot determine work level of urn.
+   */
+  String tokenSystemForUrn(CtsUrn urn) {
+    String langCode
+
+    switch(urn.getWorkLevel()) {
+
+    case CtsUrn.WorkLevel.WORK:
+    langCode  =  this.inventory.languageForWork(urn)
+    break
+
+    case CtsUrn.WorkLevel.VERSION:
+    langCode  =  this.inventory.languageForVersion(urn)
+    break
+
+    default:
+    throw new Exception("Corpus, tokenSystemForUrn:  could not determine work level of URN ${urn}")
+    break
     }
+
+    if (this.languageToTokenSystemMap.keySet().contains(langCode)) {
+      return this.languageToTokenSystemMap[langCode]
+    } else {
+      return "edu.holycross.shot.hocuspocus.DefaultTokenizationSystem"
+    }
+  }
 
 
     // NOT YET IMPLEMENTED.
