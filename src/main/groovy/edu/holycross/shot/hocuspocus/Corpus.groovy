@@ -261,7 +261,7 @@ class Corpus {
     break
     }
 
-    if (this.languageToTokenSystemMap.keySet().contains(langCode))x {
+    if (this.languageToTokenSystemMap.keySet().contains(langCode)) {
       return this.languageToTokenSystemMap[langCode]
     } else {
       return "edu.holycross.shot.hocuspocus.DefaultTokenizationSystem"
