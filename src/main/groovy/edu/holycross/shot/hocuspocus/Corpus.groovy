@@ -24,6 +24,9 @@ class Corpus {
     String prefix = "@prefix hmt:        <http://www.homermultitext.org/hmt/rdf/> .\n@prefix cts:        <http://www.homermultitext.org/cts/rdf/> .\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n@prefix dcterms: <http://purl.org/dc/terms/> .\n"
 
 
+    /** Map to configure default tokenization system for given ISO language codes. */
+    LinkedHashMap languageToTokenSystemMap = ["grc": "edu.holycross.shot.hocuspocus.HmtGreekTokenization"]
+
 
     /** TextInventory with entries for all documents in the corpus. 
     */
@@ -37,6 +40,9 @@ class Corpus {
     */
     File baseDirectory
 
+    /** String value defining columns in tabular text format. 
+     */
+    String separatorString
 
     /** Constructor using a local File object for the corpus' TextInventory.
     * @param invFile File with the corpus' TextInventory.
@@ -64,6 +70,36 @@ class Corpus {
         } catch (Exception invException) {
             throw invException
         }
+    }
+
+
+    /** Creates TTL representation of the entire corpus 
+    * and writes it to a file in outputDir.
+    * @param outputDir A writable directory where the TTL file
+    * will be written.
+    * @throws Exception if unable to write to outputDir.
+    */
+    void turtleizeRepository(File outputDir) 
+    throws Exception {
+        if (! outputDir.exists()) {
+            try {
+                outputDir.mkdir()
+            } catch (Exception e) {
+                System.err.println "Corpus.turtleizeRepository: could not make directory ${outputDir}"
+                throw e
+            }
+        }
+        File tabDir = new File(outputDir, "tabFiles")
+        try {
+            tabDir.mkdir()
+        } catch (Exception e) {
+            System.err.println "Corpus.turtleizeRepository: could not make directory ${tabDir}"
+            throw e
+        }
+        this.tabulateRepository(tabDir)
+
+        File ttlFile = new File(outputDir, "corpus.ttl")
+        this.ttl(ttlFile, tabDir)
     }
 
 
@@ -199,6 +235,42 @@ class Corpus {
     }
 
 
+
+
+
+    // NOT YET IMPLEMENTED.
+    void tokenizeRepository(File outputDir) {
+        // check  on match ... perhaps proper logic is
+        // to process all "online" files in inventory, and
+        // ignore other XML files in archive.
+        tabulateRepository(outputDir)
+
+        File tokensFile = new File(outputDir, "tokens.txt")
+        outputDir.eachFileMatch(~/.*.txt/) { tab ->  
+            //  CHECK LANGUAGE SETTING FOR TEXT, 
+            // CHOOSE APPROPRIATE TOKENIZATION SYSTEM.
+
+            def linesArray = tab.readLines()
+            String line2 =  linesArray[1]
+            def cols = line2.split(/#/)
+	    CtsUrn u = new CtsUrn(cols[0])
+	    String versStr = "urn:cts:${u.getCtsNamespace()}:${u.getTextGroup()}.${u.getWork()}.${u.getVersion()}"
+            System.err.println "${u} has lang " +          this.inventory.languageForVersion(versStr)
+
+
+
+            /*
+            def tokenData = tokenSystem.tokenize(tab, separatorString)
+            tokenData.each {  pair ->
+                tokensFile.append( "${pair[0]}\t${pair[1]}\n", "UTF-8")
+            }
+            tab.delete()
+            */
+        }
+
+    }
+
+
     /** First tabulates the entire repository, then uses the resulting
     * tabulated files to tokenize the inventory using the specified
     * Tokenization system, and writes resulting RDF TTL in outputDir.
@@ -207,6 +279,15 @@ class Corpus {
     */
     void tokenizeRepository(TokenizationSystem tokenSystem, File outputDir) {
         tokenizeRepository(tokenSystem, outputDir, "#")
+
+        File tokensFile = new File(outputDir, "tokens.txt")
+        outputDir.eachFileMatch(~/.*.txt/) { tab ->  
+            def tokenData = tokenSystem.tokenize(tab, separatorString)
+            tokenData.each {  pair ->
+                tokensFile.append( "${pair[0]}\t${pair[1]}\n", "UTF-8")
+            }
+            tab.delete()
+        }
     }
 
     /** First tabulates the entire inventory, then uses the resulting
