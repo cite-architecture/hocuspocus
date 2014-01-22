@@ -235,7 +235,14 @@ class Corpus {
     }
 
 
-
+    String tokenSystemForUrn(CtsUrn urn) {
+        String langCode  =  this.inventory.languageForWork(urn)
+        if (this.languageToTokenSystemMap.keySet().contains(langCode)) {
+            return this.languageToTokenSystemMap[langCode]
+        } else {
+            return "edu.holycross.shot.hocuspocus.DefaultTokenizationSystem"
+        }
+    }
 
 
     // NOT YET IMPLEMENTED.
