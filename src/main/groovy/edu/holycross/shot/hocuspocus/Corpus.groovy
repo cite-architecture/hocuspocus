@@ -42,7 +42,7 @@ class Corpus {
 
     /** String value defining columns in tabular text format. 
      */
-    String separatorString
+    String separatorString = "#"
 
     /** Constructor using a local File object for the corpus' TextInventory.
     * @param invFile File with the corpus' TextInventory.
@@ -261,45 +261,36 @@ class Corpus {
     break
     }
 
-    if (this.languageToTokenSystemMap.keySet().contains(langCode)) {
+    if (this.languageToTokenSystemMap.keySet().contains(langCode))x {
       return this.languageToTokenSystemMap[langCode]
     } else {
       return "edu.holycross.shot.hocuspocus.DefaultTokenizationSystem"
     }
   }
 
+  void tokenizeRepository(File outputDir) {
+    // check  on match ... perhaps proper logic is
+    // to process all "online" files in inventory, and
+    // ignore other XML files in archive.
+    tabulateRepository(outputDir)
 
-    // NOT YET IMPLEMENTED.
-    void tokenizeRepository(File outputDir) {
-        // check  on match ... perhaps proper logic is
-        // to process all "online" files in inventory, and
-        // ignore other XML files in archive.
-        tabulateRepository(outputDir)
+    File tokensFile = new File(outputDir, "tokens.txt")
+    outputDir.eachFileMatch(~/.*.txt/) { tab ->  
+      def linesArray = tab.readLines()
+      String line2 =  linesArray[1]
+      def cols = line2.split(/#/)
+      CtsUrn u = new CtsUrn(cols[0])
 
-        File tokensFile = new File(outputDir, "tokens.txt")
-        outputDir.eachFileMatch(~/.*.txt/) { tab ->  
-            //  CHECK LANGUAGE SETTING FOR TEXT, 
-            // CHOOSE APPROPRIATE TOKENIZATION SYSTEM.
+      String className = tokenSystemForUrn(u)
+      TokenizationSystem tokenSystem = Class.forName(className).newInstance()
+      def tokenData = tokenSystem.tokenize(tab, this.separatorString)
 
-            def linesArray = tab.readLines()
-            String line2 =  linesArray[1]
-            def cols = line2.split(/#/)
-	    CtsUrn u = new CtsUrn(cols[0])
-	    String versStr = "urn:cts:${u.getCtsNamespace()}:${u.getTextGroup()}.${u.getWork()}.${u.getVersion()}"
-            System.err.println "${u} has lang " +          this.inventory.languageForVersion(versStr)
-
-
-
-            /*
-            def tokenData = tokenSystem.tokenize(tab, separatorString)
-            tokenData.each {  pair ->
-                tokensFile.append( "${pair[0]}\t${pair[1]}\n", "UTF-8")
-            }
-            tab.delete()
-            */
-        }
-
+      tokenData.each {  pair ->
+	tokensFile.append( "${pair[0]}\t${pair[1]}\n", "UTF-8")
+      }
+      //      tab.delete()
     }
+  }
 
 
     /** First tabulates the entire repository, then uses the resulting
@@ -334,11 +325,13 @@ class Corpus {
         File tokensFile = new File(outputDir, "tokens.txt")
         tabulateRepository(outputDir)
         outputDir.eachFileMatch(~/.*.txt/) { tab ->  
-            def tokenData = tokenSystem.tokenize(tab, separatorString)
-            tokenData.each {  pair ->
-                tokensFile.append( "${pair[0]}\t${pair[1]}\n", "UTF-8")
-            }
-            tab.delete()
+	  
+	  def tokenData = tokenSystem.tokenize(tab, separatorString)
+
+	  tokenData.each {  pair ->
+	    tokensFile.append( "${pair[0]}\t${pair[1]}\n", "UTF-8")
+	  }
+	  //tab.delete()
         }
     }
 
@@ -351,7 +344,6 @@ class Corpus {
     throws Exception {
         // as an alternative, allow a local copy of schmea ...
         URL TextInvSchema = new URL("http://www.homermultitext.org/hmtschemas/TextInventory.rng")
-
 //        URL TextInvSchema = new URL("file://./testdata/TextInventory.rng")
         System.setProperty("javax.xml.validation.SchemaFactory:"+XMLConstants.RELAXNG_NS_URI,
     "com.thaiopensource.relaxng.jaxp.XMLSyntaxSchemaFactory");
@@ -477,5 +469,5 @@ class Corpus {
         }  
         return fileList
     }
-
 }
+
