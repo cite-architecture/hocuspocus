@@ -1,8 +1,8 @@
 <?xml-model href="TextInventory.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <TextInventory
   tiid="hmt"
-  tiversion="4.0"
-  xmlns="http://chs.harvard.edu/xmlns/cts/ti"
+  tiversion="5.0.rc.1"
+  xmlns="http://chs.harvard.edu/xmlns/cts"
   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <ctsnamespace
     abbr="greekLit"
@@ -21,26 +21,6 @@
   </ctsnamespace>
   
   
-  <collection
-    id="testtabulator"
-    isdefault="yes">
-    <dc:title
-      xml:lang="eng"
-      >Sample for testing tabulation</dc:title>
-    <dc:creator
-      > Neel Smith </dc:creator>
-    <dc:coverage
-      xml:lang="eng"
-      > A few lines of the Iliad. </dc:coverage>
-    <dc:description
-      xml:lang="eng"
-      > Selections from Iliad. </dc:description>
-    <dc:rights
-      xml:lang="eng"
-      > Licensed under the terms of Creative Commons
-      attribution-share-alike license. </dc:rights>
-  </collection>
-  
   <textgroup
     urn="urn:cts:greekLit:tlg0012">
     <groupname
@@ -58,8 +38,7 @@
           xml:lang="eng"> testlines</description>
         <online
           docname="A_Iliad_testlines.xml">
-          <validate
-            schema="chstei.rng"/>
+    
           <namespaceMapping
             abbreviation="tei"
             nsURI="http://www.tei-c.org/ns/1.0"/>
@@ -84,8 +63,7 @@
           xml:lang="eng"> testlines</description>
         <online
           docname="B_Iliad_test2.xml">
-          <validate
-            schema="chstei.rng"/>
+         
           <namespaceMapping
             abbreviation="tei"
             nsURI="http://www.tei-c.org/ns/1.0"/>
@@ -122,8 +100,7 @@
           xml:lang="eng">Simple file for unit testing</description>
         <online
           docname="no-namespace.xml">
-          <validate
-            schema="none.xml"/>
+  
           <citationMapping>
             <citation
               label="frontmatter"

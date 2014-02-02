@@ -48,7 +48,7 @@ if (hasProperty('pub')) {
 
 
 group = "edu.holycross.shot"
-version = '0.9.2'
+version = '0.10.0'
 
 
 repositories {
@@ -83,7 +83,6 @@ dependencies {
     schemas group: 'edu.harvard.chs', name: 'cite', version: citeversion, classifier: 'schemas', ext: 'zip'
 
 }
-
 
 task checkOutSchemas {
     doLast {
