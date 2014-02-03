@@ -54,8 +54,9 @@ class LiteralTokenEditionGenerator implements TokenEditionGenerator {
    * @param i Running index count for the node.
    * @returns A string in HMT project's tabular format.
    */
-  String endBlock(String baseUrn, Integer i) {
-    return ("${baseUrn}.${i}${tab}${i}${tab}${i - 1}${tab}${i + 1}${tab}${nullCol}${tab}${endBlockMarker}${tab}${nullCol}${tab}\n")
+  String endBlock(String baseUrn, String prev, String curr, String nxt) {
+    System.err.println "END TRIPLE: ${prev}, ${curr}, ${nxt}" 
+    return ("${baseUrn}.${curr}${tab}${curr}${tab}${prev}${tab}${nxt}${tab}${nullCol}${tab}${endBlockMarker}${tab}${nullCol}${tab}\n")
   }
 
 
@@ -99,7 +100,7 @@ class LiteralTokenEditionGenerator implements TokenEditionGenerator {
 
       if (sawEndBlock) {
 	if ( prevUrn != "") {
-	  outFile.append(endBlock(prevUrn, prevCount))
+	  outFile.append(endBlock(prevUrn, "${prevPrevCount}", "${prevCount}", "${count}"))
 	}
 	prevUrn = baseUrn
 	count++;
@@ -137,7 +138,12 @@ class LiteralTokenEditionGenerator implements TokenEditionGenerator {
     idxFile.append("${prevUrn}.${prevCount} hmt:tokenizedFrom ${prevUrn}.\n")
 
     outFile.append(prevUrn + ".${prevCount}", charEnc)
-    outFile.append("${tab}${prevCount}${tab}${prevPrevCount}${tab}${nullCol}${tab}${prevText}${tab}${nullCol}${tab}\n", charEnc)
+    outFile.append("${tab}${prevCount}${tab}${prevPrevCount}${tab}${count}${tab}${prevText}${tab}${nullCol}${tab}\n", charEnc)
+
+    System.err.println "After last real node, triplet of prev-curr-nxt is ${prevPrevCount}, ${prevCount}, ${count}"
+
+
+    outFile.append(endBlock(prevUrn, "${prevCount}", "${count}", nullCol))
   }
 
 }

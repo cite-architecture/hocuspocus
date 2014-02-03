@@ -5,6 +5,11 @@ package edu.holycross.shot.hocuspocus
 */
 public interface TokenEditionGenerator {
 
+
+  String className
+
+
+
   /** Returns a human-readable description of the system
    * for generating token editions derived from and aligned 
    * with a source edition. 
