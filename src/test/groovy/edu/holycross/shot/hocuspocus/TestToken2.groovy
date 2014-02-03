@@ -40,6 +40,13 @@ class TestToken2 extends GroovyTestCase {
         ArrayList tokens = tokeSys.tokenize(tabulatedOutput, sepChar)
         Integer expectedTokens = 158
         assert tokens.size() == expectedTokens
+
+
+	File tokensFile = new File(outDir, "tokenization.tsv")
+	tokens.each { pr ->
+	  tokensFile.append("${pr[0]}\t${pr[1]}\n")
+	}
+
     }
 
 
