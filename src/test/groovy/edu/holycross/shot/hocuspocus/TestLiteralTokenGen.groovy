@@ -24,7 +24,7 @@ class TestLiteralTokenGen extends GroovyTestCase {
     String expectedDescription = "Generates a tokenized edition of a text from the output of a classified tokenization by treating each token as a citable node of the new edition.  Makes ranges in the token edition legible by appending a white space to each token, and include a token with a special value at the end of each citation node in the source edition."
 
     Integer expectedTokens = 23
-
+    Integer expectedBlocks = 4
 
     @Test void testConstructor() {
        outDir.deleteDir()
@@ -58,8 +58,12 @@ class TestLiteralTokenGen extends GroovyTestCase {
       LiteralTokenEditionGenerator leg = new LiteralTokenEditionGenerator()
       leg.generate(tkFile, "\t", outDir)
 
+      File editionFile = new File(outDir, "tokenedition.txt")
+      File ttlFile = new File(outDir, "tokenToSourceEdition.ttl")
 
+      assert editionFile.readLines().size() == expectedTokens + expectedBlocks
 
+      assert ttlFile.readLines().size() ==  expectedTokens * 2
 
     }
 
