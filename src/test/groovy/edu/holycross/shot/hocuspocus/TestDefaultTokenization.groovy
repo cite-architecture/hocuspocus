@@ -41,7 +41,7 @@ class TestDefaultTokenization extends GroovyTestCase {
         Integer expectedTokens = 158
         assert tokens.size() == expectedTokens
 
-
+	// Save output for informatie manual inspection, too:
 	File tokensFile = new File(outDir, "tokenization.tsv")
 	tokens.each { pr ->
 	  tokensFile.append("${pr[0]}\t${pr[1]}\n")

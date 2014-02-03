@@ -25,6 +25,10 @@ class TestCorpusTokenize extends GroovyTestCase {
 
         Corpus c = new Corpus(invFile, archiveDir)
         c.tokenizeRepository(outDir)
+
+	File resultFile = new File(outDir, "tokens.tsv")
+	Integer expectedLines = 504
+	assert resultFile.readLines().size() == expectedLines
         
     }
 
