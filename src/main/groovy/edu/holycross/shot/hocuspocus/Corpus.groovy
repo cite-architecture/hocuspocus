@@ -30,6 +30,10 @@ class Corpus {
     LinkedHashMap languageToTokenSystemMap = ["grc": "edu.holycross.shot.hocuspocus.HmtGreekTokenization"]
 
 
+
+    /** Map to configure default token edition generating system for given ISO language codes. */
+    LinkedHashMap languageToTokenEditionMap = []
+
     /** TextInventory with entries for all documents in the corpus. 
     */
     TextInventory  inventory
@@ -117,6 +121,7 @@ class Corpus {
     }
 
 
+
     /** Creates a tabular representation of every document
     * in the corpus.
     * @param ouputDir A writeable directory where tabulated files
@@ -174,6 +179,7 @@ class Corpus {
         File  ttl = new File(ttlFileName)
         turtleizeTabs(outputDir, ttl, destructive)
     }
+
 
     /** Cycles through all tabular files in a directory,
     * first turtleizing each file.  If destructive is true, it
@@ -238,8 +244,39 @@ class Corpus {
         tabulateRepository(tabDir)
         turtleizeTabs(tabDir, ttlFile, false)
     }
-  
 
+
+  /** Selects a tokenization edition generator based on the language
+   * of a document identified by URN.
+   * @param urn URN to map to a tokenization system.
+   * @returns A String with the full name of a class
+   * implementing the tokenization interface.
+   * @throws Exception if cannot determine work level of urn.
+   */  
+  String tokenEditionSystemForUrn(CtsUrn urn) {
+    String langCode
+
+    switch(urn.getWorkLevel()) {
+
+    case CtsUrn.WorkLevel.WORK:
+    langCode  =  this.inventory.languageForWork(urn)
+    break
+
+    case CtsUrn.WorkLevel.VERSION:
+    langCode  =  this.inventory.languageForVersion(urn)
+    break
+
+    default:
+    throw new Exception("Corpus, tokenSystemForUrn:  could not determine work level of URN ${urn}")
+    break
+    }
+
+    if (this.languageToTokenEditionMap.keySet().contains(langCode)) {
+      return this.languageToTokenEditionMap[langCode]
+    } else {
+      return "edu.holycross.shot.hocuspocus.LiteralTokenEditionGenerator"
+    }
+  }
 
   /** Selects a tokenization system based on the language
    * of a document identified by URN.
@@ -273,6 +310,8 @@ class Corpus {
     }
   }
 
+
+
   void tokenizeRepository(File outputDir) {
     // check  on match ... perhaps proper logic is
     // to process all "online" files in inventory, and
@@ -298,13 +337,13 @@ class Corpus {
   }
 
 
-    /** First tabulates the entire repository, then uses the resulting
-    * tabulated files to tokenize the inventory using the specified
-    * Tokenization system, and writes resulting RDF TTL in outputDir.
-    * @param tokenSystem TokenizationSystem to apply to the inventory.
-    * @param outputDir A writable directory where the output will be created.
-    */
-    void tokenizeRepository(TokenizationSystem tokenSystem, File outputDir) {
+  /** First tabulates the entire repository, then uses the resulting
+   * tabulated files to tokenize the inventory using the specified
+   * Tokenization system, and writes resulting RDF TTL in outputDir.
+   * @param tokenSystem TokenizationSystem to apply to the inventory.
+   * @param outputDir A writable directory where the output will be created.
+   */
+  void tokenizeRepository(TokenizationSystem tokenSystem, File outputDir) {
         tokenizeRepository(tokenSystem, outputDir, this.separatorString)
 
         File tokensFile = new File(outputDir, defaultTokensFile)
