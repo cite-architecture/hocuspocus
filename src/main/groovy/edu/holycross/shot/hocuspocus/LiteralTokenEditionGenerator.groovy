@@ -16,7 +16,6 @@ URN#CURRCOUNT#PREVCOUNT#NEXTCOUNT#WRAP#TEXT#XP
 
 
 
-
 /** Class implementing the TokenEditionGenerator interface.
 */
 class LiteralTokenEditionGenerator implements TokenEditionGenerator {
@@ -98,10 +97,10 @@ class LiteralTokenEditionGenerator implements TokenEditionGenerator {
       CtsUrn urn = new CtsUrn(cols[0])
       String baseUrn = urn.getUrnWithoutPassage() + ":" + urn.getPassageNode()
 
-
-
       if (sawEndBlock) {
-	outFile.append(endBlock(prevUrn, prevCount))
+	if ( prevUrn != "") {
+	  outFile.append(endBlock(prevUrn, prevCount))
+	}
 	prevUrn = baseUrn
 	count++;
 	prevCount++;
@@ -121,7 +120,7 @@ class LiteralTokenEditionGenerator implements TokenEditionGenerator {
 
 	outFile.append(prevUrn + ".${prevCount}", charEnc)
 	if (prevPrevCount == 0) {
-	  outFile.append("${prevCount}${tab}${nullCount}${tab}${count}${tab}${nullCol}${tab}${prevText}${tab}${nullCol}${tab}\n", charEnc)
+	  outFile.append("${prevCount}${tab}${nullCol}${tab}${count}${tab}${nullCol}${tab}${prevText}${tab}${nullCol}${tab}\n", charEnc)
 	} else {
 	  outFile.append("${tab}${prevCount}${tab}${prevPrevCount}${tab}${count}${tab}${prevText}${tab}${nullCol}${tab}\n", charEnc)
 	}
