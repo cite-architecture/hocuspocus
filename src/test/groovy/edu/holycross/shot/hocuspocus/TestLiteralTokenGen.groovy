@@ -25,6 +25,7 @@ class TestLiteralTokenGen extends GroovyTestCase {
 
     Integer expectedTokens = 23
     Integer expectedBlocks = 4
+    Integer expectedMultiplier = 2
 
     @Test void testConstructor() {
        outDir.deleteDir()
@@ -61,9 +62,10 @@ class TestLiteralTokenGen extends GroovyTestCase {
       File editionFile = new File(outDir, "tokenedition.txt")
       File ttlFile = new File(outDir, "tokenToSourceEdition.ttl")
 
-      assert editionFile.readLines().size() == expectedTokens + expectedBlocks
 
-      assert ttlFile.readLines().size() ==  expectedTokens * 2
+      assert tkFile.readLines().size() == expectedTokens
+      assert editionFile.readLines().size() == expectedTokens + expectedBlocks
+      assert ttlFile.readLines().size() ==  expectedTokens * expectedMultiplier
 
     }
 
