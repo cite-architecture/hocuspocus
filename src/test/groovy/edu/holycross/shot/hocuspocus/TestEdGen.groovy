@@ -44,8 +44,8 @@ class TestEdGen extends GroovyTestCase {
 
         /* Then generate a token edition */
         String extension = "_tokenized"        
-        EditionGenerator eg = new EditionGenerator()
-        eg.generateEdition(tokens, outDir,"testdata_tokenized.ttl", extension, inv)
+	//        EditionGenerator eg = new EditionGenerator()
+        // eg.generateEdition(tokens, outDir,"testdata_tokenized.ttl", extension, inv)
         
     }
 
