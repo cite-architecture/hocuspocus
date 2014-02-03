@@ -13,7 +13,7 @@ class DefaultTokenizationSystem implements TokenizationSystem {
   /** Implements required getDescription() method of TokenizationSystem interface.
    */
   String getDescription() {
-    return "Default TokenizationSystem, splitting tokens on white space, but making no distinction among non-whitespace characters, and classifying all tokens as 'unclassified'."
+    return "Default TokenizationSystem, splitting tokens on white space, but making no distinction among non-whitespace characters, and classifying all tokens as 'urn:cite:hocuspocus.tokens.unclassified'."
   }
 
   /** Tokenizes a String on white space.  Uses a GreekNode object from the
