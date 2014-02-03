@@ -19,7 +19,7 @@ class TestTokenTtl extends GroovyTestCase {
 
     void testOne() {
         TokensTtl tttl = new TokensTtl(File srcFile, String tokenizer)
-        
+        System.err.println tttl
     }
 
 

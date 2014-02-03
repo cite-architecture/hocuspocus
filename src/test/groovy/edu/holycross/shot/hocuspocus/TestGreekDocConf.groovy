@@ -8,7 +8,7 @@ import edu.harvard.chs.cite.CtsUrn
 
 /**
 */
-class TestGreekTokens extends GroovyTestCase {
+class TestGreekDocConf extends GroovyTestCase {
 
     File invFile = new File( "testdata/testcorpus2/testinventory2.xml")
     TextInventory inv = new TextInventory(invFile)
@@ -45,7 +45,5 @@ class TestGreekTokens extends GroovyTestCase {
 
         System.err.println "Writing tokens to ${tokensFile} using a ${docConf.getClass()}"
         docConf.writeTokenUrns(tokensFile)
-
-
     }
 }

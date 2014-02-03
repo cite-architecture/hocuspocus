@@ -35,11 +35,16 @@ class DefaultTokenizationSystem implements TokenizationSystem {
    * @returns An ordered list of two-item lists consisting of a string and a class.
    */
   ArrayList tokenize(File inputFile, String separatorStr) {
-    if (debug > 0) { System.err.println "TOkenizeing " + inputFile  + "with sepchar " + separatorStr}
+    if (debug > 0) { 
+      System.err.println "TOkenizeing " + inputFile  + "with sepchar " + separatorStr
+    }
+
     def replyList = []
-    def taxon = "lexical"
+    def taxon = "urn:cite:hocuspocus:tokens.unclassified"
     inputFile.eachLine { l ->
-      if (debug > 0) { System.err.println "TOkenizeing " + inputFile }
+      if (debug > 0) { 
+	System.err.println "DefaultTokenizationSystem: tokenizing " + inputFile 
+      }
       def cols = l.split(/${separatorStr}/)
 
       if (debug > 0) { System.err.println "${cols.size()} cols for input line " + l }

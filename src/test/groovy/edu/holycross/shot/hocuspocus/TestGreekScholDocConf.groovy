@@ -8,7 +8,7 @@ import edu.harvard.chs.cite.CtsUrn
 
 /**
 */
-class TestGreekScholTokens extends GroovyTestCase {
+class TestGreekScholDocConf extends GroovyTestCase {
 
 
     File invFile = new File( "testdata/testcorpustokens/inventory.xml")

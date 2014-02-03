@@ -15,7 +15,9 @@ import org.apache.commons.io.FilenameUtils
 */
 class Corpus {
 
-    int debug = 0
+    int debug = 2
+
+    String defaultTokensFile = "tokens.tsv"
 
     /** Character encoding to use for all file output. */
     String charEnc = "UTF-8"
@@ -125,7 +127,7 @@ class Corpus {
             CtsUrn urn = new CtsUrn(u)
             File f = new File(baseDirectory, inventory.onlineDocname(urn))
             if (debug > 0) {
-                System.err.println "Tabulating ${urn} with file ${f}..."
+                System.err.println "Corpus: tabulating ${urn} with file ${f}..."
             }
 
             tabulateFile(f, urn, outputDir)
@@ -194,7 +196,10 @@ class Corpus {
             } else {
                 ttl.append(turtler.turtleizeTabs(tab, false), charEnc)
             }
-            if (destructive) { tab.delete() }
+            if (destructive) { 
+	      if (debug > 0) { System.err.println "Corpus: deleting file ${tab}" }
+	      tab.delete() 
+	    }
         }
     }
 
@@ -274,7 +279,7 @@ class Corpus {
     // ignore other XML files in archive.
     tabulateRepository(outputDir)
 
-    File tokensFile = new File(outputDir, "tokens.txt")
+    File tokensFile = new File(outputDir, defaultTokensFile)
     outputDir.eachFileMatch(~/.*.txt/) { tab ->  
       def linesArray = tab.readLines()
       String line2 =  linesArray[1]
@@ -288,7 +293,7 @@ class Corpus {
       tokenData.each {  pair ->
 	tokensFile.append( "${pair[0]}\t${pair[1]}\n", "UTF-8")
       }
-      //      tab.delete()
+
     }
   }
 
@@ -300,15 +305,17 @@ class Corpus {
     * @param outputDir A writable directory where the output will be created.
     */
     void tokenizeRepository(TokenizationSystem tokenSystem, File outputDir) {
-        tokenizeRepository(tokenSystem, outputDir, "#")
+        tokenizeRepository(tokenSystem, outputDir, this.separatorString)
 
-        File tokensFile = new File(outputDir, "tokens.txt")
+        File tokensFile = new File(outputDir, defaultTokensFile)
         outputDir.eachFileMatch(~/.*.txt/) { tab ->  
-            def tokenData = tokenSystem.tokenize(tab, separatorString)
-            tokenData.each {  pair ->
-                tokensFile.append( "${pair[0]}\t${pair[1]}\n", "UTF-8")
-            }
-            tab.delete()
+	  def tokenData = tokenSystem.tokenize(tab, this.separatorString)
+	  if (debug > 0) {
+	    System.err.println "Corpus: deleting file ${tab}."
+	    Integer lineCount = tokensFile.readLines().size()
+	    System.err.println "Tokens file onw ${lineCount} lines."
+	  }
+	  tab.delete()
         }
     }
 
@@ -318,15 +325,15 @@ class Corpus {
     * Tabulated files are deleted after tokenization.
     * @param tokenSystem TokenizationSystem to apply to the inventory.
     * @param outputDir A writable directory where the output will be created.
-    * @param separatorString String value used to separator fields of 
+    * @param dividerString String value used to separator fields of 
     * tabulated files.
     */
-    void tokenizeRepository(TokenizationSystem tokenSystem, File outputDir, String separatorString) {
-        File tokensFile = new File(outputDir, "tokens.txt")
+    void tokenizeRepository(TokenizationSystem tokenSystem, File outputDir, String dividerString) {
+        File tokensFile = new File(outputDir, defaultTokensFile)
         tabulateRepository(outputDir)
         outputDir.eachFileMatch(~/.*.txt/) { tab ->  
 	  
-	  def tokenData = tokenSystem.tokenize(tab, separatorString)
+	  def tokenData = tokenSystem.tokenize(tab, dividerString)
 
 	  tokenData.each {  pair ->
 	    tokensFile.append( "${pair[0]}\t${pair[1]}\n", "UTF-8")

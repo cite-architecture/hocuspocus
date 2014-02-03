@@ -300,7 +300,7 @@ class Tabulator {
     throws java.io.FileNotFoundException,IOException,SecurityException,Exception  {
         this.outFileBaseName = FilenameUtils.getName(srcFile.getAbsolutePath()).replace(/.xml/,'')
         if (debug > 0) {
-            System.err.println "TABULATING urn ${urn} to fileBase " + outputDir + " using base file name " + this.outFileBaseName
+            System.err.println "Tabulator: TABULATING urn ${urn} to fileBase " + outputDir + " using base file name " + this.outFileBaseName
         }
 
         this.cm = inv.getCitationModel(urn)
