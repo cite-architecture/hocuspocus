@@ -23,6 +23,9 @@ class TestLiteralTokenGen extends GroovyTestCase {
 
     String expectedDescription = "Generates a tokenized edition of a text from the output of a classified tokenization by treating each token as a citable node of the new edition.  Makes ranges in the token edition legible by appending a white space to each token, and include a token with a special value at the end of each citation node in the source edition."
 
+    Integer expectedTokens = 23
+
+
     @Test void testConstructor() {
        outDir.deleteDir()
        outDir.mkdir()
@@ -42,7 +45,9 @@ class TestLiteralTokenGen extends GroovyTestCase {
       File tabulatedOutput = new File("testdata/tab-to-tokenize.txt")
       HmtGreekTokenization tokeSys = new HmtGreekTokenization()
       ArrayList tokens = tokeSys.tokenize(tabulatedOutput, sepChar)
-      System.err.println "Broke into " + tokens.size() + " tokens."
+
+
+      assert tokens.size() == expectedTokens
 
       //outDir.setWritable(true)
       File tkFile = new File(outDir,"tokenization.txt")
@@ -52,6 +57,10 @@ class TestLiteralTokenGen extends GroovyTestCase {
 
       LiteralTokenEditionGenerator leg = new LiteralTokenEditionGenerator()
       leg.generate(tkFile, "\t", outDir)
+
+
+
+
     }
 
 
