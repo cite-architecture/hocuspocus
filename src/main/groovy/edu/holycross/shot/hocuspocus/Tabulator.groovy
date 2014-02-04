@@ -34,7 +34,7 @@ import javax.xml.transform.stream.StreamResult
 */
 class Tabulator {
 
-  Integer debug = 10
+  Integer debug = 0
 
   /** Keep regular expressions that destroy the beautiful formatting
    * of my editor in a separate file. */
@@ -172,8 +172,18 @@ class Tabulator {
     def nsc = groovyNSClosure as javax.xml.namespace.NamespaceContext
     xpath.setNamespaceContext(nsc)
 
+
+    //def foundNodes = xpath.evaluate( xpRoot, queryRoot, XPathConstants.NODESET)
     def foundNodes = xpath.evaluate( xpString, queryRoot, XPathConstants.NODESET)
+
     def limit = foundNodes.getLength()
+
+    if (debug > 0) {
+      System.err.println "nodeIdsForxpath:  for " + xpString + ", found " + limit + " nodes."
+      //  System.err.println "nodeIdsForxpath:  for " + kludge + ", found " + limit + " nodes."
+
+    }
+    
     def done = false
     def cnt = 0
     while (!done) {  

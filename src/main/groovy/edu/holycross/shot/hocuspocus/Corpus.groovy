@@ -193,9 +193,14 @@ class Corpus {
     */ 
     void turtleizeTabs(File outputDir, File ttl, boolean destructive) {
 
+
+      if (debug > 0) {
+	System.err.println "Turtleizing files in ${outputDir}"
+      }
         CtsTtl turtler = new CtsTtl(this.inventory)
         Integer fileCount = 0
         outputDir.eachFileMatch(~/.*.txt/) { tab ->  
+	  System.err.println "Turtleizing " + tab
             fileCount++;
             if (fileCount == 1) {
                 ttl.append(turtler.turtleizeTabs(tab, false), charEnc)
@@ -268,35 +273,30 @@ class Corpus {
 
 
     // Tabulate the src edition identified by urn
-    File srcFile =     new File(this.baseDirectory, this.inventory.onlineDocname(urn))
+    String fName = this.inventory.onlineDocname(urn)
+    File srcFile =     new File(this.baseDirectory, fName)
     tabulateFile(srcFile, urn, workDir)
-
 
     // generate edition using appropriate system
     String className =    tokenEditionSystemForUrn(urn)
     TokenEditionGenerator editionGenerator = Class.forName(className).newInstance()
 
-    File bigTab = new File(workDir, "alltabs.txt")
-    // CAT TOGETHER WHOLE FILE SET:
-    outputDir.eachFileMatch(~/.*.txt/) { tab ->  
-      bigTab.append(tab.getText(charEnc))
-      tab.delete()
+    //File tab = new File(workDir, fName)
+    System.err.println "Tabulated file for token edition: now generate"
+
+    //NS WORK HERE
+    workDir.eachFileMatch(~/.*.txt/) { tab ->  
+      System.err.println "Gen from " + tab
+      editionGenerator.generate(tab,  this.separatorString, workDir)
+      //tab.delete()
     }
-    editionGenerator.generate(bigTab,  this.separatorString, workDir)
-    bigTab.delete()
-
-    // editionGenerator.tokenIndexName
-    // editionGenerator.tokenEditionName
-
 
     // then ttl it
-    
+    System.err.println "Now turtleize all files in " + workDir
+    turtleizeTabs(workDir)
 
 
     // then write some frags of TI
-
-
-    
   }
 
 
