@@ -22,16 +22,10 @@ class TestTokenEdMap extends GroovyTestCase {
 
     @Test void testMapping() {
         Corpus c = new Corpus(invFile, archiveDir)
-        //def tokenSystemMap = ["grc" : "edu.holycross.shot.hocuspocus.HmtGreekTokenization"]
-        //c.languageToTokenSystemMap = tokenSystemMap.clone()
-
         String actualLangCode = c.inventory.languageForVersion(greekUrn)
-        //assert (tokenSystemMap.keySet().contains(actualLangCode))
 
         String expectedGreek = "edu.holycross.shot.hocuspocus.LiteralTokenEditionGenerator"
         assert c.languageToTokenSystemMap[actualLangCode] == expectedGreek
-
-        assert "eng" == c.inventory.languageForWork(engUrn)
     }
 
 
