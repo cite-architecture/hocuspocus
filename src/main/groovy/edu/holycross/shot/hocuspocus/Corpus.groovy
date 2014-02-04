@@ -258,23 +258,44 @@ class Corpus {
       System.err.println "Corpus: could not make URN from ${urnStr}."
       throw e
     }
-    generateTokenEditionForUrn(urn)
+    generateTokenEditionForUrn(urn, workDir)
   }
+
   void generateTokenEditionForUrn(CtsUrn urn, File workDir) 
   throws Exception {
+    workDir.deleteDir()
+    workDir.mkdir()
+
 
     // Tabulate the src edition identified by urn
-    File srcFile =     this.inventory.onlineDocname(urn)
-    tabulateFile(srcFile, urn,this.workingDir)
+    File srcFile =     new File(this.baseDirectory, this.inventory.onlineDocname(urn))
+    tabulateFile(srcFile, urn, workDir)
 
 
-    // generate edition from aappropri class
+    // generate edition using appropriate system
+    String className =    tokenEditionSystemForUrn(urn)
+    TokenEditionGenerator editionGenerator = Class.forName(className).newInstance()
+
+    File bigTab = new File(workDir, "alltabs.txt")
+    // CAT TOGETHER WHOLE FILE SET:
+    outputDir.eachFileMatch(~/.*.txt/) { tab ->  
+      bigTab.append(tab.getText(charEnc))
+      tab.delete()
+    }
+    editionGenerator.generate(bigTab,  this.separatorString, workDir)
+    bigTab.delete()
+
+    // editionGenerator.tokenIndexName
+    // editionGenerator.tokenEditionName
+
+
     // then ttl it
+    
+
+
     // then write some frags of TI
 
 
-    String className =    tokenEditionSystemForUrn(urn)
-    TokenEditionGenerator editionGenerator = Class.forName(className).newInstance()
     
   }
 
@@ -371,7 +392,7 @@ class Corpus {
       def tokenData = tokenSystem.tokenize(tab, this.separatorString)
 
       tokenData.each {  pair ->
-	tokensFile.append( "${pair[0]}\t${pair[1]}\n", "UTF-8")
+	tokensFile.append( "${pair[0]}\t${pair[1]}\n", charEnc)
       }
 
     }
@@ -416,7 +437,7 @@ class Corpus {
 	  def tokenData = tokenSystem.tokenize(tab, dividerString)
 
 	  tokenData.each {  pair ->
-	    tokensFile.append( "${pair[0]}\t${pair[1]}\n", "UTF-8")
+	    tokensFile.append( "${pair[0]}\t${pair[1]}\n", charEnc)
 	  }
 	  //tab.delete()
         }
