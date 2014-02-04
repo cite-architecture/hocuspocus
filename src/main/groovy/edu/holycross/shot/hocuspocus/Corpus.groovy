@@ -243,7 +243,43 @@ class Corpus {
 
         tabulateRepository(tabDir)
         turtleizeTabs(tabDir, ttlFile, false)
+    }  
+
+
+
+
+
+  void generateTokenEditionForUrn(String urnStr, File workDir) 
+  throws Exception {
+    CtsUrn urn
+    try {
+      urn = new CtsUrn(urnStr)
+    } catch (Exception e) {
+      System.err.println "Corpus: could not make URN from ${urnStr}."
+      throw e
     }
+    generateTokenEditionForUrn(urn)
+  }
+  void generateTokenEditionForUrn(CtsUrn urn, File workDir) 
+  throws Exception {
+
+    // Tabulate the src edition identified by urn
+    File srcFile =     this.inventory.onlineDocname(urn)
+    tabulateFile(srcFile, urn,this.workingDir)
+
+
+    // generate edition from aappropri class
+    // then ttl it
+    // then write some frags of TI
+
+
+    String className =    tokenEditionSystemForUrn(urn)
+    TokenEditionGenerator editionGenerator = Class.forName(className).newInstance()
+    
+  }
+
+
+
 
 
   /** Selects a tokenization edition generator based on the language
@@ -253,7 +289,8 @@ class Corpus {
    * implementing the tokenization interface.
    * @throws Exception if cannot determine work level of urn.
    */  
-  String tokenEditionSystemForUrn(CtsUrn urn) {
+  String tokenEditionSystemForUrn(CtsUrn urn) 
+  throws Exception {
     String langCode
 
     switch(urn.getWorkLevel()) {
@@ -277,6 +314,10 @@ class Corpus {
       return "edu.holycross.shot.hocuspocus.LiteralTokenEditionGenerator"
     }
   }
+
+
+
+
 
   /** Selects a tokenization system based on the language
    * of a document identified by URN.

@@ -6,9 +6,9 @@ package edu.holycross.shot.hocuspocus
 public interface TokenEditionGenerator {
 
 
-  String className
 
-
+  /** Gets full CTS URN for newly generated edition.*/
+  String getUrnName()
 
   /** Returns a human-readable description of the system
    * for generating token editions derived from and aligned 

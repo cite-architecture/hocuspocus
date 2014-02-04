@@ -20,6 +20,9 @@ URN#CURRCOUNT#PREVCOUNT#NEXTCOUNT#WRAP#TEXT#XP
 */
 class LiteralTokenEditionGenerator implements TokenEditionGenerator {
 
+  String srcUrnName = ""
+
+  String versionExtension = "_tokens"
 
   /** Character encoding to use for reading and writing files. */
   String charEnc = "UTF-8"
@@ -44,19 +47,21 @@ class LiteralTokenEditionGenerator implements TokenEditionGenerator {
   String tokenIndexName = "tokenToSourceEdition.ttl"
 
 
+  String getUrnName() {
+    return srcUrnName + versionExtension
+  } 
+
   /** Empty constructor */
   LiteralTokenEditionGenerator() {
   }
 
-  /** Constructs a line to append at the end of citation units in the
-   * source edition.
+  /** Formats a line for tabular representation of text.
    * @param baseUrn URN of the citable node in the source edition.
    * @param i Running index count for the node.
    * @returns A string in HMT project's tabular format.
    */
-  String endBlock(String baseUrn, String prev, String curr, String nxt) {
-    System.err.println "END TRIPLE: ${prev}, ${curr}, ${nxt}" 
-    return ("${baseUrn}.${curr}${tab}${curr}${tab}${prev}${tab}${nxt}${tab}${nullCol}${tab}${endBlockMarker}${tab}${nullCol}${tab}\n")
+  String formatLine(String baseUrn, String prev, String curr, String nxt, String tokenValue) {
+    return ("${baseUrn}.${curr}${tab}${curr}${tab}${prev}${tab}${nxt}${tab}${nullCol}${tab}${tokenValue}${tab}${nullCol}${tab}\n")
   }
 
 
@@ -85,9 +90,10 @@ class LiteralTokenEditionGenerator implements TokenEditionGenerator {
 
     Integer count = 0    
     Integer prevCount = 0
-    Integer prevPrevCount = 0
+    Integer prevPrevCount = -1
     String prevText = ""
     String prevUrn = ""
+    String prevSrc = ""
 
     boolean sawEndBlock = false
     
@@ -96,16 +102,19 @@ class LiteralTokenEditionGenerator implements TokenEditionGenerator {
     inputFile.getText(charEnc).eachLine { l ->
       def cols = l.split("${separatorStr}")
       CtsUrn urn = new CtsUrn(cols[0])
-      String baseUrn = urn.getUrnWithoutPassage() + ":" + urn.getPassageNode()
+      this.srcUrnName = urn.getUrnWithoutPassage()
+      String baseUrn = this.getUrnName() + ":" + urn.getPassageNode()
+      
 
       if (sawEndBlock) {
 	if ( prevUrn != "") {
-	  outFile.append(endBlock(prevUrn, "${prevPrevCount}", "${prevCount}", "${count}"))
+	  outFile.append(formatLine(prevUrn, "${prevPrevCount}", "${prevCount}", "${count}", endBlockMarker), charEnc)
+	  prevPrevCount++;
 	}
 	prevUrn = baseUrn
+
 	count++;
 	prevCount++;
-	prevPrevCount++;
 	sawEndBlock = false
       }
 
@@ -113,17 +122,15 @@ class LiteralTokenEditionGenerator implements TokenEditionGenerator {
 	sawEndBlock = true
       }
 
-      
-      //  URN#CURRCOUNT#PREVCOUNT#NEXTCOUNT#WRAP#TEXT#XP
-      if (count > 1) {
-	idxFile.append("${prevUrn} hmt:tokenizesTo ${prevUrn}.${prevCount} .\n")
-	idxFile.append("${prevUrn}.${prevCount} hmt:tokenizedFrom ${prevUrn}.\n")
 
-	outFile.append(prevUrn + ".${prevCount}", charEnc)
+      if (count > 1) {
+	idxFile.append("${prevSrc} hmt:tokenizesTo ${prevUrn}.${prevCount} .\n")
+	idxFile.append("${prevUrn}.${prevCount} hmt:tokenizedFrom ${prevSrc}.\n")
+
 	if (prevPrevCount == 0) {
-	  outFile.append("${prevCount}${tab}${nullCol}${tab}${count}${tab}${nullCol}${tab}${prevText}${tab}${nullCol}${tab}\n", charEnc)
+	  outFile.append(formatLine(prevUrn, nullCol, "${prevCount}", "${count}", prevText), charEnc)
 	} else {
-	  outFile.append("${tab}${prevCount}${tab}${prevPrevCount}${tab}${count}${tab}${prevText}${tab}${nullCol}${tab}\n", charEnc)
+	  outFile.append(formatLine(prevUrn, "${prevPrevCount}", "${prevCount}", "${count}", prevText), charEnc)
 	}
       }
       
@@ -132,18 +139,13 @@ class LiteralTokenEditionGenerator implements TokenEditionGenerator {
       count++;
 
       prevText = urn.getSubref1()
+      prevSrc = this.srcUrnName + ":" + urn.getPassageComponent()
     }
+    idxFile.append("${prevSrc} hmt:tokenizesTo ${prevUrn}.${prevCount} .\n")
+    idxFile.append("${prevUrn}.${prevCount} hmt:tokenizedFrom ${prevSrc}.\n")
 
-    idxFile.append("${prevUrn} hmt:tokenizesTo ${prevUrn}.${prevCount} .\n")
-    idxFile.append("${prevUrn}.${prevCount} hmt:tokenizedFrom ${prevUrn}.\n")
-
-    outFile.append(prevUrn + ".${prevCount}", charEnc)
-    outFile.append("${tab}${prevCount}${tab}${prevPrevCount}${tab}${count}${tab}${prevText}${tab}${nullCol}${tab}\n", charEnc)
-
-    System.err.println "After last real node, triplet of prev-curr-nxt is ${prevPrevCount}, ${prevCount}, ${count}"
-
-
-    outFile.append(endBlock(prevUrn, "${prevCount}", "${count}", nullCol))
+    outFile.append(formatLine(prevUrn, "${prevPrevCount}", "${prevCount}", "${count}", prevText), charEnc)
+    outFile.append(formatLine(prevUrn, "${prevCount}", "${count}", nullCol, endBlockMarker), charEnc)
   }
 
 }
