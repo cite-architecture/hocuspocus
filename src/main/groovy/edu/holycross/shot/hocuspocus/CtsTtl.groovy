@@ -187,75 +187,78 @@ class CtsTtl {
     }
 
     
-    String turtleizeTabs(String stringData, boolean prefix) {
-        StringBuffer turtles = new StringBuffer()
-        if (prefix) {
-            turtles.append(prefixStr)
-        }
-        boolean foundIt = false
-        def seqMaps = [:]
-        stringData.eachLine { l ->
-            def cols = "${l} ".split(separatorValue)
-
-            if (debug > 0) { System.err.println "CtsTtl: ${l} cols as ${cols}, size ${cols.size()}" }
-            if (cols.size() >= 7) {
-                turtles.append(turtleizeLine(l) + "\n")
-                String urnVal = cols[0]
-                String seq = cols[1]
-                CtsUrn u
-                try {
-                    u = new CtsUrn(urnVal)
-                    String noPsg = u.getUrnWithoutPassage()
-                    if (! seqMaps.keySet().contains(noPsg) ) {
-                        seqMaps[noPsg] = [:]
-                    }
-                    def workMap = seqMaps[noPsg]
-                    workMap[seq] = urnVal
-                    seqMaps[noPsg] = workMap
-                    foundIt = true
-
-                } catch (Exception e) {
-                    System.err.println "CtsTtl: failed to get record for ${urnVal}."
-                    System.err.println "err ${e}"
-
-                }
-                    
-            } else {
-                System.err.println "CtsTtl: Too few columns! ${cols.size()} for ${cols}"
-            }
-        }
-        if (foundIt) {
-        stringData.eachLine { l ->
-            def cols = l.split(separatorValue)
-            if (cols.size() == 7) {
-                String urnVal = cols[0]
-                CtsUrn u
-                try {
-                    u = new CtsUrn(urnVal)
-                } catch (Exception e) {
-                    System.err.println "CtsTtl: failed to get record for ${urnVal}."
-                }
-                
-                def currMap = seqMaps[u.getUrnWithoutPassage()]
-                
-                String prev = cols[2]
-                String next = cols[3]
-                if (currMap[next] != null) {
-                    turtles.append("<${urnVal}> cite:next <${currMap[next]}> . \n")
-                }
-                if (currMap[prev] != null) {
-                    turtles.append("<${urnVal}> cite:prev <${currMap[prev]}> . \n")
-                }
-            } else {
-                System.err.println "Wrong size entry: ${cols.size()} cols in ${stringData}"
-            }
-        }
-        }
-        if (turtles.toString().size() == 0) {
-            System.err.println "CtsTtl: could not turtelize string " + stringData
-        }
-        return turtles.toString()
+  String turtleizeTabs(String stringData, boolean prefix) {
+    StringBuffer turtles = new StringBuffer()
+    if (prefix) {
+      turtles.append(prefixStr)
     }
+    boolean foundIt = false
+    def seqMaps = [:]
+    stringData.eachLine { l ->
+      def cols = "${l} ".split(separatorValue)
+
+      if (debug > 0) { System.err.println "CtsTtl: ${l} cols as ${cols}, size ${cols.size()}" }
+      if (cols.size() >= 7) {
+	turtles.append(turtleizeLine(l) + "\n")
+	String urnVal = cols[0]
+	String seq = cols[1]
+	CtsUrn u
+	try {
+	  u = new CtsUrn(urnVal)
+	  String noPsg = u.getUrnWithoutPassage()
+	  if (! seqMaps.keySet().contains(noPsg) ) {
+	    seqMaps[noPsg] = [:]
+	  }
+	  def workMap = seqMaps[noPsg]
+	  workMap[seq] = urnVal
+	  seqMaps[noPsg] = workMap
+	  foundIt = true
+
+	} catch (Exception e) {
+	  System.err.println "CtsTtl: failed to get record for ${urnVal}."
+	  System.err.println "err ${e}"
+
+	}
+                    
+      } else {
+	System.err.println "CtsTtl: Too few columns! ${cols.size()} for ${cols}"
+      }
+    }
+
+    if (foundIt) {
+      stringData.eachLine { l ->
+	def cols = l.split(separatorValue)
+	if (cols.size() == 7) {
+	  String urnVal = cols[0]
+	  CtsUrn u
+	  try {
+	    u = new CtsUrn(urnVal)
+	  } catch (Exception e) {
+	    System.err.println "CtsTtl: failed to get record for ${urnVal}."
+	  }
+	  if (u) {
+	    def currMap = seqMaps[u.getUrnWithoutPassage()]
+                
+	    String prev = cols[2]
+	    String next = cols[3]
+	    if (currMap[next] != null) {
+	      turtles.append("<${urnVal}> cite:next <${currMap[next]}> . \n")
+	    }
+	    if (currMap[prev] != null) {
+	      turtles.append("<${urnVal}> cite:prev <${currMap[prev]}> . \n")
+	    }
+	  }
+	} else {
+	  System.err.println "Wrong size entry: ${cols.size()} cols in ${stringData}"
+	}
+     }
+
+    }
+    if (turtles.toString().size() == 0) {
+      System.err.println "CtsTtl: could not turtelize string " + stringData
+    }
+    return turtles.toString()
+  }
 
 
 

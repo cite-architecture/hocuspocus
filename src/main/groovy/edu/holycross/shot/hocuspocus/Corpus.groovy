@@ -31,8 +31,8 @@ class Corpus {
 
 
 
-    /** Map to configure default token edition generating system for given ISO language codes. */
-    LinkedHashMap languageToTokenEditionMap = []
+    /** Map to configure default analytical edition generating system for given ISO language codes. */
+    LinkedHashMap languageToAnalyticalEditionMap = []
 
     /** TextInventory with entries for all documents in the corpus. 
     */
@@ -253,8 +253,15 @@ class Corpus {
 
 
 
-
-  void generateTokenEditionForUrn(String urnStr, File workDir) 
+  /** Creates three files in workDir for a requested
+   * urn containing a classified tokenization, a new subordinate
+   * analytical edtiion in tabular format, and the same new edition
+   * in TTL format.
+   * @param urn The text to analyze.
+   * @param workDir A writable directory where output will be
+   * placed.
+   */
+  void generateAnalyticalEditionForUrn(String urnStr, File workDir) 
   throws Exception {
     CtsUrn urn
     try {
@@ -263,54 +270,75 @@ class Corpus {
       System.err.println "Corpus: could not make URN from ${urnStr}."
       throw e
     }
-    generateTokenEditionForUrn(urn, workDir)
+    generateAnalyticalEditionForUrn(urn, workDir)
   }
 
-  void generateTokenEditionForUrn(CtsUrn urn, File workDir) 
+  // need alternate sig where you define an analysis system
+  /** Creates three files in workDir for a requested
+   * urn containing a classified tokenization, a new subordinate
+   * analytical edtiion in tabular format, and the same new edition
+   * in TTL format.
+   * @param urn The text to analyze.
+   * @param workDir A writable directory where output will be
+   * placed.
+   */
+  void generateAnalyticalEditionForUrn(CtsUrn urn, File workDir) 
   throws Exception {
     workDir.deleteDir()
     workDir.mkdir()
+    String baseName
 
-
-    // Tabulate the src edition identified by urn
+    // 
+    // 1. Tabulate the src edition identified by urn
     String fName = this.inventory.onlineDocname(urn)
     File srcFile =     new File(this.baseDirectory, fName)
     tabulateFile(srcFile, urn, workDir)
 
-    // generate edition using appropriate system
-    String className =    tokenEditionSystemForUrn(urn)
-    TokenEditionGenerator editionGenerator = Class.forName(className).newInstance()
 
-    //File tab = new File(workDir, fName)
-    System.err.println "Tabulated file for token edition: now generate"
+    // 2. Analyze the resulting tab file with a the default Tokenization
+    String tokenClass = tokenSystemForUrn(urn)
+    TokenizationSystem tokenSystem = Class.forName(tokenClass).newInstance()
 
-    //NS WORK HERE
+    def tokenData
     workDir.eachFileMatch(~/.*.txt/) { tab ->  
-      System.err.println "Gen from " + tab
-      editionGenerator.generate(tab,  this.separatorString, workDir)
-      //tab.delete()
+      tokenData = tokenSystem.tokenize(tab, this.separatorString)
+      baseName = tab.name.replaceFirst(".txt", "")
+      tab.delete()
+    }
+    String columnSep = "\t"
+    File tokensFile = new File(workDir, "${baseName}-tokens.tsv")
+    tokenData.each {  pair ->    
+      tokensFile.append( "${pair[0]}${columnSep}${pair[1]}\n", charEnc)
     }
 
-    // then ttl it
-    System.err.println "Now turtleize all files in " + workDir
-    turtleizeTabs(workDir)
+    // 3. Generate analytical edition as a tab file, using appropriate system
+    String className =    analyticalEditionSystemForUrn(urn)
+    AnalyticalEditionGenerator editionGenerator = Class.forName(className).newInstance()
+    workDir.eachFileMatch(~/.*.tsv/) { tab ->  
+      editionGenerator.generate(tab,  columnSep, workDir, baseName)
+    }
 
+    // 4. Generate TTL for new analytical edition
+    turtleizeTabs(workDir)
+    File ctsOut = new File(workDir, "cts.ttl")
+    ctsOut.renameTo(new File(workDir, "${baseName}-tokenEdition.ttl"))
 
     // then write some frags of TI
+    // TBD
   }
 
 
 
 
 
-  /** Selects a tokenization edition generator based on the language
+  /** Selects an analytical edition generator based on the language
    * of a document identified by URN.
-   * @param urn URN to map to a tokenization system.
+   * @param urn URN to map to an edition generating system.
    * @returns A String with the full name of a class
-   * implementing the tokenization interface.
+   * implementing the analytical edition interface.
    * @throws Exception if cannot determine work level of urn.
    */  
-  String tokenEditionSystemForUrn(CtsUrn urn) 
+  String analyticalEditionSystemForUrn(CtsUrn urn) 
   throws Exception {
     String langCode
 
@@ -325,17 +353,16 @@ class Corpus {
     break
 
     default:
-    throw new Exception("Corpus, tokenSystemForUrn:  could not determine work level of URN ${urn}")
+    throw new Exception("Corpus, analyticalSystemForUrn:  could not determine work level of URN ${urn}")
     break
     }
 
-    if (this.languageToTokenEditionMap.keySet().contains(langCode)) {
-      return this.languageToTokenEditionMap[langCode]
+    if (this.languageToAnalyticalEditionMap.keySet().contains(langCode)) {
+      return this.languageToAnalyticalEditionMap[langCode]
     } else {
-      return "edu.holycross.shot.hocuspocus.LiteralTokenEditionGenerator"
+      return "edu.holycross.shot.hocuspocus.TokenizedAnalysisEditionGenerator"
     }
   }
-
 
 
 
@@ -373,13 +400,8 @@ class Corpus {
   }
 
 
-
-  void tokenizeRepository(File outputDir) {
-    // check  on match ... perhaps proper logic is
-    // to process all "online" files in inventory, and
-    // ignore other XML files in archive.
-    tabulateRepository(outputDir)
-
+  // tokenize tabular editions in direcotry outputDir
+  void tokenizeTabFiles(File outputDir) {
     File tokensFile = new File(outputDir, defaultTokensFile)
     outputDir.eachFileMatch(~/.*.txt/) { tab ->  
       def linesArray = tab.readLines()
@@ -394,10 +416,16 @@ class Corpus {
       tokenData.each {  pair ->
 	tokensFile.append( "${pair[0]}\t${pair[1]}\n", charEnc)
       }
-
     }
   }
 
+  void tokenizeRepository(File outputDir) {
+    // check  on match ... perhaps proper logic is
+    // to process all "online" files in inventory, and
+    // ignore other XML files in archive.
+    tabulateRepository(outputDir)
+    tokenizeTabFiles(outputDir)
+  }
 
   /** First tabulates the entire repository, then uses the resulting
    * tabulated files to tokenize the inventory using the specified

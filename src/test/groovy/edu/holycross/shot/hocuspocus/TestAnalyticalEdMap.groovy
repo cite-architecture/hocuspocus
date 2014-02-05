@@ -9,7 +9,7 @@ import edu.harvard.chs.cite.CtsUrn
 
 /**
 */
-class TestTokenEdMap extends GroovyTestCase {
+class TestAnalyticalEdMap extends GroovyTestCase {
 
     
     File invFile = new File( "testdata/testcorpus2/testinventory2.xml")
@@ -24,7 +24,7 @@ class TestTokenEdMap extends GroovyTestCase {
         Corpus c = new Corpus(invFile, archiveDir)
         String actualLangCode = c.inventory.languageForVersion(greekUrn)
 
-        String expectedGreek = "edu.holycross.shot.hocuspocus.LiteralTokenEditionGenerator"
+        String expectedGreek = "edu.holycross.shot.hocuspocus.TokenizedAnalysisEditionGenerator"
         assert c.languageToTokenSystemMap[actualLangCode] == expectedGreek
     }
 

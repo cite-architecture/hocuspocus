@@ -8,7 +8,7 @@ import edu.harvard.chs.cite.CtsUrn
 
 /**
 */
-class TestLiteralTokenGen extends GroovyTestCase {
+class TestTokenAnalysisGen extends GroovyTestCase {
 
 
     File tiFile = new File( "testdata/testcorpus2/testinventory2.xml")
@@ -31,7 +31,7 @@ class TestLiteralTokenGen extends GroovyTestCase {
        outDir.deleteDir()
        outDir.mkdir()
        
-       LiteralTokenEditionGenerator lteg = new LiteralTokenEditionGenerator()
+       TokenizedAnalysisEditionGenerator lteg = new TokenizedAnalysisEditionGenerator()
        assert lteg
 
        assert lteg.getDescription() == expectedDescription
@@ -56,7 +56,7 @@ class TestLiteralTokenGen extends GroovyTestCase {
 	tkFile.append(t[0] + "\t" + t[1] + "\n", "UTF-8")
       }
 
-      LiteralTokenEditionGenerator leg = new LiteralTokenEditionGenerator()
+      TokenizedAnalysisEditionGenerator leg = new TokenizedAnalysisEditionGenerator()
       leg.generate(tkFile, "\t", outDir)
 
       File editionFile = new File(outDir, "tokenedition.txt")

@@ -24,19 +24,8 @@ class TestEdGenForUrn extends GroovyTestCase {
         outDir.mkdir()
 
         Corpus c = new Corpus(invFile, archiveDir)
+	c.generateAnalyticalEditionForUrn(srcEditionUrn, outDir)
 
-
-	c.generateTokenEditionForUrn(srcEditionUrn, outDir)
-	/*
-        c.tokenizeRepository(outDir)
-
-        System.err.println "Compare with and without passage: "
-        System.err.println        c.inventory.languageForWork("urn:cts:greekLit:tlg0012.tlg001.testlines")
-        System.err.println        c.inventory.languageForWork("urn:cts:greekLit:tlg0012.tlg001.testlines:1.1")
-System.err.println "And pasted in: " + c.inventory.languageForWork("urn:cts:greekLit:tlg0012.tlg001.testlines:1.1")
-
-
-	*/
     }
 }
 

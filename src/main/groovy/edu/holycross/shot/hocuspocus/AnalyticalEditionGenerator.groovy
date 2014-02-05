@@ -3,9 +3,7 @@ package edu.holycross.shot.hocuspocus
 
 /**
 */
-public interface TokenEditionGenerator {
-
-
+public interface AnalyticalEditionGenerator {
 
   /** Gets full CTS URN for newly generated edition.*/
   String getUrnName()
@@ -28,5 +26,18 @@ public interface TokenEditionGenerator {
    * @param outputDirectory A writable directory where output will be created.
    */
   void generate(File inputFile, String separatorStr, File outputDirectory)
+
+  /** Generates a tokenized edition from a tabulated representation of a text.
+   * It creates two artifacts in outputDirectory:
+   * - a file named "tokenedition.txt" with the tabular representation of
+   * the tokenized edition
+   * - a TTL mapping of the citable nodes of the token edition to the
+   * source edition
+   * @param inputFile File with the tabular representation of the text.
+   * @param separatorStr String used to separate columns in the tabular file.
+   * @param outputDirectory A writable directory where output will be created.
+   * @param outputFileName Base name to use for output file.
+   */
+  void generate(File inputFile, String separatorStr, File outputDirectory, String ouputFileName)
 
 }

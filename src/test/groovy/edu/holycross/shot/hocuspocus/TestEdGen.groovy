@@ -22,11 +22,9 @@ class TestEdGen extends GroovyTestCase {
     @Test void testUrnName() {
         outDir.deleteDir()
         outDir.mkdir()
-        LiteralTokenEditionGenerator leg = new LiteralTokenEditionGenerator()
+        TokenizedAnalysisEditionGenerator leg = new TokenizedAnalysisEditionGenerator()
 	leg.srcUrnName = docUrn
 	assert leg.getUrnName() == expectedUrn
-
-
     }
 
 

@@ -5,20 +5,20 @@ import edu.harvard.chs.cite.CtsUrn
 /*
 Tab format is:
 URN#CURRCOUNT#PREVCOUNT#NEXTCOUNT#WRAP#TEXT#XP
-
-
    // These are the responsibility of some other class:
     //- a file named "inventory-supplement.xml" with a well-formed XML
     // - a file named "tokenedition.ttl" that translates that into a
     // TTL representation
-
 */
 
 
 
-/** Class implementing the TokenEditionGenerator interface.
-*/
-class LiteralTokenEditionGenerator implements TokenEditionGenerator {
+/** Class implementing the AnalyticalEditionGenerator interface by
+ * tokenizing a text.
+ */
+class TokenizedAnalysisEditionGenerator implements AnalyticalEditionGenerator {
+
+  Integer debug = 0
 
   String srcUrnName = ""
 
@@ -52,7 +52,7 @@ class LiteralTokenEditionGenerator implements TokenEditionGenerator {
   } 
 
   /** Empty constructor */
-  LiteralTokenEditionGenerator() {
+  TokenizedAnalysisEditionGenerator() {
   }
 
   /** Formats a line for tabular representation of text.
@@ -74,6 +74,13 @@ class LiteralTokenEditionGenerator implements TokenEditionGenerator {
   }
 
 
+  void generate(File inputFile, String separatorStr, File outputDirectory, String outputFileName) {
+    // HERE
+    this.tokenEditionName = "${outputFileName}-tokenEdition.txt"
+    this.tokenIndexName = "${outputFileName}-tokenToSrcIndex.ttl"
+    generate(inputFile, separatorStr, outputDirectory)
+  }
+
   /** Generates a tokenized edition from a tabulated representation of a text.
    * It creates the following artifacts in outputDirectory:
    * - a file with the tabular representation of
@@ -85,6 +92,10 @@ class LiteralTokenEditionGenerator implements TokenEditionGenerator {
    * @param outputDirectory A writable directory where output will be created.
    */
   void generate(File inputFile, String separatorStr, File outputDirectory) {
+
+    if (debug > 0) {
+      System.err.println "LiteralTokenEditionGenerator:generate:  input ${inputFile}"
+    }
     File outFile = new File(outputDirectory, tokenEditionName)
     File idxFile = new File(outputDirectory, tokenIndexName)
 
@@ -101,51 +112,60 @@ class LiteralTokenEditionGenerator implements TokenEditionGenerator {
 
     inputFile.getText(charEnc).eachLine { l ->
       def cols = l.split("${separatorStr}")
-      CtsUrn urn = new CtsUrn(cols[0])
-      this.srcUrnName = urn.getUrnWithoutPassage()
-      String baseUrn = this.getUrnName() + ":" + urn.getPassageNode()
+      CtsUrn urn
+      try {
+	urn = new CtsUrn(cols[0])
+      } catch (Exception e) {
+	System.err.println "TokenizedAnalysisEditionGenerator: omitting data line ${l} from source edition."
+      }
+
+      if (urn) {
+	this.srcUrnName = urn.getUrnWithoutPassage()
+	String baseUrn = this.getUrnName() + ":" + urn.getPassageNode()
       
 
-      if (sawEndBlock) {
-	if ( prevUrn != "") {
-	  outFile.append(formatLine(prevUrn, "${prevPrevCount}", "${prevCount}", "${count}", endBlockMarker), charEnc)
-	  prevPrevCount++;
+	if (sawEndBlock) {
+	  if ( prevUrn != "") {
+	    outFile.append(formatLine(prevUrn, "${prevPrevCount}", "${prevCount}", "${count}", endBlockMarker), charEnc)
+	    prevPrevCount++;
+	  }
+	  prevUrn = baseUrn
+	  
+	  count++;
+	  prevCount++;
+	  sawEndBlock = false
 	}
-	prevUrn = baseUrn
+	
+	if (baseUrn != prevUrn) {
+	  sawEndBlock = true
+	}
+	
 
+	if (count > 1) {
+	  idxFile.append("${prevSrc} hmt:tokenizesTo ${prevUrn}.${prevCount} .\n")
+	  idxFile.append("${prevUrn}.${prevCount} hmt:tokenizedFrom ${prevSrc}.\n")
+
+	  if (prevPrevCount == 0) {
+	    outFile.append(formatLine(prevUrn, nullCol, "${prevCount}", "${count}", prevText), charEnc)
+	  } else {
+	    outFile.append(formatLine(prevUrn, "${prevPrevCount}", "${prevCount}", "${count}", prevText), charEnc)
+	  }
+	}
+	
+	prevPrevCount = prevCount;
+	prevCount = count;
 	count++;
-	prevCount++;
-	sawEndBlock = false
-      }
 
-      if (baseUrn != prevUrn) {
-	sawEndBlock = true
-      }
-
-
-      if (count > 1) {
-	idxFile.append("${prevSrc} hmt:tokenizesTo ${prevUrn}.${prevCount} .\n")
-	idxFile.append("${prevUrn}.${prevCount} hmt:tokenizedFrom ${prevSrc}.\n")
-
-	if (prevPrevCount == 0) {
-	  outFile.append(formatLine(prevUrn, nullCol, "${prevCount}", "${count}", prevText), charEnc)
-	} else {
-	  outFile.append(formatLine(prevUrn, "${prevPrevCount}", "${prevCount}", "${count}", prevText), charEnc)
-	}
+	prevText = urn.getSubref1()
+	prevSrc = this.srcUrnName + ":" + urn.getPassageComponent()
       }
       
-      prevPrevCount = prevCount;
-      prevCount = count;
-      count++;
-
-      prevText = urn.getSubref1()
-      prevSrc = this.srcUrnName + ":" + urn.getPassageComponent()
+      idxFile.append("${prevSrc} hmt:tokenizesTo ${prevUrn}.${prevCount} .\n")
+      idxFile.append("${prevUrn}.${prevCount} hmt:tokenizedFrom ${prevSrc}.\n")
+      
+      outFile.append(formatLine(prevUrn, "${prevPrevCount}", "${prevCount}", "${count}", prevText), charEnc)
+      outFile.append(formatLine(prevUrn, "${prevCount}", "${count}", nullCol, endBlockMarker), charEnc)
     }
-    idxFile.append("${prevSrc} hmt:tokenizesTo ${prevUrn}.${prevCount} .\n")
-    idxFile.append("${prevUrn}.${prevCount} hmt:tokenizedFrom ${prevSrc}.\n")
-
-    outFile.append(formatLine(prevUrn, "${prevPrevCount}", "${prevCount}", "${count}", prevText), charEnc)
-    outFile.append(formatLine(prevUrn, "${prevCount}", "${count}", nullCol, endBlockMarker), charEnc)
   }
 
 }
