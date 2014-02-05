@@ -273,24 +273,20 @@ class Corpus {
     generateAnalyticalEditionForUrn(urn, workDir)
   }
 
-  // Generates analytical editions for entire repository
-  // using default settings for analysis.
+  /** Generates analytical editions for entire repository
+   * using default settings for analysis.
+   * @param workDir Directory where output will be written.
+   */
   void analyzeRepository(File workDir) {
     workDir.deleteDir()
     workDir.mkdir()
 
     urnsInInventory().each { u ->
       CtsUrn urn = new CtsUrn(u)
-      File f = new File(baseDirectory, inventory.onlineDocname(urn))
-      if (debug > 0) {
-	System.err.println "Corpus: tabulating ${urn} with file ${f}..."
-      }
       generateAnalyticalEditionForUrn(urn, workDir)
     }
   }
 
-
-  // need alternate sig where you define an analysis system
   /** Creates three files in workDir for a requested
    * urn containing a classified tokenization, a new subordinate
    * analytical edtiion in tabular format, and the same new edition

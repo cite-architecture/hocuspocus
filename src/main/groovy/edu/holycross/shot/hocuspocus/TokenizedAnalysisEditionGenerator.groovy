@@ -22,7 +22,7 @@ class TokenizedAnalysisEditionGenerator implements AnalyticalEditionGenerator {
 
   String srcUrnName = ""
 
-  String versionExtension = "_tokens"
+  String derivedExtension = "tokens"
 
   /** Character encoding to use for reading and writing files. */
   String charEnc = "UTF-8"
@@ -48,7 +48,7 @@ class TokenizedAnalysisEditionGenerator implements AnalyticalEditionGenerator {
 
 
   String getUrnName() {
-    return srcUrnName + versionExtension
+    return srcUrnName + ".${derivedExtension}"
   } 
 
   /** Empty constructor */
@@ -148,8 +148,8 @@ class TokenizedAnalysisEditionGenerator implements AnalyticalEditionGenerator {
 	
 
 	if (count > 1) {
-	  idxFile.append("${prevSrc} hmt:tokenizesTo ${prevUrn}.${prevCount} .\n")
-	  idxFile.append("${prevUrn}.${prevCount} hmt:tokenizedFrom ${prevSrc}.\n")
+	  idxFile.append("${prevSrc} hmt:derivesTo ${prevUrn}.${prevCount} .\n")
+	  idxFile.append("${prevUrn}.${prevCount} hmt:derivedFrom ${prevSrc}.\n")
 
 	  if (prevPrevCount == 0) {
 	    //kludge.append ("Appending ${prevText}\n", "UTF-8")
@@ -169,8 +169,8 @@ class TokenizedAnalysisEditionGenerator implements AnalyticalEditionGenerator {
       }
     }
     
-    idxFile.append("${prevSrc} hmt:tokenizesTo ${prevUrn}.${prevCount} .\n")
-    idxFile.append("${prevUrn}.${prevCount} hmt:tokenizedFrom ${prevSrc}.\n")
+    idxFile.append("${prevSrc} hmt:derivesTo ${prevUrn}.${prevCount} .\n")
+    idxFile.append("${prevUrn}.${prevCount} hmt:derivedFrom ${prevSrc}.\n")
 
     //kludge.append ("Tack on ${prevText} followed by EOL\n", "UTF-8")      
     outFile.append(formatLine(prevUrn, "${prevPrevCount}", "${prevCount}", "${count}", prevText), charEnc)
