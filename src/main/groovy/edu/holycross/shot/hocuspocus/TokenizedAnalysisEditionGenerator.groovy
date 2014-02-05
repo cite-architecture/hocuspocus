@@ -18,7 +18,7 @@ URN#CURRCOUNT#PREVCOUNT#NEXTCOUNT#WRAP#TEXT#XP
  */
 class TokenizedAnalysisEditionGenerator implements AnalyticalEditionGenerator {
 
-  Integer debug = 3
+  Integer debug = 0
 
   String srcUrnName = ""
 

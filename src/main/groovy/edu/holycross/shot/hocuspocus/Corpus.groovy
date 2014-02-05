@@ -273,6 +273,23 @@ class Corpus {
     generateAnalyticalEditionForUrn(urn, workDir)
   }
 
+  // Generates analytical editions for entire repository
+  // using default settings for analysis.
+  void analyzeRepository(File workDir) {
+    workDir.deleteDir()
+    workDir.mkdir()
+
+    urnsInInventory().each { u ->
+      CtsUrn urn = new CtsUrn(u)
+      File f = new File(baseDirectory, inventory.onlineDocname(urn))
+      if (debug > 0) {
+	System.err.println "Corpus: tabulating ${urn} with file ${f}..."
+      }
+      generateAnalyticalEditionForUrn(urn, workDir)
+    }
+  }
+
+
   // need alternate sig where you define an analysis system
   /** Creates three files in workDir for a requested
    * urn containing a classified tokenization, a new subordinate
@@ -284,9 +301,8 @@ class Corpus {
    */
   void generateAnalyticalEditionForUrn(CtsUrn urn, File workDir) 
   throws Exception {
-    workDir.deleteDir()
-    workDir.mkdir()
     String baseName
+    File resultsDir
 
     // 
     // 1. Tabulate the src edition identified by urn
@@ -303,10 +319,12 @@ class Corpus {
     workDir.eachFileMatch(~/.*.txt/) { tab ->  
       tokenData = tokenSystem.tokenize(tab, this.separatorString)
       baseName = tab.name.replaceFirst(".txt", "")
+      resultsDir = new File(workDir, baseName)
+      resultsDir.mkdir()
       tab.delete()
     }
     String columnSep = "\t"
-    File tokensFile = new File(workDir, "${baseName}-tokens.tsv")
+    File tokensFile = new File(resultsDir, "${baseName}-tokens.tsv")
     tokenData.each {  pair ->    
       tokensFile.append( "${pair[0]}${columnSep}${pair[1]}\n", charEnc)
     }
@@ -314,14 +332,14 @@ class Corpus {
     // 3. Generate analytical edition as a tab file, using appropriate system
     String className =    analyticalEditionSystemForUrn(urn)
     AnalyticalEditionGenerator editionGenerator = Class.forName(className).newInstance()
-    workDir.eachFileMatch(~/.*.tsv/) { tab ->  
-      editionGenerator.generate(tab,  columnSep, workDir, baseName)
+    resultsDir.eachFileMatch(~/.*.tsv/) { tab ->  
+      editionGenerator.generate(tab,  columnSep, resultsDir, baseName)
     }
 
     // 4. Generate TTL for new analytical edition
-    turtleizeTabs(workDir)
-    File ctsOut = new File(workDir, "cts.ttl")
-    ctsOut.renameTo(new File(workDir, "${baseName}-tokenEdition.ttl"))
+    turtleizeTabs(resultsDir)
+    File ctsOut = new File(resultsDir, "cts.ttl")
+    ctsOut.renameTo(new File(resultsDir, "${baseName}-tokenEdition.ttl"))
 
     // then write some frags of TI
     // TBD
