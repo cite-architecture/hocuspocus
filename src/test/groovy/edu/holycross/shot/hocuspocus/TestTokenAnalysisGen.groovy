@@ -41,27 +41,28 @@ class TestTokenAnalysisGen extends GroovyTestCase {
     @Test void testGenerate() {
       outDir.deleteDir()
       outDir.mkdir()
-        
 
       File tabulatedOutput = new File("testdata/tab-to-tokenize.txt")
       HmtGreekTokenization tokeSys = new HmtGreekTokenization()
       ArrayList tokens = tokeSys.tokenize(tabulatedOutput, sepChar)
 
-
       assert tokens.size() == expectedTokens
 
-      //outDir.setWritable(true)
+
+      // This file is beautiful:
       File tkFile = new File(outDir,"tokenization.txt")
       tokens.each { t ->
 	tkFile.append(t[0] + "\t" + t[1] + "\n", "UTF-8")
       }
 
+
+      // But leg is generating junk:
       TokenizedAnalysisEditionGenerator leg = new TokenizedAnalysisEditionGenerator()
       leg.generate(tkFile, "\t", outDir)
+      
 
       File editionFile = new File(outDir, "tokenedition.txt")
       File ttlFile = new File(outDir, "tokenToSourceEdition.ttl")
-
 
       assert tkFile.readLines().size() == expectedTokens
       assert editionFile.readLines().size() == expectedTokens + expectedBlocks

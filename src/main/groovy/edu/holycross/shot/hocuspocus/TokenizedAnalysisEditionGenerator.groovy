@@ -18,7 +18,7 @@ URN#CURRCOUNT#PREVCOUNT#NEXTCOUNT#WRAP#TEXT#XP
  */
 class TokenizedAnalysisEditionGenerator implements AnalyticalEditionGenerator {
 
-  Integer debug = 0
+  Integer debug = 3
 
   String srcUrnName = ""
 
@@ -75,7 +75,6 @@ class TokenizedAnalysisEditionGenerator implements AnalyticalEditionGenerator {
 
 
   void generate(File inputFile, String separatorStr, File outputDirectory, String outputFileName) {
-    // HERE
     this.tokenEditionName = "${outputFileName}-tokenEdition.txt"
     this.tokenIndexName = "${outputFileName}-tokenToSrcIndex.ttl"
     generate(inputFile, separatorStr, outputDirectory)
@@ -93,6 +92,8 @@ class TokenizedAnalysisEditionGenerator implements AnalyticalEditionGenerator {
    */
   void generate(File inputFile, String separatorStr, File outputDirectory) {
 
+    //File kludge = new File("/tmp/logtkanalysis.txt")
+    //kludge.text = ""
     if (debug > 0) {
       System.err.println "LiteralTokenEditionGenerator:generate:  input ${inputFile}"
     }
@@ -107,9 +108,7 @@ class TokenizedAnalysisEditionGenerator implements AnalyticalEditionGenerator {
     String prevSrc = ""
 
     boolean sawEndBlock = false
-    
     String currUrnBase = ""
-
     inputFile.getText(charEnc).eachLine { l ->
       def cols = l.split("${separatorStr}")
       CtsUrn urn
@@ -122,10 +121,13 @@ class TokenizedAnalysisEditionGenerator implements AnalyticalEditionGenerator {
       if (urn) {
 	this.srcUrnName = urn.getUrnWithoutPassage()
 	String baseUrn = this.getUrnName() + ":" + urn.getPassageNode()
-      
+	if (debug > 1) {
+	  //kludge.append( "Set baseUrn to ${baseUrn} at prevText ${prevText}\n", "UTF-8")
+	}
 
 	if (sawEndBlock) {
 	  if ( prevUrn != "") {
+	    //kludge.append ("Appending EOL\n", "UTF-8")
 	    outFile.append(formatLine(prevUrn, "${prevPrevCount}", "${prevCount}", "${count}", endBlockMarker), charEnc)
 	    prevPrevCount++;
 	  }
@@ -137,6 +139,10 @@ class TokenizedAnalysisEditionGenerator implements AnalyticalEditionGenerator {
 	}
 	
 	if (baseUrn != prevUrn) {
+	  if (debug > 0) {
+	    System.err.println "Base URN ${baseUrn} differs from previous ${prevUrn}\n"
+	    //kludge.append("Base URN ${baseUrn} differs from previous ${prevUrn} at prev text ${prevText} \n", "UTF-8")
+	  }
 	  sawEndBlock = true
 	}
 	
@@ -146,8 +152,10 @@ class TokenizedAnalysisEditionGenerator implements AnalyticalEditionGenerator {
 	  idxFile.append("${prevUrn}.${prevCount} hmt:tokenizedFrom ${prevSrc}.\n")
 
 	  if (prevPrevCount == 0) {
+	    //kludge.append ("Appending ${prevText}\n", "UTF-8")
 	    outFile.append(formatLine(prevUrn, nullCol, "${prevCount}", "${count}", prevText), charEnc)
 	  } else {
+	    //kludge.append ("Appending ${prevText}\n", "UTF-8")
 	    outFile.append(formatLine(prevUrn, "${prevPrevCount}", "${prevCount}", "${count}", prevText), charEnc)
 	  }
 	}
@@ -159,13 +167,14 @@ class TokenizedAnalysisEditionGenerator implements AnalyticalEditionGenerator {
 	prevText = urn.getSubref1()
 	prevSrc = this.srcUrnName + ":" + urn.getPassageComponent()
       }
-      
-      idxFile.append("${prevSrc} hmt:tokenizesTo ${prevUrn}.${prevCount} .\n")
-      idxFile.append("${prevUrn}.${prevCount} hmt:tokenizedFrom ${prevSrc}.\n")
-      
-      outFile.append(formatLine(prevUrn, "${prevPrevCount}", "${prevCount}", "${count}", prevText), charEnc)
-      outFile.append(formatLine(prevUrn, "${prevCount}", "${count}", nullCol, endBlockMarker), charEnc)
     }
+    
+    idxFile.append("${prevSrc} hmt:tokenizesTo ${prevUrn}.${prevCount} .\n")
+    idxFile.append("${prevUrn}.${prevCount} hmt:tokenizedFrom ${prevSrc}.\n")
+
+    //kludge.append ("Tack on ${prevText} followed by EOL\n", "UTF-8")      
+    outFile.append(formatLine(prevUrn, "${prevPrevCount}", "${prevCount}", "${count}", prevText), charEnc)
+    outFile.append(formatLine(prevUrn, "${prevCount}", "${count}", nullCol, endBlockMarker), charEnc)
   }
 
 }
