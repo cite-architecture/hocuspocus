@@ -242,10 +242,10 @@ class CtsTtl {
 	    String prev = cols[2]
 	    String next = cols[3]
 	    if (currMap[next] != null) {
-	      turtles.append("<${urnVal}> cite:next <${currMap[next]}> . \n")
+	      turtles.append("<${urnVal}> cts:next <${currMap[next]}> . \n")
 	    }
 	    if (currMap[prev] != null) {
-	      turtles.append("<${urnVal}> cite:prev <${currMap[prev]}> . \n")
+	      turtles.append("<${urnVal}> cts:prev <${currMap[prev]}> . \n")
 	    }
 	  }
 	} else {
