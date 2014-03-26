@@ -259,7 +259,7 @@ class Corpus {
         ttlFile.append(turtler.turtleizeInv(), charEnc)
 
         tabulateRepository(tabDir)
-        turtleizeTabs(tabDir, ttlFile, false)
+        turtleizeTabsToFile(tabDir, ttlFile, false)
     }  
 
 
