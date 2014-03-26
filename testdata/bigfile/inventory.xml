@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model file="../rng/TextInventory.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+<TextInventory
+  tiversion="5.0.rc.1"
+  xmlns="http://chs.harvard.edu/xmlns/cts"
+  xmlns:dc="http://purl.org/dc/elements/1.1">
+  <ctsnamespace
+    abbr="greekLit"
+    ns="http://chs.harvard.edu/ctsns/greekLit"/>
+  
+  
+  
+  
+  
+  
+  
+  
+  <textgroup
+    urn="urn:cts:greekLit:tlg0012">
+    <groupname
+      xml:lang="eng">Homeric poetry</groupname>
+    <work
+      urn="urn:cts:greekLit:tlg0012.tlg001"
+      xml:lang="grc">
+      <title
+        xml:lang="eng">Iliad</title>
+      
+      <edition
+        urn="urn:cts:greekLit:tlg0012.tlg001.oct">
+        <label
+          xml:lang="eng">Allen OCT</label>
+        <online
+          docname="oct-iliad.xml">
+          
+          <namespaceMapping
+            abbreviation="tei"
+            nsURI="http://www.tei-c.org/ns/1.0"/>
+          <citationMapping>
+            <citation
+              label="book"
+              scope="/tei:TEI/tei:text/tei:body"
+              xpath="/tei:div[@n = '?']">
+              <citation
+                label="line"
+                scope="/tei:TEI/tei:text/tei:body/tei:div[@n = '?']"
+                xpath="/tei:l[@n = '?']"/>
+            </citation>
+          </citationMapping>
+        </online>
+      </edition>
+    
+       
+    </work>
+  </textgroup>
+</TextInventory>
