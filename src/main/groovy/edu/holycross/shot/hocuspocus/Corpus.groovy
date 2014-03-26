@@ -15,12 +15,12 @@ import org.apache.commons.io.FilenameUtils
 */
 class Corpus {
 
-    int debug = 2
+  Integer debug = 0
 
-    String defaultTokensFile = "tokens.tsv"
+  String defaultTokensFile = "tokens.tsv"
 
-    /** Character encoding to use for all file output. */
-    String charEnc = "UTF-8"
+  /** Character encoding to use for all file output. */
+  String charEnc = "UTF-8"
 
     /** TTL prefix declaration for HMT namespace. */
     String prefix = "@prefix hmt:        <http://www.homermultitext.org/hmt/rdf/> .\n@prefix cts:        <http://www.homermultitext.org/cts/rdf/> .\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n@prefix dcterms: <http://purl.org/dc/terms/> .\n"
