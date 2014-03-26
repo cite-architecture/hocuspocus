@@ -167,14 +167,91 @@ class CtsTtl {
 
 
 
-
-    /** Translates the contents of a CTS tabular file to RDF TTL.
-    * @param tabFile A File in the cite library's 7-column tabular format.
-    * @returns The TTL representation of tabFile's contents.
-    */
-    String turtleizeTabs(File tabFile) {
-        return turtleizeTabs(tabFile, false)
+  void turtleizeTabsToFile(File tabFile, File turtles, String charEncoding, boolean prefix) {
+    if (debug > 0) {
+      System.err.println "Turtlize file ${tabFile} directly to ${ttlFile}"
     }
+    if (prefix) {
+      turtles.append(prefixStr, charEncoding)
+    }
+    boolean foundIt = false
+    def seqMaps = [:]
+    tabFile.eachLine { l ->
+      def cols = "${l} ".split(separatorValue)
+
+      if (debug > 0) { System.err.println "CtsTtl: ${l} cols as ${cols}, size ${cols.size()}" }
+      if (cols.size() >= 7) {
+	turtles.append(turtleizeLine(l) + "\n", charEncoding)
+	String urnVal = cols[0]
+	String seq = cols[1]
+	CtsUrn u
+	try {
+	  u = new CtsUrn(urnVal)
+	  String noPsg = u.getUrnWithoutPassage()
+	  if (! seqMaps.keySet().contains(noPsg) ) {
+	    seqMaps[noPsg] = [:]
+	  }
+	  def workMap = seqMaps[noPsg]
+	  workMap[seq] = urnVal
+	  seqMaps[noPsg] = workMap
+	  foundIt = true
+
+	} catch (Exception e) {
+	  System.err.println "CtsTtl: failed to get record for ${urnVal}."
+	  System.err.println "err ${e}"
+
+	}
+                    
+      } else {
+	System.err.println "CtsTtl: Too few columns! ${cols.size()} for ${cols}"
+      }
+    }
+
+    if (foundIt) {
+      tabFile.eachLine { l ->
+	def cols = l.split(separatorValue)
+	if (cols.size() == 7) {
+	  String urnVal = cols[0]
+	  CtsUrn u
+	  try {
+	    u = new CtsUrn(urnVal)
+	  } catch (Exception e) {
+	    System.err.println "CtsTtl: failed to get record for ${urnVal}."
+	  }
+	  if (u) {
+	    def currMap = seqMaps[u.getUrnWithoutPassage()]
+                
+	    String prev = cols[2]
+	    String next = cols[3]
+	    if (currMap[next] != null) {
+	      turtles.append("<${urnVal}> cts:next <${currMap[next]}> . \n", charEncoding)
+	    }
+	    if (currMap[prev] != null) {
+	      turtles.append("<${urnVal}> cts:prev <${currMap[prev]}> . \n", charEncoding)
+	    }
+	  }
+
+	} else {
+	  if (debug > 0) {
+	    System.err.println "Wrong size entry: ${cols.size()} cols in ${stringData}"
+	  }
+	}
+      }
+    }
+    /*
+    if (turtles.toString().size() == 0) {
+      System.err.println "CtsTtl: could not turtelize  " + stringData
+      }*/
+  }
+
+
+  /** Translates the contents of a CTS tabular file to RDF TTL.
+   * @param tabFile A File in the cite library's 7-column tabular format.
+   * @returns The TTL representation of tabFile's contents.
+   */
+  String turtleizeTabs(File tabFile) {
+    return turtleizeTabs(tabFile, false)
+  }
 
     /** Translates the contents of a CTS tabular file to RDF TTL.
     * @param tabFile A File in the cite library's 7-column tabular format.

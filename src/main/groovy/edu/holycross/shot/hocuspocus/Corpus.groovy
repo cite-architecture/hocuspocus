@@ -180,6 +180,26 @@ class Corpus {
         turtleizeTabs(outputDir, ttl, destructive)
     }
 
+    void turtleizeTabsFast(File outputDir, File ttl, boolean destructive) {
+      if (debug > 0) {
+	System.err.println "Turtleizing files in ${outputDir}"
+      }
+      CtsTtl turtler = new CtsTtl(this.inventory)
+      Integer fileCount = 0
+      outputDir.eachFileMatch(~/.*.txt/) { tab ->  
+	System.err.println "Turtleizing " + tab
+	fileCount++;
+	if (fileCount == 1) {
+	  ttl.append(turtler.turtleizeTabs(tab, false), charEnc)
+	} else {
+	  ttl.append(turtler.turtleizeTabs(tab, false), charEnc)
+	}
+	if (destructive) { 
+	  if (debug > 0) { System.err.println "Corpus: deleting file ${tab}" }
+	  tab.delete() 
+	}
+      }
+    }
 
     /** Cycles through all tabular files in a directory,
     * first turtleizing each file.  If destructive is true, it
@@ -191,29 +211,21 @@ class Corpus {
     * @param destructive True if tab files should be deleted
     * after turtelizing.
     */ 
-    void turtleizeTabs(File outputDir, File ttl, boolean destructive) {
-
-
+    void turtleizeTabsToFile(File outputDir, File ttl, boolean destructive) {
       if (debug > 0) {
 	System.err.println "Turtleizing files in ${outputDir}"
       }
-        CtsTtl turtler = new CtsTtl(this.inventory)
-        Integer fileCount = 0
-        outputDir.eachFileMatch(~/.*.txt/) { tab ->  
-	  System.err.println "Turtleizing " + tab
-            fileCount++;
-            if (fileCount == 1) {
-                ttl.append(turtler.turtleizeTabs(tab, false), charEnc)
-            } else {
-                ttl.append(turtler.turtleizeTabs(tab, false), charEnc)
-            }
-            if (destructive) { 
-	      if (debug > 0) { System.err.println "Corpus: deleting file ${tab}" }
-	      tab.delete() 
-	    }
-        }
-    }
 
+      CtsTtl turtler = new CtsTtl(this.inventory)
+      outputDir.eachFileMatch(~/.*.txt/) { tab ->  
+	System.err.println "Turtleizing " + tab
+	turtler.turtleizeTabsToFile(tab, ttl, charEnc, false)
+	if (destructive) { 
+	  if (debug > 0) { System.err.println "Corpus: deleting file ${tab}" }
+	  tab.delete() 
+	}
+      }
+    }
 
     /** Writes a RDF TTL representation of the entire CTS repository
     * to a file. First generates TTL for the repository's TextInventory,
@@ -244,7 +256,7 @@ class Corpus {
         }
 
         CtsTtl turtler = new CtsTtl(this.inventory)        
-        ttlFile.append( turtler.turtleizeInv(), charEnc)
+        ttlFile.append(turtler.turtleizeInv(), charEnc)
 
         tabulateRepository(tabDir)
         turtleizeTabs(tabDir, ttlFile, false)
@@ -420,15 +432,21 @@ class Corpus {
     outputDir.eachFileMatch(~/.*.txt/) { tab ->  
       def linesArray = tab.readLines()
       String line2 =  linesArray[1]
-      def cols = line2.split(/#/)
-      CtsUrn u = new CtsUrn(cols[0])
-
-      String className = tokenSystemForUrn(u)
-      TokenizationSystem tokenSystem = Class.forName(className).newInstance()
-      def tokenData = tokenSystem.tokenize(tab, this.separatorString)
-
-      tokenData.each {  pair ->
-	tokensFile.append( "${pair[0]}\t${pair[1]}\n", charEnc)
+      if (line2) {
+	def cols = line2.split(/#/)
+	CtsUrn u 
+	try {
+	  u = new CtsUrn(cols[0])
+	  String className = tokenSystemForUrn(u)
+	  TokenizationSystem tokenSystem = Class.forName(className).newInstance()
+	  def tokenData = tokenSystem.tokenize(tab, this.separatorString)
+	
+	  tokenData.each {  pair ->
+	    tokensFile.append( "${pair[0]}\t${pair[1]}\n", charEnc)
+	  }
+	} catch (Exception e) {
+	  System.err.println "Could not make URN out of ${cols[0]}"
+	}
       }
     }
   }

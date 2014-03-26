@@ -14,17 +14,20 @@ class TestBigTurtle extends GroovyTestCase {
     File tiFile = new File( "testdata/bigfile/inventory.xml")
 
     TextInventory inv = new TextInventory(tiFile)
-    File archiveDir = new File("testdata/bigfile/xml")
-
-    String sepChar = "#"
+    File tabDir = new File("testdata/bigfile/tabs")
     File outDir = new File("testdata/testoutput")
+    String charEnc = "UTF-8"
+
+
+
+    boolean destroyTabs = false
 
     @Test void testCorpusTurtleizer() {
         outDir.deleteDir()
         outDir.mkdir()
-
-        Corpus c = new Corpus(tiFile, archiveDir)
-        c.turtleizeRepository(outDir)
+	File ttlFile = new File(outDir, "bigFile.ttl")
+        Corpus c = new Corpus(tiFile, tabDir)
+        c.turtleizeTabsToFile(tabDir, ttlFile, destroyTabs)
     }
 }
 
