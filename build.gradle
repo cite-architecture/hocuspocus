@@ -48,7 +48,7 @@ if (hasProperty('pub')) {
 
 
 group = "edu.holycross.shot"
-version = '0.10.4'
+version = '0.10.5'
 
 
 repositories {
@@ -68,7 +68,8 @@ configurations {
 
 
 dependencies {
-    compile group: 'org.codehaus.groovy', name: 'groovy-all', version: groovyversion
+groovy 'org.codehaus.groovy:groovy-all:2.2.2'
+    compile group: 'org.codehaus.groovy', name: 'groovy', version: groovyversion
     compile group: 'edu.harvard.chs', name : 'cite' , version: citeversion
     compile group: 'edu.harvard.chs', name : 'greekutils' , version: '0.8.5'
     compile group: 'commons-io', name: 'commons-io', version: commonsioversion
