@@ -121,18 +121,18 @@ class CtsTtl {
 
                 String versionLang =  this.inventory.languageForVersion(urn)
                 String workLang = this.inventory.languageForWork(workStr)
-                reply.append("<${u}> dcterms:title " + '"' + this.inventory.versionLabel(u) + '" .\n')
+                reply.append("<${urn.toString(true)}> dcterms:title " + '"' + this.inventory.versionLabel(u) + '" .\n')
                 if (versionLang != workLang) {
-                    reply.append("\n<${urn}> rdf:type cts:Translation .\n")
-                    reply.append("\n<${urn}>  cts:translationLang " + '"' + versionLang + '" .\n\n')
+                    reply.append("\n<${urn.toString(true)}> rdf:type cts:Translation .\n")
+                    reply.append("\n<${urn.toString(true)}>  cts:translationLang " + '"' + versionLang + '" .\n\n')
 
 
 
                 } else {
-                    reply.append("\n<${urn}> rdf:type cts:Edition .\n")
+                    reply.append("\n<${urn.toString(true)}> rdf:type cts:Edition .\n")
 
                 }
-                reply.append("\n<${urn}>  rdf:label " + '"' + "${workLabel} (${this.inventory.versionLabel(urn)})" + '" .\n\n')
+                reply.append("\n<${urn.toString(true)}>  rdf:label " + '"' + "${workLabel} (${this.inventory.versionLabel(urn)})" + '" .\n\n')
 
                 if (! elementSeen.containsAll([workStr])) {
                     reply.append("<${workStr}> rdf:type cts:Work .\n")
@@ -203,7 +203,11 @@ class CtsTtl {
 	}
                     
       } else {
-	System.err.println "CtsTtl: Too few columns! ${cols.size()} for ${cols}"
+	if ((cols[0] == "namespace")  && (cols.size() == 4)) {
+	  // ok, but don't output.
+	} else {
+	  System.err.println "CtsTtl: Too few columns! ${cols.size()} for ${cols}"
+	}
       }
     }
 
@@ -224,10 +228,23 @@ class CtsTtl {
 	    String prev = cols[2]
 	    String next = cols[3]
 	    if (currMap[next] != null) {
-	      turtles.append("<${urnVal}> cts:next <${currMap[next]}> . \n", charEncoding)
+	      //turtles.append("<${urnVal}> cts:next <${currMap[next]}> . \n", charEncoding)
+	      try {
+		CtsUrn nextUrn = new CtsUrn(currMap[next])
+		turtles.append("<${u.toString(true)}> cts:next <${nextUrn.toString(true)}> . \n", charEncoding)
+	      } catch (Exception e) {
+		System.err.println "Could not make URN from " + currMap[next]
+	      }
 	    }
 	    if (currMap[prev] != null) {
-	      turtles.append("<${urnVal}> cts:prev <${currMap[prev]}> . \n", charEncoding)
+	      //turtles.append("<${urnVal}> cts:prev <${currMap[prev]}> . \n", charEncoding)
+	      try {
+		CtsUrn prevUrn = new CtsUrn(currMap[prev])
+		turtles.append("<${u.toString(true)}> cts:prev <${prevUrn.toString(true)}> . \n", charEncoding)
+	      } catch (Exception e) {
+		System.err.println "Could not make URN from " + currMap[prev]
+	      }
+
 	    }
 	  }
 
@@ -319,10 +336,24 @@ class CtsTtl {
 	    String prev = cols[2]
 	    String next = cols[3]
 	    if (currMap[next] != null) {
-	      turtles.append("<${urnVal}> cts:next <${currMap[next]}> . \n")
+	      // turtles.append("<${urnVal}> cts:next <${currMap[next]}> . \n")
+	      try {
+		CtsUrn nextUrn = new CtsUrn(currMap[next])
+		turtles.append("<${u.toString(true)}> cts:next <${nextUrn.toString(true)}> . \n")
+	      } catch (Exception e) {
+		System.err.println "Could not get URN for " + currMap[next]
+	      }
+
 	    }
 	    if (currMap[prev] != null) {
-	      turtles.append("<${urnVal}> cts:prev <${currMap[prev]}> . \n")
+	      //	      turtles.append("<${urnVal}> cts:prev <${currMap[prev]}> . \n")
+	      try {
+		CtsUrn prevUrn = new CtsUrn(currMap[prev])
+		turtles.append("<${u.toString(true)}> cts:prev <${prevUrn.toString(true)}> . \n")
+	      } catch (Exception e) {
+		System.err.println "Could not get URN for " + currMap[prev]
+	      }
+
 	    }
 	  }
 	} else {
@@ -386,25 +417,27 @@ class CtsTtl {
 
 
             String label = "${workLabel} (${this.inventory.versionLabel(urnBase)}): ${urn.getPassageComponent()} (${urn})"
-            turtles.append("<$urn> rdf:label " + '"' + label + '" .\n')
+            turtles.append("<${urn.toString(true)}> rdf:label " + '"' + label + '" .\n')
 
 
             /* explicitly express version hierarchy */
             /* should percolate up from any point based on RDF from TextInventory. */
-            turtles.append("<${urn}> cts:belongsTo <${urnBase}> . \n")
+            turtles.append("<${urn.toString(true)}> cts:belongsTo <${urnBase}> . \n")
 
             /* explicitly express citation hierarchy */
             int max =  urn.getCitationDepth() 
             String containedUrn = urn.toString()
-            turtles.append("<${urnVal}> cts:hasSequence ${seq} .\n")
-            turtles.append("<${urnVal}> cts:hasTextContent " + '"""' + textContent + '"""' +  " .\n")
-            turtles.append("<${urnVal}> cts:citationDepth ${max} .\n")
-            turtles.append("<${urnVal}> hmt:xmlOpen " +  '"' + xmlAncestor + '" .\n')
-            turtles.append("<${urnVal}> hmt:xpTemplate "  + '"' + xpTemplate + '" .\n')
+            turtles.append("<${urn.toString(true)}> cts:hasSequence ${seq} .\n")
+            turtles.append("<${urn.toString(true)}> cts:hasTextContent " + '"""' + textContent + '"""' +  " .\n")
+            turtles.append("<${urn.toString(true)}> cts:citationDepth ${max} .\n")
+            turtles.append("<${urn.toString(true)}> hmt:xmlOpen " +  '"' + xmlAncestor + '" .\n')
+            turtles.append("<${urn.toString(true)}> hmt:xpTemplate "  + '"' + xpTemplate + '" .\n')
             while (max > 1) {
                 max--;
-                turtles.append("<${containedUrn}> cts:containedBy <${urnBase}:${urn.getPassage(max)}> .\n")
-                turtles.append("<${urnBase}:${urn.getPassage(max)}> cts:contains <${containedUrn}>  .\n")
+		// Mod here from"containedUrn" : is this right?
+                turtles.append("<${urn.toString(true)}> cts:containedBy <${urnBase}:${urn.getPassage(max)}> .\n")
+		//                turtles.append("<${urnBase}:${urn.getPassage(max)}> cts:contains <${containedUrn}>  .\n")
+                turtles.append("<${urnBase}:${urn.getPassage(max)}> cts:contains <${urn.toString(true)}>  .\n")
 
 
                 turtles.append("<${urnBase}:${urn.getPassage(max)}> cts:citationDepth ${max} .\n")
