@@ -50,7 +50,38 @@ class TabUtil {
   }
 
 
-  
+  /** Finds a single version-level CTS URN in a file in tabulated format.
+   * @param tabFile The file to search.
+   * @param urn The CTS URN to search for.
+   * @returns A line from the tabulated file, or an empty
+   * String if no match was found.
+   */
+  String tabEntryForUrn(File tabFile, CtsUrn urn) {
+    return tabEntryForUrn(tabFile, urn.toString())
+  }
+
+
+  String tabEntryForUrn(File tabFile, String urnStr) {
+    String entry  = ""
+    entry = tabFile.readLines().find { ln ->
+      String q = urnStr + "#.*"
+      ln ==~ /${q}/
+    }
+    return entry
+  }
+
+  /** Finds version-level CTS URNs in a file in tabulated format.
+   * @param tabFile The file to search.
+   * @param urnList A list of CTS URNs to search for.
+   * @returns A list of lines from the tabulated file.
+   */
+  ArrayList tabEntriesForUrns(File tabFile, ArrayList urnList) {
+    def entries = []
+    urnList.each { u ->
+      entries.add(tabEntryForUrn(tabFile,u.toString()))
+    }
+    return entries
+  }
 
 
 }
