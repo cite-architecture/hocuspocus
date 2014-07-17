@@ -15,7 +15,7 @@ class TabularText {
   String separator = "#"
 
 
-  // URN, Seq, Prev, Next, contextxpath, text, xml, xpathmodel
+  // URN, Seq, Prev, Next, contextxpath, text, xpathmodel
 
   /** Empty constructor */
   TabularText()   {
@@ -40,6 +40,75 @@ class TabularText {
       throw e
     }
     return urn
+  }
+
+
+  Integer getSequence(String tabLine)    
+  throws Exception {
+    Integer seq = null
+    def columns = tabLine.split(separator)
+    try {
+      seq = columns[1].toInteger()
+
+    } catch (Exception e) {
+      System.err.println  "TabularText:getUrn: ${columns[1]} not an integer"
+      throw e
+    }
+    return seq
+
+  }
+
+
+
+  Integer getPrevSequence(String tabLine)    
+  throws Exception {
+    Integer seq = null
+    def columns = tabLine.split(separator)
+    if (columns[2].size() < 1) {
+      return seq
+    }
+
+    try {
+      seq = columns[2].toInteger()
+
+    } catch (Exception e) {
+      System.err.println  "TabularText:getUrn: ${columns[2]} not an integer"
+      throw e
+    }
+    return seq
+  }
+
+
+
+
+
+
+  Integer getNextSequence(String tabLine)    
+  throws Exception {
+    Integer seq = null
+    def columns = tabLine.split(separator)
+    if (columns[3].size() < 1) {
+      return seq
+    }
+
+    try {
+      seq = columns[3].toInteger()
+
+    } catch (Exception e) {
+      System.err.println  "TabularText:getUrn: ${columns[3]} not an integer"
+      throw e
+    }
+    return seq
+  }
+
+
+
+  String getText(String tabLine) {
+    def columns = tabLine.split(separator)
+    if (columns.size() < 6) {
+      throw new Exception("TabularText:getText: badly formatted line: ${tabLine}")
+    }
+    return columns[5]
   }
 
 }
