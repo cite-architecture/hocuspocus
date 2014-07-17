@@ -70,6 +70,30 @@ class TabUtil {
     return entry
   }
 
+
+
+  String tabEntryForUrn(String tabSrc, CtsUrn urn) {
+    return tabEntryForUrn(tabSrc, urn.toString())
+  }
+
+  String tabEntryForUrn(String tabSrc, String urnStr) {
+    String entry  = ""
+    entry = tabSrc.readLines().find { ln ->
+      String q = urnStr + "#.*"
+      ln ==~ /${q}/
+    }
+    return entry
+  }
+
+
+  ArrayList tabEntriesForUrns(String tabSrc, ArrayList urnList) {
+    def entries = []
+    urnList.each { u ->
+      entries.add(tabEntryForUrn(tabFile,u.toString()))
+    }
+    return entries
+  }
+
   /** Finds version-level CTS URNs in a file in tabulated format.
    * @param tabFile The file to search.
    * @param urnList A list of CTS URNs to search for.
@@ -92,8 +116,10 @@ class TabUtil {
       File tabFile = new File(tabulatedDir, f)
       def subtotal = []
       subtotal = tabEntriesForUrns(tabFile, urnList)
-      subtotal.each {
-	total.add(it)
+      subtotal.each { entry ->
+	if (entry != null) {
+	  total.add(entry)
+	}
       }
     }
     return total
