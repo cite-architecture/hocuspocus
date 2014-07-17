@@ -11,6 +11,7 @@ import edu.harvard.chs.cite.CtsUrn
 class TestTabUtil extends GroovyTestCase {
 
   File tabFile = new File("testdata/A_Iliad_testlines-00001.txt")
+  File tabDir = new File("testdata/tabdir")
   File outDir = new File("testdata/testoutput")
 
   CtsUrn urn = new CtsUrn("urn:cts:greekLit:tlg0012.tlg001.testlines:1.4")
@@ -33,6 +34,18 @@ class TestTabUtil extends GroovyTestCase {
     def urnCheck = ["urn:cts:greekLit:tlg0012.tlg001.testlines:1.4", "urn:cts:greekLit:tlg0012.tlg001.testlines:1.5"]
 
     def entries = tabber.tabEntriesForUrns(tabFile,urnCheck)
+    assert entries.size() == urnCheck.size()
+    
+  }
+
+
+
+
+  @Test void testTabDir() {
+    TabUtil tabber = new TabUtil()
+
+    def urnCheck = ["urn:cts:greekLit:tlg0012.tlg001.testlines:1.4", "urn:cts:greekLit:tlg0012.tlg001.testlines:1.5"]
+    def entries = tabber.tabEntriesForDirectory(tabDir,urnCheck)
     assert entries.size() == urnCheck.size()
     
   }

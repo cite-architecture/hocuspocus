@@ -84,4 +84,19 @@ class TabUtil {
   }
 
 
+  ArrayList tabEntriesForDirectory(File tabulatedDir, ArrayList urnList) {
+    def total = []
+
+    def tabList = tabulatedDir.list({d, f-> f ==~ /.*.txt/ } as FilenameFilter )?.toList() 
+    tabList.each { f ->
+      File tabFile = new File(tabulatedDir, f)
+      def subtotal = []
+      subtotal = tabEntriesForUrns(tabFile, urnList)
+      subtotal.each {
+	total.add(it)
+      }
+    }
+    return total
+  }
+
 }
