@@ -12,8 +12,11 @@ http://jermdemo.blogspot.de/2009/07/beware-groovy-split-and-tokenize-dont.html
 */
 class CtsTtl {
 
-
-    def debug = 0
+  
+  Integer WARN = 1
+  Integer DEBUGLEVEL = 2
+  Integer FRANTIC = 3
+  Integer debug = 0
 
     /** RDF prefix declarations */
     String prefixStr = "@prefix hmt:        <http://www.homermultitext.org/hmt/rdf/> .\n@prefix cts:        <http://www.homermultitext.org/cts/rdf/> .\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n@prefix dcterms: <http://purl.org/dc/terms/> .\n"
@@ -81,22 +84,30 @@ class CtsTtl {
 
         StringBuffer reply = new StringBuffer()
         if (includePrefix) {
-            reply.append(prefixStr)
+	  reply.append(prefixStr)
         }
+	def mapSize =	inventory.nsMapList.keySet().size() 
+	if (mapSize > 0) {
+	} else {
+	  System.err.println "CtsTtl:turtleizeInv:  empty nsMapList!"
+	}
 
         // XML namespace information:
         // Naive assumption that only one abbr. per URI
         // in a corpus should be reworked.
         def nsSeen = [:]
         this.inventory.nsMapList.keySet().each { urn ->
-            def nsMap = this.inventory.nsMapList[urn]
-            nsMap.keySet().each { nsAbbr ->
-                if (! nsSeen[nsAbbr]) {
-                    reply.append("<${nsMap[nsAbbr]}> cts:abbreviatedBy " + '"' + nsAbbr + '" .\n')
-                    nsSeen[nsAbbr] = true
-                }
-                reply.append "<${urn}> cts:xmlns <${nsMap[nsAbbr]}> .\n"
-            }
+	  if (debug > WARN) {
+	    println "CtsTtl:turtleizeInv: ns map for urn ${urn}"
+	  }
+	  def nsMap = this.inventory.nsMapList[urn]
+	  nsMap.keySet().each { nsAbbr ->
+	    if (! nsSeen[nsAbbr]) {
+	      reply.append("<${nsMap[nsAbbr]}> cts:abbreviatedBy " + '"' + nsAbbr + '" .\n')
+	      nsSeen[nsAbbr] = true
+	    }
+	    reply.append "<${urn}> cts:xmlns <${nsMap[nsAbbr]}> .\n"
+	  }
         }
 
         def elementSeen = []
@@ -121,18 +132,23 @@ class CtsTtl {
 
                 String versionLang =  this.inventory.languageForVersion(urn)
                 String workLang = this.inventory.languageForWork(workStr)
-                reply.append("<${urn.toString(true)}> dcterms:title " + '"' + this.inventory.versionLabel(u) + '" .\n')
+		//                reply.append("<${urn.toString(true)}> dcterms:title " + '"' + this.inventory.versionLabel(u) + '" .\n')
+		reply.append("<${urn.toString()}> dcterms:title " + '"' + this.inventory.versionLabel(u) + '" .\n')
                 if (versionLang != workLang) {
-                    reply.append("\n<${urn.toString(true)}> rdf:type cts:Translation .\n")
-                    reply.append("\n<${urn.toString(true)}>  cts:translationLang " + '"' + versionLang + '" .\n\n')
+		  //reply.append("\n<${urn.toString(true)}> rdf:type cts:Translation .\n")
+		  reply.append("\n<${urn.toString()}> rdf:type cts:Translation .\n")
+		  // reply.append("\n<${urn.toString(true)}>  cts:translationLang " + '"' + versionLang + '" .\n\n')
+		   reply.append("\n<${urn.toString()}>  cts:translationLang " + '"' + versionLang + '" .\n\n')
 
 
 
                 } else {
-                    reply.append("\n<${urn.toString(true)}> rdf:type cts:Edition .\n")
+		  //reply.append("\n<${urn.toString(true)}> rdf:type cts:Edition .\n")
+		  reply.append("\n<${urn.toString()}> rdf:type cts:Edition .\n")
 
                 }
-                reply.append("\n<${urn.toString(true)}>  rdf:label " + '"' + "${workLabel} (${this.inventory.versionLabel(urn)})" + '" .\n\n')
+                //reply.append("\n<${urn.toString(true)}>  rdf:label " + '"' + "${workLabel} (${this.inventory.versionLabel(urn)})" + '" .\n\n')
+		reply.append("\n<${urn.toString()}>  rdf:label " + '"' + "${workLabel} (${this.inventory.versionLabel(urn)})" + '" .\n\n')
 
                 if (! elementSeen.containsAll([workStr])) {
                     reply.append("<${workStr}> rdf:type cts:Work .\n")
@@ -231,7 +247,8 @@ class CtsTtl {
 	      //turtles.append("<${urnVal}> cts:next <${currMap[next]}> . \n", charEncoding)
 	      try {
 		CtsUrn nextUrn = new CtsUrn(currMap[next])
-		turtles.append("<${u.toString(true)}> cts:next <${nextUrn.toString(true)}> . \n", charEncoding)
+		//		turtles.append("<${u.toString(true)}> cts:next <${nextUrn.toString(true)}> . \n", charEncoding)
+		turtles.append("<${u.toString()}> cts:next <${nextUrn.toString()}> . \n", charEncoding)
 	      } catch (Exception e) {
 		System.err.println "Could not make URN from " + currMap[next]
 	      }
@@ -240,7 +257,8 @@ class CtsTtl {
 	      //turtles.append("<${urnVal}> cts:prev <${currMap[prev]}> . \n", charEncoding)
 	      try {
 		CtsUrn prevUrn = new CtsUrn(currMap[prev])
-		turtles.append("<${u.toString(true)}> cts:prev <${prevUrn.toString(true)}> . \n", charEncoding)
+		//		turtles.append("<${u.toString(true)}> cts:prev <${prevUrn.toString(true)}> . \n", charEncoding)
+		turtles.append("<${u.toString()}> cts:prev <${prevUrn.toString()}> . \n", charEncoding)
 	      } catch (Exception e) {
 		System.err.println "Could not make URN from " + currMap[prev]
 	      }
@@ -339,7 +357,8 @@ class CtsTtl {
 	      // turtles.append("<${urnVal}> cts:next <${currMap[next]}> . \n")
 	      try {
 		CtsUrn nextUrn = new CtsUrn(currMap[next])
-		turtles.append("<${u.toString(true)}> cts:next <${nextUrn.toString(true)}> . \n")
+		//	turtles.append("<${u.toString(true)}> cts:next <${nextUrn.toString(true)}> . \n")
+		turtles.append("<${u.toString()}> cts:next <${nextUrn.toString()}> . \n")
 	      } catch (Exception e) {
 		System.err.println "Could not get URN for " + currMap[next]
 	      }
@@ -349,7 +368,8 @@ class CtsTtl {
 	      //	      turtles.append("<${urnVal}> cts:prev <${currMap[prev]}> . \n")
 	      try {
 		CtsUrn prevUrn = new CtsUrn(currMap[prev])
-		turtles.append("<${u.toString(true)}> cts:prev <${prevUrn.toString(true)}> . \n")
+		//		turtles.append("<${u.toString(true)}> cts:prev <${prevUrn.toString(true)}> . \n")
+		turtles.append("<${u.toString()}> cts:prev <${prevUrn.toString()}> . \n")
 	      } catch (Exception e) {
 		System.err.println "Could not get URN for " + currMap[prev]
 	      }
@@ -417,27 +437,36 @@ class CtsTtl {
 
 
             String label = "${workLabel} (${this.inventory.versionLabel(urnBase)}): ${urn.getPassageComponent()} (${urn})"
-            turtles.append("<${urn.toString(true)}> rdf:label " + '"' + label + '" .\n')
+	    //            turtles.append("<${urn.toString(true)}> rdf:label " + '"' + label + '" .\n')
+	    turtles.append("<${urn.toString()}> rdf:label " + '"' + label + '" .\n')
 
 
             /* explicitly express version hierarchy */
             /* should percolate up from any point based on RDF from TextInventory. */
-            turtles.append("<${urn.toString(true)}> cts:belongsTo <${urnBase}> . \n")
+	    //            turtles.append("<${urn.toString(true)}> cts:belongsTo <${urnBase}> . \n")
+	    turtles.append("<${urn.toString()}> cts:belongsTo <${urnBase}> . \n")
 
             /* explicitly express citation hierarchy */
             int max =  urn.getCitationDepth() 
             String containedUrn = urn.toString()
-            turtles.append("<${urn.toString(true)}> cts:hasSequence ${seq} .\n")
-            turtles.append("<${urn.toString(true)}> cts:hasTextContent " + '"""' + textContent + '"""' +  " .\n")
-            turtles.append("<${urn.toString(true)}> cts:citationDepth ${max} .\n")
-            turtles.append("<${urn.toString(true)}> hmt:xmlOpen " +  '"' + xmlAncestor + '" .\n')
-            turtles.append("<${urn.toString(true)}> hmt:xpTemplate "  + '"' + xpTemplate + '" .\n')
+	    //            turtles.append("<${urn.toString(true)}> cts:hasSequence ${seq} .\n")
+	    turtles.append("<${urn.toString()}> cts:hasSequence ${seq} .\n")
+	    //            turtles.append("<${urn.toString(true)}> cts:hasTextContent " + '"""' + textContent + '"""' +  " .\n")
+	    turtles.append("<${urn.toString()}> cts:hasTextContent " + '"""' + textContent + '"""' +  " .\n")
+	    //            turtles.append("<${urn.toString(true)}> cts:citationDepth ${max} .\n")
+	    turtles.append("<${urn.toString()}> cts:citationDepth ${max} .\n")
+	    //            turtles.append("<${urn.toString(true)}> hmt:xmlOpen " +  '"' + xmlAncestor + '" .\n')
+	    turtles.append("<${urn.toString()}> hmt:xmlOpen " +  '"' + xmlAncestor + '" .\n')
+	    //            turtles.append("<${urn.toString(true)}> hmt:xpTemplate "  + '"' + xpTemplate + '" .\n')
+	    turtles.append("<${urn.toString()}> hmt:xpTemplate "  + '"' + xpTemplate + '" .\n')
             while (max > 1) {
                 max--;
 		// Mod here from"containedUrn" : is this right?
-                turtles.append("<${urn.toString(true)}> cts:containedBy <${urnBase}:${urn.getPassage(max)}> .\n")
+		//                turtles.append("<${urn.toString(true)}> cts:containedBy <${urnBase}:${urn.getPassage(max)}> .\n")
+		turtles.append("<${urn.toString()}> cts:containedBy <${urnBase}:${urn.getPassage(max)}> .\n")
 		//                turtles.append("<${urnBase}:${urn.getPassage(max)}> cts:contains <${containedUrn}>  .\n")
-                turtles.append("<${urnBase}:${urn.getPassage(max)}> cts:contains <${urn.toString(true)}>  .\n")
+		//                turtles.append("<${urnBase}:${urn.getPassage(max)}> cts:contains <${urn.toString(true)}>  .\n")
+		turtles.append("<${urnBase}:${urn.getPassage(max)}> cts:contains <${urn.toString()}>  .\n")
 
 
                 turtles.append("<${urnBase}:${urn.getPassage(max)}> cts:citationDepth ${max} .\n")

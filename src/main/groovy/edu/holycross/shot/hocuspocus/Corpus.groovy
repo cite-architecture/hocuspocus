@@ -511,13 +511,14 @@ class Corpus {
     void validateInventory() 
     throws Exception {
         // as an alternative, allow a local copy of schmea ...
-        URL TextInvSchema = new URL("http://www.homermultitext.org/hmtschemas/TextInventory.rng")
-//        URL TextInvSchema = new URL("file://./testdata/TextInventory.rng")
+        //URL TextInvSchema = new URL("http://www.homermultitext.org/hmtschemas/TextInventory.rng")
+        File TextInvSchema = new File("testdata/schemas/TextInventory.rng")
         System.setProperty("javax.xml.validation.SchemaFactory:"+XMLConstants.RELAXNG_NS_URI,
     "com.thaiopensource.relaxng.jaxp.XMLSyntaxSchemaFactory");
 
         def factory = SchemaFactory.newInstance(XMLConstants.RELAXNG_NS_URI)
-        def schema = factory.newSchema(TextInvSchema)
+	def schema = factory.newSchema(TextInvSchema)
+
         def validator = schema.newValidator()
         try {
             validator.validate(inventoryXml)

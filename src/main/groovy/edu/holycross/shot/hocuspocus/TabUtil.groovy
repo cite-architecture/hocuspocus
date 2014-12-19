@@ -107,6 +107,15 @@ class TabUtil {
     return entries
   }
 
+  ArrayList tabEntriesForUrns(ArrayList stringList, ArrayList urnList) {
+    def entries = []
+    stringList.each { u ->
+      entries.add(tabEntryForUrn(tabFile,u.toString()))
+    }
+    return entries
+  }
+
+
 
   ArrayList tabEntriesForDirectory(File tabulatedDir, ArrayList urnList) {
     def total = []

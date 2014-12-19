@@ -68,7 +68,7 @@ configurations {
 
 
 dependencies {
-groovy 'org.codehaus.groovy:groovy-all:2.2.2'
+  //groovy 'org.codehaus.groovy:groovy-all:2.2.2'
     compile group: 'org.codehaus.groovy', name: 'groovy', version: groovyversion
     compile group: 'edu.harvard.chs', name : 'cite' , version: citeversion
     compile group: 'edu.harvard.chs', name : 'greekutils' , version: '0.8.5'
