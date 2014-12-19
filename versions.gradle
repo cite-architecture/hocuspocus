@@ -1,7 +1,7 @@
 
 
 ext {
- citeversion = '0.91.0'
+ citeversion = '0.91.2'
  groovyversion = '2.2.2'
  commonsioversion = '1.4'
  jingversion = '20091111'

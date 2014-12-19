@@ -1,3 +1,5 @@
+import com.github.rjeschke.txtmark.*
+
 apply plugin: "base"
 apply plugin:  "groovy"
 apply plugin:  "maven"
@@ -46,9 +48,17 @@ if (hasProperty('pub')) {
     }
 }
 
+buildscript {
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath group: 'com.github.rjeschke', name: 'txtmark', version: '0.11'
+  }
+}
 
 group = "edu.holycross.shot"
-version = '0.11.5'
+version = '0.11.8'
 
 
 repositories {
@@ -77,9 +87,11 @@ dependencies {
     compile group: 'commons-io', name: 'commons-io', version: '1.4'
 
             
-    testCompile group: 'junit', name: 'junit', version: junitversion
-    testCompile group :'xmlunit', name: 'xmlunit', version: xmlunitversion
-    compile group: 'com.thaiopensource', name:'jing', version: jingversion
+  //testCompile group: 'junit', name: 'junit', version: junitversion
+  testCompile 'junit:junit:4.11'
+  testCompile 'org.concordion:concordion:1.4.4'
+  testCompile group :'xmlunit', name: 'xmlunit', version: xmlunitversion
+  compile group: 'com.thaiopensource', name:'jing', version: jingversion
     //    groovy group:'org.iso_relax.verifier.jaxp.validation', name:'isorelax-jaxp-bridge', version:'1.0'
     schemas group: 'edu.harvard.chs', name: 'cite', version: citeversion, classifier: 'schemas', ext: 'zip'
 
@@ -132,3 +144,71 @@ task cleanTest () {
 
 test.dependsOn cleanTest
 */
+
+
+
+// for specs with concordion:
+sourceSets {
+    main {
+        java {
+            srcDir 'src'
+        }
+        resources {
+            srcDir 'src'
+        }
+    }
+    test {
+        java {
+	  srcDir "specs/java"
+        }
+        resources {
+	  srcDir "${buildDir}/specs"
+        }
+    }
+}
+
+task cpResources(type: Copy) {
+  from "specs/resources"
+  into "${buildDir}/specs"
+}
+
+task setUpResources(dependsOn: cpResources) {
+}
+setUpResources.doLast {
+  println "READING FILE TREE FROM " + mdSrc
+  FileTree tree = fileTree(mdSrc) {
+    include "**/*.md"
+  }
+  tree.visit { f ->
+    if (f.relativePath.isFile()) {
+      File inFile = new File("${mdSrc}/${f.relativePath}")
+      println "Need to work on " + inFile
+      def segs = f.relativePath.getSegments()
+      String treePath = "${buildDir}/specs"
+      Integer limit =  segs.size() - 1
+      segs.eachWithIndex { s, i ->
+	if (i < limit) {
+	  treePath = "${treePath}/${s}"
+	  File nxtDir = new File(treePath)
+	  if (! nxtDir.exists()) {
+	    nxtDir.mkdir()
+	  }
+	}
+      }
+      File outDir = new File(treePath)
+      String htmlFileName = f.relativePath.getLastName().replaceFirst(/.md$/,".html")
+      File htmlFile = new File(outDir, htmlFileName)
+      println "Created ${htmlFile}"
+
+      String body = Processor.process(inFile.getText("UTF-8"),Configuration.DEFAULT)
+      htmlFile.setText("${htmlPreface}${body}${htmlEnd}", "UTF-8")
+    }
+  }
+}
+
+
+test.dependsOn setUpResources
+test {
+    systemProperties 'concordion.output.dir': file("${buildDir}/concordion-results")
+
+}
