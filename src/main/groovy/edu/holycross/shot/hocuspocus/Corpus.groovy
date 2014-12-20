@@ -56,39 +56,63 @@ class Corpus {
     * @throws Exception if invFile is not a valid TextInventory, or if
     * archive directory is not readable
     */
-    Corpus(File invFile, File baseDir) 
-    throws Exception{
-        try{
-            this.inventory = new TextInventory(invFile)
-        } catch (Exception e) {
-            throw e
-        }
 
-        if (!baseDir.canRead()) {
-            throw new Exception("Corpus: cannot read directory ${baseDir}")
-        }
+    Corpus(File invFile, File baseDir) 
+    throws Exception {
+      try{
+	this.inventory = new TextInventory(invFile)
+      } catch (Exception e) {
+	throw e
+      }
+
+      if (!baseDir.canRead()) {
+	throw new Exception("Corpus: cannot read directory ${baseDir}")
+      }
+      this.baseDirectory = baseDir
+      this.inventoryXml = invFile
+
+      try {
+	validateInventory(new File(baseDir,"TextInventory.rng"))
+	    
+      } catch (Exception invException) {
+	throw invException
+      }
+    }
+    
+    
+    Corpus(File invFile, File baseDir, File schemaFile) 
+  throws Exception {
+    try{
+      this.inventory = new TextInventory(invFile)
+    } catch (Exception e) {
+      throw e
+    }
+    
+    if (!baseDir.canRead()) {
+      throw new Exception("Corpus: cannot read directory ${baseDir}")
+    }
         this.baseDirectory = baseDir
         this.inventoryXml = invFile
 
         try {
-            validateInventory()
+            validateInventory(schemaFile)
 
         } catch (Exception invException) {
             throw invException
         }
-    }
+  }
 
-
-    /** Creates TTL representation of the entire corpus 
-    * and writes it to a file in outputDir.
-    * @param outputDir A writable directory where the TTL file
-    * will be written.
-    * @throws Exception if unable to write to outputDir.
-    */
-    void turtleizeRepository(File outputDir) 
-    throws Exception {
-        if (! outputDir.exists()) {
-            try {
+  
+  /** Creates TTL representation of the entire corpus 
+   * and writes it to a file in outputDir.
+   * @param outputDir A writable directory where the TTL file
+   * will be written.
+   * @throws Exception if unable to write to outputDir.
+   */
+  void turtleizeRepository(File outputDir) 
+  throws Exception {
+    if (! outputDir.exists()) {
+      try {
                 outputDir.mkdir()
             } catch (Exception e) {
                 System.err.println "Corpus.turtleizeRepository: could not make directory ${outputDir}"
@@ -106,7 +130,7 @@ class Corpus {
 
         File ttlFile = new File(outputDir, "corpus.ttl")
         this.ttl(ttlFile, tabDir)
-    }
+  }
 
 
     /** Creates a Tabulator object and uses it to tabulate
@@ -115,10 +139,10 @@ class Corpus {
     * @param urn The URN for the file to tabulate.
     * @param outputDir A writeable directory for output files.
     */
-    void tabulateFile(File f, CtsUrn urn, File outputDir) {
-        Tabulator tab = new Tabulator()
-        tab.tabulate(urn, inventory, f, outputDir)
-    }
+  void tabulateFile(File f, CtsUrn urn, File outputDir) {
+    Tabulator tab = new Tabulator()
+    tab.tabulate(urn, inventory, f, outputDir)
+  }
 
 
 
@@ -127,8 +151,8 @@ class Corpus {
     * @param ouputDir A writeable directory where tabulated files
     * will be written.
     */
-    void tabulateRepository(File outputDir) {
-        urnsInInventory().each { u ->
+  void tabulateRepository(File outputDir) {
+    urnsInInventory().each { u ->
             CtsUrn urn = new CtsUrn(u)
             File f = new File(baseDirectory, inventory.onlineDocname(urn))
             if (debug > 0) {
@@ -137,7 +161,7 @@ class Corpus {
 
             tabulateFile(f, urn, outputDir)
        }
-    }
+  }
 
 
 
@@ -147,9 +171,9 @@ class Corpus {
     * @param outputDir Directory containing tabular format files with names
     * ending in 'txt'.  Must be a writable directory.
     */
-    void turtleizeTabs(File outputDir) {
-        turtleizeTabs(outputDir, false)
-    }
+  void turtleizeTabs(File outputDir) {
+    turtleizeTabs(outputDir, false)
+  }
 
 
     /** Cycles through all tabular files in a directory,
@@ -161,9 +185,9 @@ class Corpus {
     * @param destructive True if tab files should be deleted
     * after turtelizing.
     */
-    void turtleizeTabs(File outputDir, boolean destructive) {
-        turtleizeTabs(outputDir, "${outputDir}/cts.ttl", destructive)
-    }
+  void turtleizeTabs(File outputDir, boolean destructive) {
+    turtleizeTabs(outputDir, "${outputDir}/cts.ttl", destructive)
+  }
 
     /** Cycles through all tabular files in a directory,
     * first turtleizing each file.  If destructive is true, it
@@ -175,12 +199,12 @@ class Corpus {
     * @param destructive True if tab files should be deleted
     * after turtelizing.
     */ 
-    void turtleizeTabs(File outputDir, String ttlFileName, boolean destructive) {
-        File  ttl = new File(ttlFileName)
-        turtleizeTabs(outputDir, ttl, destructive)
-    }
+  void turtleizeTabs(File outputDir, String ttlFileName, boolean destructive) {
+    File  ttl = new File(ttlFileName)
+    turtleizeTabs(outputDir, ttl, destructive)
+  }
 
-    void turtleizeTabsFast(File outputDir, File ttl, boolean destructive) {
+  void turtleizeTabsFast(File outputDir, File ttl, boolean destructive) {
       if (debug > 0) {
 	System.err.println "Turtleizing files in ${outputDir}"
       }
@@ -199,7 +223,7 @@ class Corpus {
 	  tab.delete() 
 	}
       }
-    }
+  }
 
     /** Cycles through all tabular files in a directory,
     * first turtleizing each file.  If destructive is true, it
@@ -211,8 +235,8 @@ class Corpus {
     * @param destructive True if tab files should be deleted
     * after turtelizing.
     */ 
-    void turtleizeTabsToFile(File outputDir, File ttl, boolean destructive) {
-      if (debug > 0) {
+  void turtleizeTabsToFile(File outputDir, File ttl, boolean destructive) {
+    if (debug > 0) {
 	System.err.println "Turtleizing files in ${outputDir}"
       }
 
@@ -225,7 +249,7 @@ class Corpus {
 	  tab.delete() 
 	}
       }
-    }
+  }
 
     /** Writes a RDF TTL representation of the entire CTS repository
     * to a file. First generates TTL for the repository's TextInventory,
@@ -234,9 +258,9 @@ class Corpus {
     * @param ttlFile Writable output file.
     * @param tabDir Writable directory for generated tab files.
     */
-    void ttl(File outputFile, File tabDir) {
-        ttl(outputFile, false, tabDir)
-    }
+  void ttl(File outputFile, File tabDir) {
+    ttl(outputFile, false, tabDir)
+  }
 
     /** Writes a RDF TTL representation of the entire CTS repository
     * to a file. First generates TTL for the repository's TextInventory,
@@ -247,7 +271,7 @@ class Corpus {
     * in the output RDF.
     * @param tabDir Writable directory for generated tab files.
     */
-    void ttl(File ttlFile, boolean includePrefix, File tabDir) {
+  void ttl(File ttlFile, boolean includePrefix, File tabDir) {
         if (debug > 0) {
             System.err.println "Ttl'ing to ${ttlFile} after tabbing to ${tabDir}"
         }
@@ -260,7 +284,7 @@ class Corpus {
 
         tabulateRepository(tabDir)
         turtleizeTabsToFile(tabDir, ttlFile, false)
-    }  
+  }  
 
 
 
@@ -478,7 +502,7 @@ class Corpus {
 	  }
 	  tab.delete()
         }
-    }
+  }
 
     /** First tabulates the entire inventory, then uses the resulting
     * tabulated files to tokenize the inventory using the specified
@@ -489,7 +513,7 @@ class Corpus {
     * @param dividerString String value used to separator fields of 
     * tabulated files.
     */
-    void tokenizeRepository(TokenizationSystem tokenSystem, File outputDir, String dividerString) {
+  void tokenizeRepository(TokenizationSystem tokenSystem, File outputDir, String dividerString) {
         File tokensFile = new File(outputDir, defaultTokensFile)
         tabulateRepository(outputDir)
         outputDir.eachFileMatch(~/.*.txt/) { tab ->  
@@ -501,31 +525,37 @@ class Corpus {
 	  }
 	  //tab.delete()
         }
-    }
+  }
 
 
     /** Validates the XML serialization of the corpus's TextInventory 
     * against the published schema for a CITE TextInventory.
     * @throws Exception if the XML does not validate.
     */
-    void validateInventory() 
-    throws Exception {
-        // as an alternative, allow a local copy of schmea ...
-        //URL TextInvSchema = new URL("http://www.homermultitext.org/hmtschemas/TextInventory.rng")
-        File TextInvSchema = new File("testdata/schemas/TextInventory.rng")
-        System.setProperty("javax.xml.validation.SchemaFactory:"+XMLConstants.RELAXNG_NS_URI,
-    "com.thaiopensource.relaxng.jaxp.XMLSyntaxSchemaFactory");
+  void validateInventory()
+  throws Exception {
+    // as an alternative, allow a local copy of schmea ...
+    validateInventory(new File("testdata/schemas/TextInventory.rng"))
+  }
 
-        def factory = SchemaFactory.newInstance(XMLConstants.RELAXNG_NS_URI)
-	def schema = factory.newSchema(TextInvSchema)
+  void validateInventory(File schemaFie)  {
+  //URL TextInvSchema = new URL("http://www.homermultitext.org/hmtschemas/TextInventory.rng")
+  //File TextInvSchema = new File(schemaFileName)
+  
+  /*  System.setProperty("javax.xml.validation.SchemaFactory:"+XMLConstants.RELAXNG_NS_URI,
+		     "com.thaiopensource.relaxng.jaxp.XMLSyntaxSchemaFactory");
+  
+  def factory = SchemaFactory.newInstance(XMLConstants.RELAXNG_NS_URI)
+  def schema = factory.newSchema(TextInvSchema)
 
-        def validator = schema.newValidator()
-        try {
-            validator.validate(inventoryXml)
-        } catch (Exception e) {
-            throw e
-        }
-    }
+  def validator = schema.newValidator()
+  try {
+    validator.validate(inventoryXml)
+  } catch (Exception e) {
+    throw e
+  }
+  */
+  }  
 
     /** Determines if the set of online documents in the corpus'
     * TextInventory has a one-to-one correspondence with the set of

@@ -1,5 +1,17 @@
-# Validating the corpus #
+# Constructing and validating the corpus #
 
+An archival corpus is made of text files and an inventory documenting the citable structure them.  For a given corpus, we can determine:
+
+- what files are cataloged in the inventory
+- what URNs are cataloged in the inventory
+- what xml files appear in the file system
+
+
+### Examples ###
+
+
+We can use <a href="../../../specs/data/archive1/testinventory.xml" concordion:set="#ti = setHref(#HREF)">this TextInventory file</a> with
+files in <a href="../../../specs/data/archive1/xml" concordion:set="#archive = setHref(#HREF)">this root directory</a> to <strong concordion:assertTrue="shouldMakeCorpus(#ti,#archive)">construct a Corpus</strong>.
 
 ## Inspecting contents of the corpus ##
 
