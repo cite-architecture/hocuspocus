@@ -47,7 +47,22 @@ public class CorpusTest extends ConcordionTestCase {
 	    File inv = new File(buildPath + ti);
 	    File archiveDir = new File(buildPath + archive);
 	    Corpus c = new Corpus(inv, archiveDir);
+	    System.err.println ("Files in ti " + ti + ": " + c.filesInInventory());
 	    return c.filesInInventory().size();
+
+	} catch (Exception e) {
+	    System.err.println ("Unable to make corpus: " + e.toString());
+	    return -1;
+	}
+    }
+
+        public Integer shouldGetNumberFilesOnDisk(String ti, String archive) {
+	try {
+	    String buildPath = new java.io.File( "." ).getCanonicalPath() + docPath; 
+	    File inv = new File(buildPath + ti);
+	    File archiveDir = new File(buildPath + archive);
+	    Corpus c = new Corpus(inv, archiveDir);
+	    return c.filesInArchive().size();
 
 	} catch (Exception e) {
 	    System.err.println ("Unable to make corpus: " + e.toString());
@@ -107,8 +122,92 @@ public class CorpusTest extends ConcordionTestCase {
 	} catch (Exception e) {
 	    return ("Unable to make corpus: " + e.toString());
 	}
+    }
 
+
+
+    public boolean filesAndInventoryShouldMatch(String ti, String archive) {
+	try {
+	    String buildPath = new java.io.File( "." ).getCanonicalPath() + docPath; 
+	    File inv = new File(buildPath + ti);
+	    File archiveDir = new File(buildPath + archive);
+	    Corpus c = new Corpus(inv, archiveDir);
+	    return c.filesAndInventoryMatch();
+
+	} catch (Exception e) {
+	    System.err.println ("Unable to make corpus: " + e.toString());
+	    return  false;
+	}
     }
 
     
+
+
+    public Integer shouldGetNumberFilesOnDiskNotInventoried(String ti, String archive) {
+	try {
+	    String buildPath = new java.io.File( "." ).getCanonicalPath() + docPath; 
+	    File inv = new File(buildPath + ti);
+	    File archiveDir = new File(buildPath + archive);
+	    Corpus c = new Corpus(inv, archiveDir);
+	    return c.filesMissingFromInventory().size();
+
+	} catch (Exception e) {
+	    System.err.println ("Unable to make corpus: " + e.toString());
+	    return -1;
+	}
+    }
+
+
+
+    public String shouldGetFileOnDiskNotInventoried(String ti, String archive, int idx) {
+	try {
+	    String buildPath = new java.io.File( "." ).getCanonicalPath() + docPath; 
+	    File inv = new File(buildPath + ti);
+	    File archiveDir = new File(buildPath + archive);
+	    Corpus c = new Corpus(inv, archiveDir);
+	    ArrayList diskFiles =  c.filesMissingFromInventory();
+	    Collections.sort(diskFiles);
+	    return(diskFiles.get(idx).toString());
+		   
+	} catch (Exception e) {
+	    return ("Unable to make corpus: " + e.toString());
+	}
+    }
+
+
+
+    ////
+        public Integer shouldGetNumberInventoriedFilesNotOnDisk(String ti, String archive) {
+	try {
+	    String buildPath = new java.io.File( "." ).getCanonicalPath() + docPath; 
+	    File inv = new File(buildPath + ti);
+	    File archiveDir = new File(buildPath + archive);
+	    Corpus c = new Corpus(inv, archiveDir);
+	    return c.inventoriedMissingFromArchive().size();
+
+	} catch (Exception e) {
+	    System.err.println ("Unable to make corpus: " + e.toString());
+	    return -1;
+	}
+    }
+
+
+
+    public String shouldGetInventoriedFileNotFound(String ti, String archive, int idx) {
+	try {
+	    String buildPath = new java.io.File( "." ).getCanonicalPath() + docPath; 
+	    File inv = new File(buildPath + ti);
+	    File archiveDir = new File(buildPath + archive);
+	    Corpus c = new Corpus(inv, archiveDir);
+	    ArrayList invFiles =  c.inventoriedMissingFromArchive();
+	    Collections.sort(invFiles);
+	    return(invFiles.get(idx).toString());
+		   
+	} catch (Exception e) {
+	    return ("Unable to make corpus: " + e.toString());
+	}
+    }
+
 }
+
+

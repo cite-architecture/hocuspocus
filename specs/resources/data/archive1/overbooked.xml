@@ -40,7 +40,7 @@
         <description
           xml:lang="eng"> Venice: Marcianus Graecus Z.454 (=822). </description>
         <online
-          docname="A_Iliad_p5uc.xml">
+          docname="Iliad-A.xml">
          
          
           <namespaceMapping
@@ -69,7 +69,7 @@
         <description
           xml:lang="eng"> Ven. 453 </description>
         <online
-          docname="tier2/B_Iliad_p5.xml">
+          docname="tier2/Iliad-B.xml">
        
           <namespaceMapping
             abbreviation="tei"
@@ -96,7 +96,7 @@
         <description
           xml:lang="eng"> Laur. 32.3 </description>
         <online
-          docname="C_Iliad_p5.xml">
+          docname="Iliad-C.xml">
           
           <namespaceMapping
             abbreviation="tei"
