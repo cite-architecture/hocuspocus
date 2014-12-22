@@ -36,7 +36,7 @@ public class CorpusTest extends ConcordionTestCase {
 
 	
 	} catch (Exception e) {
-	    System.err.println ("Unable to make corpus: " + e.toString());
+	    System.err.println ("CorpusTest: unable to make corpus: " + e.toString());
 	    return false;
 	}
     }
@@ -47,11 +47,10 @@ public class CorpusTest extends ConcordionTestCase {
 	    File inv = new File(buildPath + ti);
 	    File archiveDir = new File(buildPath + archive);
 	    Corpus c = new Corpus(inv, archiveDir);
-	    System.err.println ("Files in ti " + ti + ": " + c.filesInInventory());
 	    return c.filesInInventory().size();
 
 	} catch (Exception e) {
-	    System.err.println ("Unable to make corpus: " + e.toString());
+	    System.err.println ("CorpusTest: Unable to make corpus: " + e.toString());
 	    return -1;
 	}
     }
@@ -65,7 +64,7 @@ public class CorpusTest extends ConcordionTestCase {
 	    return c.filesInArchive().size();
 
 	} catch (Exception e) {
-	    System.err.println ("Unable to make corpus: " + e.toString());
+	    System.err.println ("CorpusTest: unable to make corpus: " + e.toString());
 	    return -1;
 	}
     }
@@ -115,8 +114,6 @@ public class CorpusTest extends ConcordionTestCase {
 	    Corpus c = new Corpus(inv, archiveDir);
 	    ArrayList diskFiles =  c.filesInArchive();
 	    Collections.sort(diskFiles);
-
-	    System.err.println ("DISK FILE: " + diskFiles.toString());
 	    return(diskFiles.get(idx).toString());
 		   
 	} catch (Exception e) {
