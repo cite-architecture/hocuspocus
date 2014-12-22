@@ -58,7 +58,7 @@ buildscript {
 }
 
 group = "edu.holycross.shot"
-version = '0.11.8'
+version = '0.12.0'
 
 
 repositories {
