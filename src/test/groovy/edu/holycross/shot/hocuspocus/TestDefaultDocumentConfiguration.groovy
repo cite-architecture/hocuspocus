@@ -51,7 +51,10 @@ class TestDefaultDocumentConfiguration extends GroovyTestCase {
             outDir.mkdir()
         }
         ddt.workDir = outDir
-        ddt.writeTokenUrns("test-tokenize-output.txt")
+
+
+	
+        //ddt.writeTokenUrns("test-tokenize-output.txt")
         // analyze this output...
 
         

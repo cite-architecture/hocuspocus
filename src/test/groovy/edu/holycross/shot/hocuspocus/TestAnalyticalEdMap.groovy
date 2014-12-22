@@ -21,11 +21,14 @@ class TestAnalyticalEdMap extends GroovyTestCase {
     String engUrn = "urn:cts:test1:test.unclassified"
 
     @Test void testMapping() {
+    // Rm all analyhtical edition work for now
+    /*
         Corpus c = new Corpus(invFile, archiveDir)
         String actualLangCode = c.inventory.languageForVersion(greekUrn)
 
         String expectedGreek = "edu.holycross.shot.hocuspocus.TokenizedAnalysisEditionGenerator"
         assert c.languageToTokenSystemMap[actualLangCode] == expectedGreek
+	*/
     }
 
 

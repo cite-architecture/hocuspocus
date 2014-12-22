@@ -31,22 +31,9 @@ class TestDefaultTokenization extends GroovyTestCase {
         CtsUrn urn = new CtsUrn("urn:cts:greekLit:tlg0012.tlg001.testlines")
         tab.tabulate(urn, inv, iliadAFile, outDir)
         /* 22 lines of text, plus a namespace declaration */
-        File tabulatedOutput = new File("testdata/testoutput/A_Iliad_testlines-00001.txt")
+        File tabulatedOutput = new File("testdata/testoutput/A_Iliad_testlines.txt")
         Integer expectedSize = 23
         assert tabulatedOutput.readLines().size() == expectedSize
-
-        /* Then tokenize with default tokenizer */
-        DefaultTokenizationSystem tokeSys = new DefaultTokenizationSystem()
-        ArrayList tokens = tokeSys.tokenize(tabulatedOutput, sepChar)
-        Integer expectedTokens = 158
-        assert tokens.size() == expectedTokens
-
-	// Save output for informatie manual inspection, too:
-	File tokensFile = new File(outDir, "tokenization.tsv")
-	tokens.each { pr ->
-	  tokensFile.append("${pr[0]}\t${pr[1]}\n")
-	}
-
     }
 
 

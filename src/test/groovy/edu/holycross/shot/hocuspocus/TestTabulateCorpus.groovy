@@ -27,19 +27,21 @@ class TestTabulateCorpus extends GroovyTestCase {
         CtsUrn urn = new CtsUrn("urn:cts:greekLit:tlg0012.tlg001.testlines")
         c.tabulateFile(iliadAFile, urn, outDir)
 
-        File tabulatedOutput = new File("testdata/testoutput/A_Iliad_testlines-00001.txt")
+        File tabulatedOutput = new File("testdata/testoutput/A_Iliad_testlines.txt")
         // 22 lines of made up text plus a line for namespace declaration:
         int expectedSize = 23
+	
         assert tabulatedOutput.readLines().size() == expectedSize
     }
 
 
+    /*
     @Test void testFileChunking() {
         outDir.deleteDir()
         outDir.mkdir()
 
         Tabulator tab = new Tabulator()
-        tab.setChunkSize(2)
+        //tab.setChunkSize(2)
         assert tab
 
         CtsUrn urn = new CtsUrn("urn:cts:greekLit:tlg0012.tlg001.testlines")
@@ -47,10 +49,12 @@ class TestTabulateCorpus extends GroovyTestCase {
         Integer expectedFileCount = 12
         def actualList = outDir.list({d, f-> f ==~ /.*.txt/ } as FilenameFilter).toList() 
 
+	System.err.println "Corpus is ${inv} and ${outDir}"
         assert actualList.size() == expectedFileCount
     }
 
-
+    */
+    
     @Test void testCorpus() {
         outDir.deleteDir()
         outDir.mkdir()
@@ -59,7 +63,7 @@ class TestTabulateCorpus extends GroovyTestCase {
         c.tabulateRepository(outDir)
         def actualList = outDir.list({d, f-> f ==~ /.*.txt/ } as FilenameFilter
   ).toList() 
-        def expectedSet = ["A_Iliad_testlines-00001.txt", "B_Iliad_test2-00001.txt", "no-namespace-00001.txt"] as Set
+        def expectedSet = ["A_Iliad_testlines.txt", "B_Iliad_test2.txt", "no-namespace.txt"] as Set
         assert (actualList as Set) == expectedSet
     }
 

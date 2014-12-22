@@ -24,7 +24,7 @@ class TestEdGenForUrn extends GroovyTestCase {
         outDir.mkdir()
 
         Corpus c = new Corpus(invFile, archiveDir)
-	c.generateAnalyticalEditionForUrn(srcEditionUrn, outDir)
+	//c.generateAnalyticalEditionForUrn(srcEditionUrn, outDir)
 	
     }
 }

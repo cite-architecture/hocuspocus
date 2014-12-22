@@ -34,12 +34,14 @@ class TestDocSystems extends GroovyTestCase {
         assert docConf.getDescription() == "Unclassified document type."
         assert docConf.getId() == "unclassified"
 
+	/*
         docConf.setWorkDir(outDir)
         File tokensFile = new File(outDir,"tokens.txt")
         tokensFile.setText("")
 
         docConf.writeTokenUrns(tokensFile)
         System.err.println "Tokens written to ${tokensFile}"
+	*/
     }
 
 }
