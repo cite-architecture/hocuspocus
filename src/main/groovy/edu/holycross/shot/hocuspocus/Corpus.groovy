@@ -15,7 +15,7 @@ import org.apache.commons.io.FilenameUtils
 */
 class Corpus {
 
-  Integer debug = 0
+  public Integer debug = 0
 
   String defaultTokensFile = "tokens.tsv"
 
@@ -133,6 +133,18 @@ class Corpus {
   }
 
 
+
+  // find proper file to tabulate from inventory
+  // then tabulate it
+  void tabulateFile(CtsUrn urn, File outputDir) {
+    File documentFile = new File( "${baseDirectory}/${inventory.onlineDocname(urn)}")
+    if (this.debug > 0) {
+      System.err.println "TAB THIS FILE: " + documentFile
+    }
+    tabulateFile(documentFile,urn,outputDir)
+  }
+
+  
     /** Creates a Tabulator object and uses it to tabulate
     * a given document.
     * @param f The source file in the archive to tabulate.
@@ -153,14 +165,14 @@ class Corpus {
     */
   void tabulateRepository(File outputDir) {
     urnsInInventory().each { u ->
-            CtsUrn urn = new CtsUrn(u)
-            File f = new File(baseDirectory, inventory.onlineDocname(urn))
-            if (debug > 0) {
-                System.err.println "Corpus: tabulating ${urn} with file ${f}..."
-            }
-
-            tabulateFile(f, urn, outputDir)
-       }
+      CtsUrn urn = new CtsUrn(u)
+      File f = new File(baseDirectory, inventory.onlineDocname(urn))
+      if (debug > 0) {
+	System.err.println "Corpus: tabulating ${urn} with file ${f}..."
+      }
+      
+      tabulateFile(f, urn, outputDir)
+    }
   }
 
 
@@ -668,5 +680,9 @@ class Corpus {
         }  
         return fileList
     }
+
+
+
+  
 }
 
