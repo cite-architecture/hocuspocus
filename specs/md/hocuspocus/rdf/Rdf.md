@@ -11,3 +11,5 @@ The files in <a href="../../../specs/data/archive1/xml/" concordion:set="#archiv
 
 
 
+## Text inventory metadata ##
+

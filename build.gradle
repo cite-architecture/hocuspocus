@@ -1,4 +1,5 @@
 import com.github.rjeschke.txtmark.*
+import org.apache.tools.ant.filters.*
 
 apply plugin: "base"
 apply plugin:  "groovy"
@@ -211,4 +212,10 @@ test.dependsOn setUpResources
 test {
     systemProperties 'concordion.output.dir': file("${buildDir}/concordion-results")
 
+}
+
+task conc(type: Copy, dependsOn: test) {
+  from "${buildDir}/concordion-results"
+  into "${buildDir}/concordion-formatted"
+  filter(ReplaceTokens, tokens: tokenMap)
 }

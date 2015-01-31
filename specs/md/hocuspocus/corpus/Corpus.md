@@ -7,13 +7,14 @@
 An archival corpus is made up of a set of text files, and an inventory documenting the citable structure of each document.  
 
 
+@openex@
 ### Example ###
 
 
 We can use <a href="../../../specs/data/archive1/testinventory.xml" concordion:set="#ti = setHref(#HREF)">this TextInventory file</a> with
 files in <a href="../../../specs/data/archive1/xml" concordion:set="#archive = setHref(#HREF)">this root directory</a> to <strong concordion:assertTrue="shouldMakeCorpus(#ti,#archive)">construct a Corpus</strong>.
 
-
+@closeex@
 
 
 ## The inventory ##
@@ -25,6 +26,7 @@ For a given corpus, we can determine:
 - URNs of texts are cataloged in the inventory
 
 
+@openex@
 ### Examples ###
 
 
@@ -46,7 +48,7 @@ Their URNs are :
 <tr><td>0</td><td>urn:cts:greekLit:tlg0012.tlg001.msA</td></tr>
 <tr><td>1</td><td>urn:cts:greekLit:tlg0012.tlg001.msB</td></tr>
 </table>
-
+@closeex@
 
 ## The archive of files ##
 
@@ -56,6 +58,7 @@ For a given corpus, we can determine:
 - names of XML files cataloged in the directory tree
 
 
+@openex@
 ### Examples ###
 
 In the example corpus defined above, the inventory contains entries for <strong concordion:assertEquals="shouldGetNumberFilesOnDisk(#ti,#archive)">2</strong> files.  
@@ -71,13 +74,15 @@ These files are found in the file system:
 <tr><td>1</td><td>tier2/Iliad-B.xml</td></tr>
 </table>
 
-
+@closeex@
 
 
 ## Validating a corpus ##
 
 
 We can determine if the list of files in the inventory have a one-to-one relation to the XML files in the directory hierarchy.  We can get names of documents identified in the inventory but not found on disk, and names of files found on disk but not identified in the inventory.
+
+@openex@
 
 ### Examples ###
 
@@ -93,3 +98,4 @@ If we use <a href="../../../specs/data/archive1/incompleteinv.xml" concordion:se
 
 
 
+@closeex@
