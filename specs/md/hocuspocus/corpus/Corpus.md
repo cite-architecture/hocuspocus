@@ -11,8 +11,8 @@ An archival corpus is made up of a set of text files, and an inventory documenti
 ### Example ###
 
 
-We can use <a href="../../../specs/data/archive1/testinventory.xml" concordion:set="#ti = setHref(#HREF)">this TextInventory file</a> with
-files in <a href="../../../specs/data/archive1/xml" concordion:set="#archive = setHref(#HREF)">this root directory</a> to <strong concordion:assertTrue="shouldMakeCorpus(#ti,#archive)">construct a Corpus</strong>.
+We can use <a href="../../../resources/test/data/archive1/testinventory.xml" concordion:set="#ti = setHref(#HREF)">this TextInventory file</a> with
+files in <a href="../../../resources/test/data/archive1/xml" concordion:set="#archive = setHref(#HREF)">this root directory</a> to <strong concordion:assertTrue="shouldMakeCorpus(#ti,#archive)">construct a Corpus</strong>.
 
 @closeex@
 

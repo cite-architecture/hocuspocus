@@ -79,24 +79,24 @@ configurations {
 
 
 dependencies {
-  //groovy 'org.codehaus.groovy:groovy-all:2.2.2'
-    compile group: 'org.codehaus.groovy', name: 'groovy', version: groovyversion
-    compile group: 'edu.harvard.chs', name : 'cite' , version: citeversion
-    compile group: 'edu.harvard.chs', name : 'greekutils' , version: '0.8.5'
-    compile group: 'commons-io', name: 'commons-io', version: commonsioversion
-    compile group: 'net.sf.saxon', name: 'saxon-dom', version: '8.7'
-    compile group: 'commons-io', name: 'commons-io', version: '1.4'
+  
+  compile group: 'org.codehaus.groovy', name: 'groovy', version: groovyversion
+  compile group: 'edu.harvard.chs', name : 'cite' , version: citeversion
+  compile group: 'edu.harvard.chs', name : 'greekutils' , version: '0.8.5'
+  compile group: 'commons-io', name: 'commons-io', version: commonsioversion
+  compile group: 'net.sf.saxon', name: 'saxon-dom', version: '8.7'
+  compile group: 'commons-io', name: 'commons-io', version: '1.4'
 
             
-  //testCompile group: 'junit', name: 'junit', version: junitversion
   testCompile 'junit:junit:4.11'
   testCompile 'org.concordion:concordion:1.4.4'
   testCompile group :'xmlunit', name: 'xmlunit', version: xmlunitversion
   compile group: 'com.thaiopensource', name:'jing', version: jingversion
-    //    groovy group:'org.iso_relax.verifier.jaxp.validation', name:'isorelax-jaxp-bridge', version:'1.0'
-    schemas group: 'edu.harvard.chs', name: 'cite', version: citeversion, classifier: 'schemas', ext: 'zip'
+  //    groovy group:'org.iso_relax.verifier.jaxp.validation', name:'isorelax-jaxp-bridge', version:'1.0'
+  schemas group: 'edu.harvard.chs', name: 'cite', version: citeversion, classifier: 'schemas', ext: 'zip'
 
 }
+
 
 task checkOutSchemas {
     doLast {
@@ -126,25 +126,6 @@ uploadArchives {
         }
     }
 }
-
-/*
-task cleanTest () {
-    doLast {
-        File out1 = new File("testdata/testoutput")
-        if (out1.exists()) { 
-            out1.listFiles().each { f ->
-                System.err.println "Delete " + f
-                f.delete()
-            }
-            out1.delete() 
-        }
-        out1.mkdir()
-    }
-}
-
-
-test.dependsOn cleanTest
-*/
 
 
 
@@ -211,10 +192,11 @@ setUpResources.doLast {
 test.dependsOn setUpResources
 test {
     systemProperties 'concordion.output.dir': file("${buildDir}/concordion-results")
-
 }
 
-task conc(type: Copy, dependsOn: test) {
+
+  //task conc(type: Copy, dependsOn: test) {
+task conc(type: Copy) {
   from "${buildDir}/concordion-results"
   into "${buildDir}/concordion-formatted"
   filter(ReplaceTokens, tokens: tokenMap)
