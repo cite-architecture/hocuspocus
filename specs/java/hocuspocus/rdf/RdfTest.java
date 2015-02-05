@@ -13,6 +13,8 @@ import java.io.BufferedReader;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.TreeSet;
+import java.util.SortedSet;
 
 public class RdfTest extends ConcordionTestCase {
 
@@ -25,6 +27,63 @@ public class RdfTest extends ConcordionTestCase {
 	return (path);
     }
 
+    public Iterable<String>  shouldGetVerbs(String ti, String archive, String outDir) {
+	SortedSet<String> verbs = new TreeSet<String>();
+	String delims = "[ \t]+";
+	String line;
+	Integer count = 0;
+	try {
+	//	File tabDir = new File(outDir);
+	String tabPath = new java.io.File( "." ).getCanonicalPath() + "/build/verbtabs";
+	File tabDir = new File(tabPath);
+	if (! tabDir.exists()) {
+	    tabDir.mkdir();
+	    System.err.println ("\n\nMAKE FREAKING DIR " + outDir);
+	} else {
+	    System.err.println ("\n\nDIR " + outDir + " ALREADY EXISTS");
+	}
+
+	File ttl = new File(tabDir, "corpus.ttl");
+	if (ttl.exists()) {
+	    ttl.delete();
+	}
+
+	System.err.println ("Get verbs for ti " + ti + ", archive " + archive +" out dir " + outDir);
+	System.err.println ("\n\nCORPUS FILE IS " + ttl + "\n\n") ;
+	
+	String buildPath = new java.io.File( "." ).getCanonicalPath() + docPath;
+	    File inv =  new File(buildPath + ti);
+	    File archiveDir = new File(buildPath + archive);
+	    Corpus c = new Corpus(inv, archiveDir);
+	    c.debug = 10;
+	    System.err.println ("Turtleize to " + tabDir);
+	    c.turtleizeRepository(tabDir);
+
+
+
+	    FileReader ttlReader = new FileReader(ttl);
+	    BufferedReader reader = new BufferedReader(ttlReader);
+	    while ((line = reader.readLine()) != null) {
+		count++;
+		String[] tokens = line.split(delims);
+		if (tokens.length > 1) {
+		    String verb = tokens[1];
+		    System.err.println(verb + " from: " + line);
+		    verbs.add(verb);
+		}
+	    }
+
+	    System.err.println ("\n\nLooked at a total of " + count + " lines in "   + ttl.toString());
+
+	    
+	} catch (Exception e) {
+	    System.err.println ("Your test failed miserably: "  + e.toString());
+	}
+
+
+        return verbs;
+    }
+
 
     public String shouldGetTtlFileName(String ti, String archive, String outDir) {
 	try {
@@ -33,7 +92,7 @@ public class RdfTest extends ConcordionTestCase {
 	    File archiveDir = new File(buildPath + archive);
 	    Corpus c = new Corpus(inv, archiveDir);
 
-	    File tabDir = new File("build/tabulated");
+	    File tabDir = new File(outDir);
 	    if (! tabDir.exists()) {
 		tabDir.mkdir();
 	    }
@@ -49,20 +108,18 @@ public class RdfTest extends ConcordionTestCase {
 
 
 
-       public Integer shouldCountTtlContentLines(String ti, String archive, String outDir) {
+    public Integer shouldCountTtlContentLines(String ti, String archive, String outDir) {
 	try {
 	    String buildPath = new java.io.File( "." ).getCanonicalPath() + docPath;
 	    File inv =  new File(buildPath + ti);
 	    File archiveDir = new File(buildPath + archive);
 	    Corpus c = new Corpus(inv, archiveDir);
-
-	    File tabDir = new File("build/tabulated");
+		    
+	    File tabDir = new File(outDir);
 	    if (! tabDir.exists()) {
 		tabDir.mkdir();
 	    }
 	    
-
-
 	    File ttl = new File(tabDir, "corpus.ttl");
 	    if (ttl.exists()) {
 		ttl.delete();
@@ -72,9 +129,8 @@ public class RdfTest extends ConcordionTestCase {
 	    FileReader ttlReader = new FileReader(ttl);
 	    Integer count = 0;
 	    BufferedReader reader = new BufferedReader(ttlReader);
-	     String line;
+	    String line;
 	     while ((line = reader.readLine()) != null) {
-		 System.out.println(line);
 		 if (line.matches(".*TextContent.*")) {
 		     count++;
 		 }
