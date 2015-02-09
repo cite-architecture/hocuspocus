@@ -1,7 +1,6 @@
-#hocuspocus #
+# Specifications for `hocuspocus` #
 
 
-## A system for managing a corpus of citable texts ##
 
 
 Hocuspocus helps manage a collection of text stored in an archival format, and prepares standard kinds of output from those archival texts.
