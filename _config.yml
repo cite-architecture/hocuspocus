@@ -24,6 +24,8 @@ github:
 version:          0.12.0
 
 links:
+  - title: Documentation
+    url: /docs
   - title: Live specification
     url: /specs/hocuspocus/Hocuspocus.html
   - title: Github project
