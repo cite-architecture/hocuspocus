@@ -25,11 +25,6 @@ The for-loop below dynamically generates a sidebar nav of pages with
 <a class="sidebar-nav-item"
 href="{% if link.external %}{{ link.url }}{% else %}{{ site.baseurl }}{{ link.url }}{% endif %}" {% if link.external %}target="_blank"{% endif %}>{{ link.title }}</a>
 {% endfor %}
-
-
-<a class="sidebar-nav-item" href="{{ site.github.repo }}">GitHub project</a>
-
-
 </nav>
 
 <div class="sidebar-item">
