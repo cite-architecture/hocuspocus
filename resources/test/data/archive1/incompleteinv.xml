@@ -1,0 +1,62 @@
+
+<?xml-model href="TextInventory.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TextInventory
+  tiid="hmt"
+  tiversion="5.0.rc.1"
+  xmlns="http://chs.harvard.edu/xmlns/cts"
+  xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <ctsnamespace
+    abbr="greekLit"
+    ns="chs.harvard.edu/ctsns/greekLit">
+    <description
+      xml:lang="eng"> The &quot;First Thousand Years of Greek&quot; project's inventory of Greek
+      texts. </description>
+  </ctsnamespace>
+  <ctsnamespace
+    abbr="homerPap"
+    ns="chs.harvard.edu/ctsns/homericPapyri">
+    <description
+      xml:lang="eng"> Papyri represented by electronic editions in the Homer Multitext Project.
+    </description>
+  </ctsnamespace>
+  
+  
+  <textgroup
+    urn="urn:cts:greekLit:tlg0012">
+    <groupname
+      xml:lang="eng"> Homer </groupname>
+    <work urn="urn:cts:greekLit:tlg0012.tlg001" xml:lang="grc">
+      <title xml:lang="eng">Iliad</title>
+   
+    
+      <edition
+        urn="urn:cts:greekLit:tlg0012.tlg001.msA">
+        <label
+          xml:lang="eng"> A </label>
+        <description
+          xml:lang="eng"> Venice: Marcianus Graecus Z.454 (=822). </description>
+        <online
+          docname="Iliad-A.xml">
+         
+         
+          <namespaceMapping
+            abbreviation="tei"
+            nsURI="http://www.tei-c.org/ns/1.0"/>
+          <citationMapping>
+            <citation
+              label="book"
+              scope="/tei:TEI/tei:text/tei:body"
+              xpath="/tei:div[@n = '?']">
+              <citation
+                label="line"
+                scope="/tei:TEI/tei:text/tei:body/tei:div[@n = '?']"
+                xpath="/tei:l[@n = '?']"/>
+            </citation>
+          </citationMapping>
+        </online>
+        
+      </edition>
+    
+    </work>
+  </textgroup>
+</TextInventory>
