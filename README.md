@@ -1,9 +1,8 @@
 # hocuspocus#
 
-`hocuspocus` is a system for managing a corpus of citable texts.  It is implemented in groovy, 
-and uses gradle for its build system. You can retrieve binary jars, and zip files with source and documentation directly from the Nexus reposistory at [http://beta.hpcc.uh.edu/nexus](http://beta.hpcc.uh.edu/nexus) or by using the maven coordinates group `edu.holycross.shot`, name `hocuspocus`.
+`hocuspocus` is a system for managing a corpus of citable texts.  It is implemented in groovy, and uses gradle for its build system. You can retrieve binary jars, and zip files with source and documentation directly from the Nexus reposistory at [http://beta.hpcc.uh.edu/nexus](http://beta.hpcc.uh.edu/nexus) or by using the maven coordinates group `edu.holycross.shot`, name `hocuspocus`.
 
-Additional documentation in multimarkdown format is in the `docs` directory.
+Additional documentation is available from the project web site at <http://cite-architecture.github.io/hocuspocus/>.
 
 ##Usage and prerequisites##
 
