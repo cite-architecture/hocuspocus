@@ -1,0 +1,29 @@
+# Dependencies
+markdown:         redcarpet
+pygments:         true
+
+# Permalinks
+permalink:        pretty
+
+# Setup
+title:            hocuspocus
+tagline:          'Library for working with a CTS archive'
+description:      'hocuspocus is a library for working with a CTS archive'
+baseurl: '/hocuspocus/'
+
+
+author:
+  name:           'Neel Smith'
+ 
+
+paginate:         5
+
+github:
+  repo:           https://github.com/neelsmith/hocuspocus
+
+version:          0.12.0
+
+links:
+  - title: Live specifications
+    url: /specs
+   
