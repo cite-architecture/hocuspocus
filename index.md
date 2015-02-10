@@ -7,6 +7,6 @@ title: hocuspocus
 
 Specifications for the library are being written using [concordion](http://concordion.org) to specify tests.  The output of testing these specifications is included [here](specs/hocuspocus/Hocuspocus.html).
 
-Initial documentation is available [here](docs).
+API documentation is available [here](api).  Some further initial documentation is available [here](docs).
 
 

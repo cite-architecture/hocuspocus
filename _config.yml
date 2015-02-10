@@ -28,6 +28,8 @@ links:
     url: /docs
   - title: Live specification
     url: /specs/hocuspocus/Hocuspocus.html
+  - title: API docs
+    url: /api
   - title: Github project
     url: https://github.com/cite-architecture/hocuspocus
     external: true
