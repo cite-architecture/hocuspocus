@@ -50,7 +50,7 @@ public class CorpusTest extends ConcordionTestCase {
 	    return c.filesInInventory().size();
 
 	} catch (Exception e) {
-	    System.err.println ("CorpusTest: Unable to make corpus: " + e.toString());
+	    System.err.println ("CorpusTest, number files: Unable to make corpus: " + e.toString());
 	    return -1;
 	}
     }
@@ -82,7 +82,7 @@ public class CorpusTest extends ConcordionTestCase {
 	    return(invFiles.get(idx).toString());
 		   
 	} catch (Exception e) {
-	    return ("Unable to make corpus: " + e.toString());
+	    return ("CorpusTest, number in inv: unable to make corpus: " + e.toString());
 	}
 
     }
@@ -167,7 +167,7 @@ public class CorpusTest extends ConcordionTestCase {
 	    return(diskFiles.get(idx).toString());
 		   
 	} catch (Exception e) {
-	    return ("Unable to make corpus: " + e.toString());
+	    return ("CorpusTest, on disk no inv: Unable to make corpus: " + e.toString());
 	}
     }
 
@@ -201,7 +201,7 @@ public class CorpusTest extends ConcordionTestCase {
 	    return(invFiles.get(idx).toString());
 		   
 	} catch (Exception e) {
-	    return ("Unable to make corpus: " + e.toString());
+	    return ("CorpusTest, in inv not on disk: unable to make corpus: " + e.toString());
 	}
     }
 

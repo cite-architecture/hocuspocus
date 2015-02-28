@@ -1,6 +1,7 @@
 import com.github.rjeschke.txtmark.*
 import org.apache.tools.ant.filters.*
 
+
 apply plugin: "base"
 apply plugin:  "groovy"
 apply plugin:  "maven"
@@ -193,7 +194,6 @@ test.dependsOn setUpResources
 test {
     systemProperties 'concordion.output.dir': file("${buildDir}/concordion-results")
 }
-
 
 task conc(type: Copy, dependsOn: test) {
 //task conc(type: Copy) {
