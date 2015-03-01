@@ -82,11 +82,11 @@ configurations {
 dependencies {
   
   compile group: 'org.codehaus.groovy', name: 'groovy', version: groovyversion
-  compile group: 'edu.harvard.chs', name : 'cite' , version: citeversion
-  compile group: 'edu.harvard.chs', name : 'greekutils' , version: '0.8.5'
+
+  
+  
   compile group: 'commons-io', name: 'commons-io', version: commonsioversion
   compile group: 'net.sf.saxon', name: 'saxon-dom', version: '8.7'
-  compile group: 'commons-io', name: 'commons-io', version: '1.4'
 
             
   testCompile 'junit:junit:4.11'
@@ -94,21 +94,32 @@ dependencies {
   testCompile group :'xmlunit', name: 'xmlunit', version: xmlunitversion
   compile group: 'com.thaiopensource', name:'jing', version: jingversion
   //    groovy group:'org.iso_relax.verifier.jaxp.validation', name:'isorelax-jaxp-bridge', version:'1.0'
+
+
+
+
+  // DOCUMENT THESE: 
+  compile group: 'edu.harvard.chs', name : 'cite' , version: citeversion
+  compile group: 'edu.harvard.chs', name : 'greekutils' , version: greekutilsversion
   schemas group: 'edu.harvard.chs', name: 'cite', version: citeversion, classifier: 'schemas', ext: 'zip'
 
 }
 
+task squawk() {
+  System.out.println "citeversion: " + citeversion
+}
 
 task checkOutSchemas {
-    doLast {
-        configurations.schemas.files.each { f ->
-            println "SCHEMA DEPENDENCY: " + f.name
-            FileTree schemaTree = zipTree(f)
-            schemaTree.each { s ->
-                println "${s} from ${s.getClass()}"
-            }
-        }
+  description = ""
+  doLast {
+    configurations.schemas.files.each { f ->
+      println "SCHEMA DEPENDENCY: " + f.name
+      FileTree schemaTree = zipTree(f)
+      schemaTree.each { s ->
+	println "${s} from ${s.getClass()}"
+      }
     }
+  }
 }
 
 
@@ -158,7 +169,7 @@ task cpResources(type: Copy) {
 task setUpResources(dependsOn: cpResources) {
 }
 setUpResources.doLast {
-  println "READING FILE TREE FROM " + mdSrc
+  println "READING FILE TREE FROM " + mdSrc + " DIRECTORY"
   FileTree tree = fileTree(mdSrc) {
     include "**/*.md"
   }
@@ -195,7 +206,15 @@ test {
     systemProperties 'concordion.output.dir': file("${buildDir}/concordion-results")
 }
 
-task conc(type: Copy, dependsOn: test) {
+task addVersion(){
+}
+addVersion.doLast {
+  tokenMap["version"] = version
+  tokenMap["deps"] = "<tr><td>cite</td><td>" + citeversion + "</td></tr>" +
+    "<tr><td>greekutils</td><td>" + greekutilsversion + "</td></tr>" 
+}
+
+task conc(type: Copy, dependsOn: [test, addVersion]) {
 //task conc(type: Copy) {
   from "${buildDir}/concordion-results"
   into "${buildDir}/concordion-formatted"

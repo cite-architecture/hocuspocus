@@ -1,4 +1,4 @@
-# Specifications for `hocuspocus` #
+# Specifications for `hocuspocus`, version @version@ #
 
 
 
@@ -10,3 +10,7 @@ Hocuspocus helps manage a collection of text stored in an archival format, and p
 - Converting <a concordion:run="concordion" href="tabulator/Tabulator.html">canonically citable texts to a tabular format</a> equivalent under OHCO2 
 - Generating an OHCO2-complete representation  of the corpus with <a concordion:run="concordion" href="rdf/Rdf.html">RDF statements</a> 
 
+
+## Relation to other CITE packages ##
+
+`hocuspocus` relies on [other code packages](dependencies/Dependencies.html)

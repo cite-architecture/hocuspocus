@@ -19,6 +19,8 @@ files in <a href="../../../resources/test/data/archive1/xml" concordion:set="#ar
 
 ## The inventory ##
 
+When serialized as XML, the inventory validates against a Relax NG schema.
+
 For a given corpus, we can determine:
 
 - the number of files cataloged in the inventory
