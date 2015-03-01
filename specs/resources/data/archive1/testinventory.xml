@@ -795,6 +795,19 @@
         <label xml:lang="eng"> W5 </label>
         <description xml:lang="eng"> Breslau 29 (= Heyne Vrat. a) </description>
       </edition>
+      <translation urn="urn:cts:greekLit:tlg0012.tlg001.butler" xml:lang="eng">
+        <label xml:lang="eng">Butler's Traslation (abbrev.)</label>
+        <description xml:lang="eng">A highly abbreviated text of Butler's Iliad</description>
+        <online docname="Iliad-Butler.xml">
+          
+          <namespaceMapping abbreviation="tei" nsURI="http://www.tei-c.org/ns/1.0"/>
+          <citationMapping>
+            <citation label="Book" scope="/tei:TEI/tei:text/tei:body" xpath="/tei:div1[@n='?']">
+              <citation label="Line" scope="/tei:TEI/tei:text/tei:body/tei:div1[@n='?']" xpath="/tei:p[@n='?']"/>
+            </citation>
+          </citationMapping>
+        </online>
+      </translation>
     </work>
   </textgroup>
 </TextInventory>
