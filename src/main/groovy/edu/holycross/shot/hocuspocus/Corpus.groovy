@@ -17,8 +17,20 @@ class Corpus {
 
   public Integer debug = 0
 
-  String defaultTokensFile = "tokens.tsv"
+  // ********** MOVE ALL OF THIS OUT OF H-P **************************************** */
+  //String defaultTokensFile = "tokens.tsv"
+    /** Map to configure default tokenization system for given ISO language codes. */
+    //    LinkedHashMap languageToTokenSystemMap = ["grc": "edu.holycross.shot.hocuspocus.HmtGreekTokenization"]
 
+
+
+    /** Map to configure default analytical edition generating system for given ISO language codes. */
+    //   LinkedHashMap languageToAnalyticalEditionMap = []
+
+
+
+  // ********** MOVE ALL OF THE ABOVE OUT OF H-P **************************************** */
+  
   /** Character encoding to use for all file output. */
   String charEnc = "UTF-8"
 
@@ -26,13 +38,10 @@ class Corpus {
     String prefix = "@prefix hmt:        <http://www.homermultitext.org/hmt/rdf/> .\n@prefix cts:        <http://www.homermultitext.org/cts/rdf/> .\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n@prefix dcterms: <http://purl.org/dc/terms/> .\n"
 
 
-    /** Map to configure default tokenization system for given ISO language codes. */
-    LinkedHashMap languageToTokenSystemMap = ["grc": "edu.holycross.shot.hocuspocus.HmtGreekTokenization"]
 
 
 
-    /** Map to configure default analytical edition generating system for given ISO language codes. */
-    LinkedHashMap languageToAnalyticalEditionMap = []
+    
 
     /** TextInventory with entries for all documents in the corpus. 
     */
@@ -463,6 +472,8 @@ class Corpus {
 
 
   // tokenize tabular editions in direcotry outputDir
+  // THIS IS NOT A H-P TASK: IT'S PROJECT-SPECIFIC
+  /*
   void tokenizeTabFiles(File outputDir) {
     File tokensFile = new File(outputDir, defaultTokensFile)
     outputDir.eachFileMatch(~/.*.txt/) { tab ->  
@@ -494,6 +505,7 @@ class Corpus {
     tabulateRepository(outputDir)
     tokenizeTabFiles(outputDir)
   }
+  */
 
   /** First tabulates the entire repository, then uses the resulting
    * tabulated files to tokenize the inventory using the specified
@@ -501,6 +513,9 @@ class Corpus {
    * @param tokenSystem TokenizationSystem to apply to the inventory.
    * @param outputDir A writable directory where the output will be created.
    */
+
+
+  /*
   void tokenizeRepository(TokenizationSystem tokenSystem, File outputDir) {
         tokenizeRepository(tokenSystem, outputDir, this.separatorString)
 
@@ -515,7 +530,10 @@ class Corpus {
 	  tab.delete()
         }
   }
+  */
 
+
+  
     /** First tabulates the entire inventory, then uses the resulting
     * tabulated files to tokenize the inventory using the specified
     * Tokenization system, and writes resulting RDF TTL in outputDir.
@@ -525,6 +543,8 @@ class Corpus {
     * @param dividerString String value used to separator fields of 
     * tabulated files.
     */
+
+  /*
   void tokenizeRepository(TokenizationSystem tokenSystem, File outputDir, String dividerString) {
         File tokensFile = new File(outputDir, defaultTokensFile)
         tabulateRepository(outputDir)
@@ -538,7 +558,11 @@ class Corpus {
 	  //tab.delete()
         }
   }
+  */
 
+
+
+  
 
     /** Validates the XML serialization of the corpus's TextInventory 
     * against the published schema for a CITE TextInventory.
