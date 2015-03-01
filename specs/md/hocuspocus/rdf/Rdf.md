@@ -46,6 +46,7 @@ Twelve verbs in the `cts` namespace are used with the following semantics (TBA):
 - cts:next
 - cts:possesses
 - cts:prev
+- cts:translationLang
 - cts:xmlns
 
 
@@ -79,6 +80,7 @@ The files in <a href="../../../resources/test/data/archive1/xml/" concordion:set
 <tr><td>cts:next</td></tr>
 <tr><td>cts:possesses</td></tr>
 <tr><td>cts:prev</td></tr>
+<tr><td>cts:translationLang</td></tr>
 <tr><td>cts:xmlns</td></tr>
 <tr><td>dcterms:title</td></tr>
 <tr><td>hmt:xmlOpen</td></tr>
