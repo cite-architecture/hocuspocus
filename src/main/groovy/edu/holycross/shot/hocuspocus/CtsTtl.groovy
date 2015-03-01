@@ -18,8 +18,12 @@ class CtsTtl {
   Integer FRANTIC = 3
   Integer debug = 0
 
-    /** RDF prefix declarations */
-    String prefixStr = "@prefix hmt:        <http://www.homermultitext.org/hmt/rdf/> .\n@prefix cts:        <http://www.homermultitext.org/cts/rdf/> .\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n@prefix dcterms: <http://purl.org/dc/terms/> .\n"
+  /** RDF prefix declarations */
+  String prefixStr = """
+@prefix hmt:        <http://www.homermultitext.org/hmt/rdf/> .
+@prefix cts:        <http://www.homermultitext.org/cts/rdf/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .""".toString()
 
     /** String used to separate columns in tabular files. */
     String separatorValue = "#"

@@ -19,53 +19,45 @@ class Corpus {
 
   // ********** MOVE ALL OF THIS OUT OF H-P **************************************** */
   //String defaultTokensFile = "tokens.tsv"
-    /** Map to configure default tokenization system for given ISO language codes. */
+    /* * Map to configure default tokenization system for given ISO language codes. */
     //    LinkedHashMap languageToTokenSystemMap = ["grc": "edu.holycross.shot.hocuspocus.HmtGreekTokenization"]
 
 
 
-    /** Map to configure default analytical edition generating system for given ISO language codes. */
+    /* * Map to configure default analytical edition generating system for given ISO language codes. */
     //   LinkedHashMap languageToAnalyticalEditionMap = []
 
 
 
   // ********** MOVE ALL OF THE ABOVE OUT OF H-P **************************************** */
   
-  /** Character encoding to use for all file output. */
+  /** Character encoding to use for all file output, initialized to
+   * default value of UTF-8.    */
   String charEnc = "UTF-8"
-
-    /** TTL prefix declaration for HMT namespace. */
-    String prefix = "@prefix hmt:        <http://www.homermultitext.org/hmt/rdf/> .\n@prefix cts:        <http://www.homermultitext.org/cts/rdf/> .\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n@prefix dcterms: <http://purl.org/dc/terms/> .\n"
-
-
-
-
-
     
 
-    /** TextInventory with entries for all documents in the corpus. 
-    */
-    TextInventory  inventory
+  /** TextInventory with entries for all documents in the corpus. 
+   */
+  TextInventory  inventory
 
-    /** XML serialization of TextInventory information, in a File.
-    */
-    File  inventoryXml
+  /** XML serialization of TextInventory information, in a File.
+   */
+  File  inventoryXml
+  
+  /** Root directory of file system containing archival files.
+   */
+  File baseDirectory
 
-    /** Root directory of file system containing archival files.
-    */
-    File baseDirectory
+  /** String value defining columns in tabular text format. 
+   */
+  String separatorString = "#"
 
-    /** String value defining columns in tabular text format. 
-     */
-    String separatorString = "#"
-
-    /** Constructor using a local File object for the corpus' TextInventory.
-    * @param invFile File with the corpus' TextInventory.
-    * @baseDir Root directory of file system containing archival files.
-    * @throws Exception if invFile is not a valid TextInventory, or if
-    * archive directory is not readable
-    */
-
+  /** Constructor using a local File object for the corpus' TextInventory.
+   * @param invFile File with the corpus' TextInventory.
+   * @baseDir Root directory of file system containing archival files.
+   * @throws Exception if invFile is not a valid TextInventory, or if
+   * archive directory is not readable
+   */
     Corpus(File invFile, File baseDir) 
     throws Exception {
       try{
@@ -296,12 +288,9 @@ class Corpus {
         if (debug > 0) {
             System.err.println "Ttl'ing to ${ttlFile} after tabbing to ${tabDir}"
         }
-        if (includePrefix) {
-            ttlFile.append(prefix, charEnc)
-        }
 
         CtsTtl turtler = new CtsTtl(this.inventory)        
-        ttlFile.append(turtler.turtleizeInv(), charEnc)
+        ttlFile.append(turtler.turtleizeInv(includePrefix), charEnc)
 
         tabulateRepository(tabDir)
         turtleizeTabsToFile(tabDir, ttlFile, false)

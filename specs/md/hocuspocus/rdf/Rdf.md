@@ -19,7 +19,19 @@ The files in <a href="../../../resources/test/data/archive1/xml/" concordion:set
 ## RDF verbs ##
 
 
-`hocuspocus` uses RDF verbs from four vocabularies:   the RDF Concepts vocabulary (http://www.homermultitext.org/hmt/rdf/, abbreivated `rdf`), the Dublin Core Metdata vocabulary  (http://purl.org/dc/terms/, abbreviated `dc`),  the Canonical Text Services vocabulary (http://www.homermultitext.org/cts/rdf/, abbreviated `cts`) and the Homer Multitext project vocabulary (http://www.homermultitext.org/hmt/rdf/, abbreviated `hmt`).
+`hocuspocus` uses RDF verbs from four vocabularies:   
+
+- the RDF Concepts vocabulary (http://www.homermultitext.org/hmt/rdf/, abbreivated `rdf`)
+-  the Dublin Core Metdata vocabulary  (http://purl.org/dc/terms/, abbreviated `dc`)
+-  the Canonical Text Services vocabulary (http://www.homermultitext.org/cts/rdf/, abbreviated `cts`) 
+-  the Homer Multitext project vocabulary (http://www.homermultitext.org/hmt/rdf/, abbreviated `hmt`).
+
+@openex@
+
+### Example ###
+
+
+@closeex@
 
 ### RDF Concepts ###
 
