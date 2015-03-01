@@ -550,7 +550,7 @@ class Corpus {
     validateInventory(new File("testdata/schemas/TextInventory.rng"))
   }
 
-  void validateInventory(File schemaFie)  {
+  void validateInventory(File schemaFile)  {
   //URL TextInvSchema = new URL("http://www.homermultitext.org/hmtschemas/TextInventory.rng")
   //File TextInvSchema = new File(schemaFileName)
   
