@@ -1,12 +1,17 @@
 
 
 ext {
- citeversion = '0.92.1'
-  greekutilsversion = '0.8.5'
   
  groovyversion = '2.2.2'
  commonsioversion = '1.4'
  jingversion = '20091111'
  junitversion = '4.10'
  xmlunitversion = '1.3'
+
+
+ // report these in specs listing
+ // of cite dependencies
+ citeversion = '0.92.1'
+ greekutilsversion = '0.8.5'
+
 }
