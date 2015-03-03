@@ -22,11 +22,11 @@
   
   
   <textgroup
-    urn="urn:cts:greekLit:tlg0012">
+    urn="urn:cts:greekLit:tlg0012:">
     <groupname
       xml:lang="eng"> Homer </groupname>
     <work
-      urn="urn:cts:greekLit:tlg0012.tlg001"
+      urn="urn:cts:greekLit:tlg0012.tlg001:"
       xml:lang="grc">
       <title
         xml:lang="eng"> Iliad </title>
@@ -34,7 +34,7 @@
       
       
       <edition
-        urn="urn:cts:greekLit:tlg0012.tlg001.msA">
+        urn="urn:cts:greekLit:tlg0012.tlg001.msA:">
         <label
           xml:lang="eng"> A </label>
         <description
@@ -63,7 +63,7 @@
    
    
       <edition
-        urn="urn:cts:greekLit:tlg0012.tlg001.msB">
+        urn="urn:cts:greekLit:tlg0012.tlg001.msB:">
         <label
           xml:lang="eng"> B </label>
         <description
@@ -90,7 +90,7 @@
       </edition>
       
       <edition
-        urn="urn:cts:greekLit:tlg0012.tlg001.msC">
+        urn="urn:cts:greekLit:tlg0012.tlg001.msC:">
         <label
           xml:lang="eng"> C </label>
         <description

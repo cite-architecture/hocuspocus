@@ -16,9 +16,14 @@ import java.util.Collections;
 import java.util.TreeSet;
 import java.util.SortedSet;
 
+import edu.holycross.shot.hocuspocus.CtsTtl ;
+
 public class RdfTest extends ConcordionTestCase {
 
     String docPath = "/build/concordion-results/hocuspocus/rdf/";
+
+    /** Path in concordion build to RNG schema for Text Inventory.*/
+    String schema = "../../../resources/test/schemas/TextInventory.rng";
 
     
     /** Hands back a String parameter so we can save links using concordion's
@@ -27,6 +32,24 @@ public class RdfTest extends ConcordionTestCase {
 	return (path);
     }
 
+
+    public String getInvTTL (String ti)
+    throws Exception {
+	String buildPath = new java.io.File( "." ).getCanonicalPath() + docPath;
+
+	try {
+	    TextInventory inv =  new TextInventory(new File(buildPath + ti));
+	    CtsTtl cttl = new CtsTtl(inv);
+	    String ttl = cttl.turtleizeInv();
+	    System.err.println ("\n\n\nTTL FROM IVENTORY ONLY:  \n" + ttl);
+	    return   (ttl);
+	} catch (Exception e) {
+	    System.err.println ("getInvTTL: execption " + e.toString());
+	    throw e;
+	}
+    }
+
+    
     public Iterable<String>  shouldGetVerbs(String ti, String archive, String outDir) {
 	SortedSet<String> verbs = new TreeSet<String>();
 	String delims = "[ \t]+";
@@ -38,7 +61,6 @@ public class RdfTest extends ConcordionTestCase {
 	File tabDir = new File(tabPath);
 	if (! tabDir.exists()) {
 	    tabDir.mkdir();
-	    System.err.println ("\n\nMAKE FREAKING DIR " + outDir);
 	} else {
 	    System.err.println ("\n\nDIR " + outDir + " ALREADY EXISTS");
 	}
@@ -48,15 +70,16 @@ public class RdfTest extends ConcordionTestCase {
 	    ttl.delete();
 	}
 
-	System.err.println ("Get verbs for ti " + ti + ", archive " + archive +" out dir " + outDir);
-	System.err.println ("\n\nCORPUS FILE IS " + ttl + "\n\n") ;
+	//System.err.println ("Get verbs for ti " + ti + ", archive " + archive +" out dir " + outDir);
+	//System.err.println ("\n\nCORPUS FILE IS " + ttl + "\n\n") ;
 	
 	String buildPath = new java.io.File( "." ).getCanonicalPath() + docPath;
 	    File inv =  new File(buildPath + ti);
 	    File archiveDir = new File(buildPath + archive);
-	    Corpus c = new Corpus(inv, archiveDir);
-	    c.debug = 10;
-	    System.err.println ("Turtleize to " + tabDir);
+	    File schemaFile = new File(buildPath + schema);	    
+	    Corpus c = new Corpus(inv, archiveDir, schemaFile);
+	    c.debug = 0;
+	    //System.err.println ("Turtleize to " + tabDir);
 	    c.turtleizeRepository(tabDir);
 
 
@@ -68,12 +91,12 @@ public class RdfTest extends ConcordionTestCase {
 		String[] tokens = line.split(delims);
 		if (tokens.length > 1) {
 		    String verb = tokens[1];
-		    System.err.println(verb + " from: " + line);
+		    //System.err.println(verb + " from: " + line);
 		    verbs.add(verb);
 		}
 	    }
 
-	    System.err.println ("\n\nLooked at a total of " + count + " lines in "   + ttl.toString());
+	    //System.err.println ("\n\nLooked at a total of " + count + " lines in "   + ttl.toString());
 
 	    
 	} catch (Exception e) {
@@ -90,7 +113,8 @@ public class RdfTest extends ConcordionTestCase {
 	    String buildPath = new java.io.File( "." ).getCanonicalPath() + docPath;
 	    File inv =  new File(buildPath + ti);
 	    File archiveDir = new File(buildPath + archive);
-	    Corpus c = new Corpus(inv, archiveDir);
+	    File schemaFile = new File(buildPath + schema);
+	    Corpus c = new Corpus(inv, archiveDir, schemaFile);
 
 	    File tabDir = new File(outDir);
 	    if (! tabDir.exists()) {
@@ -113,7 +137,8 @@ public class RdfTest extends ConcordionTestCase {
 	    String buildPath = new java.io.File( "." ).getCanonicalPath() + docPath;
 	    File inv =  new File(buildPath + ti);
 	    File archiveDir = new File(buildPath + archive);
-	    Corpus c = new Corpus(inv, archiveDir);
+	    File schemaFile = new File(buildPath + schema);
+	    Corpus c = new Corpus(inv, archiveDir, schemaFile);
 		    
 	    File tabDir = new File(outDir);
 	    if (! tabDir.exists()) {

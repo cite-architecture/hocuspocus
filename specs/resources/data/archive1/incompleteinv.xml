@@ -22,15 +22,15 @@
   
   
   <textgroup
-    urn="urn:cts:greekLit:tlg0012">
+    urn="urn:cts:greekLit:tlg0012:">
     <groupname
       xml:lang="eng"> Homer </groupname>
-    <work urn="urn:cts:greekLit:tlg0012.tlg001" xml:lang="grc">
+    <work urn="urn:cts:greekLit:tlg0012.tlg001:" xml:lang="grc">
       <title xml:lang="eng">Iliad</title>
    
     
       <edition
-        urn="urn:cts:greekLit:tlg0012.tlg001.msA">
+        urn="urn:cts:greekLit:tlg0012.tlg001.msA:">
         <label
           xml:lang="eng"> A </label>
         <description

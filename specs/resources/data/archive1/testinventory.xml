@@ -12,28 +12,28 @@
   </ctsnamespace>
 
 
-  <textgroup urn="urn:cts:greekLit:tlg0012">
+  <textgroup urn="urn:cts:greekLit:tlg0012:">
     <groupname xml:lang="eng"> Homer </groupname>
-    <work urn="urn:cts:greekLit:tlg0012.tlg001" xml:lang="grc">
+    <work urn="urn:cts:greekLit:tlg0012.tlg001:" xml:lang="grc">
       <title xml:lang="eng"> Iliad </title>
       
-      <edition urn="urn:cts:greekLit:tlg0012.tlg001.msBm1">
+      <edition urn="urn:cts:greekLit:tlg0012.tlg001.msBm1:">
         <label xml:lang="eng"> Bm1 </label>
         <description xml:lang="eng"> Egerton 267 </description>
       </edition>
-      <edition urn="urn:cts:greekLit:tlg0012.tlg001.msBm2">
+      <edition urn="urn:cts:greekLit:tlg0012.tlg001.msBm2:">
         <label xml:lang="eng"> Bm2 </label>
         <description xml:lang="eng"> King's 16 </description>
       </edition>
-      <edition urn="urn:cts:greekLit:tlg0012.tlg001.msBm3">
+      <edition urn="urn:cts:greekLit:tlg0012.tlg001.msBm3:">
         <label xml:lang="eng"> Bm3 </label>
         <description xml:lang="eng"> Harley 1675 </description>
       </edition>
-      <edition urn="urn:cts:greekLit:tlg0012.tlg001.msCa2">
+      <edition urn="urn:cts:greekLit:tlg0012.tlg001.msCa2:">
         <label xml:lang="eng"> Ca2 </label>
         <description xml:lang="eng"> coll. Trinitatis Cant. 983 </description>
       </edition>
-      <edition urn="urn:cts:greekLit:tlg0012.tlg001.msA">
+      <edition urn="urn:cts:greekLit:tlg0012.tlg001.msA:">
         <label xml:lang="eng"> A </label>
         <description xml:lang="eng"> Venice: Marcianus Graecus Z.454 (=822). </description>
         <online docname="Iliad-A.xml">
@@ -48,15 +48,15 @@
           </citationMapping>
         </online>
       </edition>
-      <edition urn="urn:cts:greekLit:tlg0012.tlg001.msAg">
+      <edition urn="urn:cts:greekLit:tlg0012.tlg001.msAg:">
         <label xml:lang="eng"> Ag </label>
         <description xml:lang="eng"> Angelicus 122 </description>
       </edition>
-      <edition urn="urn:cts:greekLit:tlg0012.tlg001.msAthous">
+      <edition urn="urn:cts:greekLit:tlg0012.tlg001.msAthous:">
         <label xml:lang="eng"> Athous </label>
         <description xml:lang="eng"> Vatopedi 592 </description>
       </edition>
-      <edition urn="urn:cts:greekLit:tlg0012.tlg001.msB">
+      <edition urn="urn:cts:greekLit:tlg0012.tlg001.msB:">
         <label xml:lang="eng"> B </label>
         <description xml:lang="eng"> Ven. 453 </description>
         <online docname="tier2/Iliad-B.xml">
@@ -70,7 +70,8 @@
           </citationMapping>
         </online>
       </edition>
-      <edition urn="urn:cts:greekLit:tlg0012.tlg001.msBm4">
+      <!--
+        <edition urn="urn:cts:greekLit:tlg0012.tlg001.msBm4">
         <label xml:lang="eng"> Bm4 </label>
         <description xml:lang="eng"> Harley 1771 </description>
       </edition>
@@ -795,7 +796,8 @@
         <label xml:lang="eng"> W5 </label>
         <description xml:lang="eng"> Breslau 29 (= Heyne Vrat. a) </description>
       </edition>
-      <translation urn="urn:cts:greekLit:tlg0012.tlg001.butler" xml:lang="eng">
+      -->
+      <translation urn="urn:cts:greekLit:tlg0012.tlg001.butler:" xml:lang="eng">
         <label xml:lang="eng">Butler's Traslation (abbrev.)</label>
         <description xml:lang="eng">A highly abbreviated text of Butler's Iliad</description>
         <online docname="Iliad-Butler.xml">

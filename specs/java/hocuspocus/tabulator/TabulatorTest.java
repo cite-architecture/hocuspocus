@@ -20,6 +20,11 @@ public class TabulatorTest extends ConcordionTestCase {
 
 
     String docPath = "/build/concordion-results/hocuspocus/tabulator/";
+
+    /** Path in concordion build to RNG schema for Text Inventory.*/
+    String schema = "../../../resources/test/schemas/TextInventory.rng";
+
+
     
     /** Hands back a String parameter so we can save links using concordion's
      * #Href variable for use in later computations. */
@@ -40,7 +45,8 @@ public class TabulatorTest extends ConcordionTestCase {
 	    String buildPath = new java.io.File( "." ).getCanonicalPath() + docPath;
 	    File inv =  new File(buildPath + ti);
 	    File archiveDir = new File(buildPath + archive);
-	    Corpus c = new Corpus(inv, archiveDir);
+	    File schemaFile = new File(buildPath + schema);
+	    Corpus c = new Corpus(inv, archiveDir, schemaFile);
 	    c.tabulateRepository(tabDir);
 
 
@@ -64,7 +70,8 @@ public class TabulatorTest extends ConcordionTestCase {
 	    String buildPath = new java.io.File( "." ).getCanonicalPath() + docPath;
 	    File inv =  new File(buildPath + ti);
 	    File archiveDir = new File(buildPath + archive);
-	    Corpus c = new Corpus(inv, archiveDir);
+	    File schemaFile = new File(buildPath + schema);
+	    Corpus c = new Corpus(inv, archiveDir, schemaFile);
 	
 	    CtsUrn urn = new CtsUrn(urnStr);
 
@@ -88,8 +95,8 @@ public class TabulatorTest extends ConcordionTestCase {
 
 	    File buildDir =  new File(new java.io.File( "." ).getCanonicalPath() + "/build");
 	    CtsUrn urn = new CtsUrn(urnStr);
-	    
-	    Corpus c = new Corpus(inv, archiveDir);
+	    File schemaFile = new File(buildPath + schema);
+	    Corpus c = new Corpus(inv, archiveDir, schemaFile);
 	    c.tabulateFile(urn,buildDir);
 	    System.err.println("Tabulated files into  " + buildDir);
 	    String xmlName = c.getInventory().onlineDocname(urn);
