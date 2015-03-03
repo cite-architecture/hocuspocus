@@ -79,6 +79,11 @@ Two verbs from the `hmt` namespace describe information used internally in this 
 The files in <a href="../../../resources/test/data/archive1/xml/" concordion:set="#archive2 = setHref(#HREF)">this root directory</a> (documented in 
  <a href="../../../resources/test/data/archive1/testinventory.xml" concordion:set="#ti2 = setHref(#HREF)">this TextInventory file</a>) contain two selections from the *Iliad*, each 32 lines long.   If we express the entire repository as RDF in  <a href="../../../verbtabs" concordion:set="#tabdir2 = setHref(#HREF)">this directory</a>, the file `corpus.ttl`  will give us these verbs:
 
+I also want ot know what we get for just the inventory, so how about
+
+<strong concordion:assertEquals="getInvTTL(#ti2)">INV VERBS</strong>
+
+
  <table concordion:verifyRows="#rdfverb : shouldGetVerbs(#ti2,#archive2,#tabdir2)">
 <tr><th concordion:assertEquals="#rdfverb">Verb (with abbreviated prefix)</th></tr>
 <tr><td>cts:abbreviatedBy</td></tr>

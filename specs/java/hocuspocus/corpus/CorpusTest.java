@@ -15,7 +15,9 @@ public class CorpusTest extends ConcordionTestCase {
      * lets us write markdown docs with relative references to data files
      * in the documentation.*/
     String docPath = "/build/concordion-results/hocuspocus/corpus/";
-    
+
+    /** Path in concordion build to RNG schema for Text Inventory.*/
+    String schema = "../../../resources/test/schemas/TextInventory.rng";
 
     /** Hands back a String parameter so we can save links using concordion's
      * #Href variable for use in later computations. */
@@ -31,7 +33,8 @@ public class CorpusTest extends ConcordionTestCase {
 	    String buildPath = new java.io.File( "." ).getCanonicalPath() + docPath; 
 	    File inv = new File(buildPath + ti);
 	    File archiveDir = new File(buildPath + archive);
-	    Corpus c = new Corpus(inv, archiveDir);
+	    File schemaFile = new File(buildPath + schema);
+	    Corpus c = new Corpus(inv, archiveDir, schemaFile);
 	    return true;
 
 	
@@ -46,7 +49,8 @@ public class CorpusTest extends ConcordionTestCase {
 	    String buildPath = new java.io.File( "." ).getCanonicalPath() + docPath; 
 	    File inv = new File(buildPath + ti);
 	    File archiveDir = new File(buildPath + archive);
-	    Corpus c = new Corpus(inv, archiveDir);
+	    File schemaFile = new File(buildPath + schema);
+	    Corpus c = new Corpus(inv, archiveDir,schemaFile);
 	    return c.filesInInventory().size();
 
 	} catch (Exception e) {
@@ -60,7 +64,8 @@ public class CorpusTest extends ConcordionTestCase {
 	    String buildPath = new java.io.File( "." ).getCanonicalPath() + docPath; 
 	    File inv = new File(buildPath + ti);
 	    File archiveDir = new File(buildPath + archive);
-	    Corpus c = new Corpus(inv, archiveDir);
+	    File schemaFile = new File(buildPath + schema);
+	    Corpus c = new Corpus(inv, archiveDir, schemaFile);
 	    return c.filesInArchive().size();
 
 	} catch (Exception e) {
@@ -76,7 +81,8 @@ public class CorpusTest extends ConcordionTestCase {
 	    String buildPath = new java.io.File( "." ).getCanonicalPath() + docPath; 
 	    File inv = new File(buildPath + ti);
 	    File archiveDir = new File(buildPath + archive);
-	    Corpus c = new Corpus(inv, archiveDir);
+	    File schemaFile = new File(buildPath + schema);
+	    Corpus c = new Corpus(inv, archiveDir, schemaFile);
 	    ArrayList invFiles =  c.filesInInventory();
 	    Collections.sort(invFiles);
 	    return(invFiles.get(idx).toString());
@@ -93,7 +99,8 @@ public class CorpusTest extends ConcordionTestCase {
 	    String buildPath = new java.io.File( "." ).getCanonicalPath() + docPath; 
 	    File inv = new File(buildPath + ti);
 	    File archiveDir = new File(buildPath + archive);
-	    Corpus c = new Corpus(inv, archiveDir);
+	    File schemaFile = new File(buildPath + schema);
+	    Corpus c = new Corpus(inv, archiveDir,schemaFile);
 	    ArrayList invUrns =  c.urnsInInventory();
 	    Collections.sort(invUrns);
 	    return(invUrns.get(idx).toString());
@@ -111,7 +118,8 @@ public class CorpusTest extends ConcordionTestCase {
 	    String buildPath = new java.io.File( "." ).getCanonicalPath() + docPath; 
 	    File inv = new File(buildPath + ti);
 	    File archiveDir = new File(buildPath + archive);
-	    Corpus c = new Corpus(inv, archiveDir);
+	    File schemaFile = new File(buildPath + schema);
+	    Corpus c = new Corpus(inv, archiveDir, schemaFile);
 	    ArrayList diskFiles =  c.filesInArchive();
 	    Collections.sort(diskFiles);
 	    return(diskFiles.get(idx).toString());
@@ -128,7 +136,8 @@ public class CorpusTest extends ConcordionTestCase {
 	    String buildPath = new java.io.File( "." ).getCanonicalPath() + docPath; 
 	    File inv = new File(buildPath + ti);
 	    File archiveDir = new File(buildPath + archive);
-	    Corpus c = new Corpus(inv, archiveDir);
+	    File schemaFile = new File(buildPath + schema);
+	    Corpus c = new Corpus(inv, archiveDir, schemaFile);
 	    return c.filesAndInventoryMatch();
 
 	} catch (Exception e) {
@@ -145,7 +154,8 @@ public class CorpusTest extends ConcordionTestCase {
 	    String buildPath = new java.io.File( "." ).getCanonicalPath() + docPath; 
 	    File inv = new File(buildPath + ti);
 	    File archiveDir = new File(buildPath + archive);
-	    Corpus c = new Corpus(inv, archiveDir);
+	    File schemaFile = new File(buildPath + schema);
+	    Corpus c = new Corpus(inv, archiveDir, schemaFile);
 	    return c.filesMissingFromInventory().size();
 
 	} catch (Exception e) {
@@ -161,7 +171,8 @@ public class CorpusTest extends ConcordionTestCase {
 	    String buildPath = new java.io.File( "." ).getCanonicalPath() + docPath; 
 	    File inv = new File(buildPath + ti);
 	    File archiveDir = new File(buildPath + archive);
-	    Corpus c = new Corpus(inv, archiveDir);
+	    File schemaFile = new File(buildPath + schema);
+	    Corpus c = new Corpus(inv, archiveDir, schemaFile);
 	    ArrayList diskFiles =  c.filesMissingFromInventory();
 	    Collections.sort(diskFiles);
 	    return(diskFiles.get(idx).toString());
@@ -179,7 +190,8 @@ public class CorpusTest extends ConcordionTestCase {
 	    String buildPath = new java.io.File( "." ).getCanonicalPath() + docPath; 
 	    File inv = new File(buildPath + ti);
 	    File archiveDir = new File(buildPath + archive);
-	    Corpus c = new Corpus(inv, archiveDir);
+	    File schemaFile = new File(buildPath + schema);
+	    Corpus c = new Corpus(inv, archiveDir, schemaFile);
 	    return c.inventoriedMissingFromArchive().size();
 
 	} catch (Exception e) {
@@ -195,7 +207,8 @@ public class CorpusTest extends ConcordionTestCase {
 	    String buildPath = new java.io.File( "." ).getCanonicalPath() + docPath; 
 	    File inv = new File(buildPath + ti);
 	    File archiveDir = new File(buildPath + archive);
-	    Corpus c = new Corpus(inv, archiveDir);
+	    File schemaFile = new File(buildPath + schema);
+	    Corpus c = new Corpus(inv, archiveDir, schemaFile);
 	    ArrayList invFiles =  c.inventoriedMissingFromArchive();
 	    Collections.sort(invFiles);
 	    return(invFiles.get(idx).toString());

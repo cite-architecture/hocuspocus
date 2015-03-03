@@ -60,7 +60,7 @@ buildscript {
 }
 
 group = "edu.holycross.shot"
-version = '0.12.2'
+version = '0.12.3'
 
 
 repositories {
@@ -99,14 +99,14 @@ dependencies {
 
 
   // DOCUMENT THESE: 
-  compile group: 'edu.harvard.chs', name : 'cite' , version: citeversion
-  compile group: 'edu.harvard.chs', name : 'greekutils' , version: greekutilsversion
-  schemas group: 'edu.harvard.chs', name: 'cite', version: citeversion, classifier: 'schemas', ext: 'zip'
+  compile group: 'edu.harvard.chs', name : 'cite' , version: citeVersion
+  compile group: 'edu.harvard.chs', name : 'greekutils' , version: greekutilsVersion
+  schemas group: 'edu.harvard.chs', name: 'cite', version: citeVersion, classifier: 'schemas', ext: 'zip'
 
 }
 
 task squawk() {
-  System.out.println "citeversion: " + citeversion
+  System.out.println "citeVersion: " + citeVersion
 }
 
 task checkOutSchemas {
@@ -211,8 +211,8 @@ task addVersion(){
 addVersion.doLast {
   tokenMap["version"] = version
   tokenMap["deps"] = """
-    <tr><td>cite</td><td>${citeversion}</td></tr>
-    <tr><td>greekutils</td><td>${greekutilsversion}</td></tr>""".toString() 
+    <tr><td>cite</td><td>${citeVersion}</td></tr>
+    <tr><td>greekutils</td><td>${greekutilsVersion}</td></tr>""".toString() 
 }
 
 task conc(type: Copy, dependsOn: [test, addVersion]) {

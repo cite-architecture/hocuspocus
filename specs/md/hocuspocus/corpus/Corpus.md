@@ -48,9 +48,9 @@ Their URNs are :
 
 <table concordion:execute="#result = shouldGetUrnsFromInventory(#ti, #archive, #idx)">
 <tr><th concordion:set="#idx">Index</th><th concordion:assertEquals="#result">File path</th></tr>
-<tr><td>0</td><td>urn:cts:greekLit:tlg0012.tlg001.butler</td></tr>
-<tr><td>1</td><td>urn:cts:greekLit:tlg0012.tlg001.msA</td></tr>
-<tr><td>2</td><td>urn:cts:greekLit:tlg0012.tlg001.msB</td></tr>
+<tr><td>0</td><td>urn:cts:greekLit:tlg0012.tlg001.butler:</td></tr>
+<tr><td>1</td><td>urn:cts:greekLit:tlg0012.tlg001.msA:</td></tr>
+<tr><td>2</td><td>urn:cts:greekLit:tlg0012.tlg001.msB:</td></tr>
 </table>
 @closeex@
 
