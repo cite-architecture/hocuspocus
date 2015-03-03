@@ -121,12 +121,12 @@ class CtsTtl {
                 // these are always version-level URNs.
 
                 CtsUrn urn = new CtsUrn(u)
-                String groupStr = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}"
+                String groupStr = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}:"
                 String groupLabel = this.inventory.getGroupName(urn)
 
-                String workStr = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}.${urn.getWork()}"
+                String workStr = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}.${urn.getWork()}:"
 
-                String workLabel = "${groupLabel}, ${this.inventory.workTitle(workStr)}"
+                String workLabel = "${groupLabel}, ${this.inventory.workTitle(workStr)}:"
 
 
                 String ctsNsStr = "urn:cts:${urn.getCtsNamespace()}"
@@ -411,6 +411,9 @@ class CtsTtl {
         def cols = "${tabLine} ".split(separatorValue)
         String urnVal = cols[0]
         if (debug > 0) { System.err.println "COLS are ${cols} with urnVal is  " + urnVal }
+
+System.err.println "TABLINE w urnVal " + urnVal
+	
         String seq = cols[1]
         String prev = cols[2]
         String next = cols[3]
@@ -426,29 +429,29 @@ class CtsTtl {
         try {
             urn = new CtsUrn(urnVal)
         } catch (Exception e) {
-            System.err.println "CtsTtl: Could not form URN from ${urnVal}: ${e}"
+            System.err.println "CtsTtl: Could not form URN from ${urnVal} -- ${e}"
         }
         if (urn) {
-            String urnBase = urn.getUrnWithoutPassage()
+	  String urnBase = urn.getUrnWithoutPassage()
 
 //                CtsUrn urnStrip = new CtsUrn(urnBase)
-                String groupStr = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}"
-                String groupLabel = this.inventory.getGroupName(urn)
+	  String groupStr = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}:"
+	  String groupLabel = this.inventory.getGroupName(urn)
 
-                String workStr = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}.${urn.getWork()}"
+	  String workStr = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}.${urn.getWork()}:"
 
-                String workLabel = "${groupLabel}, ${this.inventory.workTitle(workStr)}"
+	  String workLabel = "${groupLabel}, ${this.inventory.workTitle(workStr)}"
 
-
-            String label = "${workLabel} (${this.inventory.versionLabel(urnBase)}): ${urn.getPassageComponent()} (${urn})"
+	  
+	  String label = "${workLabel} (${this.inventory.versionLabel(urnBase)}): ${urn.getPassageComponent()} (${urn})"
 	    //            turtles.append("<${urn.toString(true)}> rdf:label " + '"' + label + '" .\n')
-	    turtles.append("<${urn.toString()}> rdf:label " + '"' + label + '" .\n')
+	  turtles.append("<${urn.toString()}> rdf:label " + '"' + label + '" .\n')
 
 
-            /* explicitly express version hierarchy */
-            /* should percolate up from any point based on RDF from TextInventory. */
+	  /* explicitly express version hierarchy */
+	  /* should percolate up from any point based on RDF from TextInventory. */
 	    //            turtles.append("<${urn.toString(true)}> cts:belongsTo <${urnBase}> . \n")
-	    turtles.append("<${urn.toString()}> cts:belongsTo <${urnBase}> . \n")
+	  turtles.append("<${urn.toString()}> cts:belongsTo <${urnBase}> . \n")
 
             /* explicitly express citation hierarchy */
             int max =  urn.getCitationDepth() 
@@ -467,14 +470,14 @@ class CtsTtl {
                 max--;
 		// Mod here from"containedUrn" : is this right?
 		//                turtles.append("<${urn.toString(true)}> cts:containedBy <${urnBase}:${urn.getPassage(max)}> .\n")
-		turtles.append("<${urn.toString()}> cts:containedBy <${urnBase}:${urn.getPassage(max)}> .\n")
+		turtles.append("<${urn.toString()}> cts:containedBy <${urnBase}${urn.getPassage(max)}> .\n")
 		//                turtles.append("<${urnBase}:${urn.getPassage(max)}> cts:contains <${containedUrn}>  .\n")
 		//                turtles.append("<${urnBase}:${urn.getPassage(max)}> cts:contains <${urn.toString(true)}>  .\n")
-		turtles.append("<${urnBase}:${urn.getPassage(max)}> cts:contains <${urn.toString()}>  .\n")
+		turtles.append("<${urnBase}${urn.getPassage(max)}> cts:contains <${urn.toString()}>  .\n")
 
 
-                turtles.append("<${urnBase}:${urn.getPassage(max)}> cts:citationDepth ${max} .\n")
-                containedUrn = "${urnBase}:${urn.getPassage(max)}"
+                turtles.append("<${urnBase}${urn.getPassage(max)}> cts:citationDepth ${max} .\n")
+                containedUrn = "${urnBase}${urn.getPassage(max)}"
             }
         }
         return turtles.toString()

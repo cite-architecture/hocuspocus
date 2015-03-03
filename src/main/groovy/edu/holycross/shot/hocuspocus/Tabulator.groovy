@@ -514,7 +514,8 @@ class Tabulator {
 	  def refVal = fillRefValue(currentScheme, tIdx, kid)
 	  
 
-	  def record = "${urn}:${refVal}${columnSeparator}${this.nodesProcessed}${columnSeparator}${prevCount}${columnSeparator}${nextCount}${columnSeparator}${explicitAncPath}${columnSeparator}${nodeText}${columnSeparator}${ancestors}${leafPatt}\n" 
+	  // maybe??
+	  def record = "${urn}${refVal}${columnSeparator}${this.nodesProcessed}${columnSeparator}${prevCount}${columnSeparator}${nextCount}${columnSeparator}${explicitAncPath}${columnSeparator}${nodeText}${columnSeparator}${ancestors}${leafPatt}\n" 
                     
 
 	    this.currOutFile = new File(outputDir, "${this.outFileBaseName}.txt")
