@@ -45,7 +45,7 @@ Titles of CTS textgroups, works, versions and exemplars are identified with `dc:
 
 ### Canonical Text Services ###
 
-Twelve verbs in the `cts` namespace are used with the following semantics (TBA):
+Twelve verbs in the `cts` namespace are used (with specification of semantics TBA here):
 
 - cts:abbreviatedBy
 - cts:belongsTo
@@ -78,10 +78,6 @@ Two verbs from the `hmt` namespace describe information used internally in this 
 
 The files in <a href="../../../resources/test/data/archive1/xml/" concordion:set="#archive2 = setHref(#HREF)">this root directory</a> (documented in 
  <a href="../../../resources/test/data/archive1/testinventory.xml" concordion:set="#ti2 = setHref(#HREF)">this TextInventory file</a>) contain two selections from the *Iliad*, each 32 lines long.   If we express the entire repository as RDF in  <a href="../../../verbtabs" concordion:set="#tabdir2 = setHref(#HREF)">this directory</a>, the file `corpus.ttl`  will give us these verbs:
-
-I also want ot know what we get for just the inventory, so how about
-
-<strong concordion:assertEquals="getInvTTL(#ti2)">INV VERBS</strong>
 
 
  <table concordion:verifyRows="#rdfverb : shouldGetVerbs(#ti2,#archive2,#tabdir2)">

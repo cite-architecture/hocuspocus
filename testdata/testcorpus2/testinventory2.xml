@@ -22,16 +22,16 @@
   
   
   <textgroup
-    urn="urn:cts:greekLit:tlg0012">
+    urn="urn:cts:greekLit:tlg0012:">
     <groupname
       xml:lang="eng"> Homer </groupname>
     <work
-      urn="urn:cts:greekLit:tlg0012.tlg001"
+      urn="urn:cts:greekLit:tlg0012.tlg001:"
       xml:lang="grc">
       <title
         xml:lang="eng"> Iliad </title>
       <edition
-        urn="urn:cts:greekLit:tlg0012.tlg001.testlines">
+        urn="urn:cts:greekLit:tlg0012.tlg001.testlines:">
         <label
           xml:lang="eng"> testlines </label>
         <description
@@ -56,7 +56,7 @@
         </online>
       </edition>
       <edition
-        urn="urn:cts:greekLit:tlg0012.tlg001.test2">
+        urn="urn:cts:greekLit:tlg0012.tlg001.test2:">
         <label
           xml:lang="eng"> testlines </label>
         <description
@@ -84,16 +84,16 @@
     </work>
   </textgroup>
   <textgroup
-    urn="urn:cts:test1:test">
+    urn="urn:cts:test1:test:">
     <groupname
       xml:lang="eng">Group of test files</groupname>
     <work
-      urn="urn:cts:test1:test.unclassified"
+      urn="urn:cts:test1:test.unclassified:"
       xml:lang="eng">
       <title
         xml:lang="eng">Unclassified document, no name space</title>
       <edition
-        urn="urn:cts:test1:test.unclassified.unittest">
+        urn="urn:cts:test1:test.unclassified.unittest:">
         <label
           xml:lang="eng">Unit</label>
         <description

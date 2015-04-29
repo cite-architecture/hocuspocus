@@ -60,7 +60,7 @@ buildscript {
 }
 
 group = "edu.holycross.shot"
-version = '0.12.5'
+version = '0.12.6'
 
 
 repositories {
@@ -99,15 +99,40 @@ dependencies {
 
 
   // DOCUMENT THESE: 
-  compile group: 'edu.harvard.chs', name : 'cite' , version: citeVersion
-  compile group: 'edu.harvard.chs', name : 'greekutils' , version: greekutilsVersion
-  schemas group: 'edu.harvard.chs', name: 'cite', version: citeVersion, classifier: 'schemas', ext: 'zip'
+  compile group: 'edu.harvard.chs', name : 'cite' , version: versionMap["cite"]
+  compile group: 'edu.harvard.chs', name : 'greekutils' , version: versionMap["greekutils"]
+  schemas group: 'edu.harvard.chs', name: 'cite', version: versionMap["cite"], classifier: 'schemas', ext: 'zip'
 
 }
 
+
+
+task vmap {
+  description = "Prints out version info for key dependencies."
+}
+vmap.doLast {
+  println "\nDependencies in hocuspocus ${version}:"
+  versionMap.keySet().sort().each { k ->
+    print k
+    Integer spaces = 15 - k.size()
+    Integer idx = 0
+    while(idx < spaces) {
+      print " "
+      idx++
+    }
+    println versionMap[k]
+  }
+  println ""
+}
+
+/*
 task squawk() {
   System.out.println "citeVersion: " + citeVersion
 }
+*/
+
+
+
 
 task checkOutSchemas {
   description = ""
