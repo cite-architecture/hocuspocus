@@ -12,7 +12,7 @@ ext {
  // report these in specs listing
  // of cite dependencies
  versionMap = [
-   "cite" : '0.93.3',
+   "cite" : '0.94.1',
    "greekutils" : '0.8.5'
    ]
 

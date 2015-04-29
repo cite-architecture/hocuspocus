@@ -180,8 +180,6 @@ class Tabulator {
 
     if (debug > 0) {
       System.err.println "nodeIdsForxpath:  for " + xpString + ", found " + limit + " nodes."
-      //  System.err.println "nodeIdsForxpath:  for " + kludge + ", found " + limit + " nodes."
-
     }
     
     def done = false

@@ -235,9 +235,12 @@ task addVersion(){
 }
 addVersion.doLast {
   tokenMap["version"] = version
-  tokenMap["deps"] = """
-    <tr><td>cite</td><td>${citeVersion}</td></tr>
-    <tr><td>greekutils</td><td>${greekutilsVersion}</td></tr>""".toString() 
+
+  StringBuilder deps = new StringBuilder()
+  versionMap.keySet().sort().each { k ->
+    deps.append("<tr><td>${k}</td><td>${versionMap[k]}</td></tr>")
+  }
+  tokenMap["deps"] = deps.toString() 
 }
 
 task conc(type: Copy, dependsOn: [test, addVersion]) {

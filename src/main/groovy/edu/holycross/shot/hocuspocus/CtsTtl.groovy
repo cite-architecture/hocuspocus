@@ -16,6 +16,7 @@ class CtsTtl {
   Integer WARN = 1
   Integer DEBUGLEVEL = 2
   Integer FRANTIC = 3
+  
   Integer debug = 0
 
   /** RDF prefix declarations */
@@ -23,7 +24,9 @@ class CtsTtl {
 @prefix hmt:        <http://www.homermultitext.org/hmt/rdf/> .
 @prefix cts:        <http://www.homermultitext.org/cts/rdf/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix dcterms: <http://purl.org/dc/terms/> .""".toString()
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+""".toString()
 
     /** String used to separate columns in tabular files. */
     String separatorValue = "#"
@@ -86,7 +89,7 @@ class CtsTtl {
             throw new Exception("CtsTtl: no TextInventory defined.")
         } 
 
-        StringBuffer reply = new StringBuffer()
+        StringBuilder reply = new StringBuilder()
         if (includePrefix) {
 	  reply.append(prefixStr)
         }
@@ -102,7 +105,7 @@ class CtsTtl {
         def nsSeen = [:]
         this.inventory.nsMapList.keySet().each { urn ->
 	  if (debug > WARN) {
-	    println "CtsTtl:turtleizeInv: ns map for urn ${urn}"
+	    System.err.println "CtsTtl:turtleizeInv: ns map for urn ${urn}"
 	  }
 	  def nsMap = this.inventory.nsMapList[urn]
 	  nsMap.keySet().each { nsAbbr ->
@@ -134,8 +137,17 @@ class CtsTtl {
                 reply.append("<${u}> cts:belongsTo <${workStr}> .\n")
                 reply.append("<${workStr}> cts:possesses <${u}> .\n")
 
+
+
+		System.err.println "TEST ${urn} for language: " + this.inventory.languageForVersion(urn)
                 String versionLang =  this.inventory.languageForVersion(urn)
+		
                 String workLang = this.inventory.languageForWork(workStr)
+
+		System.err.println "TEST ${urn} for language: " + this.inventory.languageForVersion(urn)
+		System.err.println "TEST ${workLang} for language: " + this.inventory.languageForVersion(workStr)
+		// THIS IS FAILING
+		
 		//                reply.append("<${urn.toString(true)}> dcterms:title " + '"' + this.inventory.versionLabel(u) + '" .\n')
 		reply.append("<${urn.toString()}> dcterms:title " + '"' + this.inventory.versionLabel(u) + '" .\n')
                 if (versionLang != workLang) {
@@ -410,10 +422,9 @@ class CtsTtl {
         /* Incredible kludge! Handles groovy split behavior... */
         def cols = "${tabLine} ".split(separatorValue)
         String urnVal = cols[0]
-        if (debug > 0) { System.err.println "COLS are ${cols} with urnVal is  " + urnVal }
-
-System.err.println "TABLINE w urnVal " + urnVal
-	
+        if (debug > 0) {
+	  System.err.println "COLS are ${cols} with urnVal  " + urnVal 
+	}
         String seq = cols[1]
         String prev = cols[2]
         String next = cols[3]

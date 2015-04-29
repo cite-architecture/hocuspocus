@@ -27,6 +27,7 @@ For a given corpus, we can determine:
 - names of files cataloged in the inventory
 - URNs of texts are cataloged in the inventory
 
+For specifications of detailed information we can retrieve for specific works in the inventory, see <a concordion:run="concordion" href="Inventory.html">this specification</a>.
 
 @openex@
 ### Examples ###
