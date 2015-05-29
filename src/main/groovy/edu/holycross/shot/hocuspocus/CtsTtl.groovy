@@ -12,6 +12,8 @@ http://jermdemo.blogspot.de/2009/07/beware-groovy-split-and-tokenize-dont.html
 */
 class CtsTtl {
 
+
+  String release = "0.12.8"
   
   Integer WARN = 1
   Integer DEBUGLEVEL = 2
@@ -54,6 +56,7 @@ class CtsTtl {
         return turtleizeInv(false)
     }
 
+  
 
     /** Translates the contents of a CTS TextInventory to
     * RDF TTL.
@@ -440,45 +443,33 @@ class CtsTtl {
         try {
             urn = new CtsUrn(urnVal)
         } catch (Exception e) {
-            System.err.println "CtsTtl: Could not form URN from ${urnVal} -- ${e}"
+            System.err.println "CtsTtl: Could not form URN from ${urnVal} : ${e}"
         }
         if (urn) {
 	  String urnBase = urn.getUrnWithoutPassage()
 
-//                CtsUrn urnStrip = new CtsUrn(urnBase)
 	  String groupStr = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}:"
 	  String groupLabel = this.inventory.getGroupName(urn)
-
 	  String workStr = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}.${urn.getWork()}:"
-
 	  String workLabel = "${groupLabel}, ${this.inventory.workTitle(workStr)}"
-
-	  
 	  String label = "${workLabel} (${this.inventory.versionLabel(urnBase)}): ${urn.getPassageComponent()} (${urn})"
-	    //            turtles.append("<${urn.toString(true)}> rdf:label " + '"' + label + '" .\n')
 	  turtles.append("<${urn.toString()}> rdf:label " + '"' + label + '" .\n')
 
 
 	  /* explicitly express version hierarchy */
 	  /* should percolate up from any point based on RDF from TextInventory. */
-	    //            turtles.append("<${urn.toString(true)}> cts:belongsTo <${urnBase}> . \n")
 	  turtles.append("<${urn.toString()}> cts:belongsTo <${urnBase}> . \n")
 
-            /* explicitly express citation hierarchy */
-            int max =  urn.getCitationDepth() 
-            String containedUrn = urn.toString()
-	    //            turtles.append("<${urn.toString(true)}> cts:hasSequence ${seq} .\n")
-	    turtles.append("<${urn.toString()}> cts:hasSequence ${seq} .\n")
-	    //            turtles.append("<${urn.toString(true)}> cts:hasTextContent " + '"""' + textContent + '"""' +  " .\n")
-	    turtles.append("<${urn.toString()}> cts:hasTextContent " + '"""' + textContent + '"""' +  " .\n")
-	    //            turtles.append("<${urn.toString(true)}> cts:citationDepth ${max} .\n")
-	    turtles.append("<${urn.toString()}> cts:citationDepth ${max} .\n")
-	    //            turtles.append("<${urn.toString(true)}> hmt:xmlOpen " +  '"' + xmlAncestor + '" .\n')
-	    turtles.append("<${urn.toString()}> hmt:xmlOpen " +  '"' + xmlAncestor + '" .\n')
-	    //            turtles.append("<${urn.toString(true)}> hmt:xpTemplate "  + '"' + xpTemplate + '" .\n')
-	    turtles.append("<${urn.toString()}> hmt:xpTemplate "  + '"' + xpTemplate + '" .\n')
-            while (max > 1) {
-                max--;
+	  /* explicitly express citation hierarchy */
+	  int max =  urn.getCitationDepth() 
+	  String containedUrn = urn.toString()
+	  turtles.append("<${urn.toString()}> cts:hasSequence ${seq} .\n")
+	  turtles.append("<${urn.toString()}> cts:hasTextContent " + '"""' + textContent + '"""' +  " .\n")
+	  turtles.append("<${urn.toString()}> cts:citationDepth ${max} .\n")
+	  turtles.append("<${urn.toString()}> hmt:xmlOpen " +  '"' + xmlAncestor + '" .\n')
+	  turtles.append("<${urn.toString()}> hmt:xpTemplate "  + '"' + xpTemplate + '" .\n')
+	  while (max > 1) {
+	    max--;
 		// Mod here from"containedUrn" : is this right?
 		//                turtles.append("<${urn.toString(true)}> cts:containedBy <${urnBase}:${urn.getPassage(max)}> .\n")
 		turtles.append("<${urn.toString()}> cts:containedBy <${urnBase}${urn.getPassage(max)}> .\n")

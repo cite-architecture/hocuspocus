@@ -1,14 +1,14 @@
 package edu.holycross.shot.hocuspocus
 
-class TabulatorRegEx {
+abstract class TabulatorRegEx {
 
 
-  def citationPattern = ~/.+['"]?['"].+/
+  static def citationPattern = ~/.+['"]?['"].+/
 
-  TabulatorRegEx() {}
-
-  def splitAncestors(String s) {
+  static ArrayList splitAncestors(String s) {
     return s.split(/\\//)
   }
+
+
 
 }

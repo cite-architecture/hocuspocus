@@ -9,11 +9,6 @@ import org.apache.commons.io.FilenameUtils
 
 import org.xml.sax.InputSource
 
-/*
-Tabulator:  a utility class for converting XML files to a tabular format.
-
-Requires:  java 5 or higher (since it uses the java 5 xpath engine)
-*/
 
 import javax.xml.xpath.*
 
@@ -29,8 +24,13 @@ import javax.xml.transform.dom.DOMResult
 import javax.xml.transform.stream.StreamResult
 
 
+
 /**
-* A class working with texts in a CTS, and formatting them in tabular form.
+ * Tabulator is a utility class for working with canonically citable texts
+ * in the OHCO2 model, and converting representations in XML files  to a 
+ * tabular format.
+ * 
+ * Requires:  java 5 or higher (since it uses the java 5 xpath engine)
 */
 class Tabulator {
 
@@ -38,7 +38,8 @@ class Tabulator {
 
   /** Keep regular expressions that destroy the beautiful formatting
    * of my editor in a separate file. */
-  TabulatorRegEx re 
+  // make static
+  //TabulatorRegEx re 
 
   /** String value to use as column separator in tabular text output.
    */
@@ -82,10 +83,14 @@ class Tabulator {
 
 
   // Mapping of prefixes to namespaces:
-  /** A map including closures implementing the javax.xml.xpath.Namespace interface.
-   * The namespace mappings themselves are stored in the map nsMap, and
-   * includes by default a mapping of the TEI namespace to the prefix abbreviation
-   * 'tei' : other mappings can be added with the addNSMapping method().
+  /** A map including closures implementing the javax.xml.xpath.Namespace 
+   * interface. Using this in groovy with 
+   * "groovyNSClosure as javax.xml.namespace.NamespaceContext"
+   * will satisfy that interface.
+   * Individual namespace mappings themselves are stored in  nsMap.
+   * It includes by default a mapping of the TEI namespace to 
+   * the prefix abbreviation 'tei' : other mappings can be added with 
+   * the addNSMapping method().
    */
   def groovyNSClosure =  [
     nsMap : ['tei':'http://www.tei-c.org/ns/1.0'],
@@ -96,7 +101,7 @@ class Tabulator {
 
     // return a clunky java list iterator
     getPrefixes :
-    {String nsUri ->
+    { String nsUri ->
       def findRes = []
       groovyNSClosure.nsMap.findAll {it.value == nsUri}.each {
 	findRes.add(it?.key);
@@ -136,8 +141,9 @@ class Tabulator {
   }
 
 
+
   Tabulator() {
-    this.re = new TabulatorRegEx()
+    //this.re = new TabulatorRegEx()
   }
 
 
@@ -171,11 +177,7 @@ class Tabulator {
     def xpath = XPathFactory.newInstance().newXPath()
     def nsc = groovyNSClosure as javax.xml.namespace.NamespaceContext
     xpath.setNamespaceContext(nsc)
-
-
-    //def foundNodes = xpath.evaluate( xpRoot, queryRoot, XPathConstants.NODESET)
     def foundNodes = xpath.evaluate( xpString, queryRoot, XPathConstants.NODESET)
-
     def limit = foundNodes.getLength()
 
     if (debug > 0) {
@@ -386,7 +388,8 @@ class Tabulator {
     n = n.getParentNode()
     
     def ancestors = triplet.getScopePattern()
-    def ancestorParts = this.re.splitAncestors(ancestors)
+    //    def ancestorParts = this.re.splitAncestors(ancestors)
+    def ancestorParts =  TabulatorRegEx.splitAncestors(ancestors)
     // Total number of ancestor elements to find.
     // Use this as an index to walk back trhough
     // the ancestorParts array.
@@ -394,7 +397,8 @@ class Tabulator {
     boolean done = false
     while (!done) {
       def part = ancestorParts[lastIndex]
-      if (part ==~ re.citationPattern) {
+      //      if (part ==~ re.citationPattern) {
+      if (part ==~ TabulatorRegEx.citationPattern) {
 	citeAttr = scheme[tripletIndex].getLeafVariableAttribute()
 	def nodeVal = n.getAttribute(citeAttr)
 	if (debug > 0) {
@@ -492,6 +496,10 @@ class Tabulator {
 	  DOMSource ds = new DOMSource(kid)
 	  xform.transform(ds,res)
 	  def nodeText = res.getWriter().toString().replaceAll(/\n/,'')
+
+
+	  
+	  
 	  // make sure resulting text will be parseable as one record per
 	  // line with fields delineated by columnSeparator:
 	  nodeText = nodeText.replaceAll(/${columnSeparator}/,' ')
@@ -516,10 +524,7 @@ class Tabulator {
 	  def record = "${urn}${refVal}${columnSeparator}${this.nodesProcessed}${columnSeparator}${prevCount}${columnSeparator}${nextCount}${columnSeparator}${explicitAncPath}${columnSeparator}${nodeText}${columnSeparator}${ancestors}${leafPatt}\n" 
                     
 
-	    this.currOutFile = new File(outputDir, "${this.outFileBaseName}.txt")
-
-
-	  
+	  this.currOutFile = new File(outputDir, "${this.outFileBaseName}.txt")
 	  this.currOutFile.append(record)
 	}
 	// end: if we found a match
@@ -557,7 +562,8 @@ class Tabulator {
     
     CitationTriplet triplet = scheme[tripletIndex]
     def ancestors = triplet.getScopePattern()
-    def ancestorParts = re.splitAncestors(ancestors)
+    //def ancestorParts = re.splitAncestors(ancestors)
+    def ancestorParts = TabulatorRegEx.splitAncestors(ancestors)
     //    def ancestorParts = ancestors.split(/\\//)
     // Total number of ancestor elements to find.
     // Use this as an index to walk back trhough
@@ -577,7 +583,9 @@ class Tabulator {
     boolean done = false
     while (!done) {
       def part = ancestorParts[lastIndex]
-      if (part ==~ re.citationPattern) {            
+      //      if (part ==~ re.citationPattern) {
+       if (part ==~ TabulatorRegEx.citationPattern) {
+      
 	def citeAttr = scheme[tripletIndex].getLeafVariableAttribute()
 	def nodeVal = currNode.getAttribute(citeAttr)
 	part = part.replace(/?/,nodeVal)
