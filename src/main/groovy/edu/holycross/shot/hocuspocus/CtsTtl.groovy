@@ -3,9 +3,6 @@ package edu.holycross.shot.hocuspocus
 import edu.harvard.chs.cite.CtsUrn
 import edu.harvard.chs.cite.TextInventory
 
-/*
-http://jermdemo.blogspot.de/2009/07/beware-groovy-split-and-tokenize-dont.html
-*/
 
 
 /** Class managing serialization of a CTS archive as RDF TTL.
@@ -13,7 +10,7 @@ http://jermdemo.blogspot.de/2009/07/beware-groovy-split-and-tokenize-dont.html
 class CtsTtl {
 
 
-  String release = "0.12.8"
+  String release = "0.13.0"
   
   Integer WARN = 1
   Integer DEBUGLEVEL = 2
@@ -39,12 +36,14 @@ class CtsTtl {
     TextInventory inventory 
 
     /** Constructor with single parameter. 
-    * @param ti TextIvnentory object for a CTS archive.
+    * @param ti TextInventory object for a CTS archive.
     */
     CtsTtl(TextInventory ti) {
         this.inventory = ti
     }
 
+
+    
 
     /** Translates the contents of a CTS TextInventory to
     * RDF TTL.
@@ -55,8 +54,6 @@ class CtsTtl {
         this.inventory = inv
         return turtleizeInv(false)
     }
-
-  
 
     /** Translates the contents of a CTS TextInventory to
     * RDF TTL.
@@ -121,310 +118,94 @@ class CtsTtl {
         }
 
         def elementSeen = []
-        
         this.inventory.allOnline().each { u ->
-            try {
-                // these are always version-level URNs.
+	  try {
+	    // these are always version-level URNs.
+	    CtsUrn urn = new CtsUrn(u)
+	    String groupStr = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}:"
+	    String groupLabel = this.inventory.getGroupName(urn)
+	    String workStr = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}.${urn.getWork()}:"
+	    String workLabel = "${groupLabel}, ${this.inventory.workTitle(workStr)}:"
+	    String ctsNsStr = "urn:cts:${urn.getCtsNamespace()}"
 
-                CtsUrn urn = new CtsUrn(u)
-                String groupStr = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}:"
-                String groupLabel = this.inventory.getGroupName(urn)
+	    reply.append("<${u}> cts:belongsTo <${workStr}> .\n")
+	    reply.append("<${workStr}> cts:possesses <${u}> .\n")
 
-                String workStr = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}.${urn.getWork()}:"
-
-                String workLabel = "${groupLabel}, ${this.inventory.workTitle(workStr)}:"
-
-
-                String ctsNsStr = "urn:cts:${urn.getCtsNamespace()}"
-
-                reply.append("<${u}> cts:belongsTo <${workStr}> .\n")
-                reply.append("<${workStr}> cts:possesses <${u}> .\n")
-
+	    System.err.println "TEST ${urn} for language: " + this.inventory.languageForVersion(urn)
+	    String versionLang =  this.inventory.languageForVersion(urn)
+	    String workLang = this.inventory.languageForWork(workStr)
 
 
-		System.err.println "TEST ${urn} for language: " + this.inventory.languageForVersion(urn)
-                String versionLang =  this.inventory.languageForVersion(urn)
-		
-                String workLang = this.inventory.languageForWork(workStr)
+	    
+	    /* >>>>>>>>>>>> BROKEN CODE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< */
+	    System.err.println "TEST ${urn} for language: " + this.inventory.languageForVersion(urn)
+	    System.err.println "TEST ${workLang} for language: " + this.inventory.languageForVersion(workStr)
+	    // THIS IS FAILING?
+	    reply.append("<${urn.toString()}> dcterms:title " + '"' + this.inventory.versionLabel(u) + '" .\n')
+	    if (versionLang != workLang) {
+	      reply.append("\n<${urn.toString()}> rdf:type cts:Translation .\n")
+	      reply.append("\n<${urn.toString()}>  cts:translationLang " + '"' + versionLang + '" .\n\n')
 
-		System.err.println "TEST ${urn} for language: " + this.inventory.languageForVersion(urn)
-		System.err.println "TEST ${workLang} for language: " + this.inventory.languageForVersion(workStr)
-		// THIS IS FAILING
-		
-		//                reply.append("<${urn.toString(true)}> dcterms:title " + '"' + this.inventory.versionLabel(u) + '" .\n')
-		reply.append("<${urn.toString()}> dcterms:title " + '"' + this.inventory.versionLabel(u) + '" .\n')
-                if (versionLang != workLang) {
-		  //reply.append("\n<${urn.toString(true)}> rdf:type cts:Translation .\n")
-		  reply.append("\n<${urn.toString()}> rdf:type cts:Translation .\n")
-		  // reply.append("\n<${urn.toString(true)}>  cts:translationLang " + '"' + versionLang + '" .\n\n')
-		   reply.append("\n<${urn.toString()}>  cts:translationLang " + '"' + versionLang + '" .\n\n')
+	    } else {
+	      reply.append("\n<${urn.toString()}> rdf:type cts:Edition .\n")
+	    }
 
+	    reply.append("\n<${urn.toString()}>  rdf:label " + '"' + "${workLabel} (${this.inventory.versionLabel(urn)})" + '" .\n\n')
 
+	    if (! elementSeen.containsAll([workStr])) {
+	      reply.append("<${workStr}> rdf:type cts:Work .\n")
+	      reply.append("<${workStr}> dcterms:title " + '"' + this.inventory.workTitle(workStr) + '" .\n')
+	      reply.append("<${workStr}> cts:belongsTo <${groupStr}> .\n")
+	      reply.append("<${groupStr}> cts:possesses <${workStr}> .\n")
+	      elementSeen.add(workStr)
+	      reply.append("\n<${workStr}> cts:lang " + '"' + this.inventory.languageForWork(workStr) + '" .\n\n')
+	      reply.append("\n<${workStr}> rdf:label " + '"' + "${workLabel}" + '" .\n\n')
+	    }
 
-                } else {
-		  //reply.append("\n<${urn.toString(true)}> rdf:type cts:Edition .\n")
-		  reply.append("\n<${urn.toString()}> rdf:type cts:Edition .\n")
+	    if (! elementSeen.containsAll([groupStr])) {
+	      elementSeen.add(groupStr)
+	      reply.append("<${groupStr}> cts:belongsTo <${ctsNsStr}> .\n")
+	      reply.append("<${ctsNsStr}> cts:possesses <${groupStr}> .\n")
+	      reply.append("<${groupStr}> rdf:type cts:TextGroup .\n")
+	      reply.append("<${groupStr}> dcterms:title " + '"' + this.inventory.getGroupName(groupStr) + '" .\n')
+	      reply.append("\n<${groupStr}> rdf:label " + '"' + "${groupLabel}" + '" .\n\n')
+	    }
 
-                }
-                //reply.append("\n<${urn.toString(true)}>  rdf:label " + '"' + "${workLabel} (${this.inventory.versionLabel(urn)})" + '" .\n\n')
-		reply.append("\n<${urn.toString()}>  rdf:label " + '"' + "${workLabel} (${this.inventory.versionLabel(urn)})" + '" .\n\n')
-
-                if (! elementSeen.containsAll([workStr])) {
-                    reply.append("<${workStr}> rdf:type cts:Work .\n")
-                    reply.append("<${workStr}> dcterms:title " + '"' + this.inventory.workTitle(workStr) + '" .\n')
-                    reply.append("<${workStr}> cts:belongsTo <${groupStr}> .\n")
-                    reply.append("<${groupStr}> cts:possesses <${workStr}> .\n")
-                    elementSeen.add(workStr)
-                    reply.append("\n<${workStr}> cts:lang " + '"' + this.inventory.languageForWork(workStr) + '" .\n\n')
-                    reply.append("\n<${workStr}> rdf:label " + '"' + "${workLabel}" + '" .\n\n')
-
-                    
-                }
-
-                
-                if (! elementSeen.containsAll([groupStr])) {
-                    elementSeen.add(groupStr)
-                    reply.append("<${groupStr}> cts:belongsTo <${ctsNsStr}> .\n")
-                    reply.append("<${ctsNsStr}> cts:possesses <${groupStr}> .\n")
-                    reply.append("<${groupStr}> rdf:type cts:TextGroup .\n")
-                    reply.append("<${groupStr}> dcterms:title " + '"' + this.inventory.getGroupName(groupStr) + '" .\n')
-
-                    reply.append("\n<${groupStr}> rdf:label " + '"' + "${groupLabel}" + '" .\n\n')
-                }
-
-            } catch (Exception e) {
+	  } catch (Exception e) {
                 System.err.println "CtsTtl: exception in turtleizeInv for urn ${u}. ${e}"
             }
         }
-
         return reply.toString()
     }
 
 
 
-  void turtleizeTabsToFile(File tabFile, File turtles, String charEncoding, boolean prefix) {
-    if (debug > 0) {
-      System.err.println "Turtlize file ${tabFile} directly to ${ttlFile}"
-    }
-    if (prefix) {
-      turtles.append(prefixStr, charEncoding)
-    }
-    boolean foundIt = false
-    def seqMaps = [:]
-    tabFile.eachLine { l ->
-      def cols = "${l} ".split(separatorValue)
-
-      if (debug > 0) { System.err.println "CtsTtl: ${l} cols as ${cols}, size ${cols.size()}" }
-      if (cols.size() >= 7) {
-	turtles.append(turtleizeLine(l) + "\n", charEncoding)
-	String urnVal = cols[0]
-	String seq = cols[1]
-	CtsUrn u
-	try {
-	  u = new CtsUrn(urnVal)
-	  String noPsg = u.getUrnWithoutPassage()
-	  if (! seqMaps.keySet().contains(noPsg) ) {
-	    seqMaps[noPsg] = [:]
-	  }
-	  def workMap = seqMaps[noPsg]
-	  workMap[seq] = urnVal
-	  seqMaps[noPsg] = workMap
-	  foundIt = true
-
-	} catch (Exception e) {
-	  System.err.println "CtsTtl: failed to get record for ${urnVal}."
-	  System.err.println "err ${e}"
-
-	}
-                    
-      } else {
-	if ((cols[0] == "namespace")  && (cols.size() == 4)) {
-	  // ok, but don't output.
-	} else {
-	  System.err.println "CtsTtl: Too few columns! ${cols.size()} for ${cols}"
-	}
-      }
-    }
-
-    if (foundIt) {
-      tabFile.eachLine { l ->
-	def cols = l.split(separatorValue)
-	if (cols.size() == 7) {
-	  String urnVal = cols[0]
-	  CtsUrn u
-	  try {
-	    u = new CtsUrn(urnVal)
-	  } catch (Exception e) {
-	    System.err.println "CtsTtl: failed to get record for ${urnVal}."
-	  }
-	  if (u) {
-	    def currMap = seqMaps[u.getUrnWithoutPassage()]
-                
-	    String prev = cols[2]
-	    String next = cols[3]
-	    if (currMap[next] != null) {
-	      //turtles.append("<${urnVal}> cts:next <${currMap[next]}> . \n", charEncoding)
-	      try {
-		CtsUrn nextUrn = new CtsUrn(currMap[next])
-		//		turtles.append("<${u.toString(true)}> cts:next <${nextUrn.toString(true)}> . \n", charEncoding)
-		turtles.append("<${u.toString()}> cts:next <${nextUrn.toString()}> . \n", charEncoding)
-	      } catch (Exception e) {
-		System.err.println "Could not make URN from " + currMap[next]
-	      }
-	    }
-	    if (currMap[prev] != null) {
-	      //turtles.append("<${urnVal}> cts:prev <${currMap[prev]}> . \n", charEncoding)
-	      try {
-		CtsUrn prevUrn = new CtsUrn(currMap[prev])
-		//		turtles.append("<${u.toString(true)}> cts:prev <${prevUrn.toString(true)}> . \n", charEncoding)
-		turtles.append("<${u.toString()}> cts:prev <${prevUrn.toString()}> . \n", charEncoding)
-	      } catch (Exception e) {
-		System.err.println "Could not make URN from " + currMap[prev]
-	      }
-
-	    }
-	  }
-
-	} else {
-	  if (debug > 0) {
-	    System.err.println "Wrong size entry: ${cols.size()} cols in ${stringData}"
-	  }
-	}
-      }
-    }
-    /*
-    if (turtles.toString().size() == 0) {
-      System.err.println "CtsTtl: could not turtelize  " + stringData
-      }*/
-  }
-
-
-  /** Translates the contents of a CTS tabular file to RDF TTL.
-   * @param tabFile A File in the cite library's 7-column tabular format.
-   * @returns The TTL representation of tabFile's contents.
+  /** Generates ten TTL statements describing the citable text node
+   * documented in the single input line tabLine.  In addition to these
+   * ten statements, a complete OHCO2 description of a node in RDF requires
+   * two further statements identifying next and previous nodes (for a total
+   * of twelve RDF statements to document an OHCO2 node).  Those are computed
+   * in a separate pass through a tabulated input source that resolves sequence
+   * numbers in the input to corresponding URN values for the nodes.
+   * @param tabLine A delimited String tabulating a citable text node
+   * in the OHCO2 model.
+   * @returns A ten-line String composed of ten RDF statements,
+   * one TTL-formatted statement per line.
    */
-  String turtleizeTabs(File tabFile) {
-    return turtleizeTabs(tabFile, false)
-  }
-
-    /** Translates the contents of a CTS tabular file to RDF TTL.
-    * @param tabFile A File in the cite library's 7-column tabular format.
-    * @param prefix Whether or not to include a declaration of the
-    * hmt namespace in the TTL output.
-    * @returns The TTL representation of tabFile's contents.
-    */
-    String turtleizeTabs(File tabFile, boolean prefix) {
-        return turtleizeTabs(tabFile.getText("UTF-8"), prefix)
+  String turtleizeLine(String tabLine) {
+    if (debug > 0 ) { 
+      System.err.println "CtsTtl: Turtleize line ||${tabLine}||"
     }
-
     
-  String turtleizeTabs(String stringData, boolean prefix) {
+    // buffer for TTL output:
     StringBuffer turtles = new StringBuffer()
-    if (prefix) {
-      turtles.append(prefixStr)
-    }
-    boolean foundIt = false
-    def seqMaps = [:]
-    stringData.eachLine { l ->
-      def cols = "${l} ".split(separatorValue)
-
-      if (debug > 0) { System.err.println "CtsTtl: ${l} cols as ${cols}, size ${cols.size()}" }
-      if (cols.size() >= 7) {
-	turtles.append(turtleizeLine(l) + "\n")
-	String urnVal = cols[0]
-	String seq = cols[1]
-	CtsUrn u
-	try {
-	  u = new CtsUrn(urnVal)
-	  String noPsg = u.getUrnWithoutPassage()
-	  if (! seqMaps.keySet().contains(noPsg) ) {
-	    seqMaps[noPsg] = [:]
-	  }
-	  def workMap = seqMaps[noPsg]
-	  workMap[seq] = urnVal
-	  seqMaps[noPsg] = workMap
-	  foundIt = true
-
-	} catch (Exception e) {
-	  System.err.println "CtsTtl: failed to get record for ${urnVal}."
-	  System.err.println "err ${e}"
-
-	}
-                    
-      } else {
-	System.err.println "CtsTtl: Too few columns! ${cols.size()} for ${cols}"
-      }
-    }
-
-    if (foundIt) {
-      stringData.eachLine { l ->
-	def cols = l.split(separatorValue)
-	if (cols.size() == 7) {
-	  String urnVal = cols[0]
-	  CtsUrn u
-	  try {
-	    u = new CtsUrn(urnVal)
-	  } catch (Exception e) {
-	    System.err.println "CtsTtl: failed to get record for ${urnVal}."
-	  }
-	  if (u) {
-	    def currMap = seqMaps[u.getUrnWithoutPassage()]
-                
-	    String prev = cols[2]
-	    String next = cols[3]
-	    if (currMap[next] != null) {
-	      // turtles.append("<${urnVal}> cts:next <${currMap[next]}> . \n")
-	      try {
-		CtsUrn nextUrn = new CtsUrn(currMap[next])
-		//	turtles.append("<${u.toString(true)}> cts:next <${nextUrn.toString(true)}> . \n")
-		turtles.append("<${u.toString()}> cts:next <${nextUrn.toString()}> . \n")
-	      } catch (Exception e) {
-		System.err.println "Could not get URN for " + currMap[next]
-	      }
-
-	    }
-	    if (currMap[prev] != null) {
-	      //	      turtles.append("<${urnVal}> cts:prev <${currMap[prev]}> . \n")
-	      try {
-		CtsUrn prevUrn = new CtsUrn(currMap[prev])
-		//		turtles.append("<${u.toString(true)}> cts:prev <${prevUrn.toString(true)}> . \n")
-		turtles.append("<${u.toString()}> cts:prev <${prevUrn.toString()}> . \n")
-	      } catch (Exception e) {
-		System.err.println "Could not get URN for " + currMap[prev]
-	      }
-
-	    }
-	  }
-	} else {
-	  System.err.println "Wrong size entry: ${cols.size()} cols in ${stringData}"
-	}
-     }
-
-    }
-    if (turtles.toString().size() == 0) {
-      System.err.println "CtsTtl: could not turtelize string " + stringData
-    }
-    return turtles.toString()
-  }
-
-
-
-
-    /** Translates the contents of a single line from a tabular
-    * input file into RDF TTL.
-    * @param tabLine A String with a single line of 7-column 
-    * tabular data.
-    * @returns A String with the TTL expression of the line's 
-    * contents.
+    
+    /* Incredible kludge to handles groovy's String split behavior.
+       See note here for explanation:
+       http://jermdemo.blogspot.de/2009/07/beware-groovy-split-and-tokenize-dont.html
     */
-    String turtleizeLine(String tabLine) {
-        if (debug > 0 ) { 
-        System.err.println "CtsTtl: Turtleize line ||${tabLine}||"
-        } 
-        StringBuffer turtles = new StringBuffer()
-        /* Incredible kludge! Handles groovy split behavior... */
-        def cols = "${tabLine} ".split(separatorValue)
-        String urnVal = cols[0]
+    def cols = "${tabLine} ".split(separatorValue)
+    String urnVal = cols[0]
         if (debug > 0) {
 	  System.err.println "COLS are ${cols} with urnVal  " + urnVal 
 	}
@@ -438,7 +219,9 @@ class CtsTtl {
             System.err.println "Trimmed xpTemplate back to ||${xpTemplate}||"
         }
 
-
+	if (debug > 0) {
+	  System.err.println "Prev/next cols are " + prev + ":" + next
+	}
         CtsUrn urn = null
         try {
             urn = new CtsUrn(urnVal)
@@ -470,17 +253,10 @@ class CtsTtl {
 	  turtles.append("<${urn.toString()}> hmt:xpTemplate "  + '"' + xpTemplate + '" .\n')
 	  while (max > 1) {
 	    max--;
-		// Mod here from"containedUrn" : is this right?
-		//                turtles.append("<${urn.toString(true)}> cts:containedBy <${urnBase}:${urn.getPassage(max)}> .\n")
-		turtles.append("<${urn.toString()}> cts:containedBy <${urnBase}${urn.getPassage(max)}> .\n")
-		//                turtles.append("<${urnBase}:${urn.getPassage(max)}> cts:contains <${containedUrn}>  .\n")
-		//                turtles.append("<${urnBase}:${urn.getPassage(max)}> cts:contains <${urn.toString(true)}>  .\n")
-		turtles.append("<${urnBase}${urn.getPassage(max)}> cts:contains <${urn.toString()}>  .\n")
-
-
-                turtles.append("<${urnBase}${urn.getPassage(max)}> cts:citationDepth ${max} .\n")
-                containedUrn = "${urnBase}${urn.getPassage(max)}"
-            }
+	    turtles.append("<${urn.toString()}> cts:containedBy <${urnBase}${urn.getPassage(max)}> .\n")
+	    turtles.append("<${urnBase}${urn.getPassage(max)}> cts:contains <${urn.toString()}>  .\n")
+	    turtles.append("<${urnBase}${urn.getPassage(max)}> cts:citationDepth ${max} .\n")
+	  }
         }
         return turtles.toString()
     }

@@ -321,6 +321,11 @@ class Tabulator {
     def nsMaps = inv.getNsMapList()
     def oneMap = nsMaps[urn.toString()]
 
+    StringBuilder nsMapBldr = new StringBuilder()
+    oneMap?.keySet().each {
+      nsMapBldr.append " xmlns:${it}='" + oneMap[it] + "'"
+    }
+    
     // Create parsed document from local file source:
     def docBuilderFac = DocumentBuilderFactory.newInstance()
     docBuilderFac.setNamespaceAware(true)
@@ -359,7 +364,7 @@ class Tabulator {
   
       // Now walk through entire document, and check for nodes with ids
       // contained in our citableNodes list
-      tabFromTree(parsedRoot, urn, outputDir)
+      tabFromTree(parsedRoot, urn, nsMapBldr.toString(), outputDir)
 
     } else {
       System.err.println "NO PARSEABLE ROOT FOR FILE ${f}"
@@ -388,7 +393,6 @@ class Tabulator {
     n = n.getParentNode()
     
     def ancestors = triplet.getScopePattern()
-    //    def ancestorParts = this.re.splitAncestors(ancestors)
     def ancestorParts =  TabulatorRegEx.splitAncestors(ancestors)
     // Total number of ancestor elements to find.
     // Use this as an index to walk back trhough
@@ -420,8 +424,6 @@ class Tabulator {
   }
 
 
-
-
   /** Creates an ordered tabular representation of all nodes in a given (sub)document
    * with nodeIds appearing in the list of desired nodes.  Walks the tree of all nodes
    * below n, and checks their nodeId against idList:  if the nodeId appears there,
@@ -429,7 +431,7 @@ class Tabulator {
    * @param n The node to tabulate.
    * @param urn Urn (without reference component) of document being tabulated.
    */
-  private void tabFromTree(Node n, CtsUrn urn, File outputDir) {
+  private void tabFromTree(Node n, CtsUrn urn, String xmlNsDecls, File outputDir) {
     // we need to do xpath transforms in this method ...
     TransformerFactory tf = TransformerFactory.newInstance()
     Transformer xform = tf.newTransformer()
@@ -518,10 +520,11 @@ class Tabulator {
 	  // to get the refVal, we need to check both leaf node URNs,
 	  // and any possible terminal nodes
 	  def refVal = fillRefValue(currentScheme, tIdx, kid)
-	  
 
-	  // maybe??
-	  def record = "${urn}${refVal}${columnSeparator}${this.nodesProcessed}${columnSeparator}${prevCount}${columnSeparator}${nextCount}${columnSeparator}${explicitAncPath}${columnSeparator}${nodeText}${columnSeparator}${ancestors}${leafPatt}\n" 
+	  // 6. Supplied in xmlNsDecls parameter: XML namespace declarations
+	  
+	  // Composite
+	  def record = "${urn}${refVal}${columnSeparator}${this.nodesProcessed}${columnSeparator}${prevCount}${columnSeparator}${nextCount}${columnSeparator}${explicitAncPath}${columnSeparator}${nodeText}${columnSeparator}${ancestors}${leafPatt}${columnSeparator}${xmlNsDecls}\n" 
                     
 
 	  this.currOutFile = new File(outputDir, "${this.outFileBaseName}.txt")
@@ -534,13 +537,10 @@ class Tabulator {
       // end:  check each index
       
       // continue recursion to check rest of tree
-      tabFromTree(kid, urn, outputDir)
+      tabFromTree(kid, urn, xmlNsDecls, outputDir)
     }
         
   }
-
-
-
 
 
   /** Constructs an XPath expression from currNode back to document root by filling
@@ -558,13 +558,11 @@ class Tabulator {
    */
   private String fillAncestorPath (ArrayList scheme, int tripletIndex, Node currNode) {
     // Buffer for return value
-    StringBuffer buff = new StringBuffer()
+    StringBuilder buff = new StringBuilder()
     
     CitationTriplet triplet = scheme[tripletIndex]
     def ancestors = triplet.getScopePattern()
-    //def ancestorParts = re.splitAncestors(ancestors)
     def ancestorParts = TabulatorRegEx.splitAncestors(ancestors)
-    //    def ancestorParts = ancestors.split(/\\//)
     // Total number of ancestor elements to find.
     // Use this as an index to walk back trhough
     // the ancestorParts array.
@@ -574,7 +572,6 @@ class Tabulator {
       println "fillAncestorPath: node ${currNode.getLocalName()} with triplet ${triplet}" 
       println "Looking for ${tripletIndex} citaion values to substitute in, and have scheme ${scheme}."
     }
-        
 
     // Cycle through all ancestor elements in the XPath template, from nearest back to root.
     // Check if the template for each element includes the citation variable expression '?'
@@ -583,16 +580,14 @@ class Tabulator {
     boolean done = false
     while (!done) {
       def part = ancestorParts[lastIndex]
-      //      if (part ==~ re.citationPattern) {
-       if (part ==~ TabulatorRegEx.citationPattern) {
-      
+      if (part ==~ TabulatorRegEx.citationPattern) {
 	def citeAttr = scheme[tripletIndex].getLeafVariableAttribute()
 	def nodeVal = currNode.getAttribute(citeAttr)
 	part = part.replace(/?/,nodeVal)
 	tripletIndex--;
 	if (debug > 0) {
 	  println "\tSubstitute in value ${nodeVal} for part " + part;
-	  println "Decremenet triplet index to ${tripletIndex}"
+	  println "Decrement triplet index to ${tripletIndex}"
 	}
       }
       buff.insert(0, "/${part}")
