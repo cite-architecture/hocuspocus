@@ -172,11 +172,234 @@ class CtsTtl {
 	    }
 
 	  } catch (Exception e) {
-                System.err.println "CtsTtl: exception in turtleizeInv for urn ${u}. ${e}"
-            }
+	    System.err.println "CtsTtl: exception in turtleizeInv for urn ${u}. ${e}"
+	  }
         }
         return reply.toString()
     }
+
+
+  /** Translates the contents of a CTS tabular file to RDF TTL and writes
+   * the output to a file.
+   * @param tabFile A File in the cite library's 7-column tabular format.
+   * @param turtles Output file for resulting TTL.
+   * @param charEncoding Character encoding to use for input and output.
+   * @param prefix Whether or not to include a declaration of the
+   * hmt namespace in the TTL output.
+   */
+  void turtleizeTabsToFile(File tabFile, File turtles, String charEncoding, boolean prefix) {
+    if (debug > 0) {
+      System.err.println "Turtlize file ${tabFile} directly to ${ttlFile}"
+    }
+    turtles.setText(turtleTabs(tabFile, prefix), charEncoding)
+    
+    /*
+    if (prefix) {
+      turtles.append(prefixStr, charEncoding)
+    }
+    
+    boolean foundIt = false
+    def seqMaps = [:]
+    tabFile.eachLine { l ->
+      def cols = "${l} ".split(separatorValue)
+
+      if (debug > 0) { System.err.println "CtsTtl: ${l} cols as ${cols}, size ${cols.size()}" }
+      if (cols.size() >= 7) {
+	turtles.append(turtleizeLine(l) + "\n", charEncoding)
+	String urnVal = cols[0]
+	String seq = cols[1]
+	CtsUrn u
+	try {
+	  u = new CtsUrn(urnVal)
+	  String noPsg = u.getUrnWithoutPassage()
+	  if (! seqMaps.keySet().contains(noPsg) ) {
+	    seqMaps[noPsg] = [:]
+	  }
+	  def workMap = seqMaps[noPsg]
+	  workMap[seq] = urnVal
+	  seqMaps[noPsg] = workMap
+	  foundIt = true
+
+	} catch (Exception e) {
+	  System.err.println "CtsTtl: failed to get record for ${urnVal}."
+	  System.err.println "err ${e}"
+
+	}
+                    
+      } else {
+	if ((cols[0] == "namespace")  && (cols.size() == 4)) {
+	  // not an error, but don't output.
+	} else {
+	  System.err.println "CtsTtl: Too few columns! ${cols.size()} for ${cols}"
+	}
+      }
+    }
+
+    if (foundIt) {
+      tabFile.eachLine { l ->
+	def cols = l.split(separatorValue)
+	if (cols.size() == 7) {
+	  String urnVal = cols[0]
+	  CtsUrn u
+	  try {
+	    u = new CtsUrn(urnVal)
+	  } catch (Exception e) {
+	    System.err.println "CtsTtl: failed to get record for ${urnVal}."
+	  }
+	  if (u) {
+	    def currMap = seqMaps[u.getUrnWithoutPassage()]
+                
+	    String prev = cols[2]
+	    String next = cols[3]
+	    if (currMap[next] != null) {
+	      try {
+		CtsUrn nextUrn = new CtsUrn(currMap[next])
+		turtles.append("<${u.toString()}> cts:next <${nextUrn.toString()}> . \n", charEncoding)
+	      } catch (Exception e) {
+		System.err.println "Could not make URN from " + currMap[next]
+	      }
+	    }
+	    if (currMap[prev] != null) {
+	      try {
+		CtsUrn prevUrn = new CtsUrn(currMap[prev])
+		turtles.append("<${u.toString()}> cts:prev <${prevUrn.toString()}> . \n", charEncoding)
+	      } catch (Exception e) {
+		System.err.println "Could not make URN from " + currMap[prev]
+	      }
+
+	    }
+	  }
+
+	} else {
+	  if (debug > 0) {
+	    System.err.println "Wrong size entry: ${cols.size()} cols in ${stringData}"
+	  }
+	}
+      }
+      }*/
+    /*
+    if (turtles.toString().size() == 0) {
+      System.err.println "CtsTtl: could not turtelize  " + stringData
+      }*/
+  }
+
+
+  /** Translates the contents of a CTS tabular file to RDF TTL.
+   * @param tabFile A File in the cite library's 7-column tabular format.
+   * @returns The TTL representation of tabFile's contents.
+   */
+  String turtleizeTabs(File tabFile) {
+    return turtleizeTabs(tabFile, false)
+  }
+
+  /** Translates the contents of a CTS tabular file to RDF TTL.
+   * @param tabFile A File in the cite library's 7-column tabular format.
+   * @param prefix Whether or not to include a declaration of the
+   * hmt namespace in the TTL output.
+   * @returns The TTL representation of tabFile's contents.
+   */
+  String turtleizeTabs(File tabFile, boolean prefix) {
+    return turtleizeTabs(tabFile.getText("UTF-8"), prefix)
+  }
+
+  // First, map sequence number to URNs, segregating
+  // sequences by text.
+  // Keys will be URN of the cited version without
+  // passages, and values will in turn be a map of
+  // sequence numbers -> full URNs with citable reff
+  String turtleizePrevNext(String tabData) {
+    // 1. Collect maps of sequences, keyed by work:
+    def seqMapsForWorks = [:]
+    tabData.eachLine { l ->
+      def cols = "${l} ".split(separatorValue)
+      if (cols.size() >= 7) {
+	String urnVal = cols[0]
+	String seq = cols[1]
+	CtsUrn u
+	try {
+	  u = new CtsUrn(urnVal)
+	  String workNoPsg = u.getUrnWithoutPassage()
+	  if (! seqMapsForWorks.keySet().contains(workNoPsg) ) {
+	    seqMapsForWorks[workNoPsg] = [:]
+	  }
+	  def currentMapping =  seqMapsForWorks[workNoPsg]
+	  currentMapping[seq] = urnVal
+	  seqMapsForWorks[workNoPsg] = currentMapping
+
+	} catch (Exception e) {
+	  System.err.println "CtsTtl: failed to get record for ${urnVal}."
+	  System.err.println "err ${e}"
+	}
+	
+
+      } else {
+	// ??
+      }
+    }
+
+    // 2. Now generate P/N statements
+    StringBuilder ttl = new StringBuilder()
+    tabData.eachLine { l ->
+      def cols = "${l} ".split(separatorValue)
+      if (cols.size() >= 7) {
+	String urnVal = cols[0]
+	String seq = cols[1]
+	String prv = cols[2]
+		String nxt = cols[3]
+	CtsUrn u
+	try {
+	  u = new CtsUrn(urnVal)
+	  String workNoPsg = u.getUrnWithoutPassage()
+	  LinkedHashMap currentMapping =  seqMapsForWorks[workNoPsg]
+	  if (prv != "") {
+	    ttl.append( "<${u}> cts:prev <${currentMapping[prv]}> .\n")
+	  }
+	  if (nxt != "") {
+	    ttl.append( "<${u}>  cts:next <${currentMapping[nxt]}> .\n")
+	  }
+	}  catch (Exception e) {
+	  System.err.println "CtsTtl: failed to get record for ${urnVal}."
+	  System.err.println "err ${e}"
+	}
+      }
+    }
+    return ttl.toString()
+  }
+  
+  /** Translates the contents of a CTS tabular file to RDF TTL.
+   * @param tabFile A File in the cite library's 7-column tabular format.
+   * @param prefix Whether or not to include a declaration of the
+   * hmt namespace in the TTL output.
+   * @returns The TTL representation of tabFile's contents.
+   */
+  String turtleizeTabs(String stringData, boolean prefix) {
+    StringBuffer turtles = new StringBuffer()
+    if (prefix) {
+      turtles.append(prefixStr)
+    }
+    boolean foundIt = false
+    // def seqMaps = [:]
+    stringData.eachLine { l ->
+      def cols = "${l} ".split(separatorValue)
+
+      if (debug > 0) { System.err.println "CtsTtl: ${l} cols as ${cols}, size ${cols.size()}" }
+      if (cols.size() >= 7) {
+	turtles.append(turtleizeLine(l) + "\n")
+      } else {
+	System.err.println "CtsTtl: Too few columns! ${cols.size()} for ${cols}"
+      }
+      
+    }
+
+    if (turtles.toString().size() == 0) {
+      System.err.println "CtsTtl: could not turtelize string " + stringData
+    }
+    return turtles.toString()
+  }
+
+
+
+
 
 
 
