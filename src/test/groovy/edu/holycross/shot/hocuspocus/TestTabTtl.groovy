@@ -31,8 +31,5 @@ class TestTabTtl extends GroovyTestCase {
     assert ttlStr.readLines().size() == 10
   }
   
-  void testTabTtl() {
-    //
-  }
 
 }

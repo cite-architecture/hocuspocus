@@ -115,7 +115,7 @@ public class RdfTest extends ConcordionTestCase {
 	    File archiveDir = new File(buildPath + archive);
 	    File schemaFile = new File(buildPath + schema);
 	    Corpus c = new Corpus(inv, archiveDir, schemaFile);
-
+	    
 	    File tabDir = new File(outDir);
 	    if (! tabDir.exists()) {
 		tabDir.mkdir();

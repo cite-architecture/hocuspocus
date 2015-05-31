@@ -284,7 +284,9 @@ class Corpus {
     ttlFile.append(turtler.turtleizeInv(includePrefix), charEnc)
 
     tabulateRepository(tabDir)
+    // 
     turtleizeTabsToFile(tabDir, ttlFile, false)
+    
   }  
 
   /* * Validates the XML serialization of the corpus's TextInventory 
