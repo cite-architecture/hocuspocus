@@ -96,6 +96,7 @@ The files in <a href="../../../resources/test/data/archive1/xml/" concordion:set
 <tr><td>cts:translationLang</td></tr>
 <tr><td>cts:xmlns</td></tr>
 <tr><td>dcterms:title</td></tr>
+<tr><td>hmt:xmlNsDecl</td></tr>
 <tr><td>hmt:xmlOpen</td></tr>
 <tr><td>hmt:xpTemplate</td></tr>                                                                                                                                                                     
 <tr><td>rdf:label</td></tr>

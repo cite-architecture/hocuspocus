@@ -280,6 +280,8 @@ class CtsTtl {
         String xmlAncestor= cols[4]
         String textContent = cols[5]
         String xpTemplate = cols[6].replaceAll(/[ ]+$/,"")
+	String xmlNs = cols[7]
+	
         if (debug > 0) {
             System.err.println "Trimmed xpTemplate back to ||${xpTemplate}||"
         }
@@ -316,6 +318,7 @@ class CtsTtl {
 	  turtles.append("<${urn.toString()}> cts:citationDepth ${max} .\n")
 	  turtles.append("<${urn.toString()}> hmt:xmlOpen " +  '"' + xmlAncestor + '" .\n')
 	  turtles.append("<${urn.toString()}> hmt:xpTemplate "  + '"' + xpTemplate + '" .\n')
+	  turtles.append("<${urn.toString()}> hmt:xmlNsDecl "  + '"' + xmlNs + '" .\n')
 	  while (max > 1) {
 	    max--;
 	    turtles.append("<${urn.toString()}> cts:containedBy <${urnBase}${urn.getPassage(max)}> .\n")
@@ -330,11 +333,17 @@ class CtsTtl {
     }
 
 
-    // First, map sequence number to URNs, segregating
-  // sequences by text.
-  // Keys will be URN of the cited version without
-  // passages, and values will in turn be a map of
-  // sequence numbers -> full URNs with citable reff
+  /**  Composes RDF statements for cts:prev and cts:next
+   * relations defined in a tabular data source.
+   * It first reads through the source to map URNs for citable
+   * nodes to the integer sequence, keeping the mappings segregated
+   * by the text they belong to. The structure is a map of maps:
+   * work-level URNs are keys to get a map for that work of
+   * sequence numbers to citable node URNs.
+   * @param tabData Tabular-formatted data source.
+   * @returns RDF statements in TTL expressing prev/next
+   * relations of all citable nodes in the source data.
+   */
   String turtleizePrevNext(String tabData) {
     // 1. Collect maps of sequences, keyed by work:
     def seqMapsForWorks = [:]
