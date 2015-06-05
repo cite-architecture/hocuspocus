@@ -244,8 +244,10 @@ class Corpus {
     }
 
     CtsTtl turtler = new CtsTtl(this.inventory)
-    outputDir.eachFileMatch(~/.*.txt/) { tab ->  
-      System.err.println "Turtleizing " + tab
+    outputDir.eachFileMatch(~/.*.txt/) { tab ->
+      if (debug > 0) {
+	System.err.println "Turtleizing " + tab
+      }
       turtler.turtleizeTabsToFile(tab, ttl, charEnc, false)
       if (destructive) { 
 	if (debug > 0) { System.err.println "Corpus: deleting file ${tab}" }
