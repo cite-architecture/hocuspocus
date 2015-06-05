@@ -214,7 +214,7 @@ class Corpus {
     CtsTtl turtler = new CtsTtl(this.inventory)
     Integer fileCount = 0
     outputDir.eachFileMatch(~/.*.txt/) { tab ->  
-      System.err.println "Turtleizing " + tab
+      if (debug > 0) { System.err.println "Turtleizing " + tab } 
       fileCount++;
       if (fileCount == 1) {
 	ttl.append(turtler.turtleizeTabs(tab, false), charEnc)

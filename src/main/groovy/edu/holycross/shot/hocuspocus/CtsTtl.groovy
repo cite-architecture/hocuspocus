@@ -10,7 +10,7 @@ import edu.harvard.chs.cite.TextInventory
 class CtsTtl {
 
 
-  String release = "0.13.0"
+  String release = "0.13.3"
   
   Integer WARN = 1
   Integer DEBUGLEVEL = 2
@@ -129,15 +129,21 @@ class CtsTtl {
 	    reply.append("<${u}> cts:belongsTo <${workStr}> .\n")
 	    reply.append("<${workStr}> cts:possesses <${u}> .\n")
 
-	    System.err.println "TEST ${urn} for language: " + this.inventory.languageForVersion(urn)
+	    if (debug > 0) {
+	      System.err.println "TEST ${urn} for language: " + this.inventory.languageForVersion(urn)
+	    }
 	    String versionLang =  this.inventory.languageForVersion(urn)
 	    String workLang = this.inventory.languageForWork(workStr)
 
 
 	    
 	    /* >>>>>>>>>>>> BROKEN CODE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< */
-	    System.err.println "TEST ${urn} for language: " + this.inventory.languageForVersion(urn)
-	    System.err.println "TEST ${workLang} for language: " + this.inventory.languageForVersion(workStr)
+	    if (debug > 0) {
+	      System.err.println "TEST ${urn} for language: " + this.inventory.languageForVersion(urn)
+	      System.err.println "TEST ${workLang} for language: " + this.inventory.languageForVersion(workStr)
+	    }
+
+	    
 	    // THIS IS FAILING?
 	    reply.append("<${urn.toString()}> dcterms:title " + '"' + this.inventory.versionLabel(u) + '" .\n')
 	    if (versionLang != workLang) {
