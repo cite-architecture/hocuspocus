@@ -229,6 +229,8 @@ class CtsTtl {
       if (debug > 0) { System.err.println "CtsTtl: ${l} cols as ${cols}, size ${cols.size()}" }
       if (cols.size() >= 7) {
 	turtles.append(turtleizeLine(l) + "\n")
+      } else if (cols.size() == 4) {
+	// Ignore namespace declaration in 4 columns
       } else {
 	System.err.println "CtsTtl: Too few columns! ${cols.size()} for ${cols}"
       }
