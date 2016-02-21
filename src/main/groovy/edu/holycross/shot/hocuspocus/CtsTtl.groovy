@@ -41,6 +41,40 @@ class CtsTtl {
        inv = ti
    }
 
+   /** Composes TTL string for unique mappings of abbreviations for
+   * CTS namespaces to full URI.
+   * @param ctsNsList A list of CTS namespace triplets.
+   */
+   static String ctsNsTtl(ArrayList ctsNsList) {
+     StringBuilder reply = new StringBuilder("")
+     ctsNsList.each { triple ->
+       System.err.println "TRIPLE: " + triple
+       reply.append("<urn:cts:${triple[0]}:> rdf:type cts:Namespace .\n")
+       reply.append("<urn:cts:${triple[0]}:> cts:fullUri  <urn:cts:${triple[1]}> .\n")
+       reply.append("<urn:cts:${triple[0]}:> rdf:label  " + '"""'+ triple[2] + '""" .\n')
+     }
+    return reply.toString()
+   }
+
+   /** Composes TTL string for unique mappings of abbreviations for
+   * XML namespaces to full URI.
+   * @param namespaceMapList A map of text URNs to a mapping
+   */
+   static String xmlNsTtl(LinkedHashMap namespaceMapList) {
+     StringBuilder reply = new StringBuilder()
+     Set nsAbbrTtl = []
+     namespaceMapList.keySet().each { urn ->
+       def nsMap = namespaceMapList[urn]
+       nsMap.keySet().each { nsAbbr ->
+         nsAbbrTtl.add("<${nsMap[nsAbbr]}> cts:abbreviatedBy " + '"' + nsAbbr + '" .\n')
+         nsAbbrTtl.add "<${urn}> cts:xmlns <${nsMap[nsAbbr]}> .\n"
+       }
+     }
+     nsAbbrTtl.each {
+       reply.append(it)
+     }
+     return reply.toString()
+   }
 
    /** Translates the contents of a CTS TextInventory to
     * RDF TTL.
@@ -57,30 +91,15 @@ class CtsTtl {
      }
      def mapSize =   inv.nsMapList.keySet().size()
      if (mapSize < 1) {
-       System.err.println "CtsTtl:turtleizeInv:  empty nsMapList!"
-       throw new Exception("Text ivnentory ${inv} had no cts namespaces defined.")
+       System.err.println "CtsTtl:turtleizeInv:  no texts were mapped to XML namespaces."
      }
-     System.err.println "MAP LIST: " + inv.nsMapList
+    // XML namespace information
+    reply.append(xmlNsTtl(inv.nsMapList))
+    // CTS namespace information
+    reply.append(ctsNsTtl(inv.ctsnamespaces))
+
 
 /*
-    // XML namespace information:
-    // Naive assumption that only one abbr. per URI
-    // in a corpus should be reworked.
-    def nsSeen = [:]
-    inv.nsMapList.keySet().each { urn ->
-      if (debug > 0) {
-	System.err.println "CtsTtl:turtleizeInv: ns map for urn ${urn}"
-      }
-      def nsMap = inv.nsMapList[urn]
-      nsMap.keySet().each { nsAbbr ->
-	if (! nsSeen[nsAbbr]) {
-	  reply.append("<${nsMap[nsAbbr]}> cts:abbreviatedBy " + '"' + nsAbbr + '" .\n')
-	  nsSeen[nsAbbr] = true
-	}
-	reply.append "<${urn}> cts:xmlns <${nsMap[nsAbbr]}> .\n"
-      }
-    }
-
     def elementSeen = []
     inv.allOnline().each { u ->
       try {
