@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="TextInventory.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <TextInventory
    tiid="hmt"
    tiversion="5.0.rc.1"
@@ -67,6 +68,7 @@
                <namespaceMapping
                   abbreviation="tei"
                   nsURI="http://www.tei-c.org/ns/1.0"/>
+               <namespaceMapping abbreviation="hmt" nsURI="http://www.homermultitext.org/fakens/dummyvalue"/>
                <citationMapping>
                   <citation
                      label="book"
@@ -120,4 +122,5 @@
          </edition>
       </work>
    </textgroup>
+
 </TextInventory>
