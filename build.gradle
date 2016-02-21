@@ -1,14 +1,31 @@
-import com.github.rjeschke.txtmark.*
-import org.apache.tools.ant.filters.*
+//import com.github.rjeschke.txtmark.*
+//import org.apache.tools.ant.filters.*
 
 
 apply plugin: "base"
 apply plugin:  "groovy"
 apply plugin:  "maven"
 
-
 apply from: "versions.gradle"
 
+group = "edu.holycross.shot"
+version = '0.9.0'
+
+repositories {
+    mavenCentral()
+    maven {
+        url "http://beta.hpcc.uh.edu/nexus/content/groups/public"
+    }
+}
+
+dependencies {
+    compile "org.codehaus.groovy:groovy-all:${versionMap['groovy']}"
+    compile group: 'edu.harvard.chs', name : 'cite' , version: versionMap["cite"]
+    testCompile "junit:junit:${versionMap['junit']}"
+}
+
+
+/*
 
 if (hasProperty('conf')) {
     System.err.print "Using configuration data from ${conf}"
@@ -49,7 +66,9 @@ if (hasProperty('pub')) {
         apply from: "pub.gradle"
     }
 }
+*/
 
+/*
 buildscript {
   repositories {
     mavenCentral()
@@ -58,12 +77,11 @@ buildscript {
     classpath group: 'com.github.rjeschke', name: 'txtmark', version: '0.11'
   }
 }
-
-group = "edu.holycross.shot"
-version = '0.13.5'
+*/
 
 
 
+/*
 repositories {
     mavenCentral()
     maven {
@@ -81,16 +99,14 @@ configurations {
 
 
 dependencies {
-  
-  compile group: 'org.codehaus.groovy', name: 'groovy', version: groovyversion
 
-  
-  
+
+
   compile group: 'commons-io', name: 'commons-io', version: commonsioversion
   compile group: 'net.sf.saxon', name: 'saxon-dom', version: '8.7'
 
-            
-  testCompile 'junit:junit:4.11'
+
+
   testCompile 'org.concordion:concordion:1.4.4'
   testCompile group :'xmlunit', name: 'xmlunit', version: xmlunitversion
   compile group: 'com.thaiopensource', name:'jing', version: jingversion
@@ -99,8 +115,8 @@ dependencies {
 
 
 
-  // DOCUMENT THESE: 
-  compile group: 'edu.harvard.chs', name : 'cite' , version: versionMap["cite"]
+  // DOCUMENT THESE:
+
   compile group: 'edu.harvard.chs', name : 'greekutils' , version: versionMap["greekutils"]
   schemas group: 'edu.harvard.chs', name: 'cite', version: versionMap["cite"], classifier: 'schemas', ext: 'zip'
 
@@ -124,17 +140,9 @@ vmap.doLast {
     println versionMap[k]
   }
   println ""
-}
+}*/
 
 /*
-task squawk() {
-  System.out.println "citeVersion: " + citeVersion
-}
-*/
-
-
-
-
 task checkOutSchemas {
   description = ""
   doLast {
@@ -153,19 +161,22 @@ task copySchemas(dependsOn: checkOutSchemas, type: Copy) {
     from 'src/schemas'
     into 'build/schemas'
 }
+*/
 
-
+/*
 compileGroovy.dependsOn(copySchemas)
 
 uploadArchives {
     repositories.mavenDeployer {
-        repository(url: nexusRepo) {                   
+        repository(url: nexusRepo) {
             authentication (userName: nexusUser, password: nexusPassword)
         }
     }
 }
+*/
 
 
+/*
 
 // for specs with concordion:
 sourceSets {
@@ -197,7 +208,7 @@ task setUpResources(dependsOn: cpResources) {
 setUpResources.doLast {
   println "READING FILE TREE FROM " + mdSrc + " DIRECTORY"
   FileTree tree = fileTree(mdSrc) {
-    include "**/*.md"
+    include "** / *.md"
   }
   tree.visit { f ->
     if (f.relativePath.isFile()) {
@@ -241,7 +252,7 @@ addVersion.doLast {
   versionMap.keySet().sort().each { k ->
     deps.append("<tr><td>${k}</td><td>${versionMap[k]}</td></tr>")
   }
-  tokenMap["deps"] = deps.toString() 
+  tokenMap["deps"] = deps.toString()
 }
 
 task conc(type: Copy, dependsOn: [test, addVersion]) {
@@ -250,3 +261,4 @@ task conc(type: Copy, dependsOn: [test, addVersion]) {
   into "${buildDir}/concordion-formatted"
   filter(ReplaceTokens, tokens: tokenMap)
 }
+*/
