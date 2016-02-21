@@ -1,4 +1,4 @@
-<?xml-model href="TextInventory.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <TextInventory
   tiid="hmt"
   tiversion="5.0.rc.1"
@@ -20,7 +20,7 @@
       xml:lang="eng"> Namespace for made up test works.</description>
   </ctsnamespace>
   
-  
+  <!--
   <textgroup
     urn="urn:cts:greekLit:tlg0012:">
     <groupname
@@ -120,4 +120,5 @@
       </edition>
     </work>
   </textgroup>
+-->
 </TextInventory>

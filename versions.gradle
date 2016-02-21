@@ -15,7 +15,7 @@ ext {
  versionMap = [
   "groovy" : '2.4.5',
   "junit": "4.11",
-  "cite" : "1.0.6"//,
+  "cite" : "1.0.7"//,
    //"greekutils" : '0.8.5'
    ]
 
