@@ -22,7 +22,9 @@ dependencies {
     compile "org.codehaus.groovy:groovy-all:${versionMap['groovy']}"
     compile group: 'edu.harvard.chs', name : 'cite' , version: versionMap["cite"]
     compile group: 'commons-io', name: 'commons-io', version: versionMap['commonsio']
-    
+
+    compile group: 'net.sf.saxon', name: 'saxon-dom', version: versionMap["saxon"]
+
     testCompile "junit:junit:${versionMap['junit']}"
 }
 
