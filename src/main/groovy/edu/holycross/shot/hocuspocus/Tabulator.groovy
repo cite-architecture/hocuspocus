@@ -1,8 +1,6 @@
 package edu.holycross.shot.hocuspocus
 
 import edu.harvard.chs.cite.TextInventory
-import edu.harvard.chs.cite.CitationModel
-import edu.harvard.chs.cite.CitationTriplet
 import edu.harvard.chs.cite.CtsUrn
 
 import org.apache.commons.io.FilenameUtils
@@ -27,10 +25,10 @@ import javax.xml.transform.stream.StreamResult
 
 /**
  * Tabulator is a utility class for working with canonically citable texts
- * in the OHCO2 model, and converting representations in XML files  to a 
+ * in the OHCO2 model, and converting representations in XML files  to a
  * tabular format.
+ *
  * 
- * Requires:  java 5 or higher (since it uses the java 5 xpath engine)
 */
 class Tabulator {
 
@@ -38,8 +36,8 @@ class Tabulator {
 
   /** Keep regular expressions that destroy the beautiful formatting
    * of my editor in a separate file. */
-  // make static
-  //TabulatorRegEx re 
+  // make static?
+  //TabulatorRegEx re
 
   /** String value to use as column separator in tabular text output.
    */
@@ -54,7 +52,7 @@ class Tabulator {
    */
   org.w3c.dom.Element parsedRoot
 
-  /** The CitationModel (an object type from the cite library) 
+  /** The CitationModel (an object type from the cite library)
    * for the given document.
    */
   CitationModel cm = null
@@ -69,33 +67,40 @@ class Tabulator {
 
   /** Character encoding for current output file.
    */
-  def outFileEncoding = "UTF-8" 
+  def outFileEncoding = "UTF-8"
 
 
   /** Character encoding for current input file.
    */
-  def inFileEncoding = "UTF-8" 
 
-  // Coordinate these
-  def nodeIdLists = []
+
+  def inFileEncoding = "UTF-8"
+
+
+  // These three lists are loaded up by the collectCitableIds method.
+  /** List of numeric indices of comprehensive citation schemes in a document. */
   def schemeIndex = []
+  /** List of numeric indices of triplet mappings in a document (one tier of
+   * a citation scheme, for example). */
   def tripletIndex = []
+  /** List of node IDs above leaf nodes in a citation scheme. */
+  def nodeIdLists = []
 
 
   // Mapping of prefixes to namespaces:
-  /** A map including closures implementing the javax.xml.xpath.Namespace 
-   * interface. Using this in groovy with 
+  /** A map including closures implementing the javax.xml.xpath.Namespace
+   * interface. Using this in groovy with
    * "groovyNSClosure as javax.xml.namespace.NamespaceContext"
    * will satisfy that interface.
    * Individual namespace mappings themselves are stored in  nsMap.
-   * It includes by default a mapping of the TEI namespace to 
-   * the prefix abbreviation 'tei' : other mappings can be added with 
+   * It includes by default a mapping of the TEI namespace to
+   * the prefix abbreviation 'tei' : other mappings can be added with
    * the addNSMapping method().
    */
   def groovyNSClosure =  [
     nsMap : ['tei':'http://www.tei-c.org/ns/1.0'],
     getNamespaceURI : {String nsPrefix -> groovyNSClosure.nsMap[nsPrefix]},
-    getPrefix :{String nsUri -> 
+    getPrefix :{String nsUri ->
     groovyNSClosure.nsMap.find {it.value == nsUri}?.key
     },
 
@@ -109,7 +114,7 @@ class Tabulator {
       findRes.iterator()
     }
   ]
-   
+
 
   /** Adds a single namespace mapping  (prefix -> URI) to the internal
    * implementation of the javax.xml.namespace.NamespaceContext interface.
@@ -131,8 +136,8 @@ class Tabulator {
     groovyNSClosure["nsMap"] = m
   }
 
-  
-  /** Returns the java LinkedHashMap representation of the 
+
+  /** Returns the java LinkedHashMap representation of the
    * all namespace mappings, as required for the
    * javax.xml.namespace.NamespaceContext interface.
    */
@@ -141,9 +146,9 @@ class Tabulator {
   }
 
 
-
+  /** Constructor with no parameters.
+   */
   Tabulator() {
-    //this.re = new TabulatorRegEx()
   }
 
 
@@ -166,7 +171,7 @@ class Tabulator {
 
 
   /**
-   * Creates an unordered list of nodeId values for all nodes 
+   * Creates an unordered list of nodeId values for all nodes
    * resulting from applying an xpath expression to a source node.
    * @param xpString The Xpath expression to apply.
    * @param queryRoot The Element to which to apply the Xpath expression.,
@@ -183,10 +188,10 @@ class Tabulator {
     if (debug > 0) {
       System.err.println "nodeIdsForxpath:  for " + xpString + ", found " + limit + " nodes."
     }
-    
+
     def done = false
     def cnt = 0
-    while (!done) {  
+    while (!done) {
       if (cnt < limit) {
 	def keyVal = foundNodes.item(cnt).getNodeIndex()
 	idList = idList.plus(keyVal)
@@ -208,55 +213,33 @@ class Tabulator {
    */
   private def collectCitableIds() {
     def citeSchemes = this.cm.getMappings()
-    
-    if (debug > 0) { System.err.println "COLLECTING CITABLES WITH " + citeSchemes}
     citeSchemes.eachWithIndex { citeScheme, schemeNum ->
       // We can get IDs for all citable nodes in two passes:
       //
-      // [1] collect every terminal node above the 
+      // [1] collect every terminal node above the
       // leaf level of the hierarchy
       citeScheme.eachWithIndex { triplet, idx ->
-	if (debug > 0) { 
-	  System.err.println "use triplet ${triplet} of class ${triplet.getClass()}"
-	  if (debug > 8) {
-	    System.err.println "It has terminal pattern " + triplet.getTerminalNodePattern()
-	  }
-	}
 	if (triplet.allowsTerminalNode()) {
-	  if (debug > 0) { System.err.println "... allows terminal nodes"}
-	} else {
-	  if (debug > 0) { System.err.println "... no terminal nodes at level ${idx}"}
-	}
-	if (triplet.allowsTerminalNode()) {
-	  
 	  // then we need to process it, so record by index numbers
 	  // what scheme and triplet we use
 	  this.schemeIndex.leftShift(schemeNum)
 	  this.tripletIndex.leftShift(idx)
-	  
+
 	  def xp = triplet.containerXpath() + triplet.terminalNodeXpath()
-	  
-	  if (debug > 0) { System.err.println "GET NODES FOR ${xp}" }
 	  def nodesForTerminal = nodeIdsForXpath(xp,parsedRoot)
 	  this.nodeIdLists.leftShift(nodesForTerminal)
-	  
-	  if (debug > 0) {
-	    println "collectCitableIds: collect nodes for xp ${xp} yields ${nodeIdLists.size()} lists, first of which contains ${nodeIdLists[0].size()} objects"
-	    println "nodeList index ${nodeIdLists.size() -1} : indexed to cite scheme  ${schemeNum}, triplet ${idx}" 
-	  }
 
 	} else {
 	  if (debug > 0) {
-	    println "\t... no terminal nodes at level ${idx}" 
+	    println "\t... no terminal nodes at level ${idx}"
 	  }
 	}
       }
     }
-    
+
     //
     //[2] collect all leaf nodes of the citation tree:
     this.cm.getXpathList().eachWithIndex { xp, xpNum ->
-
       // record index for scheme number, and leaf-node triplet
       this.schemeIndex.leftShift(xpNum)
       def cs = citeSchemes[xpNum]
@@ -269,11 +252,84 @@ class Tabulator {
 	System.err.println "Yielded cite scheme " + cs
 	System.err.println "Collected node ids " + nodeIdsForXpath(xp,parsedRoot)
       }
-      
+
     }
   }
 
 
+  // exceptions:
+  // 1. no citation model
+  String tabulateFile(CtsUrn txtUrn,
+		      TextInventory inv,
+		      CitationConfigurationFileReader confFile,
+		      File txtFile)
+  throws Exception {
+    StringBuilder tabularText = new StringBuilder()
+
+    
+    this.cm = confFile.getCitationModel(txtUrn.toString())
+
+    StringBuilder nsMapBldr = new StringBuilder("")    
+
+    try {
+      LinkedHashMap xmlNs = confFile.getXmlNsData(txtUrn.toString())
+      // CHECK FOR UNIQUENESS?
+      //Begin by blindly adding every namespace record in the service to our output buffer: 
+      xmlNs?.keySet().each {
+	nsMapBldr.append " xmlns:${it}='" + xmlNs[it] + "'"
+	// We're trying to write this pattern:
+	//  namespace#ABBR#FULLURI#LABEL
+	String oneLine = "namespace${columnSeparator}${it}${columnSeparator}${xmlNs[it]}${columnSeparator}\n".toString()
+	tabularText.append(oneLine)
+      }
+
+    } catch (Exception e) {
+      System.err.println "Tabulator:tabulateFile:  no namespace data on " + txtFile
+      System.err.println "Continuing to tabulate anyway."
+    }
+
+    // Create parsed document from local file source:
+    def docBuilderFac = DocumentBuilderFactory.newInstance()
+    docBuilderFac.setNamespaceAware(true)
+    def docBuilder = docBuilderFac.newDocumentBuilder()
+
+    FileReader fr = new FileReader(txtFile)
+
+    // docBuilder is not smart about character encodings, but we
+    // can work around that if we construct an InputSource
+    InputSource is = new InputSource(fr)
+    is.setEncoding(this.inFileEncoding)
+    
+    try {
+      parsedRoot = docBuilder.parse(is).documentElement
+    } catch (Exception e) {
+      System.err.println "Failed to parse stream from ${srcFile}"
+      throw e
+    }
+
+    if (parsedRoot) {
+      parsedRoot.normalize()
+
+      
+      //def newFName = "${outFileBaseName}.txt"
+      //this.currOutFile = new File(outputDir, newFName)
+      //currOutFile.setText("")
+      
+
+      if (debug > 0) { println "STEP 1: collecting all node IDs" }
+      collectCitableIds()
+
+      // Now walk through entire document, and check for nodes with ids
+      // contained in our citableNodes list
+      tabularText.append(tabStringFromTree(parsedRoot, txtUrn, nsMapBldr.toString(), tabularText.toString()))
+
+    } else {
+      System.err.println "NO PARSEABLE ROOT FOR FILE ${f}"
+    }
+
+    return tabularText.toString()
+  }
+  
   /**
    * Retrieves the text identified by urn, and writes
    * a representation of the text in tabular format to one or more files
@@ -283,6 +339,9 @@ class Tabulator {
    * @param fileBase The base name to use for output files.
    * @param chEncoding The character encoding to use.
    */
+
+
+  /*
   public void tabulate(CtsUrn urn, TextInventory inv, File srcFile, String outputDir) throws Exception {
     try {
       File outDir = new File(outputDir)
@@ -296,7 +355,8 @@ class Tabulator {
     }
   }
 
-
+  */
+  
   /**
    * Writes a tabulated representation of a canonically citable XML file.
    * @param urn CTS URN of the document to tabulate.
@@ -304,13 +364,15 @@ class Tabulator {
    * @param srcFile Source file to tabulate.
    * @param outputDir Writable directory where tabular output will go.
    */
-  public void tabulate(CtsUrn urn, TextInventory inv, File srcFile, File outputDir) 
+
+  /*
+  public void tabulate(CtsUrn urn, TextInventory inv, File srcFile, File outputDir)
   throws java.io.FileNotFoundException,IOException,SecurityException,Exception  {
     this.outFileBaseName = FilenameUtils.getName(srcFile.getAbsolutePath()).replace(/.xml/,'')
     if (debug > 0) {
       System.err.println "Tabulator: TABULATING urn ${urn} to fileBase " + outputDir + " using base file name " + this.outFileBaseName
     }
-    
+
     this.cm = inv.getCitationModel(urn)
     if (cm) {
       if (debug > 0) {System.err.println "CitationModel is ${cm}"}
@@ -325,7 +387,7 @@ class Tabulator {
     oneMap?.keySet().each {
       nsMapBldr.append " xmlns:${it}='" + oneMap[it] + "'"
     }
-    
+
     // Create parsed document from local file source:
     def docBuilderFac = DocumentBuilderFactory.newInstance()
     docBuilderFac.setNamespaceAware(true)
@@ -349,19 +411,19 @@ class Tabulator {
 
       def newFName = "${outFileBaseName}.txt"
       this.currOutFile = new File(outputDir, newFName)
-      currOutFile.setText("") 
-      /* Begin by blindly adding every namespace record in the service to our output buffer: */
-      oneMap?.keySet().each {
-	/* We're trying to write this pattern:
-	   namespace#ABBR#FULLURI#LABEL 
-	*/
+      currOutFile.setText("")
+      // Begin by blindly adding every namespace record in the service to our output buffer: 
+      //      oneMap?.keySet().each {
+	// We're trying to write this pattern:
+	// namespace#ABBR#FULLURI#LABEL
+	
 	this.currOutFile.append("namespace${columnSeparator}${it}${columnSeparator}${oneMap[it]}${columnSeparator}\n",this.outFileEncoding)
       }
 
 
       if (debug > 0) { println "STEP 1: collecting all node IDs" }
       collectCitableIds()
-  
+
       // Now walk through entire document, and check for nodes with ids
       // contained in our citableNodes list
       tabFromTree(parsedRoot, urn, nsMapBldr.toString(), outputDir)
@@ -371,6 +433,10 @@ class Tabulator {
     }
   }
   // end of tabulate method
+*/
+
+
+
 
   /** Creates passage component of a CTS URN by finding reference values for every
    * level of citation hierarchy, and creating dot-separated string from them.
@@ -391,7 +457,7 @@ class Tabulator {
     // for leaf node.
     StringBuffer buff = new StringBuffer(n.getAttribute(citeAttr))
     n = n.getParentNode()
-    
+
     def ancestors = triplet.getScopePattern()
     def ancestorParts =  TabulatorRegEx.splitAncestors(ancestors)
     // Total number of ancestor elements to find.
@@ -412,8 +478,8 @@ class Tabulator {
 	tripletIndex--;
 	buff.insert(0,"${nodeVal}.")
       }
-      
-      if (lastIndex == 1) {   
+
+      if (lastIndex == 1) {
 	done  = true
       } else {
 	n = n.getParentNode()
@@ -423,7 +489,100 @@ class Tabulator {
     return buff.toString()
   }
 
+  private String tabStringFromTree(Node n,
+				   CtsUrn urn,
+				   String xmlNsDecls,
+				   String compositeString) {
+    
 
+
+    // total matching nodes in all our lists:
+    int nodeMax = 0
+    this.nodeIdLists.each { nlist ->
+      nodeMax = nodeMax + nlist.size()  + this.nodesProcessed
+    }
+
+
+    def kids = n.getChildNodes()
+    def kidsLimit = kids.getLength()
+    def count = 0
+    while (count < kidsLimit) {
+      def kid = kids.item(count)
+      count++;
+      // compare node against each list to see if
+      // it matches:
+      nodeIdLists.eachWithIndex { nl, idx ->
+	if (nl.contains(kid.getNodeIndex())){
+	  if (debug > 1) {
+	    System.err.println ("\nCitable node to process: ${kid.getNodeIndex()}")
+	    System.err.println ("Composite is " + compositeString)
+	  }
+	  this.nodesProcessed++;
+
+	  // Keep track of node counting
+	  def prevCount = ""
+	  def nextCount = ""
+	  if (this.nodesProcessed > 1) { prevCount = this.nodesProcessed - 1 }
+	  if (this.nodesProcessed <= nodeMax) { nextCount = this.nodesProcessed + 1 }
+	  String record = formatRecord(urn, n, kid, idx, prevCount.toString(), nextCount.toString(), xmlNsDecls)
+	  compositeString += record
+	}
+	// end: if we found a match
+      }
+      // end:  check each index
+      //
+      // continue recursion to check rest of tree
+      compositeString =  tabStringFromTree(kid, urn, xmlNsDecls, compositeString)
+    }
+    return compositeString
+  }
+
+  /** Formats a single line for a tabular representation of a citable node. 
+   */
+  String formatRecord(CtsUrn urn, Node parent, Node kid, Integer idx,  String prevCount, String nextCount, String xmlNsDecls) {
+    // De-reference scheme and triplet indices to load relevant triplet :
+    def schemes = this.cm.getMappings()
+    def sIdx = this.schemeIndex[idx]
+    def currentScheme = schemes[sIdx]
+    def tIdx = this.tripletIndex[idx]
+    def currentTriplet = currentScheme[tIdx]
+
+    // we need to do xpath transforms in this method ...
+    TransformerFactory tf = TransformerFactory.newInstance()
+    Transformer xform = tf.newTransformer()
+    xform.setOutputProperty("omit-xml-declaration", "yes")
+	  
+    // 2. get text content of node
+    // Man, the w3c DOM makes you work to do something obvious!
+    StreamResult res = new StreamResult(new StringWriter())
+    DOMSource ds = new DOMSource(kid)
+    xform.transform(ds,res)
+    def nodeText = res.getWriter().toString().replaceAll(/\n/,'')
+
+    // make sure resulting text will be parseable as one record per
+    // line with fields delineated by columnSeparator:
+    nodeText = nodeText.replaceAll(/${columnSeparator}/,' ')
+    nodeText = nodeText.replaceAll(/[ \t\n\r]+/," ")
+
+    // 3.get ancestor and leaf patterns for node
+    def ancestors = currentTriplet.getScopePattern()
+    def leafPatt =currentTriplet.getLeafPattern()
+
+    // 4. get ancestor path
+    def explicitAncPath =  fillAncestorPath(currentScheme,tIdx, parent)
+
+    // 5. get  value for passage reference
+    // to get the refVal, we need to check both leaf node URNs,
+    // and any possible terminal nodes
+    def refVal = fillRefValue(currentScheme, tIdx, kid)
+    
+    // 6. Supplied in xmlNsDecls parameter: XML namespace declarations
+    // Composite
+    return "${urn}${refVal}${columnSeparator}${this.nodesProcessed}${columnSeparator}${prevCount}${columnSeparator}${nextCount}${columnSeparator}${explicitAncPath}${columnSeparator}${nodeText}${columnSeparator}${ancestors}${leafPatt}${columnSeparator}${xmlNsDecls}\n"
+  }
+
+  
+  
   /** Creates an ordered tabular representation of all nodes in a given (sub)document
    * with nodeIds appearing in the list of desired nodes.  Walks the tree of all nodes
    * below n, and checks their nodeId against idList:  if the nodeId appears there,
@@ -431,6 +590,8 @@ class Tabulator {
    * @param n The node to tabulate.
    * @param urn Urn (without reference component) of document being tabulated.
    */
+
+  /*
   private void tabFromTree(Node n, CtsUrn urn, String xmlNsDecls, File outputDir) {
     // we need to do xpath transforms in this method ...
     TransformerFactory tf = TransformerFactory.newInstance()
@@ -442,8 +603,8 @@ class Tabulator {
     this.nodeIdLists.each { nlist ->
       nodeMax = nodeMax + nlist.size()  + this.nodesProcessed
     }
-        
-    if (debug > 1) { 
+
+    if (debug > 1) {
       System.err.println "nodeMax is ${nodeMax} for nodeIdLists "  + nodeIdLists
     }
 
@@ -457,12 +618,12 @@ class Tabulator {
       // compare node against each list to see if
       // it matches:
       nodeIdLists.eachWithIndex { nl, idx ->
-	
+
 
 	if (nl.contains(kid.getNodeIndex())){
 	  // Dereference scheme and triplet indices to load relevant triplet :
 	  def schemes = this.cm.getMappings()
-                    
+
 	  if (debug > 2) {
 	    println "tabfromTree: cycling nodeIlist at index ${idx}"
 	    println "Size of scheme list is " + schemes.size()
@@ -476,13 +637,13 @@ class Tabulator {
 
 	  this.nodesProcessed++;
 
-	  if (debug > 1) {                    
+	  if (debug > 1) {
 	    println "tabFromTree: with index ${idx}: currentTriplet ${currentTriplet}"
 	    println "\tnode matches in list ${idx} (total ${this.nodesProcessed})"
 	    println "using triplet ${currentTriplet}"
 	  }
-                    
-	  
+
+
 	  // Need to construct 5 fields for output:
 
 	  // 1. keep track of node counting
@@ -500,8 +661,8 @@ class Tabulator {
 	  def nodeText = res.getWriter().toString().replaceAll(/\n/,'')
 
 
-	  
-	  
+
+
 	  // make sure resulting text will be parseable as one record per
 	  // line with fields delineated by columnSeparator:
 	  nodeText = nodeText.replaceAll(/${columnSeparator}/,' ')
@@ -516,16 +677,16 @@ class Tabulator {
 	  // 4. get ancestor path
 	  def explicitAncPath =  fillAncestorPath(currentScheme,tIdx, n)
 
-	  // 5. get  value for passage reference 
+	  // 5. get  value for passage reference
 	  // to get the refVal, we need to check both leaf node URNs,
 	  // and any possible terminal nodes
 	  def refVal = fillRefValue(currentScheme, tIdx, kid)
 
 	  // 6. Supplied in xmlNsDecls parameter: XML namespace declarations
-	  
+
 	  // Composite
-	  def record = "${urn}${refVal}${columnSeparator}${this.nodesProcessed}${columnSeparator}${prevCount}${columnSeparator}${nextCount}${columnSeparator}${explicitAncPath}${columnSeparator}${nodeText}${columnSeparator}${ancestors}${leafPatt}${columnSeparator}${xmlNsDecls}\n" 
-                    
+	  def record = "${urn}${refVal}${columnSeparator}${this.nodesProcessed}${columnSeparator}${prevCount}${columnSeparator}${nextCount}${columnSeparator}${explicitAncPath}${columnSeparator}${nodeText}${columnSeparator}${ancestors}${leafPatt}${columnSeparator}${xmlNsDecls}\n"
+
 
 	  this.currOutFile = new File(outputDir, "${this.outFileBaseName}.txt")
 	  this.currOutFile.append(record)
@@ -535,13 +696,13 @@ class Tabulator {
 
       }
       // end:  check each index
-      
+
       // continue recursion to check rest of tree
       tabFromTree(kid, urn, xmlNsDecls, outputDir)
     }
-        
-  }
 
+  }
+  */
 
   /** Constructs an XPath expression from currNode back to document root by filling
    * correct citation values into the xpath template expressions in a citation triplet.
@@ -559,7 +720,7 @@ class Tabulator {
   private String fillAncestorPath (ArrayList scheme, int tripletIndex, Node currNode) {
     // Buffer for return value
     StringBuilder buff = new StringBuilder()
-    
+
     CitationTriplet triplet = scheme[tripletIndex]
     def ancestors = triplet.getScopePattern()
     def ancestorParts = TabulatorRegEx.splitAncestors(ancestors)
@@ -569,7 +730,7 @@ class Tabulator {
     def lastIndex = ancestorParts.size() - 1
 
     if (debug > 0) {
-      println "fillAncestorPath: node ${currNode.getLocalName()} with triplet ${triplet}" 
+      println "fillAncestorPath: node ${currNode.getLocalName()} with triplet ${triplet}"
       println "Looking for ${tripletIndex} citaion values to substitute in, and have scheme ${scheme}."
     }
 
@@ -594,7 +755,7 @@ class Tabulator {
       if (debug > 0) {
 	println "${lastIndex}: ${part} --> ${buff.toString()} for node ${currNode.getLocalName()}"
       }
-      if (lastIndex == 1) {   
+      if (lastIndex == 1) {
 	done  = true
       } else {
 	currNode = currNode.getParentNode()
