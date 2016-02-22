@@ -14,25 +14,37 @@ class TestConfXmlNs {
   void testNsMapping() {
 
     File confFile = new File("testdata/newconf/citationconfig3.xml")
+    def root = new XmlParser().parseText(confFile.getText("UTF-8"))
 
-/*
+    def nsMappings = CitationConfigurationFileReader.collectXmlNamespaceData(root)
 
+    // Three docs, 2 mapped to tei, 1 not mapped.
+    Integer expectedDocs = 3
+    Integer expectedMapped = 2
+    Integer expectedNull  = 1
+    Integer expectedTei = 2
 
-    Integer expectedXmlNamespaces = 2
-    Integer expectedMappings = 3
+    assert nsMappings.size() == 3
 
-    Integer actualXmlNamespaces = 0
-    Integer actualMappings = 0
-    ttl.eachLine { l ->
-      if (l ==~ /.*cts:abbreviatedBy.* /) {
-          actualXmlNamespaces++
-      } else if (l ==~ / . *cts:xmlns . * /) {
-        actualMappings++
+    Integer actualMapped = 0
+    Integer actualNull = 0
+    Integer actualTei = 0
+    nsMappings.keySet().each {
+      def nsMap = nsMappings[it]
+      if (nsMap.size() == 0 ) {
+        actualNull++
+
+      } else {
+        actualMapped++
+        def urnKey = nsMap.keySet()
+        if (urnKey[0] == "tei")  {
+          actualTei++
+        }
       }
     }
-    assert actualXmlNamespaces == expectedXmlNamespaces
-    assert actualMappings == expectedMappings
-    */
+    assert actualMapped == expectedMapped
+    assert actualNull == expectedNull
+    assert actualTei == expectedTei
   }
 
 }
