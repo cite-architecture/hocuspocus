@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><?oxygen RNGSchema="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="xml"?><?xml-stylesheet type="text/xsl" href="chs-gp.xsl"?><TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0">
+    <teiHeader xml:lang="eng">
+        <fileDesc>
+            <titleStmt>
+                <title xml:lang="lat">Iliad (tokenized, for testing)</title>
+                
+            </titleStmt>
+            <publicationStmt>
+                <availability>
+                    <p>Born-digital TEI-compliant edition licensed under the Creative Commons
+                        Attribution-Share Alike 3.0 Unported License. For more information, see:
+                        http://creativecommons.org/licenses/by-sa/3.0/ </p>
+                </availability>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Readings based on the edition of T.W. Allen, with emendations and additional
+                    semantic markup.</p>
+                <p>Canonical citation is by book and poetic line.</p>
+            </sourceDesc>
+        </fileDesc>
+        <profileDesc>
+            <langUsage>
+                <language ident="grc">accented ancient Greek in Unicode-C Greek
+                    characters</language>
+                <language ident="eng">English</language>
+                <language ident="lat">Latin</language>
+            </langUsage>
+        </profileDesc>
+    </teiHeader>
+    <text xml:lang="grc">
+        <body>
+            <div n="1">
+
+ <l n="1"><w n="1">Μῆνιν</w> <w n="2">ἄειδε</w> <w n="3">θεὰ</w> <w n="4">Πηληϊάδεω</w> <w n="5">Ἀχιλῆος</w> </l> 
+ <l n="2"><w n="1">οὐλομένην</w> <w n="2">,</w> <w n="3">ἣ</w> <w n="4">μυρί'</w> <w n="5">Ἀχαιοῖς</w> <w n="6">ἄλγε'</w> <w n="7">ἔθηκε</w> <w n="8">,</w> </l> 
+ <l n="3"><w n="1">πολλὰς</w> <w n="2">δ'</w> <w n="3">ἰφθίμους</w> <w n="4">ψυχὰς</w> <w n="5">Ἄϊδι</w> <w n="6">προΐαψεν</w> </l> 
+ <l n="4"><w n="1">ἡρώων</w> <w n="2">,</w> <w n="3">αὐτοὺς</w> <w n="4">δὲ</w> <w n="5">ἑλώρια</w> <w n="6">τεῦχε</w> <w n="7">κύνεσσιν</w> </l> 
+ <l n="5"><w n="1">οἰωνοῖσί</w> <w n="2">τε</w> <w n="3">πᾶσι</w> <w n="4">,</w> <w n="5">Διὸς</w> <w n="6">δ'</w> <w n="7">ἐτελείετο</w> <w n="8">βουλή</w> <w n="9">,</w> </l> 
+ <l n="6"><w n="1">ἐξ</w> <w n="2">οὗ</w> <w n="3">δὴ</w> <w n="4">τὰ</w> <w n="5">πρῶτα</w> <w n="6">διαστήτην</w> <w n="7">ἐρίσαντε</w> </l> 
+ <l n="7"><w n="1">Ἀτρεΐδης</w> <w n="2">τε</w> <w n="3">ἄναξ</w> <w n="4">ἀνδρῶν</w> <w n="5">καὶ</w> <w n="6">δῖος</w> <w n="7">Ἀχιλλεύς</w> <w n="8">.</w> </l> 
+ <l n="8"><w n="1">Τίς</w> <w n="2">τάρ</w> <w n="3">σφωε</w> <w n="4">θεῶν</w> <w n="5">ἔριδι</w> <w n="6">ξυνέηκε</w> <w n="7">μάχεσθαι</w> <w n="8">;</w> </l> 
+ <l n="9"><w n="1">Λητοῦς</w> <w n="2">καὶ</w> <w n="3">Διὸς</w> <w n="4">υἱός·</w> <w n="5">ὃ</w> <w n="6">γὰρ</w> <w n="7">βασιλῆϊ</w> <w n="8">χολωθεὶς</w> </l> 
+ <l n="10"><w n="1">νοῦσον</w> <w n="2">ἀνὰ</w> <w n="3">στρατὸν</w> <w n="4">ὄρσε</w> <w n="5">κακήν</w> <w n="6">,</w> <w n="7">ὀλέκοντο</w> <w n="8">δὲ</w> <w n="9">λαοί</w> <w n="10">,</w> </l> 
+ 
+ </div> 
+
+ <div n="2"> 
+
+ <l n="1"><w n="1">Ἄλλοι</w> <w n="2">μέν</w> <w n="3">ῥα</w> <w n="4">θεοί</w> <w n="5">τε</w> <w n="6">καὶ</w> <w n="7">ἀνέρες</w> <w n="8">ἱπποκορυσταὶ</w> </l> 
+ <l n="2"><w n="1">εὗδον</w> <w n="2">παννύχιοι</w> <w n="3">,</w> <w n="4">Δία</w> <w n="5">δ'</w> <w n="6">οὐκ</w> <w n="7">ἔχε</w> <w n="8">νήδυμος</w> <w n="9">ὕπνος</w> <w n="10">,</w> </l> 
+ <l n="3"><w n="1">ἀλλ'</w> <w n="2">ὅ</w> <w n="3">γε</w> <w n="4">μερμήριζε</w> <w n="5">κατὰ</w> <w n="6">φρένα</w> <w n="7">ὡς</w> <w n="8">Ἀχιλῆα</w> </l> 
+ <l n="4"><w n="1">τιμήσῃ</w> <w n="2">,</w> <w n="3">ὀλέσῃ</w> <w n="4">δὲ</w> <w n="5">πολέας</w> <w n="6">ἐπὶ</w> <w n="7">νηυσὶν</w> <w n="8">Ἀχαιῶν</w> <w n="9">.</w> </l> 
+ <l n="5"><w n="1">ἧδε</w> <w n="2">δέ</w> <w n="3">οἱ</w> <w n="4">κατὰ</w> <w n="5">θυμὸν</w> <w n="6">ἀρίστη</w> <w n="7">φαίνετο</w> <w n="8">βουλή</w> <w n="9">,</w> </l> 
+ <l n="6"><w n="1">πέμψαι</w> <w n="2">ἐπ'</w> <w n="3">Ἀτρεΐδῃ</w> <w n="4">Ἀγαμέμνονι</w> <w n="5">οὖλον</w> <w n="6">ὄνειρον·</w> </l> 
+ <l n="7"><w n="1">καί</w> <w n="2">μιν</w> <w n="3">φωνήσας</w> <w n="4">ἔπεα</w> <w n="5">πτερόεντα</w> <w n="6">προσηύδα·</w> </l> 
+ <l n="8"><w n="1">βάσκ'</w> <w n="2">ἴθι</w> <w n="3">οὖλε</w> <w n="4">ὄνειρε</w> <w n="5">θοὰς</w> <w n="6">ἐπὶ</w> <w n="7">νῆας</w> <w n="8">Ἀχαιῶν·</w> </l> 
+ <l n="9"><w n="1">ἐλθὼν</w> <w n="2">ἐς</w> <w n="3">κλισίην</w> <w n="4">Ἀγαμέμνονος</w> <w n="5">Ἀτρεΐδαο</w> </l> 
+ <l n="10"><w n="1">πάντα</w> <w n="2">μάλ'</w> <w n="3">ἀτρεκέως</w> <w n="4">ἀγορευέμεν</w> <w n="5">ὡς</w> <w n="6">ἐπιτέλλω·</w> </l> 
+ </div> 
+ <div n="3"> 
+
+ <l n="1"><w n="1">Αὐτὰρ</w> <w n="2">ἐπεὶ</w> <w n="3">κόσμηθεν</w> <w n="4">ἅμ'</w> <w n="5">ἡγεμόνεσσιν</w> <w n="6">ἕκαστοι</w> <w n="7">,</w> </l> 
+ <l n="2"><w n="1">Τρῶες</w> <w n="2">μὲν</w> <w n="3">κλαγγῇ</w> <w n="4">τ'</w> <w n="5">ἐνοπῇ</w> <w n="6">τ'</w> <w n="7">ἴσαν</w> <w n="8">ὄρνιθες</w> <w n="9">ὣς</w> </l> 
+ <l n="3"><w n="1">ἠΰτε</w> <w n="2">περ</w> <w n="3">κλαγγὴ</w> <w n="4">γεράνων</w> <w n="5">πέλει</w> <w n="6">οὐρανόθι</w> <w n="7">πρό·</w> </l> 
+ <l n="4"><w n="1">αἵ</w> <w n="2">τ'</w> <w n="3">ἐπεὶ</w> <w n="4">οὖν</w> <w n="5">χειμῶνα</w> <w n="6">φύγον</w> <w n="7">καὶ</w> <w n="8">ἀθέσφατον</w> <w n="9">ὄμβρον</w> </l> 
+ <l n="5"><w n="1">κλαγγῇ</w> <w n="2">ταί</w> <w n="3">γε</w> <w n="4">πέτονται</w> <w n="5">ἐπ'</w> <w n="6">ὠκεανοῖο</w> <w n="7">ῥοάων</w> </l> 
+ <l n="6"><w n="1">ἀνδράσι</w> <w n="2">Πυγμαίοισι</w> <w n="3">φόνον</w> <w n="4">καὶ</w> <w n="5">κῆρα</w> <w n="6">φέρουσαι·</w> </l> 
+ <l n="7"><w n="1">ἠέριαι</w> <w n="2">δ'</w> <w n="3">ἄρα</w> <w n="4">ταί</w> <w n="5">γε</w> <w n="6">κακὴν</w> <w n="7">ἔριδα</w> <w n="8">προφέρονται</w> <w n="9">.</w> </l> 
+ <l n="8"><w n="1">οἳ</w> <w n="2">δ'</w> <w n="3">ἄρ'</w> <w n="4">ἴσαν</w> <w n="5">σιγῇ</w> <w n="6">μένεα</w> <w n="7">πνείοντες</w> <w n="8">Ἀχαιοὶ</w> </l> 
+ <l n="9"><w n="1">ἐν</w> <w n="2">θυμῷ</w> <w n="3">μεμαῶτες</w> <w n="4">ἀλεξέμεν</w> <w n="5">ἀλλήλοισιν</w> <w n="6">.</w> </l> 
+ <l n="10"><w n="1">Εὖτ'</w> <w n="2">ὄρεος</w> <w n="3">κορυφῇσι</w> <w n="4">Νότος</w> <w n="5">κατέχευεν</w> <w n="6">ὀμίχλην</w> </l> 
+  </div> 
+
+ </body> 
+ </text> 
+ </TEI>

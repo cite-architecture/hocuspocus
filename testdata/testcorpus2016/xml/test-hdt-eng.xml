@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>The History</title>
+                <author>Herodotus</author>
+            </titleStmt>
+            <extent>about 1.5mb</extent>
+            <publicationStmt>
+                <pubPlace>Lexington, KY</pubPlace>
+                <publisher>Stoa Consortium</publisher>
+                <date>Oct. 12, 2003</date>
+            </publicationStmt>
+            <sourceDesc>
+                <bibl>This text was prepared by Ross Scaife from the translation by G. C. Macaulay, third edition,
+                    printed in 1914, by MacMillan and Co., Limited, St. Martin's Street,
+                    London.</bibl>
+            </sourceDesc>
+        </fileDesc>
+        <profileDesc>
+            <langUsage>
+                <language ident="en">English</language>
+            </langUsage>
+        </profileDesc>
+       
+    </teiHeader>
+    <text>
+        <body>
+            <div type="book" n="1">
+                 <head> THE FIRST BOOK OF THE HISTORIES , CALLED CLIO </head> 
+                 <div type="chapter" n="0"> 
+                     <p> This is the Showing forth of the Inquiry of Herodotus of Halicarnassos , to
+                        the end that neither the deeds of men may be forgotten by lapse of time , nor
+                        the works great and marvellous , which have been produced some by Hellenes
+                        and some by Barbarians , may lose their renown ; and especially that the
+                        causes may be remembered for which these waged war with one another . </p> 
+                 </div> 
+                 <div type="chapter" n="1"> 
+                     <p> Those of the Persians who have knowledge of history declare that the
+                        Phenicians first began the quarrel . These , they say , came from that which is
+                        called the Erythraian Sea to this of ours ; and having settled in the land
+                        where they continue even now to dwell , set themselves forthwith to make long
+                        voyages by sea . And conveying merchandise of Egypt and of Assyria they
+                        arrived at other places and also at Argos ; now Argos was at that time in all
+                        points the first of the States within that land which is now called
+                        Hellas ; — the Phenicians arrived then at this land of Argos , and began to
+                        dispose of their ship's cargo : and on the fifth or sixth day after they had
+                        arrived , when their goods had been almost all sold , there came down to the
+                        sea a great company of women , and among them the daughter of the king ; and
+                        her name , as the Hellenes also agree , was Io the daughter of Inachos . These
+                        standing near to the stern of the ship were buying of the wares such as
+                        pleased them most , when of a sudden the Phenicians , passing the word from
+                        one to another , made a rush upon them ; and the greater part of the women
+                        escaped by flight , but Io and certain others were carried off . So they put
+                        them on board their ship , and forthwith departed , sailing away to Egypt . </p> 
+                 </div> 
+                 <div type="chapter" n="2"> 
+                     <p> In this manner the Persians report that Io came to Egypt , not agreeing
+                        therein with the Hellenes , and this they say was the first beginning of
+                        wrongs . Then after this , they say , certain Hellenes  (but the name of the
+                        people they are not able to report ) put in to the city of Tyre in Phenicia
+                        and carried off the king's daughter Europa ; — these would doubtless be
+                        Cretans ; — and so they were quits for the former injury . After this however
+                        the Hellenes , they say , were the authors of the second wrong ; for they
+                        sailed in to Aia of Colchis and to the river Phasis with a ship of war , and
+                        from thence , after they had done the other business for which they came ,
+                        they carried off the king's daughter Medea : and the king of Colchis sent a
+                        herald to the land of Hellas and demanded satisfaction for the rape and to
+                        have his daughter back ; but they answered that , as the Barbarians had given
+                        them no satisfaction for the rape of Io the Argive , so neither would they
+                        give satisfaction to the Barbarians for this . </p> 
+                 </div> 
+                 <div type="chapter" n="3"> 
+                     <p> In the next generation after this , they say , Alexander the son of Priam ,
+                        having heard of these things , desired to get a wife for himself by violence
+                        from Hellas , being fully assured that he would not be compelled to give any
+                        satisfaction for this wrong , inasmuch as the Hellenes gave none for theirs .
+                        So he carried off Helen , and the Hellenes resolved to send messengers first
+                        and to demand her back with satisfaction for the rape ; and when they put
+                        forth this demand , the others alleged to them the rape of Medea , saying that
+                        the Hellenes were now desiring satisfaction to be given to them by others ,
+                        though they had given none themselves nor had surrendered the person when
+                        demand was made . </p> 
+                 </div> 
+                 <div type="chapter" n="4"> 
+                     <p> Up to this point , they say , nothing more happened than the carrying away of
+                        women on both sides ; but after this the Hellenes were very greatly to blame ;
+                        for they set the first example of war , making an expedition into Asia before
+                        the Barbarians made any into Europe . Now they say that in their judgment ,
+                        though it is an act of wrong to carry away women by force , it is a folly to
+                        set one's heart on taking vengeance for their rape , and the wise course is
+                        to pay no regard when they have been carried away ; for it is evident that
+                        they would never be carried away if they were not themselves willing to go .
+                        And the Persians say that they , namely the people of Asia , when their women
+                        were carried away by force , had made it a matter of no account , but the
+                        Hellenes on account of a woman of Lacedemon gathered together a great
+                        armament , and then came to Asia and destroyed the dominion of Priam ; and
+                        that from this time forward they had always considered the Hellenic race to
+                        be their enemy : for Asia and the Barbarian races which dwell there the
+                        Persians claim as belonging to them ; but Europe and the Hellenic race they
+                        consider to be parted off from them . </p> 
+                 </div> 
+                 <div type="chapter" n="5"> 
+                     <p> The Persians for their part say that things happened thus ; and they conclude
+                        that the beginning of their quarrel with the Hellenes was on account of the
+                        taking of Ilion : but as regards Io the Phenicians do not agree with the
+                        Persians in telling the tale thus ; for they deny that they carried her off
+                        to Egypt by violent means , and they say on the other hand that when they
+                        were in Argos she was intimate with the master of their ship , and perceiving
+                        that she was with child , she was ashamed to confess it to her parents , and
+                        therefore sailed away with the Phenicians of her own will , for fear of being
+                        found out . These are the tales told by the Persians and the Phenicians
+                        severally : and concerning these things I am not going to say that they
+                        happened thus or thus , but when I have pointed to the man who first within
+                        my own knowledge began to commit wrong against the Hellenes , I shall go
+                        forward further with the story , giving an account of the cities of men ,
+                        small as well as great : for those which in old times were great have for the
+                        most part become small , while those that were in my own time great used in
+                        former times to be small : so then , since I know that human prosperity never
+                        continues steadfast , I shall make mention of both indifferently . </p> 
+                 </div> 
+                 <div type="chapter" n="6"> 
+                     <p> Croesus was Lydian by race , the son of Alyattes and ruler of the nations
+                        which dwell on this side of the river Halys ; which river , flowing from the
+                        South between the Syrians and the Paphlagonians , runs out towards the North
+                        Wind into that Sea which is called the Euxine . This Croesus , first of all
+                        the Barbarians of whom we have knowledge , subdued certain of the Hellenes
+                        and forced them to pay tribute , while others he gained over and made them
+                        his friends . Those whom he subdued were the Ionians , the Aiolians , and the
+                        Dorians who dwell in Asia ; and those whom he made his friends were the
+                        Lacedemonians . But before the reign of Croesus all the Hellenes were free ;
+                        for the expedition of the Kimmerians , which came upon Ionia before the time
+                        of Croesus , was not a conquest of the cities but a plundering incursion
+                        only . </p> 
+                 </div> 
+                 <div type="chapter" n="7"> 
+                     <p> Now the supremacy which had belonged to the Heracleidai came to the family of
+                        Croesus , called Mermnadai , in the following manner : — Candaules , whom the
+                        Hellenes call Myrsilos , was ruler of Sardis and a descendant of Alcaios , son
+                        of Heracles : for Agron , the son of Ninos , the son of Belos , the son of
+                        Alcaios , was the first of the Heracleidai who became king of Sardis , and
+                        Candaules the son of Myrsos was the last ; but those who were kings over this
+                        land before Agrond , were descendants of Lydos the son of Atys , whence this
+                        whole nation was called Lydian , having been before called Meonian . From
+                        these the Heracleidai , descended from Heracles and the slave-girl of
+                        Iardanos , obtained the government , being charged with it by reason of an
+                        oracle ; and they reigned for two-and-twenty generations of men , five hundred
+                        and five years , handing on the power from father to son , till the time of
+                        Clandaules the son of Myrsos . </p> 
+                 </div> 
+                 <div type="chapter" n="8"> 
+                     <p> This Candaules then of whom I speak had become passionately in love with his
+                        own wife ; and having become so , he deemed that his wife was fairer by far
+                        than all other women ; and thus deeming , to Gyges the son of Daskylos  (for he
+                        of all his spearmen was the most pleasing to him ) , to this Gyges , I say , he
+                        used to impart as well the more weighty of his affairs as also the beauty of
+                        his wife , praising it above measure : and after no long time , since it was
+                        destined that evil should happen to Candaules , he said to Gyges as follows :
+                        "Gyges , I think that thou dost not believe me when I tell thee of the beauty
+                        of my wife , for it happens that men's ears are less apt of belief than their
+                        eyes : contrive therefore means by which thou mayest look upon her naked ."
+                        But he cried aloud and said : "Master , what word of unwisdom is this which
+                        thou dost utter , bidding me look upon my mistress naked ? When a woman puts
+                        off her tunic she puts off her modesty also . Moreover of old time those fair
+                        sayings have been found out by men , from which we ought to learn wisdom ; and
+                        of these one is this , — that each man should look on his own : but I believe
+                        indeed that she is of all women the fairest and I entreat thee not to ask of
+                        me that which it is not lawful for me to do ." </p> 
+                 </div> 
+                 <div type="chapter" n="9"> 
+                     <p> With such words as these he resisted , fearing lest some evil might come to
+                        him from this ; but the king answered him thus : "Be of good courage , Gyges ,
+                        and have no fear , either of me , that I am saying these words to try thee , or
+                        of my wife , lest any harm may happen to thee from her . For I will contrive
+                        it so from the first that she shall not even perceive that she has been seen
+                        by thee . I will place thee in the room where we sleep , behind the open door ;
+                        and after I have gone in , my wife also will come to lie down . Now there is a
+                        seat near the entrance of the room , and upon this she will lay her garments
+                        as she takes them off one by one ; and so thou wilt be able to gaze upon her
+                        at full leisure . And when she goes from the chair to the bed and thou shalt
+                        be behind her back , then let it be thy part to take care that she sees thee
+                        not as thou goest through the door ." </p> 
+                 </div> 
+                 <div type="chapter" n="10"> 
+                     <p> He then , since he might not avoid it , gave consent : and Candaules , when he
+                        considered that it was time to rest , led Gyges to the chamber ; and
+                        straightway after this the woman also appeared : and Gyges looked upon her
+                        after she came in and as she laid down her garments ; and when she had her
+                        back turned towards him , as she went to the bed , then he slipped away from
+                        his hiding-place and was going forth . And as he went out , the woman caught
+                        sight of him , and perceiving that which had been done by her husband she did
+                        not cry out , though struck with shame , but she made as though she had not
+                        perceived the matter , meaning to avenge herself upon Candaules : for among
+                        the Lydians as also among most other Barbarians it is a shame even for a man
+                        to be seen naked . </p> 
+                 </div> 
+               
+             </div> 
+             <div type="book" n="2"> 
+                 <head> THE SECOND BOOK OF THE HISTORIES , CALLED EUTERPE </head> 
+                 <div type="chapter" n="1"> 
+                     <p> When Cyrus had brought his life to an end , Cambyses received the royal power
+                        in succession , being the son of Cyrus and of Cassandane the daughter of
+                        Pharnaspes , for whose death , which came about before his own , Cyrus had made
+                        great mourning himself and also had proclaimed to all those over whom he
+                        bore rule that they should make mourning for her : Cambyses , I say , being the
+                        son of this woman and of Cyrus , regarded the Ionians and Aiolians as slaves
+                        inherited from his father ; and he proceeded to march an army against Egypt ,
+                        taking with him as helpers not only the other nations of which he was the
+                        ruler , but also those of the Hellenes over whom he had power besides . </p> 
+                 </div> 
+                 <div type="chapter" n="2"> 
+                     <p> Now the Egyptians , before the time when Psammetichos became king over them ,
+                        were wont to suppose that they had come into being first of all men ; but
+                        since the time when Psammetichos having become king desired to know what men
+                        had come into being first , they suppose that the Phrygians came into being
+                        before themselves , but they themselves before all other men . Now
+                        Psammetichos , when he was not able by inquiry to find out any means of
+                        knowing who had come into being first of all men , contrived a device of the
+                        following kind : — Taking two new- born children belonging to persons of the
+                        common sort he gave them to a shepherd to bring up at the place where his
+                        flocks were , with a manner of bringing up such as I shall say , charging him
+                        namely that no man should utter any word in their presence , and that they
+                        should be placed by themselves in a room where none might come , and at the
+                        proper time he should bring to them she-goats , and when he had satisfied
+                        them with milk he should do for them whatever else was needed . These things
+                        Psammetichos did and gave him this charge wishing to hear what word the
+                        children would let break forth first , after they had ceased from wailings
+                        without sense . And accordingly so it came to pass ; for after a space of two
+                        years had gone by , during which the shepherd went on acting so , at length ,
+                        when he opened the door and entered , both the children fell before him in
+                        entreaty and uttered the word  <emph> bekos </emph>  , stretching forth their
+                        hands . At first when he heard this the shepherd kept silence ; but since this
+                        word was often repeated , as he visited them constantly and attended to them ,
+                        at last he declared the matter to his master , and at his command he brought
+                        the children before his face . Then Psammetichos having himself also heard
+                        it , began to inquire about what nation of men named anything
+                             <emph> bekos </emph>  , and inquiring he found that the Phrygians had this
+                        name for bread . In this manner and guided by an indication such as this , the
+                        Egyptians were brought to allow that the Phrygians were a more ancient
+                        people than themselves . </p> 
+                 </div> 
+                 <div type="chapter" n="3"> 
+                     <p> That so it came to pass I heard from the priests of that Hephaistos who
+                        dwells at Memphis ; but the Hellenes relate , besides many other idle tales ,
+                        that Psammetichos cut out the tongues of certain women , and then caused the
+                        children to live with these women . With regard then to the rearing of the
+                        children they related so much as I have said : and I heard also other things
+                        at Memphis when I had speech with the priests of Hephaistos . Moreover I
+                        visited both Thebes and Heliopolis for this very cause , namely because I
+                        wished to know whether the priests at these places would agree in their
+                        accounts with those at Memphis ; for the men of Heliopolis are said to be the
+                        most learned in records of the Egyptians . Those of their narrations which I
+                        heard with regard to the gods I am not earnest to relate in full , but I
+                        shall name them only , because I consider that all men are equally ignorant
+                        of these matters : and whatever things of them I may record , I shall record
+                        only because I am compelled by the course of the story . </p> 
+                 </div> 
+                 <div type="chapter" n="4"> 
+                     <p> But as to those matters which concern men , the priests agreed with one
+                        another in saying that the Egyptians were the first of all men on earth to
+                        find out the course of the year , having divided the seasons into twelve
+                        parts to make up the whole ; and this they said they found out from the
+                        stars : and they reckon to this extent more wisely than the Hellenes , as it
+                        seems to me , inasmuch as the Hellenes throw in an intercalated month every
+                        other year , to make the seasons right , whereas the Egyptians , reckoning the
+                        twelve months at thirty days each , bring in also every year five days beyond
+                        the number , and thus the circle of their seasons is completed and comes
+                        round to the same point whence it set out . They said moreover that the
+                        Egyptians were the first who brought into use appellations for the twelve
+                        gods and the Hellenes took up the use from them ; and that they were the
+                        first who assigned altars and images and temples to the gods , and who
+                        engraved figures on stones ; and with regard to the greater number of these
+                        things they showed me by actual facts that they had happened so . They said
+                        also that the first man who became king of Egypt was Min ; and that in his
+                        time all Egypt except the district of Thebes was a swamp , and none of the
+                        regions were then above water which now lie below the lake of Moiris , to
+                        which lake it is a voyage of seven days up the river from the sea : </p> 
+                 </div> 
+                 <div type="chapter" n="5"> 
+                     <p>  and I thought that they said well about the land ; for it is manifest in
+                        truth even to a person who has not heard it beforehand but has only seen , at
+                        least if he have understanding , that the Egypt to which the Hellenes come in
+                        ships is a land which has been won by the Egyptians as an addition , and that
+                        it is a gift of the river : moreover the regions which lie above this lake
+                        also for a distance of three days' sail , about which they did not go on to
+                        say anything of this kind , are nevertheless another instance of the same
+                        thing : for the nature of the land of Egypt is as follows : —  First when you
+                        are still approaching it in a ship and are distant a day's run from the
+                        land , if you let down a sounding-line you will bring up mud and will find
+                        yourself in eleven fathoms . This then so far shows that there is a silting
+                        forward of the land . </p> 
+                 </div> 
+                 <div type="chapter" n="6"> 
+                     <p> Then secondly , as to Egypt itself , the extent of it along the sea is sixty
+                             <emph> schoines </emph>  , according to our definition of Egypt as extending
+                        from the Gulf of Plinthine to the Serbonian lake , along which stretches
+                        Mount Casion ; from this lake then the sixty  <emph> schoines </emph>  are
+                        reckoned : for those of men who are poor in land have their country measured
+                        by fathoms , those who are less poor by furlongs , those who have much land by
+                        parasangs , and those who have land in very great abundance by
+                             <emph> schoines </emph>  : now the parasang is equal to thirty furlongs , and
+                        each  <emph> schoine </emph>  , which is an Egyptian measure , is equal to sixty
+                        furlongs . So there would be an extent of three thousand six hundred furlongs
+                        for the coast-land of Egypt . </p> 
+                 </div> 
+                 <div type="chapter" n="7"> 
+                     <p> From thence and as far as Heliopolis inland Egypt is broad , and the land is
+                        all flat and without springs of water and formed of mud : and the road as one
+                        goes inland from the sea to Heliopolis is about the same in length as that
+                        which leads from the altar of the twelve gods at Athens to Pisa and the
+                        temple of Olympian Zeus : reckoning up you would find the difference very
+                        small by which these roads fail of being equal in length , not more indeed
+                        than fifteen furlongs ; for the road from Athens to Pisa wants fifteen
+                        furlongs of being fifteen hundred , while the road to Heliopolis from the sea
+                        reaches that number completely . </p> 
+                 </div> 
+                 <div type="chapter" n="8"> 
+                     <p> From Heliopolis however , as you go up , Egypt is narrow ; for on the one side a
+                        mountain-range belonging to Arabia stretches along by the side of it , going
+                        in a direction from North towards the midday and the South Wind , tending
+                        upwards without a break to that which is called the Erythraian Sea , in which
+                        range are the stone-quarries which were used in cutting stone for the
+                        pyramids at Memphis . On this side then the mountain ends where I have said ,
+                        and then takes a turn back ; and where it is widest , as I was informed , it is
+                        a journey of two months across from East to West ; and the borders of it
+                        which turn towards the East are said to produce frankincense . Such then is
+                        the nature of this mountain-range ; and on the side of Egypt towards Libya
+                        another range extends , rocky and enveloped in sand : in this are the
+                        pyramids , and it runs in the same direction as those parts of the Arabian
+                        mountains which go towards the midday . So then , I say , from Heliopolis the
+                        land has no longer a great extent so far as it belongs to Egypt , and for
+                        about four days' sail up the river Egypt properly so called is narrow : and
+                        the space between the mountain-ranges which have been mentioned is
+                        plain-land , but where it is narrowest it did not seem to me to exceed two
+                        hundred furlongs from the Arabian mountains to those which are called the
+                        Libyan . After this again Egypt is broad . </p> 
+                 </div> 
+                 <div type="chapter" n="9"> 
+                     <p> Such is the nature of this land : and from Heliopolis to Thebes is a voyage up
+                        the river of nine days , and the distance of the journey in furlongs is four
+                        thousand eight hundred and sixty , the number of the  <emph> schoines </emph> 
+                        being eighty-one . If these measures of Egypt in furlongs be put together the
+                        result is as follows : — I have already before this shown that the distance
+                        along the sea amounts to three thousand six hundred furlongs , and I will now
+                        declare what the distance is inland from the sea to Thebes , namely six
+                        thousand one hundred and twenty furlongs : and again the distance from Thebes
+                        to the city called Elephantine is one thousand eight hundred furlongs . </p> 
+                 </div> 
+                 <div type="chapter" n="10"> 
+                     <p> Of this land then , concerning which I have spoken , it seemed to myself also ,
+                        according as the priests said , that the greater part had been won as an
+                        addition by the Egyptians ; for it was evident to me that the space between
+                        the aforesaid mountain-ranges , which lie above the city of Memphis , once was
+                        a gulf of the sea , like the regions about Ilion and Teuthrania and Ephesos
+                        and the plain of the Maiander , if it be permitted to compare small things
+                        with great ; and small these are in comparison , for of the rivers which
+                        heaped up the soil in those regions none is worthy to be compared in volume
+                        with a single one of the mouths of the Nile , which has five mouths . Moreover
+                        there are other rivers also , not in size at all equal to the Nile , which
+                        have performed great feats ; of which I can mention the names of several , and
+                        especially the Achelo�s , which flowing through Acarnania and so issuing out
+                        into the sea has already made half of the Echinades from islands into
+                        mainland . </p> 
+                 </div> 
+                
+             </div> 
+             <div type="book" n="3"> 
+                 <head> THE THIRD BOOK OF THE HISTORIES , CALLED THALEIA </head> 
+                 <div type="chapter" n="1"> 
+                     <p> Against this Amasis then Cambyses the son of Cyrus was making his march ,
+                        taking with him not only other nations of which he was ruler , but also
+                        Hellenes , both Ionians and Aiolians : and the cause of the expedition was as
+                        follows : — Cambyses sent an envoy to Egypt and asked Amasis to give him his
+                        daughter ; and he made the request by counsel of an Egyptian , who brought
+                        this upon Amasis having a quarrel with him for the following reason : — at the
+                        time when Cyrus sent to Amasis and asked him for a physician of the eyes ,
+                        whosoever was the best of those in Egypt , Amasis had selected him from all
+                        the physicians in Egypt and had torn him away from his wife and children and
+                        delivered him up to Persia . Having , I say , this cause of quarrel , the
+                        Egyptian urged Cambyses on by his counsel bidding him ask Amasis for his
+                        daughter , in order that he might either be grieved if he gave her , or if he
+                        refused to give her , might offend Cambyses . So Amasis , who was vexed by the
+                        power of the Persians and afraid of it , knew neither how to give nor how to
+                        refuse : for he was well assured that Cambyses did not intend to have her as
+                        his wife but as a concubine . So making account of the matter thus , he did as
+                        follows : — there was a daughter of Apries the former king , very tall and
+                        comely of form and the only person left of his house , and her name was
+                        Nitetis . This girl Amasis adorned with raiment and with gold , and sent her
+                        away to Persia as his own daughter : but after a time , when Cambyses saluted
+                        her calling her by the name of her father , the girl said to him : "O king ,
+                        thou dost not perceive how thou hast been deceived by Amasis ; for he adorned
+                        me with ornaments and sent me away giving me to thee as his own daughter ,
+                        whereas in truth I am the daughter of Apries against whom Amasis rose up
+                        with the Egyptians and murdered him , who was his lord and master ." These
+                        words uttered and this occasion having arisen , led Cambyses the son of Cyrus
+                        against Egypt , moved to very great anger . </p> 
+                 </div> 
+                 <div type="chapter" n="2"> 
+                     <p> Such is the report made by the Persians ; but as for the Egyptians they claim
+                        Cambyses as one of themselves , saying that he was born of this very daughter
+                        of Apries ; for they say that Cyrus was he who sent to Amasis for his
+                        daughter , and not Cambyses . In saying this however they say not rightly ; nor
+                        can they have failed to observe  (for the Egyptians fully as well as any
+                        other people are acquainted with the laws and customs of the Persians ) ,
+                        first that it is not customary among them for a bastard to become king , when
+                        there is a son born of a true marriage , and secondly that Cambyses was the
+                        son of Cassandane the daughter of Pharnaspes , a man of the Achaimenid
+                        family , and not the son of the Egyptian woman : but they pervert the truth of
+                        history , claiming to be kindred with the house of Cyrus . Thus it is with
+                        these matters ; </p> 
+                 </div> 
+                 <div type="chapter" n="3"> 
+                     <p>  and the following story is also told , which for my part I do not believe ,
+                        namely that one of the Persian women came in to the wives of Cyrus , and when
+                        she saw standing by the side of Cassandane children comely of form and tall ,
+                        she was loud in her praises of them , expressing great admiration ; and
+                        Cassandane , who was the wife of Cyrus , spoke as follows : "Nevertheless ,
+                        though I am the mother of such children of these , Cyrus treats me with
+                        dishonour and holds in honour her whom he has brought in from Egypt ." Thus
+                        she spoke , they say , being vexed by Nitetis , and upon that Cambyses the
+                        elder of her sons said : "For this cause , mother , when I am grown to be a
+                        man , I will make that which is above in Egypt to be below , and that which is
+                        below above ." This he is reported to have said when he was perhaps about ten
+                        years old , and the women were astonished by it : and he , they say , kept it
+                        ever in mind , and so at last when he had become a man and had obtained the
+                        royal power , he made the expedition against Egypt . </p> 
+                 </div> 
+                 <div type="chapter" n="4"> 
+                     <p> Another thing also contributed to this expedition , which was as
+                        follows : — There was among the foreign mercenaries of Amasis a man who was by
+                        race of Halicarnassos , and his name was Phanes , one who was both capable in
+                        judgment and valiant in that which pertained to war . This Phanes , having  (as
+                        we may suppose ) some quarrel with Amasis , fled away from Egypt in a ship ,
+                        desiring to come to speech with Cambyses : and as he was of no small repute
+                        among the mercenaries and was very closely acquainted with all the affairs
+                        of Egypt , Amasis pursued him and considered it a matter of some moment to
+                        capture him : and he pursued by sending after him the most trusted of his
+                        eunuchs with a trireme , who captured him in Lykia ; but having captured him
+                        he did not bring him back to Egypt , since Phanes got the better of him by
+                        cunning ; for he made his guards drunk and escaped to Persia . So when
+                        Cambyses had made his resolve to march upon Egypt , and was in difficulty
+                        about the march , as to how he should get safely through the waterless
+                        region , this man came to him and besides informing of the other matters of
+                        Amasis , he instructed him also as to the march , advising him to send to the
+                        king of the Arabians and ask that he would give him safety of passage
+                        through this region . </p> 
+                 </div> 
+                 <div type="chapter" n="5"> 
+                     <p> Now by this way only is there a known entrance to Egypt : for from Phenicia to
+                        the borders of the city of Cadytis belongs to the Syrians who are called of
+                        Palestine , and from Cadytis , which is a city I suppose not much less than
+                        Sardis , from this city the trading stations on the sea- coast as far as the
+                        city of Ienysos belong to the king of Arabia , and then from Ienysos again
+                        the country belongs to the Syrians as far as the Serbonian lake , along the
+                        side of which Mount Casion extends towards the Sea . After that , from the
+                        Serbonian lake , in which the story goes that Typhon is concealed , from this
+                        point onwards the land is Egypt . Now the region which lies between the city
+                        of Ienysos on the one hand and Mount Casion and the Serbonian lake on the
+                        other , which is of no small extent but as much as a three days' journey , is
+                        grievously destitute of water . </p> 
+                 </div> 
+                 <div type="chapter" n="6"> 
+                     <p> And one thing I shall tell of , which few of those who go in ships to Egypt
+                        have observed , and it is this : —  into Egypt from all parts of Hellas and
+                        also from Phenicia are brought twice every year earthenware jars full of
+                        wine , and yet it may almost be said that you cannot see there one single
+                        empty wine-jar . In what manner , then , it will be asked , are they used up ?
+                        This also I will tell . The head-man of each place must collect all the
+                        earthenware jars from his own town and convey them to Memphis , and those at
+                        Memphis must fill them with water and convey them to these same waterless
+                        regions of Syria : this the jars which come regularly to Egypt and are
+                        emptied there , are carried to Syria to be added to that which has come
+                        before . It was the Persians who thus prepared this approach to Egypt ,
+                        furnishing it with water in the manner which has been said , from the time
+                        when they first took possession of Egypt : but at the time of which I speak ,
+                        seeing that water was not yet provided , Cambyses , in accordance with what he
+                        was told by his Halicarnassian guest , sent envoys to the Arabian king and
+                        from him asked and obtained the safe passage , having given him pledges of
+                        friendship and received them from him in return . </p> 
+                 </div> 
+                 <div type="chapter" n="8"> 
+                     <p> Now the Arabians have respect for pledges of friendship as much as those men
+                        in all the world who regard them most ; and they give them in the following
+                        manner : — A man different from those who desire to give the pledges to one
+                        another , standing in the midst between the two , cuts with a sharp stone the
+                        inner parts of the hands , along by the thumbs , of those who are giving the
+                        pledges to one another , and then he takes a thread from the cloak of each
+                        one and smears with the blood seven stones laid in the midst between them ;
+                        and as he does this he calls upon Dionysos and Urania . When the man has
+                        completed these ceremonies , he who has given the pledges commends to the
+                        care of his friends the stranger  (or the fellow-tribesman , if he is giving
+                        the pledges to one who is a member of his tribe ) , and the friends think it
+                        right that they also should have regard for the pledges given . Of gods they
+                        believe in Dionysos and Urania alone : moreover they say that the cutting of
+                        their hair is done after the same fashion as that of Dionysos himself ; and
+                        they cut their hair in a circle round , shaving away the hair of the temples .
+                        Now they call Dionysos Orotalt and Urania they call Alilat . </p> 
+                 </div> 
+                 <div type="chapter" n="9"> 
+                     <p> So then when the Arabian king had given the pledge of friendship to the men
+                        who had come to him from Cambyses , he contrived as follows : —  he took skins
+                        of camels and filled them with water and loaded them upon the backs of all
+                        the living camels that he had ; and having so done he drove them to the
+                        waterless region and there awaited the army of Cambyses . This which has been
+                        related is the more credible of the accounts given , but the less credible
+                        must also be related , since it is a current account . There is a great river
+                        in Arabia called Corys , and this runs out into the Sea which is called
+                        Erythraian . From this river then it is said that the king of the Arabians ,
+                        having got a conduit pipe made by sewing together raw ox-hides and other
+                        skins , of such a length as to reach to the waterless region , conducted the
+                        water through these forsooth , and had great cisterns dug in the waterless
+                        region , that they might receive the water and preserve it . Now it is a
+                        journey of twelve days from the river to this waterless region ; and moreover
+                        the story says that he conducted the water by three conduit-pipes to three
+                        different parts of it . </p> 
+                 </div> 
+                 <div type="chapter" n="10"> 
+                     <p> Meanwhile Psammenitos the son of Amasis was encamped at the Pelusian mouth of
+                        the Nile waiting for the coming of Cambyses : for Cambyses did not find
+                        Amasis yet living when he marched upon Egypt , but Amasis had died after
+                        having reigned forty and four years during which no great misfortune had
+                        befallen him : and when he had died and had been embalmed he was buried in
+                        the burial-place in the temple , which he had built for himself . Now when
+                        Psammenitos son of Amasis was reigning as king , there happened to the
+                        Egyptians a prodigy , the greatest that had ever happened : for rain fell at
+                        Thebes in Egypt , where never before had rain fallen nor afterwards down to
+                        my time , as the Thebans themselves say ; for in the upper parts of Egypt no
+                        rain falls at all : but at the time of which I speak rain fell at Thebes in a
+                        drizzling shower . </p> 
+                 </div> 
+                            </div> 
+                   </body> 
+     </text> 
+ </TEI> 
