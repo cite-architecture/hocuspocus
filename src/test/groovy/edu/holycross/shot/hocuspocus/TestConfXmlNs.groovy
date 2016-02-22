@@ -13,7 +13,7 @@ class TestConfXmlNs {
   @Test
   void testNsMapping() {
 
-    File confFile = new File("testdata/newconf/citationconfig3.xml")
+    File confFile = new File("testdata/conf2016/citationconfig3.xml")
     def root = new XmlParser().parseText(confFile.getText("UTF-8"))
 
     def nsMappings = CitationConfigurationFileReader.collectXmlNamespaceData(root)

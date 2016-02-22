@@ -119,20 +119,21 @@ class CitationConfigurationFileReader{
     * @returns A CitationModel derived from the online node corresponding
     * to this URN, or null if no match found.
     */
-  /*
-    CitationModel getCitationModel(String urnStr)  {
-      if (debug > 1) {
-	System.err.println "CM map keys are: " + this.citationModelMap.keySet()
-	System.err.println "Includes ${urnStr}? " + this.citationModelMap.keySet().contains(urnStr)
-	System.err.println "So we return a " + this.citationModelMap[urnStr].getClass()
-	def modelMap = this.citationModelMap[urnStr]
-	System.err.println "Number of its mappings = " + modelMap.mappings.size()
+    CitationModel getCitationModel(String urnStr)
+    throws Exception {
+      if (! this.citationModelMap[urnStr]) {
+        throw new Exception("CitationConfigurationFileReader: no citaiton model for URN value " + urnStr)
       }
       return this.citationModelMap[urnStr]
     }
 
-  */
-
+    Object getXmlNsData(String urnStr)
+    throws Exception {
+      if (! this.xmlNamespaceData[urnStr]) {
+        throw new Exception("CitationConfigurationFileReader: no xml namespace data for URN value " + urnStr)
+      }
+      return this.xmlNamespaceData[urnStr]
+    }
 
 
 }

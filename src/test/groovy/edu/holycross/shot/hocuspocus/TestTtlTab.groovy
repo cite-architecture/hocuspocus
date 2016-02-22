@@ -2,21 +2,17 @@ package edu.holycross.shot.hocuspocus
 
 // NEEDS TO BE COMPLETED.
 
-import static org.junit.Assert.*
 import org.junit.Test
+import static groovy.test.GroovyAssert.shouldFail
+
 
 import edu.harvard.chs.cite.TextInventory
 import edu.harvard.chs.cite.CtsUrn
 
 /**
-* Tests automated generation of TTL representing entire corpus of texts.
-* Writes output where it can be further tested by loading into a sparql
-* endpoint.
-* Compare test in TestTtlForEdition where the TTL is "manually" built
-* directly from tabulated source.
 */
-class TestTabTtl extends GroovyTestCase {
-
+class TestTtlTab  {
+/*
   File outDir = new File("testdata/testoutput")
   File invFile = new File("specs/resources/data/archive1/testinventory.xml")
   TextInventory inv = new TextInventory(invFile)
@@ -45,8 +41,8 @@ class TestTabTtl extends GroovyTestCase {
       }
     }
   }
-  
 
-  
-  
+*/
+
+
 }

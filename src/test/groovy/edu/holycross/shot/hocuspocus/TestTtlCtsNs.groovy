@@ -10,12 +10,18 @@ import static groovy.test.GroovyAssert.shouldFail
 /** */
 class TestTtlCtsNs {
 
+
+  CitationConfigurationFileReader confFile = new CitationConfigurationFileReader(new File("testdata/conf2016/citationconfig3.xml"))
+
+
   @Test
   void testNsMapping() {
 
 
-    TextInventory ti = new TextInventory(new File("testdata/testcorpus2/ti2.xml"))
-    String ttl = CtsTtl.turtleizeInv(ti, false)
+    TextInventory ti = new TextInventory(new File("testdata/conf2016/testinventory3.xml"))
+    String ttl = CtsTtl.turtleizeInv(ti, confFile, false)
+
+
 
     Integer expectedCtsNamespaces = 2
     Integer actualCtsNamespaces = 0

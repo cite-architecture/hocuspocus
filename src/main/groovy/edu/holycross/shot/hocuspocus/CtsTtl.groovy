@@ -3,12 +3,12 @@ package edu.holycross.shot.hocuspocus
 import edu.harvard.chs.cite.CtsUrn
 import edu.harvard.chs.cite.TextInventory
 
-
+import edu.harvard.chs.cite.VersionType
 
 /** Class managing serialization of a CTS archive as RDF TTL.
 */
 class CtsTtl {
-  static Integer debug = 1
+  static Integer debug = 0
 
 
   /** RDF prefix declarations. */
@@ -44,11 +44,11 @@ class CtsTtl {
    /** Composes TTL string for unique mappings of abbreviations for
    * CTS namespaces to full URI.
    * @param ctsNsList A list of CTS namespace triplets.
+   * @returns A series of valid TTL statements.
    */
    static String ctsNsTtl(ArrayList ctsNsList) {
      StringBuilder reply = new StringBuilder("")
      ctsNsList.each { triple ->
-       System.err.println "TRIPLE: " + triple
        reply.append("<urn:cts:${triple[0]}:> rdf:type cts:Namespace .\n")
        reply.append("<urn:cts:${triple[0]}:> cts:fullUri  <urn:cts:${triple[1]}> .\n")
        reply.append("<urn:cts:${triple[0]}:> rdf:label  " + '"""'+ triple[2] + '""" .\n')
@@ -76,6 +76,76 @@ class CtsTtl {
      return reply.toString()
    }
 
+  static String textGroupTtl(ArrayList tg) {
+    StringBuilder ttl = new StringBuilder()
+    CtsUrn urn = new CtsUrn(tg[0])
+    String parent = "urn:cts:${urn.getCtsNamespace()}"
+    String label = tg[1]
+
+    ttl.append("<${parent}> cts:possesses <${urn}> .\n")
+    ttl.append("<${urn}> cts:belongsTo <${parent}> .\n")
+    ttl.append("<${urn}> rdf:type cts:TextGroup .\n")
+    ttl.append("""<${urn}> dc:terms cts:TextGroup "${label}" .\n""")
+    ttl.append("""<${urn}> rdf:label cts:TextGroup "${label}" .\n""")
+
+    return ttl.toString()
+  }
+
+
+
+  
+  static String workTtl(String wk, String parent, TextInventory ti) {
+    StringBuilder ttl = new StringBuilder()
+    ttl.append("<${parent}> cts:possesses <${wk}> .\n")
+    ttl.append("<${wk}> cts:belongsTo <${parent}> .\n")
+
+    String label = ti.workTitle(wk)
+    ttl.append("""<${wk}> rdf:label "${label}" .\n""")
+    
+    String lang = ti.worksLanguages[wk]
+    ttl.append("""<${wk}> cts:lang "${lang}" .\n""")
+    return ttl.toString()
+  }
+
+
+  static String versionTtl(String vers, String parent, TextInventory ti) {
+    StringBuilder ttl = new StringBuilder()
+    ttl.append("<${parent}> cts:possesses <${vers}> .\n")
+    ttl.append("<${vers}> cts:belongsTo <${parent}> .\n")
+
+    if (ti.typeForVersion(new CtsUrn(vers)) == VersionType.EDITION) {
+      ttl.append("<${vers}> rdf:type cts:Edition .\n")
+      ttl.append("""<${vers}> rdf:label  ${ti.editionLabel(vers)} .\n""")
+      ttl.append("""<${vers}> dcterms:title  ${ti.editionLabel(vers)} .\n""")
+      
+    } else {
+      ttl.append("<${vers}> rdf:type cts:Translation .\n")
+      ttl.append("""<${vers}> rdf:label  ${ti.translationLabel(vers)} .\n""")
+      ttl.append("""<${vers}> dcterms:title  ${ti.translationLabel(vers)} .\n""")
+      ttl.append("""<${vers}> cts:lang "${ti.languageForVersion(vers)}" .\n""")
+      
+    }
+    // test for xml namespace: add if online!
+    
+    return ttl.toString()
+  }
+
+  static String biblTtl(TextInventory ti) {
+    StringBuilder ttl = new StringBuilder()
+    ti.textgroups.each { tg ->
+      ttl.append(textGroupTtl(tg))
+
+      ti.worksForGroup(new CtsUrn(tg[0])).each { wk ->
+	ttl.append(workTtl(wk,tg[0],ti))
+	ti.versionsForWork(wk).each { v ->
+	  ttl.append(versionTtl(v,wk,ti))
+	}
+
+      }
+    }
+    return ttl.toString()
+  }
+  
    /** Translates the contents of a CTS TextInventory to
     * RDF TTL.
     * @param inv TextInventory to turtleize.
@@ -83,38 +153,38 @@ class CtsTtl {
     * @throws Exception if inventory is not defined.
     * @returns A String of TTL statements.
     */
-   static String turtleizeInv(TextInventory inv, boolean includePrefix) throws Exception {
+  static String turtleizeInv(TextInventory inv, CitationConfigurationFileReader config, boolean includePrefix) throws Exception {
 
      StringBuilder reply = new StringBuilder()
      if (includePrefix) {
        reply.append(prefixString)
      }
-     def mapSize =   inv.nsMapList.keySet().size()
+     def mapSize =   config.xmlNamespaceData.keySet().size()
      if (mapSize < 1) {
        System.err.println "CtsTtl:turtleizeInv:  no texts were mapped to XML namespaces."
      }
     // XML namespace information
-    reply.append(xmlNsTtl(inv.nsMapList))
+    reply.append(xmlNsTtl(config.xmlNamespaceData))
     // CTS namespace information
     reply.append(ctsNsTtl(inv.ctsnamespaces))
+    // Bibliographic hierarchy
+    inv.allOnline().each { urnStr ->
+      CtsUrn urn = new CtsUrn(urnStr)
+      reply.append(biblTtl(inv))
+    }
 
 
+
+
+
+    
 /*
     def elementSeen = []
     inv.allOnline().each { u ->
       try {
 	// these are always version-level URNs.
 	CtsUrn urn = new CtsUrn(u)
-	String groupStr = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}:"
-	String groupLabel = inv.getGroupName(urn)
-	String workStr = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}.${urn.getWork()}:"
-	String workLabel = "${groupLabel}, ${inv.workTitle(workStr)}:"
-	String ctsNsStr = "urn:cts:${urn.getCtsNamespace()}"
 
-	reply.append("<${u}> cts:belongsTo <${workStr}> .\n")
-	reply.append("<${workStr}> cts:possesses <${u}> .\n")
-
-	if (debug > 0) {
 	  System.err.println "TEST ${urn} for language: " + inv.languageForVersion(urn)
 	}
 	String versionLang =  inv.languageForVersion(urn)
