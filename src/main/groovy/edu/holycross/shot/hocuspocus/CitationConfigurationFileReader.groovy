@@ -83,7 +83,6 @@ class CitationConfigurationFileReader{
     confRoot[hp.online].each { conf ->
       citationData[conf.'@urn'] = new CitationModel(conf)
     }
-
     return citationData
   }
 
