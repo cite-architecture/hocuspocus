@@ -1,8 +1,6 @@
 package edu.holycross.shot.hocuspocus
 
 import edu.harvard.chs.cite.TextInventory
-import edu.harvard.chs.cite.CitationModel
-import edu.harvard.chs.cite.CitationTriplet
 import edu.harvard.chs.cite.CtsUrn
 
 import org.apache.commons.io.FilenameUtils
@@ -22,11 +20,11 @@ class TabUtil {
 
   /** Character encoding for current output file.
    */
-  def outFileEncoding = "UTF-8" 
+  def outFileEncoding = "UTF-8"
 
   /** Character encoding for current input file.
    */
-  def inFileEncoding = "UTF-8" 
+  def inFileEncoding = "UTF-8"
 
 
   TabUtil() {
@@ -120,7 +118,7 @@ class TabUtil {
   ArrayList tabEntriesForDirectory(File tabulatedDir, ArrayList urnList) {
     def total = []
 
-    def tabList = tabulatedDir.list({d, f-> f ==~ /.*.txt/ } as FilenameFilter )?.toList() 
+    def tabList = tabulatedDir.list({d, f-> f ==~ /.*.txt/ } as FilenameFilter )?.toList()
     tabList.each { f ->
       File tabFile = new File(tabulatedDir, f)
       def subtotal = []
@@ -134,4 +132,37 @@ class TabUtil {
     return total
   }
 
+
+/*
+
+# Required for Tabulation
+
+- cts:abbreviatedBy
+- cts:belongsTo
+- cts:citationDepth
+- cts:containedBy
+- cts:contains
+- cts:fullUri
+- cts:hasPassage
+- cts:hasSequence
+- cts:hasTextContent
+- cts:isPassageOf
+- cts:lang
+- cts:next
+- cts:possesses
+- cts:prev
+- dcterms:title
+- rdf:label
+- rdf:type
+
+# Corpus Dependent
+
+- cts:hasSubref
+- cts:isSubrefOf
+- cts:translationLang
+- cts:xmlns
+- cts:xmlnsabbr
+- hmt:xmlOpen
+- hmt:xpTemplate
+*/
 }

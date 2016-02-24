@@ -3,23 +3,16 @@ package edu.holycross.shot.hocuspocus
 import edu.harvard.chs.cite.CtsUrn
 import edu.harvard.chs.cite.TextInventory
 
-
+import edu.harvard.chs.cite.VersionType
 
 /** Class managing serialization of a CTS archive as RDF TTL.
 */
 class CtsTtl {
+  static Integer debug = 0
 
 
-  String release = "0.13.3"
-  
-  Integer WARN = 1
-  Integer DEBUGLEVEL = 2
-  Integer FRANTIC = 3
-  
-  Integer debug = 0
-
-  /** RDF prefix declarations */
-  String prefixStr = """
+  /** RDF prefix declarations. */
+  static String prefixString = """
 @prefix hmt:        <http://www.homermultitext.org/hmt/rdf/> .
 @prefix cts:        <http://www.homermultitext.org/cts/rdf/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -27,207 +20,206 @@ class CtsTtl {
 
 """.toString()
 
-    /** String used to separate columns in tabular files. */
-    String separatorValue = "#"
+/*
+  static String ctsNsAbbreviations = """
+<http://www.homermultitext.org/hmt/rdf> cite:abbreviatedBy "hmt" .
+<http://www.homermultitext.org/hmt/rdf> rdf:type cite:DataNs .
 
-    /** TextInventory object for CTS archive to turtleize.
-    * initialized to null. 
-    */
-    TextInventory inventory 
+<urn:cts:greekLit:> rdf:type cts:Namespace .
+<urn:cts:greekLit:> cts:fullUri <http://chs.harvard.edu/cts/ns/> .
+"""
+*/
 
-    /** Constructor with single parameter. 
-    * @param ti TextInventory object for a CTS archive.
-    */
-    CtsTtl(TextInventory ti) {
-        this.inventory = ti
+  /** TextInventory object for CTS archive to turtleize.
+   */
+   TextInventory inventory
+   CitationConfigurationFileReader citationConfig
+   
+
+   String separatorValue = "#"
+
+   
+   /** Constructor with single parameter.
+   * @param ti TextInventory object for a CTS archive.
+   */
+   CtsTtl(TextInventory ti, CitationConfigurationFileReader conf) {
+       inventory = ti
+       citationConfig = conf
+   }
+
+   /** Composes TTL string for unique mappings of abbreviations for
+   * CTS namespaces to full URI.
+   * @param ctsNsList A list of CTS namespace triplets.
+   * @returns A series of valid TTL statements.
+   */
+   static String ctsNsTtl(ArrayList ctsNsList) {
+     StringBuilder reply = new StringBuilder("")
+     ctsNsList.each { triple ->
+       reply.append("<urn:cts:${triple[0]}:> rdf:type cts:Namespace .\n")
+       reply.append("<urn:cts:${triple[0]}:> cts:fullUri  <urn:cts:${triple[1]}> .\n")
+       reply.append("<urn:cts:${triple[0]}:> rdf:label  " + '"""'+ triple[2].replaceAll(/\n/,'') + '""" .\n')
+     }
+    return reply.toString()
+   }
+
+   /** Composes TTL string for unique mappings of abbreviations for
+   * XML namespaces to full URI.
+   * @param namespaceMapList A map of text URNs to a mapping
+   */
+
+  /*
+   static String xmlNsTtl(LinkedHashMap namespaceMapList) {
+     StringBuilder reply = new StringBuilder()
+     Set nsAbbrTtl = []
+     namespaceMapList.keySet().each { urn ->
+       def nsMap = namespaceMapList[urn]
+       nsMap.keySet().each { nsAbbr ->
+         nsAbbrTtl.add("<${nsMap[nsAbbr]}> cts:abbreviatedBy " + '"' + nsAbbr + '" .\n')
+         nsAbbrTtl.add "<${urn}> cts:xmlns <${nsMap[nsAbbr]}> .\n"
+       }
+     }
+     nsAbbrTtl.each {
+       reply.append(it)
+     }
+     return reply.toString()
+   }
+  */
+
+  static String textGroupTtl(ArrayList tg) {
+    StringBuilder ttl = new StringBuilder()
+    CtsUrn urn = new CtsUrn(tg[0])
+    String parent = "urn:cts:${urn.getCtsNamespace()}"
+    String label = tg[1]
+
+    ttl.append("<${parent}> cts:possesses <${urn}> .\n")
+    ttl.append("<${urn}> cts:belongsTo <${parent}> .\n")
+    ttl.append("<${urn}> rdf:type cts:TextGroup .\n")
+    ttl.append("<${urn}> dcterms:title  " + '"""' + label.replaceAll(/\n/,'') + '"""  .\n')
+    ttl.append("<${urn}> rdf:label " + '"""' + label.replaceAll(/\n/,'') + '""" .\n')
+
+    return ttl.toString()
+  }
+
+
+
+  
+  static String workTtl(String wk, String parent, TextInventory ti) {
+    StringBuilder ttl = new StringBuilder()
+    ttl.append("<${parent}> cts:possesses <${wk}> .\n")
+    ttl.append("<${wk}> cts:belongsTo <${parent}> .\n")
+
+    String label = ti.workTitle(wk)
+    ttl.append("<${wk}> rdf:label " + '"""' + label.replaceAll(/\n/,'') + '""" .\n')
+    ttl.append("<${wk}> dcterms:title " + '"""' + label.replaceAll(/\n/,'') + '""" .\n')
+    
+    String lang = ti.worksLanguages[wk]
+    ttl.append("""<${wk}> cts:lang "${lang}" .\n""")
+    return ttl.toString()
+  }
+
+
+  static String versionTtl(String vers, String parent, TextInventory ti) {
+    StringBuilder ttl = new StringBuilder()
+    ttl.append("<${parent}> cts:possesses <${vers}> .\n")
+    ttl.append("<${vers}> cts:belongsTo <${parent}> .\n")
+
+    if (ti.typeForVersion(new CtsUrn(vers)) == VersionType.EDITION) {
+      ttl.append("<${vers}> rdf:type cts:Edition .\n")
+      ttl.append("<${vers}> rdf:label " +   '"""' + ti.editionLabel(vers).replaceAll(/\n/,'') + '""" .\n')
+      ttl.append("<${vers}> dcterms:title " +   '"""' + ti.editionLabel(vers).replaceAll(/\n/,'') + '""" .\n')
+      
+    } else {
+      ttl.append("<${vers}> rdf:type cts:Translation .\n")
+      ttl.append("<${vers}> rdf:label " +  '"""' + ti.translationLabel(vers).replaceAll(/\n/,'') + '""" .\n')
+      ttl.append("<${vers}> dcterms:title  " +  '"""' + ti.translationLabel(vers).replaceAll(/\n/,'') + '""" .\n')
+      ttl.append("""<${vers}> cts:lang "${ti.languageForVersion(vers)}" .\n""")
+      
     }
+    return ttl.toString()
+  }
 
 
-    /** Translates the contents of a CTS TextInventory to
-    * RDF TTL.
-    * @param inv TextInventory for the archive.
-    * @returns A String of TTL statements.
-    */
-    String turtleizeInv(TextInventory inv) {
-        this.inventory = inv
-        return turtleizeInv(false)
-    }
+  static String exemplarTtl(String exempl, String parent, TextInventory ti) {
+    StringBuilder ttl = new StringBuilder()
 
-    /** Translates the contents of a CTS TextInventory to
-    * RDF TTL.
-    * @param inv TextInventory for the archive.
-    * @param prefix Whether or not to include RDF prefix statements.
-    * @returns A String of TTL statements.
-    */
-    String turtleizeInv(TextInventory inv, boolean prefix) {
-        this.inventory = inv
-        return turtleizeInv(prefix)
-    }
+    CtsUrn exUrn = new CtsUrn(exempl)
+    ttl.append("<${parent}> cts:possesses <${exempl}> .\n")
+    ttl.append("<${exempl}> cts:belongsTo <${parent}> .\n")
+    ttl.append("<${exempl}> rdf:type cts:Exemplar .\n")
+    ttl.append("<${exempl}> rdf:label " + '"""' +   ti.exemplarLabel(exUrn).replaceAll(/\n/,'') + '"""  .\n')
+    ttl.append("<${exempl}> dcterms:title " + '"""' +   ti.exemplarLabel(exUrn).replaceAll(/\n/,'') + '"""  .\n')
+      
+    return ttl.toString()
+  }
+  
+  static String biblTtl(TextInventory ti) {
+    StringBuilder ttl = new StringBuilder()
+    ti.textgroups.each { tg ->
+      ttl.append(textGroupTtl(tg))
 
-    /** Translates the contents of a CTS TextInventory to
-    * RDF TTL.
-    * @param inv TextInventory for the archive.
-    * @throws Exception if inventory is not defined.
-    * @returns A String of TTL statements.
-    */
-    String turtleizeInv() {
-        return turtleizeInv(false)
-    }
-
-
-    /** Translates the contents of a CTS TextInventory to
-    * RDF TTL.
-    * @param prefix Whether or not to include RDF prefix statements.
-    * @throws Exception if inventory is not defined.
-    * @returns A String of TTL statements.
-    */
-    String turtleizeInv(boolean includePrefix) 
-    throws Exception {
-        if (this.inventory == null) {
-            throw new Exception("CtsTtl: no TextInventory defined.")
-        } 
-
-        StringBuilder reply = new StringBuilder()
-        if (includePrefix) {
-	  reply.append(prefixStr)
-        }
-	def mapSize =	inventory.nsMapList.keySet().size() 
-	if (mapSize > 0) {
-	} else {
-	  System.err.println "CtsTtl:turtleizeInv:  empty nsMapList!"
+      ti.worksForGroup(new CtsUrn(tg[0])).each { wk ->
+	ttl.append(workTtl(wk,tg[0],ti))
+	ti.versionsForWork(wk).each { v ->
+	  ttl.append(versionTtl(v,wk,ti))
+	  ti.exemplarsForVersion(v).each { ex ->
+	    ttl.append(exemplarTtl(ex,v,ti))
+	  }
 	}
 
-        // XML namespace information:
-        // Naive assumption that only one abbr. per URI
-        // in a corpus should be reworked.
-        def nsSeen = [:]
-        this.inventory.nsMapList.keySet().each { urn ->
-	  if (debug > WARN) {
-	    System.err.println "CtsTtl:turtleizeInv: ns map for urn ${urn}"
-	  }
-	  def nsMap = this.inventory.nsMapList[urn]
-	  nsMap.keySet().each { nsAbbr ->
-	    if (! nsSeen[nsAbbr]) {
-	      reply.append("<${nsMap[nsAbbr]}> cts:abbreviatedBy " + '"' + nsAbbr + '" .\n')
-	      nsSeen[nsAbbr] = true
-	    }
-	    reply.append "<${urn}> cts:xmlns <${nsMap[nsAbbr]}> .\n"
-	  }
-        }
-
-        def elementSeen = []
-        this.inventory.allOnline().each { u ->
-	  try {
-	    // these are always version-level URNs.
-	    CtsUrn urn = new CtsUrn(u)
-	    String groupStr = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}:"
-	    String groupLabel = this.inventory.getGroupName(urn)
-	    String workStr = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}.${urn.getWork()}:"
-	    String workLabel = "${groupLabel}, ${this.inventory.workTitle(workStr)}:"
-	    String ctsNsStr = "urn:cts:${urn.getCtsNamespace()}"
-
-	    reply.append("<${u}> cts:belongsTo <${workStr}> .\n")
-	    reply.append("<${workStr}> cts:possesses <${u}> .\n")
-
-	    if (debug > 0) {
-	      System.err.println "TEST ${urn} for language: " + this.inventory.languageForVersion(urn)
-	    }
-	    String versionLang =  this.inventory.languageForVersion(urn)
-	    String workLang = this.inventory.languageForWork(workStr)
-
-
-	    
-	    /* >>>>>>>>>>>> BROKEN CODE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< */
-	    if (debug > 0) {
-	      System.err.println "TEST ${urn} for language: " + this.inventory.languageForVersion(urn)
-	      System.err.println "TEST ${workLang} for language: " + this.inventory.languageForVersion(workStr)
-	    }
-
-	    
-	    // THIS IS FAILING?
-	    reply.append("<${urn.toString()}> dcterms:title " + '"' + this.inventory.versionLabel(u) + '" .\n')
-	    if (versionLang != workLang) {
-	      reply.append("\n<${urn.toString()}> rdf:type cts:Translation .\n")
-	      reply.append("\n<${urn.toString()}>  cts:translationLang " + '"' + versionLang + '" .\n\n')
-
-	    } else {
-	      reply.append("\n<${urn.toString()}> rdf:type cts:Edition .\n")
-	    }
-
-	    reply.append("\n<${urn.toString()}>  rdf:label " + '"' + "${workLabel} (${this.inventory.versionLabel(urn)})" + '" .\n\n')
-
-	    if (! elementSeen.containsAll([workStr])) {
-	      reply.append("<${workStr}> rdf:type cts:Work .\n")
-	      reply.append("<${workStr}> dcterms:title " + '"' + this.inventory.workTitle(workStr) + '" .\n')
-	      reply.append("<${workStr}> cts:belongsTo <${groupStr}> .\n")
-	      reply.append("<${groupStr}> cts:possesses <${workStr}> .\n")
-	      elementSeen.add(workStr)
-	      reply.append("\n<${workStr}> cts:lang " + '"' + this.inventory.languageForWork(workStr) + '" .\n\n')
-	      reply.append("\n<${workStr}> rdf:label " + '"' + "${workLabel}" + '" .\n\n')
-	    }
-
-	    if (! elementSeen.containsAll([groupStr])) {
-	      elementSeen.add(groupStr)
-	      reply.append("<${groupStr}> cts:belongsTo <${ctsNsStr}> .\n")
-	      reply.append("<${ctsNsStr}> cts:possesses <${groupStr}> .\n")
-	      reply.append("<${groupStr}> rdf:type cts:TextGroup .\n")
-	      reply.append("<${groupStr}> dcterms:title " + '"' + this.inventory.getGroupName(groupStr) + '" .\n')
-	      reply.append("\n<${groupStr}> rdf:label " + '"' + "${groupLabel}" + '" .\n\n')
-	    }
-
-	  } catch (Exception e) {
-	    System.err.println "CtsTtl: exception in turtleizeInv for urn ${u}. ${e}"
-	  }
-        }
-        return reply.toString()
+      }
     }
+    return ttl.toString()
+  }
 
 
-  /** Translates the contents of a CTS tabular file to RDF TTL and writes
-   * the output to a file.
-   * @param tabFile A File in the cite library's 7-column tabular format.
-   * @param turtles Output file for resulting TTL.
-   * @param charEncoding Character encoding to use for input and output.
-   * @param prefix Whether or not to include a declaration of the
-   * hmt namespace in the TTL output.
-   */
-  void turtleizeTabsToFile(File tabFile, File turtles, String charEncoding, boolean prefix) {
-    if (debug > 0) {
-      System.err.println "Turtlize file ${tabFile} directly to ${ttlFile}"
+  String turtleizeInv() throws Exception {
+    return turtleizeInv(inventory, citationConfig, true)
+  }
+  
+   /** Translates the contents of a CTS TextInventory to
+    * RDF TTL.
+    * @param inv TextInventory to turtleize.
+    * @param includePrefix Whether or not to include RDF prefix statements.
+    * @throws Exception if inventory is not defined.
+    * @returns A String of TTL statements.
+    */
+  static String turtleizeInv(TextInventory inv, CitationConfigurationFileReader config, boolean includePrefix) throws Exception {
+
+     StringBuilder reply = new StringBuilder()
+     if (includePrefix) {
+       reply.append(prefixString)
+     }
+     def mapSize =   config.xmlNamespaceData.keySet().size()
+     if (mapSize < 1) {
+       System.err.println "CtsTtl:turtleizeInv:  no texts were mapped to XML namespaces."
+     }
+    // XML namespace information
+    //reply.append(xmlNsTtl(config.xmlNamespaceData))
+    // CTS namespace information
+    reply.append(ctsNsTtl(inv.ctsnamespaces))
+    // Bibliographic hierarchy
+    inv.allOnline().each { urnStr ->
+      CtsUrn urn = new CtsUrn(urnStr)
+      reply.append(biblTtl(inv))
     }
-    turtles.append(turtleizeTabs(tabFile, prefix), charEncoding)
+    return reply.toString()
   }
 
 
-  /** Translates the contents of a CTS tabular file to RDF TTL.
-   * @param tabFile A File in the cite library's 7-column tabular format.
-   * @returns The TTL representation of tabFile's contents.
-   */
-  String turtleizeTabs(File tabFile) {
-    return turtleizeTabs(tabFile, false)
-  }
 
-  /** Translates the contents of a CTS tabular file to RDF TTL.
+    /** Translates the contents of a CTS tabular file to RDF TTL.
    * @param tabFile A File in the cite library's 7-column tabular format.
    * @param prefix Whether or not to include a declaration of the
    * hmt namespace in the TTL output.
    * @returns The TTL representation of tabFile's contents.
    */
-  String turtleizeTabs(File tabFile, boolean prefix) {
-    return turtleizeTabs(tabFile.getText("UTF-8"), prefix)
-  }
-
-  /** Translates the contents of a CTS tabular file to RDF TTL.
-   * @param tabFile A File in the cite library's 7-column tabular format.
-   * @param prefix Whether or not to include a declaration of the
-   * hmt namespace in the TTL output.
-   * @returns The TTL representation of tabFile's contents.
-   */
-  String turtleizeTabs(String stringData, boolean prefix) {
+   String turtleizeTabs(String stringData, boolean prefix) {
     StringBuffer turtles = new StringBuffer()
     if (prefix) {
       turtles.append(prefixStr)
     }
+
+    
     boolean foundIt = false
     stringData.eachLine { l ->
       def cols = "${l} ".split(separatorValue)
@@ -240,12 +232,12 @@ class CtsTtl {
       } else {
 	System.err.println "CtsTtl: Too few columns! ${cols.size()} for ${cols}"
       }
-      
+
     }
     // add prev/next statements:
     turtles.append(turtleizePrevNext(stringData))
 
-    
+
     if (turtles.toString().size() == 0) {
       System.err.println "CtsTtl: could not turtelize string " + stringData
     }
@@ -265,80 +257,84 @@ class CtsTtl {
    * @returns A ten-line String composed of ten RDF statements,
    * one TTL-formatted statement per line.
    */
-  String turtleizeLine(String tabLine) {
-    if (debug > 0 ) { 
-      System.err.println "CtsTtl: Turtleize line ||${tabLine}||"
-    }
-    
+
+
+  String turtleizeValues(CtsUrn urn,String seq,String prev,String next,String xmlAncestor,String textContent,String xpTemplate,String xmlNs) {
+    StringBuilder turtles = new StringBuilder()
+
+    String urnBase = urn.getUrnWithoutPassage()
+    String groupStr = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}:"
+    String groupLabel = this.inventory.getGroupName(urn)
+    String workStr = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}.${urn.getWork()}:"
+    String workLabel = "${groupLabel}, ${this.inventory.workTitle(workStr)}"
+    String label = "${workLabel} (${this.inventory.versionLabel(urnBase)}): ${urn.getPassageComponent()} (${urn})"
+
+    turtles.append("<${urn.toString()}> rdf:label " + '"""' +  label.replaceAll(/\n/,'') + '""" .\n')
+
+     /* explicitly express version hierarchy */
+     /* should percolate up from any point based on RDF from TextInventory. */
+    turtles.append("<${urn}> cts:isPassageOf <${urnBase}> . \n")
+    turtles.append("<${urnBase}> cts:hasPassage <${urn}> . \n")
+
+     /* explicitly express citation hierarchy */
+     int max =  urn.getCitationDepth()
+     String containedUrn = urn.toString()
+     turtles.append("<${urn.toString()}> cts:hasSequence ${seq} .\n")
+     turtles.append("<${urn.toString()}> cts:hasTextContent " + '"""' + textContent + '"""' +  " .\n")
+     turtles.append("<${urn.toString()}> cts:citationDepth ${max} .\n")
+     turtles.append("<${urn.toString()}> hmt:xmlOpen " +  '"' + xmlAncestor + '" .\n')
+     turtles.append("<${urn.toString()}> hmt:xpTemplate "  + '"' + xpTemplate + '" .\n')
+
+     while (max > 1) {
+       max--;
+       turtles.append("<${urn.toString()}> cts:containedBy <${urnBase}${urn.getPassage(max)}> .\n")
+       turtles.append("<${urnBase}${urn.getPassage(max)}> cts:contains <${urn.toString()}>  .\n")
+       turtles.append("<${urnBase}${urn.getPassage(max)}> cts:citationDepth ${max} .\n")
+     }
+     return turtles.toString()
+  }
+  
+  String turtleizeLine(String tabLine, String ns, String nsabbr) throws Exception {
     // buffer for TTL output:
     StringBuffer turtles = new StringBuffer()
-    
+
     /* Incredible kludge to handles groovy's String split behavior.
        See note here for explanation:
        http://jermdemo.blogspot.de/2009/07/beware-groovy-split-and-tokenize-dont.html
     */
     def cols = "${tabLine} ".split(separatorValue)
-    String urnVal = cols[0]
-        if (debug > 0) {
-	  System.err.println "COLS are ${cols} with urnVal  " + urnVal 
-	}
-        String seq = cols[1]
-        String prev = cols[2]
-        String next = cols[3]
-        String xmlAncestor= cols[4]
-        String textContent = cols[5]
-        String xpTemplate = cols[6].replaceAll(/[ ]+$/,"")
-	String xmlNs = cols[7]
+
+    if (cols.size() < 8) {
+      throw new Exception("CtsTtl:turtelizeLine: wrong number of columns in ${tabLine}")
+    } else {
+      String urnVal = cols[0]
+      String seq = cols[1]
+      String prev = cols[2]
+      String next = cols[3]
+      String xmlAncestor= cols[4]
+      String textContent = cols[5]
+      String xpTemplate = cols[6].replaceAll(/[ ]+$/,"")
+      String xmlNs = cols[7]
+      CtsUrn urn = null
+      try {
+	urn = new CtsUrn(urnVal.replaceAll(/[\s]+/, ''))
+      } catch (Exception e) {
+	System.err.println "CtsTtl: Could not form URN from ##${urnVal}## : ${e}"
+      }
+      if (urn) {
+
+	 
+	turtles.append("<${urn}> cts:xmlns <${ns}> .\n")
+	turtles.append("""<${urn}> cts:xmlnsabbr "${nsabbr}" .\n""")
 	
-        if (debug > 0) {
-            System.err.println "Trimmed xpTemplate back to ||${xpTemplate}||"
-        }
-
-	if (debug > 0) {
-	  System.err.println "Prev/next cols are " + prev + ":" + next
-	}
-        CtsUrn urn = null
-        try {
-            urn = new CtsUrn(urnVal)
-        } catch (Exception e) {
-            System.err.println "CtsTtl: Could not form URN from ${urnVal} : ${e}"
-        }
-        if (urn) {
-	  String urnBase = urn.getUrnWithoutPassage()
-
-	  String groupStr = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}:"
-	  String groupLabel = this.inventory.getGroupName(urn)
-	  String workStr = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}.${urn.getWork()}:"
-	  String workLabel = "${groupLabel}, ${this.inventory.workTitle(workStr)}"
-	  String label = "${workLabel} (${this.inventory.versionLabel(urnBase)}): ${urn.getPassageComponent()} (${urn})"
-	  turtles.append("<${urn.toString()}> rdf:label " + '"' + label + '" .\n')
-
-
-	  /* explicitly express version hierarchy */
-	  /* should percolate up from any point based on RDF from TextInventory. */
-	  turtles.append("<${urn.toString()}> cts:belongsTo <${urnBase}> . \n")
-
-	  /* explicitly express citation hierarchy */
-	  int max =  urn.getCitationDepth() 
-	  String containedUrn = urn.toString()
-	  turtles.append("<${urn.toString()}> cts:hasSequence ${seq} .\n")
-	  turtles.append("<${urn.toString()}> cts:hasTextContent " + '"""' + textContent + '"""' +  " .\n")
-	  turtles.append("<${urn.toString()}> cts:citationDepth ${max} .\n")
-	  turtles.append("<${urn.toString()}> hmt:xmlOpen " +  '"' + xmlAncestor + '" .\n')
-	  turtles.append("<${urn.toString()}> hmt:xpTemplate "  + '"' + xpTemplate + '" .\n')
-	  turtles.append("<${urn.toString()}> hmt:xmlNsDecl "  + '"' + xmlNs + '" .\n')
-	  while (max > 1) {
-	    max--;
-	    turtles.append("<${urn.toString()}> cts:containedBy <${urnBase}${urn.getPassage(max)}> .\n")
-	    turtles.append("<${urnBase}${urn.getPassage(max)}> cts:contains <${urn.toString()}>  .\n")
-	    turtles.append("<${urnBase}${urn.getPassage(max)}> cts:citationDepth ${max} .\n")
-	  }
-        }
-
-
-	
-        return turtles.toString()
+	turtles.append(turtleizeValues(urn,seq,prev,next,xmlAncestor,textContent,xpTemplate,xmlNs))
+      } else {
+	System.err.println "CtsTtl:turtelizeLine: could not form URN from " + urnVal
+      }
     }
+    return turtles.toString()
+ }
+
 
 
   /**  Composes RDF statements for cts:prev and cts:next
@@ -375,7 +371,7 @@ class CtsTtl {
 	  System.err.println "CtsTtl: failed to get record for ${urnVal}."
 	  System.err.println "err ${e}"
 	}
-	
+
 
       } else {
 	// ??
@@ -390,17 +386,17 @@ class CtsTtl {
 	String urnVal = cols[0]
 	String seq = cols[1]
 	String prv = cols[2]
-		String nxt = cols[3]
+	String nxt = cols[3]
 	CtsUrn u
 	try {
 	  u = new CtsUrn(urnVal)
 	  String workNoPsg = u.getUrnWithoutPassage()
 	  LinkedHashMap currentMapping =  seqMapsForWorks[workNoPsg]
-	  if (prv != "") {
+	  if ((prv != "") && (currentMapping[prv] != null)) {
 	    ttl.append( "<${u}> cts:prev <${currentMapping[prv]}> .\n")
 	  }
-	  if (nxt != "") {
-	    ttl.append( "<${u}>  cts:next <${currentMapping[nxt]}> .\n")
+	  if ( (nxt != "") && (currentMapping[nxt] != null)) {
+	    ttl.append( "<${u}> cts:next <${currentMapping[nxt]}> .\n")
 	  }
 	}  catch (Exception e) {
 	  System.err.println "CtsTtl: failed to get record for ${urnVal}."
@@ -410,6 +406,28 @@ class CtsTtl {
     }
     return ttl.toString()
   }
-  
+
+  String turtleizeFile(File tabFile) {
+    StringBuilder ttl =  new StringBuilder(turtleizeInv())
+    
+    String ns = ""
+    String nsabbr = ""
+    tabFile.eachLine { l ->
+      if (l ==~ /namespace.+/) {
+	// use this.separatorValue !
+	def cols = l.split(/#/)
+	ns = cols[2]
+	nsabbr = cols[1]
+      } else {
+	ttl.append(turtleizeLine(l,ns,nsabbr))
+      }
+    }
+
+    String pnData = turtleizePrevNext(tabFile.getText())
+    System.err.println "PREVNEXT DATA: " + pnData
+    ttl.append(pnData)
+
+    return ttl.toString()
+  }
 
 }
