@@ -12,7 +12,7 @@ import edu.harvard.chs.cite.CtsUrn
 class TestTtlFile  {
 
 
-  File tabFile = new File("testdata/testcorpus2016/tabs/allen-tabs.txt")
+  File tabFile = new File("testdata/testcorpus2016/testcorpus2016.tab")
 
   File tiFile = new File("testdata/testcorpus2016/testinventory-2016.xml")
 
@@ -25,11 +25,11 @@ class TestTtlFile  {
   CtsTtl ttler = new CtsTtl(ti, conf)
 
   @Test
-  void testPrevNext() {
+  void testTtlOneFile() {
 
     String ttl = ttler.turtleizeFile(tabFile)
     System.err.println "From tabFile:\n" + ttl
-    File ttlOut = new File("build/allen.ttl")
+    File ttlOut = new File("testdata/testcorpus2016/testcorpus2016.ttl")
     ttlOut.setText(ttl, "UTF-8")
   }
 

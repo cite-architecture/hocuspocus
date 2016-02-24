@@ -29,6 +29,17 @@ class TabValidator{
 
   TabValidator() {
   }
+
+  /** Validates the RDF describing a single node.
+  * @returns True if RDF satisfies OHCO2 model.
+  */
+  static boolean validateNodeRdf(String ttl) {
+    ttl.eachLine {
+      System.err.println it
+    }
+
+    return true
+  }
 /*
 
 # Required for Tabulation

@@ -34,6 +34,9 @@ class Tabulator {
 
   Integer debug = 0
 
+  // add a log file??
+  File log
+  
   /** Keep regular expressions that destroy the beautiful formatting
    * of my editor in a separate file. */
   // make static?
@@ -184,9 +187,10 @@ class Tabulator {
     xpath.setNamespaceContext(nsc)
     def foundNodes = xpath.evaluate( xpString, queryRoot, XPathConstants.NODESET)
     def limit = foundNodes.getLength()
-
     if (debug > 0) {
-      System.err.println "nodeIdsForxpath:  for " + xpString + ", found " + limit + " nodes."
+      String msg =  "nodeIdsForxpath:  for " + xpString + ", found " + limit + " nodes.\n"
+      System.err.println msg
+      log.append(msg)
     }
 
     def done = false
@@ -213,6 +217,9 @@ class Tabulator {
    */
   private def collectCitableIds() {
     def citeSchemes = this.cm.getMappings()
+    this.schemeIndex = []
+    this.tripletIndex = []
+    this.nodeIdLists = []
     citeSchemes.eachWithIndex { citeScheme, schemeNum ->
       // We can get IDs for all citable nodes in two passes:
       //
@@ -231,7 +238,9 @@ class Tabulator {
 
 	} else {
 	  if (debug > 0) {
-	    println "\t... no terminal nodes at level ${idx}"
+	    String msg = "\t... no terminal nodes at level ${idx}\n"
+	    System.err.println  msg
+	    log.append(msg)
 	  }
 	}
       }
@@ -247,10 +256,9 @@ class Tabulator {
       this.nodeIdLists.leftShift(nodeIdsForXpath(xp,parsedRoot))
 
       if (debug > 0) {
-	System.err.println "XPATH: ${xp} at num ${xpNum}"
-	System.err.println "Using scheme index " + this.schemeIndex
-	System.err.println "Yielded cite scheme " + cs
-	System.err.println "Collected node ids " + nodeIdsForXpath(xp,parsedRoot)
+	String msg =  "XPATH: ${xp} at num ${xpNum}\nUsing scheme index " + this.schemeIndex + "\nYielded cite scheme " + cs + "\nCollected node ids " + nodeIdsForXpath(xp,parsedRoot) + "\n"
+	System.err.println msg
+	log.append(msg)
       }
 
     }
@@ -259,6 +267,13 @@ class Tabulator {
 
   // exceptions:
   // 1. no citation model
+  //
+  /** Converts one XML file to tabular representation.
+   * @param txtUrn Urn of document to tabulate.
+   * @param inv TextInventory cataloging the document. 
+   * @param confFile Configuration object mapping URN to file and citation scheme.
+   * @param txtFile The XML file to tabulate.
+   */
   String tabulateFile(CtsUrn txtUrn,
 		      TextInventory inv,
 		      CitationConfigurationFileReader confFile,
@@ -287,6 +302,7 @@ class Tabulator {
       System.err.println "Tabulator:tabulateFile:  no namespace data on " + txtFile
       System.err.println "Continuing to tabulate anyway."
     }
+    
 
     // Create parsed document from local file source:
     def docBuilderFac = DocumentBuilderFactory.newInstance()
@@ -303,7 +319,7 @@ class Tabulator {
     try {
       parsedRoot = docBuilder.parse(is).documentElement
     } catch (Exception e) {
-      System.err.println "Failed to parse stream from ${srcFile}"
+      System.err.println "Failed to parse stream from ${txtFile}"
       throw e
     }
 
@@ -322,6 +338,7 @@ class Tabulator {
       // Now walk through entire document, and check for nodes with ids
       // contained in our citableNodes list
       tabularText.append(tabStringFromTree(parsedRoot, txtUrn, nsMapBldr.toString(), tabularText.toString()))
+
 
     } else {
       System.err.println "NO PARSEABLE ROOT FOR FILE ${f}"
@@ -455,7 +472,11 @@ class Tabulator {
     def citeAttr = triplet.getLeafVariableAttribute()
     // Initialize buffer for return value with citation value
     // for leaf node.
-    StringBuffer buff = new StringBuffer(n.getAttribute(citeAttr))
+    StringBuffer buff = new StringBuffer()
+    if (n instanceof  org.apache.xerces.dom.DeferredTextImpl) {
+    } else {
+      buff.append(n.getAttribute(citeAttr))
+    }
     n = n.getParentNode()
 
     def ancestors = triplet.getScopePattern()
@@ -472,8 +493,9 @@ class Tabulator {
 	citeAttr = scheme[tripletIndex].getLeafVariableAttribute()
 	def nodeVal = n.getAttribute(citeAttr)
 	if (debug > 0) {
-	  println "on node ${n.getLocalName()}"
-	  println "nodeVal = " + nodeVal
+	  String msg =  "on node ${n.getLocalName()}\nnodeVal = " + nodeVal + "\n"
+	  System.err.println msg
+	  log.append(msg)
 	}
 	tripletIndex--;
 	buff.insert(0,"${nodeVal}.")
@@ -514,8 +536,10 @@ class Tabulator {
       nodeIdLists.eachWithIndex { nl, idx ->
 	if (nl.contains(kid.getNodeIndex())){
 	  if (debug > 1) {
-	    System.err.println ("\nCitable node to process: ${kid.getNodeIndex()}")
-	    System.err.println ("Composite is " + compositeString)
+	    String msg = "\nCitable node to process: ${kid.getNodeIndex()}\nComposite is " + compositeString + "\n"
+
+	    System.err.println msg
+	    log.append(msg)
 	  }
 	  this.nodesProcessed++;
 
@@ -542,11 +566,18 @@ class Tabulator {
   String formatRecord(CtsUrn urn, Node parent, Node kid, Integer idx,  String prevCount, String nextCount, String xmlNsDecls) {
     // De-reference scheme and triplet indices to load relevant triplet :
     def schemes = this.cm.getMappings()
+    if (debug > 1) {
+      String msg = "At index ${idx}, schemes are " + schemes + "\n\tschemeIndexes are " + schemeIndex + "\n\ttripletIndexes are " + tripletIndex + "\n"
+      System.err.println msg
+      log.append(msg)
+    }
     def sIdx = this.schemeIndex[idx]
     def currentScheme = schemes[sIdx]
     def tIdx = this.tripletIndex[idx]
     def currentTriplet = currentScheme[tIdx]
 
+
+    
     // we need to do xpath transforms in this method ...
     TransformerFactory tf = TransformerFactory.newInstance()
     Transformer xform = tf.newTransformer()
@@ -565,8 +596,9 @@ class Tabulator {
     nodeText = nodeText.replaceAll(/[ \t\n\r]+/," ")
 
     // 3.get ancestor and leaf patterns for node
+
     def ancestors = currentTriplet.getScopePattern()
-    def leafPatt =currentTriplet.getLeafPattern()
+    def leafPatt = currentTriplet.getLeafPattern()
 
     // 4. get ancestor path
     def explicitAncPath =  fillAncestorPath(currentScheme,tIdx, parent)
@@ -730,8 +762,9 @@ class Tabulator {
     def lastIndex = ancestorParts.size() - 1
 
     if (debug > 0) {
-      println "fillAncestorPath: node ${currNode.getLocalName()} with triplet ${triplet}"
-      println "Looking for ${tripletIndex} citaion values to substitute in, and have scheme ${scheme}."
+      String msg = "fillAncestorPath: node ${currNode.getLocalName()} with triplet ${triplet}\nLooking for ${tripletIndex} citaion values to substitute in, and have scheme ${scheme}.\n"
+      System.err.println  msg
+      log.append(msg)
     }
 
     // Cycle through all ancestor elements in the XPath template, from nearest back to root.
@@ -747,13 +780,18 @@ class Tabulator {
 	part = part.replace(/?/,nodeVal)
 	tripletIndex--;
 	if (debug > 0) {
-	  println "\tSubstitute in value ${nodeVal} for part " + part;
-	  println "Decrement triplet index to ${tripletIndex}"
+	  String msg = "\tSubstitute in value ${nodeVal} for part " + part + "\nDecrement triplet index to ${tripletIndex}\n"
+
+	  System.err.println  msg
+	  log.append(msg)
 	}
       }
       buff.insert(0, "/${part}")
       if (debug > 0) {
-	println "${lastIndex}: ${part} --> ${buff.toString()} for node ${currNode.getLocalName()}"
+	
+	String msg = "${lastIndex}: ${part} --> ${buff.toString()} for node ${currNode.getLocalName()}"
+	System.err.println msg
+	log.append(msg)
       }
       if (lastIndex == 1) {
 	done  = true

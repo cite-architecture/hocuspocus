@@ -66,6 +66,8 @@ class CtsTtl {
    * XML namespaces to full URI.
    * @param namespaceMapList A map of text URNs to a mapping
    */
+
+  /*
    static String xmlNsTtl(LinkedHashMap namespaceMapList) {
      StringBuilder reply = new StringBuilder()
      Set nsAbbrTtl = []
@@ -81,6 +83,7 @@ class CtsTtl {
      }
      return reply.toString()
    }
+  */
 
   static String textGroupTtl(ArrayList tg) {
     StringBuilder ttl = new StringBuilder()
@@ -191,7 +194,7 @@ class CtsTtl {
        System.err.println "CtsTtl:turtleizeInv:  no texts were mapped to XML namespaces."
      }
     // XML namespace information
-    reply.append(xmlNsTtl(config.xmlNamespaceData))
+    //reply.append(xmlNsTtl(config.xmlNamespaceData))
     // CTS namespace information
     reply.append(ctsNsTtl(inv.ctsnamespaces))
     // Bibliographic hierarchy
@@ -319,8 +322,10 @@ class CtsTtl {
 	System.err.println "CtsTtl: Could not form URN from ##${urnVal}## : ${e}"
       }
       if (urn) {
+
+	 
 	turtles.append("<${urn}> cts:xmlns <${ns}> .\n")
-	turtles.append("<${urn}> cts:xmlnsabbr <${nsabbr}> .\n")
+	turtles.append("""<${urn}> cts:xmlnsabbr "${nsabbr}" .\n""")
 	
 	turtles.append(turtleizeValues(urn,seq,prev,next,xmlAncestor,textContent,xpTemplate,xmlNs))
       } else {
@@ -411,8 +416,8 @@ class CtsTtl {
       if (l ==~ /namespace.+/) {
 	// use this.separatorValue !
 	def cols = l.split(/#/)
-	ns = cols[1]
-	nsabbr = cols[2]
+	ns = cols[2]
+	nsabbr = cols[1]
       } else {
 	ttl.append(turtleizeLine(l,ns,nsabbr))
       }

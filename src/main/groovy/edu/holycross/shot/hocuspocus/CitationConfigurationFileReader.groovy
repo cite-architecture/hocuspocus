@@ -26,7 +26,7 @@ class CitationConfigurationFileReader{
   def xmlNamespaceData = [:]
 
   /** Map of Cts Urns to names of local files. */
-  String fileNameMap = [:]
+  def fileNameMap = [:]
 
 
   /** Constructor with one parameter for configuration file.
@@ -41,6 +41,17 @@ class CitationConfigurationFileReader{
     citationModelMap = collectCitationModels(root)
   }
 
+
+
+  String getFileNameForUrn(String urnValue) {
+    String fName = null
+    fileNameMap.keySet().each { k ->
+      if (k == urnValue) {
+	fName = fileNameMap[k]
+      }
+    }
+    return fName
+  }
 
   /** Creates a map of URNs to XML namespace info by
   * reading a parsed XML configuration.  The XML namespace
@@ -78,6 +89,8 @@ class CitationConfigurationFileReader{
     return fileNameMap
   }
 
+
+  
   static LinkedHashMap collectCitationModels(groovy.util.Node confRoot) {
     def citationData = [:]
     confRoot[hp.online].each { conf ->

@@ -27,4 +27,14 @@ class TestConfFilenames {
     assert fileMap[iliadUrn] == expectedName
   }
 
+
+  @Test
+  void testTestCorpus() {
+    File outDir = new File("testdata/output")
+    File confFile = new File("testdata/testcorpus2016/citationconfig-2016.xml")
+    CitationConfigurationFileReader conf = new CitationConfigurationFileReader(confFile)
+
+    //System.err.println conf.tabulateRepository(outDir)
+
+  }
 }
