@@ -87,28 +87,14 @@ class Corpus {
             throw e
         }
 
-	/*
-        this.tabulateRepository(tabDir)
 
+        this.tabulateRepository(tabDir)
+	/*
         File ttlFile = new File(outputDir, "corpus.ttl")
         this.ttl(ttlFile, tabDir)
 	*/
   }
 
-
-
-  // find proper file to tabulate from inventory
-  // then tabulate it
-
-  /*
-  void tabulateFile(CtsUrn urn, File outputDir) {
-    File documentFile = new File( "${baseDirectory}/${inventory.onlineDocname(urn)}")
-    if (this.debug > 0) {
-      System.err.println "TAB THIS FILE: " + documentFile
-    }
-    tabulateFile(documentFile,urn,outputDir)
-    }
-*/
 
   
   /** Creates a Tabulator object and uses it to tabulate
@@ -132,21 +118,17 @@ class Corpus {
    */
   void tabulateRepository(File outputDir) {
 
-    citationConfig.fileNameMap.keySet().each { urnVal ->
+
+    citationConfig.fileNameMap.keySet().eachWithIndex { urnVal, idx ->
       CtsUrn urn  = new CtsUrn(urnVal)
       File f = new File(baseDirectory, citationConfig.fileNameMap[urnVal])
-      System.err.println "Tabulate " + urnVal + " to " + f //citationConfig.fileNameMap[urnVal]
+      File tabFile = new File(outputDir, "tab${idx}.txt")
+      System.err.println "Tabulate " + urnVal + " from " + f + " to " + tabFile
       Tabulator tabulator = new Tabulator()
       String tabData = tabulator.tabulateFile(urn, inventory, citationConfig, f)
       System.err.println "\n\nFOR " + urn
       System.err.println tabData
-
-	/*
-   * @param txtUrn Urn of document to tabulate.
-   * @param inv TextInventory cataloging the document. 
-   * @param confFile Configuration object mapping URN to file and citation scheme.
-   * @param txtFile The XML file to tabulate.
-   */
+      tabFile.setText(tabData,"UTF-8")
     }
     
     /*    urnsInInventory().each { u ->
