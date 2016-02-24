@@ -396,7 +396,7 @@ class CtsTtl {
 	    ttl.append( "<${u}> cts:prev <${currentMapping[prv]}> .\n")
 	  }
 	  if ( (nxt != "") && (currentMapping[nxt] != null)) {
-	    ttl.append( "<${u}>  cts:next <${currentMapping[nxt]}> .\n")
+	    ttl.append( "<${u}> cts:next <${currentMapping[nxt]}> .\n")
 	  }
 	}  catch (Exception e) {
 	  System.err.println "CtsTtl: failed to get record for ${urnVal}."
