@@ -32,7 +32,7 @@ public class RdfTest extends ConcordionTestCase {
 	return (path);
     }
 
-
+    /*
     public String getInvTTL (String ti)
     throws Exception {
 	String buildPath = new java.io.File( "." ).getCanonicalPath() + docPath;
@@ -169,7 +169,7 @@ public class RdfTest extends ConcordionTestCase {
 	}
     }
 
-
+    */
 }
 
 

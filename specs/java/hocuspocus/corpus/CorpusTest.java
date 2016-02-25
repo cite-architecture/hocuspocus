@@ -28,6 +28,7 @@ public class CorpusTest extends ConcordionTestCase {
 
 
     /** Creates a Corpus object. */
+    /*
     public boolean shouldMakeCorpus(String ti, String archive) {
 	try {
 	    String buildPath = new java.io.File( "." ).getCanonicalPath() + docPath; 
@@ -217,7 +218,7 @@ public class CorpusTest extends ConcordionTestCase {
 	    return ("CorpusTest, in inv not on disk: unable to make corpus: " + e.toString());
 	}
     }
-
+    */
 }
 
 

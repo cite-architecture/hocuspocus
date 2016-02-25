@@ -32,6 +32,7 @@ public class TabulatorTest extends ConcordionTestCase {
 	return (path);
     }
 
+    /*
     public Integer shouldCountTabs(String ti, String archive, String outDir) {
 
 	Integer count = 0;
@@ -118,6 +119,7 @@ public class TabulatorTest extends ConcordionTestCase {
 	
 	return -1;
     }
+    */
 }
 
 
