@@ -12,7 +12,7 @@ import edu.harvard.chs.cite.CtsUrn
 class TestTtlFile  {
 
 
-  File tabFile = new File("testdata/testcorpus2016/testcorpus2016.tab")
+  File tabFile = new File("testdata/testcorpus2016/derivs/testcorpus2016.tab")
 
   File tiFile = new File("testdata/testcorpus2016/testinventory-2016.xml")
 
@@ -22,7 +22,7 @@ class TestTtlFile  {
 
   TextInventory ti = new TextInventory(tiFile)
 
-  CtsTtl ttler = new CtsTtl(ti, conf)
+  TtlGenerator ttler = new TtlGenerator(ti, conf)
 
   @Test
   void testTtlOneFile() {

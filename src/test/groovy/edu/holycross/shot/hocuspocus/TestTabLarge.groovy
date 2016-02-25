@@ -33,7 +33,7 @@ class TestTabLarge  {
 
     CtsUrn txtUrn = new CtsUrn(urn)
     File txtFile = new File(fName)
-    def tabulated = tab.tabulateFile(txtUrn, inv, conf, txtFile)
-    ttloutput.append(tabulated)
+  ////  def tabulated = tab.tabulateFile(txtUrn, inv, conf, txtFile)
+    //ttloutput.append(tabulated)
   }
 }

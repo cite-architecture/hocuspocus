@@ -22,7 +22,7 @@ class TestTtlTabDir  {
   File schemaFile = new File("testdata/testpipe/TextInventory.rng")
 
   //CitationConfigurationFileReader conf = new CitationConfigurationFileReader(confFile)
-  //CtsTtl ttler = new CtsTtl(ti, conf)
+  //TtlGenerator ttler = new TtlGenerator(ti, conf)
 
 
 

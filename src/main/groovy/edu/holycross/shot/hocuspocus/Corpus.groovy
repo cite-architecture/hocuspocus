@@ -10,7 +10,7 @@ import javax.xml.validation.SchemaFactory
 import org.apache.commons.io.FilenameUtils
 
 /**
-* Fundamental class representing the archival version of atext corpus 
+* Fundamental class representing the archival version of atext corpus
 * as a collection of XML documents cataloged by a CTS TextInventory.
 */
 class Corpus {
@@ -21,7 +21,7 @@ class Corpus {
    * default value of UTF-8.    */
   String charEnc = "UTF-8"
 
-  /** TextInventory with entries for all documents in the corpus. 
+  /** TextInventory with entries for all documents in the corpus.
    */
   TextInventory  inventory
 
@@ -31,13 +31,13 @@ class Corpus {
 
   /** Citation configuration information. */
   CitationConfigurationFileReader citationConfig
-  
-  /** String value defining columns in tabular text format. 
+
+  /** String value defining columns in tabular text format.
    */
   String separatorString = "#"
 
-    
-  Corpus(File invFile, File configFile, File baseDir, File schemaFile) 
+
+  Corpus(File invFile, File configFile, File baseDir, File schemaFile)
   throws Exception {
     try{
       this.inventory = new TextInventory(invFile)
@@ -45,7 +45,7 @@ class Corpus {
     } catch (Exception e) {
       throw e
     }
-    
+
     if (!baseDir.canRead()) {
       throw new Exception("Corpus: cannot read directory ${baseDir}")
     }
@@ -55,21 +55,21 @@ class Corpus {
     /*
     try {
       validateInventory(schemaFile)
-      
+
     } catch (Exception invException) {
       throw invException
     }
     */
   }
 
-  
-  /** Creates TTL representation of the entire corpus 
+
+  /** Creates TTL representation of the entire corpus
    * and writes it to a file in outputDir.
    * @param outputDir A writable directory where the TTL file
    * will be written.
    * @throws Exception if unable to write to outputDir.
    */
-  void turtleizeRepository(File outputDir) 
+  void turtleizeRepository(File outputDir)
   throws Exception {
     if (! outputDir.exists()) {
       try {
@@ -96,7 +96,7 @@ class Corpus {
   }
 
 
-  
+
   /** Creates a Tabulator object and uses it to tabulate
    * a given document.
    * @param f The source file in the archive to tabulate.
@@ -165,7 +165,7 @@ class Corpus {
    * @param ttlFileName Name of output file.
    * @param destructive True if tab files should be deleted
    * after turtelizing.
-   */ 
+   */
   //void turtleizeTabs(File outputDir, String ttlFileName, boolean destructive) {
   // File  ttl = new File(ttlFileName)
   // turtleizeTabs(outputDir, ttl, destructive)
@@ -177,24 +177,24 @@ class Corpus {
     if (debug > 0) {
       System.err.println "Turtleizing files in ${outputDir}"
     }
-    CtsTtl turtler = new CtsTtl(this.inventory)
+    TtlGenerator turtler = new TtlGenerator(this.inventory)
     Integer fileCount = 0
-    outputDir.eachFileMatch(~/.*.txt/) { tab ->  
-      if (debug > 0) { System.err.println "Turtleizing " + tab } 
+    outputDir.eachFileMatch(~/.*.txt/) { tab ->
+      if (debug > 0) { System.err.println "Turtleizing " + tab }
       fileCount++;
       if (fileCount == 1) {
 	ttl.append(turtler.turtleizeTabs(tab, false), charEnc)
       } else {
 	ttl.append(turtler.turtleizeTabs(tab, false), charEnc)
       }
-      if (destructive) { 
+      if (destructive) {
 	if (debug > 0) { System.err.println "Corpus: deleting file ${tab}" }
-	tab.delete() 
+	tab.delete()
       }
     }
   }
   */
-  
+
   /** Cycles through all tabular files in a directory,
    * first turtleizing each file.  If destructive is true, it
    * then deletes the source file.
@@ -212,24 +212,24 @@ class Corpus {
       System.err.println "Turtleizing files in ${outputDir}"
     }
 
-    CtsTtl turtler = new CtsTtl(this.inventory)
+    TtlGenerator turtler = new TtlGenerator(this.inventory)
     outputDir.eachFileMatch(~/.*.txt/) { tab ->
       if (debug > 0) {
 	System.err.println "Turtleizing " + tab
       }
       turtler.turtleizeTabsToFile(tab, ttl, charEnc, false)
-      if (destructive) { 
+      if (destructive) {
 	if (debug > 0) { System.err.println "Corpus: deleting file ${tab}" }
-	tab.delete() 
+	tab.delete()
       }
     }
   }
   */
-  
+
   /** Writes a RDF TTL representation of the entire CTS repository
    * to a file. First generates TTL for the repository's TextInventory,
    * then tabulates all files in the repository, and turtleizes
-   * the resulting tab files. 
+   * the resulting tab files.
    * @param ttlFile Writable output file.
    * @param tabDir Writable directory for generated tab files.
    */
@@ -252,17 +252,17 @@ class Corpus {
       System.err.println "Ttl'ing to ${ttlFile} after tabbing to ${tabDir}"
     }
 
-    CtsTtl turtler = new CtsTtl(this.inventory)        
+    TtlGenerator turtler = new TtlGenerator(this.inventory)
     ttlFile.append(turtler.turtleizeInv(includePrefix), charEnc)
 
     tabulateRepository(tabDir)
-    // 
+    //
     turtleizeTabsToFile(tabDir, ttlFile, false)
-    
-  }  
+
+  }
   */
-  
-  /* * Validates the XML serialization of the corpus's TextInventory 
+
+  /* * Validates the XML serialization of the corpus's TextInventory
    * against the published schema for a CITE TextInventory.
    * @throws Exception if the XML does not validate.
    */
@@ -274,7 +274,7 @@ class Corpus {
   }
   */
 
-  /** Validates the XML serialization of the corpus's TextInventory 
+  /** Validates the XML serialization of the corpus's TextInventory
    * against the an RNG schema for a CITE TextInventory.
    * @throws Exception if the XML does not validate.
    */
@@ -283,10 +283,10 @@ class Corpus {
   throws Exception {
   //URL textInvSchema = new URL("http://www.homermultitext.org/hmtschemas/TextInventory.rng")
     //File textInvSchema = new File(schemaFileName)
-  
+
     System.setProperty("javax.xml.validation.SchemaFactory:"+XMLConstants.RELAXNG_NS_URI,
 		       "com.thaiopensource.relaxng.jaxp.XMLSyntaxSchemaFactory");
-  
+
     def factory = SchemaFactory.newInstance(XMLConstants.RELAXNG_NS_URI)
     def schema = factory.newSchema(textInvSchema)
 
@@ -296,7 +296,7 @@ class Corpus {
     } catch (Exception e) {
       throw e
     }
-  }  
+  }
 
   /** Determines if the set of online documents in the corpus'
    * TextInventory has a one-to-one correspondence with the set of
@@ -328,7 +328,7 @@ class Corpus {
     this.inventory.allOnline().each { urn ->
       invList.add(this.inventory.onlineDocname(urn))
     }
-    
+
     invList.each { urn ->
       if (urn in fileSet) {
       } else {
@@ -339,7 +339,7 @@ class Corpus {
   }
 
 
-  /** Creates a list of all .xml files in the archive lacking a 
+  /** Creates a list of all .xml files in the archive lacking a
    * corresponding "online" entry in the corpus TextInventory.
    * @returns A (possibly empty) list of file names.
    */
@@ -370,7 +370,7 @@ class Corpus {
     return onlineList
   }
 
-  /** Creates a list of CTS URNs for documents marked in the 
+  /** Creates a list of CTS URNs for documents marked in the
    * corpus text inventory as online.
    */
   ArrayList urnsInInventory() {
@@ -383,30 +383,29 @@ class Corpus {
 
   /**  Recursively walks through the file system where archival
    * files are kepts, and finds all finds with names ending in '.xml'.
-   * @returns A list of file names, with paths relative to the 
+   * @returns A list of file names, with paths relative to the
    * base directory of this corpus' file storage.
    */
   ArrayList filesInArchive() {
     def fileList = []
     def relativeBase = baseDirectory.toString()
-    baseDirectory.eachFileMatch(~/.*.xml/) { file ->  
+    baseDirectory.eachFileMatch(~/.*.xml/) { file ->
       def stripped = file.toString().replaceFirst(relativeBase,'')
       if (stripped[0] == '/') {
 	stripped = stripped.replaceFirst('/','')
       }
       fileList.add(stripped)
     }
-    baseDirectory.eachDirRecurse() { d ->  
-      d.eachFileMatch(~/.*.xml/) { file ->  
+    baseDirectory.eachDirRecurse() { d ->
+      d.eachFileMatch(~/.*.xml/) { file ->
 	def stripped = file.toString().replaceFirst(relativeBase,'')
 	if (stripped[0] == '/') {
 	  stripped = stripped.replaceFirst('/','')
 	}
 	fileList.add(stripped)
-      }  
-    }  
+      }
+    }
     return fileList
   }
 
 }
-

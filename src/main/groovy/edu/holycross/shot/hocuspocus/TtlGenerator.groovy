@@ -7,7 +7,7 @@ import edu.harvard.chs.cite.VersionType
 
 /** Class managing serialization of a CTS archive as RDF TTL.
 */
-class CtsTtl {
+class TtlGenerator {
   static Integer debug = 0
 
   /** RDF prefix declarations. */
@@ -24,15 +24,15 @@ class CtsTtl {
    TextInventory inventory
    /** Citation configuration for CTS archive to turtleize. */
    CitationConfigurationFileReader citationConfig
-   
+
    /** Column delimiting string in tabulated files.*/
    String separatorValue = "#"
 
-   
+
    /** Constructor with single parameter.
    * @param ti TextInventory object for a CTS archive.
    */
-   CtsTtl(TextInventory ti, CitationConfigurationFileReader conf) {
+   TtlGenerator(TextInventory ti, CitationConfigurationFileReader conf) {
        inventory = ti
        citationConfig = conf
    }
@@ -54,7 +54,7 @@ class CtsTtl {
 
   /** Composes TTL string for text group structures.
    * @param tg
-   * @returns 
+   * @returns
    */
   static String textGroupTtl(ArrayList tg) {
     StringBuilder ttl = new StringBuilder()
@@ -81,7 +81,7 @@ class CtsTtl {
     String label = ti.workTitle(wk)
     ttl.append("<${wk}> rdf:label " + '"""' + label.replaceAll(/\n/,'') + '""" .\n')
     ttl.append("<${wk}> dcterms:title " + '"""' + label.replaceAll(/\n/,'') + '""" .\n')
-    
+
     String lang = ti.worksLanguages[wk]
     ttl.append("""<${wk}> cts:lang "${lang}" .\n""")
     return ttl.toString()
@@ -97,13 +97,13 @@ class CtsTtl {
       ttl.append("<${vers}> rdf:type cts:Edition .\n")
       ttl.append("<${vers}> rdf:label " +   '"""' + ti.editionLabel(vers).replaceAll(/\n/,'') + '""" .\n')
       ttl.append("<${vers}> dcterms:title " +   '"""' + ti.editionLabel(vers).replaceAll(/\n/,'') + '""" .\n')
-      
+
     } else {
       ttl.append("<${vers}> rdf:type cts:Translation .\n")
       ttl.append("<${vers}> rdf:label " +  '"""' + ti.translationLabel(vers).replaceAll(/\n/,'') + '""" .\n')
       ttl.append("<${vers}> dcterms:title  " +  '"""' + ti.translationLabel(vers).replaceAll(/\n/,'') + '""" .\n')
       ttl.append("""<${vers}> cts:lang "${ti.languageForVersion(vers)}" .\n""")
-      
+
     }
     return ttl.toString()
   }
@@ -118,10 +118,10 @@ class CtsTtl {
     ttl.append("<${exempl}> rdf:type cts:Exemplar .\n")
     ttl.append("<${exempl}> rdf:label " + '"""' +   ti.exemplarLabel(exUrn).replaceAll(/\n/,'') + '"""  .\n')
     ttl.append("<${exempl}> dcterms:title " + '"""' +   ti.exemplarLabel(exUrn).replaceAll(/\n/,'') + '"""  .\n')
-      
+
     return ttl.toString()
   }
-  
+
   static String biblTtl(TextInventory ti) {
     StringBuilder ttl = new StringBuilder()
     ti.textgroups.each { tg ->
@@ -145,7 +145,7 @@ class CtsTtl {
   String turtleizeInv() throws Exception {
     return turtleizeInv(inventory, citationConfig, true)
   }
-  
+
    /** Translates the contents of a CTS TextInventory to
     * RDF TTL.
     * @param inv TextInventory to turtleize.
@@ -161,7 +161,7 @@ class CtsTtl {
      }
      def mapSize =   config.xmlNamespaceData.keySet().size()
      if (mapSize < 1) {
-       System.err.println "CtsTtl:turtleizeInv:  no texts were mapped to XML namespaces."
+       System.err.println "TtlGenerator:turtleizeInv:  no texts were mapped to XML namespaces."
      }
     // XML namespace information
     //reply.append(xmlNsTtl(config.xmlNamespaceData))
@@ -189,18 +189,18 @@ class CtsTtl {
       turtles.append(prefixStr)
     }
 
-    
+
     boolean foundIt = false
     stringData.eachLine { l ->
       def cols = "${l} ".split(separatorValue)
 
-      if (debug > 0) { System.err.println "CtsTtl: ${l} cols as ${cols}, size ${cols.size()}" }
+      if (debug > 0) { System.err.println "TtlGenerator: ${l} cols as ${cols}, size ${cols.size()}" }
       if (cols.size() >= 7) {
 	turtles.append(turtleizeLine(l) + "\n")
       } else if (cols.size() == 4) {
 	// Ignore namespace declaration in 4 columns
       } else {
-	System.err.println "CtsTtl: Too few columns! ${cols.size()} for ${cols}"
+	System.err.println "TtlGenerator: Too few columns! ${cols.size()} for ${cols}"
       }
 
     }
@@ -209,7 +209,7 @@ class CtsTtl {
 
 
     if (turtles.toString().size() == 0) {
-      System.err.println "CtsTtl: could not turtelize string " + stringData
+      System.err.println "TtlGenerator: could not turtelize string " + stringData
     }
     return turtles.toString()
   }
@@ -263,7 +263,7 @@ class CtsTtl {
      }
      return turtles.toString()
   }
-  
+
   String turtleizeLine(String tabLine, String ns, String nsabbr) throws Exception {
     // buffer for TTL output:
     StringBuffer turtles = new StringBuffer()
@@ -275,7 +275,7 @@ class CtsTtl {
     def cols = "${tabLine} ".split(separatorValue)
 
     if (cols.size() < 8) {
-      throw new Exception("CtsTtl:turtelizeLine: wrong number of columns in ${tabLine}")
+      throw new Exception("TtlGenerator:turtelizeLine: wrong number of columns in ${tabLine}")
     } else {
       String urnVal = cols[0]
       String seq = cols[1]
@@ -289,17 +289,17 @@ class CtsTtl {
       try {
 	urn = new CtsUrn(urnVal.replaceAll(/[\s]+/, ''))
       } catch (Exception e) {
-	System.err.println "CtsTtl: Could not form URN from ##${urnVal}## : ${e}"
+	System.err.println "TtlGenerator: Could not form URN from ##${urnVal}## : ${e}"
       }
       if (urn) {
 
-	 
+
 	turtles.append("<${urn}> cts:xmlns <${ns}> .\n")
 	turtles.append("""<${urn}> cts:xmlnsabbr "${nsabbr}" .\n""")
-	
+
 	turtles.append(turtleizeValues(urn,seq,prev,next,xmlAncestor,textContent,xpTemplate,xmlNs))
       } else {
-	System.err.println "CtsTtl:turtelizeLine: could not form URN from " + urnVal
+	System.err.println "TtlGenerator:turtelizeLine: could not form URN from " + urnVal
       }
     }
     return turtles.toString()
@@ -338,7 +338,7 @@ class CtsTtl {
 	  seqMapsForWorks[workNoPsg] = currentMapping
 
 	} catch (Exception e) {
-	  System.err.println "CtsTtl: failed to get record for ${urnVal}."
+	  System.err.println "TtlGenerator: failed to get record for ${urnVal}."
 	  System.err.println "err ${e}"
 	}
 
@@ -369,7 +369,7 @@ class CtsTtl {
 	    ttl.append( "<${u}> cts:next <${currentMapping[nxt]}> .\n")
 	  }
 	}  catch (Exception e) {
-	  System.err.println "CtsTtl: failed to get record for ${urnVal}."
+	  System.err.println "TtlGenerator: failed to get record for ${urnVal}."
 	  System.err.println "err ${e}"
 	}
       }
@@ -385,10 +385,10 @@ class CtsTtl {
       fileCount++
     }
   }
-  
+
   String turtleizeFile(File tabFile) {
     StringBuilder ttl =  new StringBuilder(turtleizeInv())
-    
+
     String ns = ""
     String nsabbr = ""
     tabFile.eachLine { l ->

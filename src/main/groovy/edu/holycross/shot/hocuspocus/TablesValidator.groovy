@@ -27,7 +27,7 @@ class TablesValidator{
   def inFileEncoding = "UTF-8"
 
 
-  TabValidator() {
+  TablesValidator() {
   }
 
   /** Validates the RDF describing a single node.

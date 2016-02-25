@@ -16,7 +16,7 @@ class TestTtlBibHier {
 
   @Test
   void testExemplar() {
-    String ttl = CtsTtl.turtleizeInv(ti, confFile, false)
+    String ttl = TtlGenerator.turtleizeInv(ti, confFile, false)
     // 3 texts online:
 
     System.err.println "FINAL TTL: \n" +  ttl
