@@ -52,12 +52,7 @@
           
         </exemplar>
       </edition>
-      <edition urn="urn:cts:greekLit:tlg0016.tlg001.grcTokFull:">
-        <label xml:lang="eng">Greek. Full text tokenized.</label>
-        <description xml:lang="eng">Full Hdt., each word wrapped and citable, to stress the system.</description>
-        <online/>
-        
-      </edition>
+    
       
       <translation urn="urn:cts:greekLit:tlg0016.tlg001.engTest:" xml:lang="eng">
         <label xml:lang="eng">Hdt. English for Testing</label>

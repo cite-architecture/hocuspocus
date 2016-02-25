@@ -10,7 +10,6 @@ import edu.harvard.chs.cite.VersionType
 class CtsTtl {
   static Integer debug = 0
 
-
   /** RDF prefix declarations. */
   static String prefixString = """
 @prefix hmt:        <http://www.homermultitext.org/hmt/rdf/> .
@@ -20,22 +19,13 @@ class CtsTtl {
 
 """.toString()
 
-/*
-  static String ctsNsAbbreviations = """
-<http://www.homermultitext.org/hmt/rdf> cite:abbreviatedBy "hmt" .
-<http://www.homermultitext.org/hmt/rdf> rdf:type cite:DataNs .
-
-<urn:cts:greekLit:> rdf:type cts:Namespace .
-<urn:cts:greekLit:> cts:fullUri <http://chs.harvard.edu/cts/ns/> .
-"""
-*/
-
   /** TextInventory object for CTS archive to turtleize.
    */
    TextInventory inventory
+   /** Citation configuration for CTS archive to turtleize. */
    CitationConfigurationFileReader citationConfig
    
-
+   /** Column delimiting string in tabulated files.*/
    String separatorValue = "#"
 
    
@@ -62,29 +52,10 @@ class CtsTtl {
     return reply.toString()
    }
 
-   /** Composes TTL string for unique mappings of abbreviations for
-   * XML namespaces to full URI.
-   * @param namespaceMapList A map of text URNs to a mapping
+  /** Composes TTL string for text group structures.
+   * @param tg
+   * @returns 
    */
-
-  /*
-   static String xmlNsTtl(LinkedHashMap namespaceMapList) {
-     StringBuilder reply = new StringBuilder()
-     Set nsAbbrTtl = []
-     namespaceMapList.keySet().each { urn ->
-       def nsMap = namespaceMapList[urn]
-       nsMap.keySet().each { nsAbbr ->
-         nsAbbrTtl.add("<${nsMap[nsAbbr]}> cts:abbreviatedBy " + '"' + nsAbbr + '" .\n')
-         nsAbbrTtl.add "<${urn}> cts:xmlns <${nsMap[nsAbbr]}> .\n"
-       }
-     }
-     nsAbbrTtl.each {
-       reply.append(it)
-     }
-     return reply.toString()
-   }
-  */
-
   static String textGroupTtl(ArrayList tg) {
     StringBuilder ttl = new StringBuilder()
     CtsUrn urn = new CtsUrn(tg[0])
@@ -102,7 +73,6 @@ class CtsTtl {
 
 
 
-  
   static String workTtl(String wk, String parent, TextInventory ti) {
     StringBuilder ttl = new StringBuilder()
     ttl.append("<${parent}> cts:possesses <${wk}> .\n")
@@ -407,6 +377,15 @@ class CtsTtl {
     return ttl.toString()
   }
 
+  String turtleizeDir(File tabDirectory, File outputDirectory) {
+    Integer fileCount = 0
+    tabDirectory.eachFileMatch(~/.*.txt/) { tab ->
+      File outFile = new File(outputDirectory, "rdf${fileCount}.ttl")
+      outFile.setText(turtleizeFile(tab), "UTF-8")
+      fileCount++
+    }
+  }
+  
   String turtleizeFile(File tabFile) {
     StringBuilder ttl =  new StringBuilder(turtleizeInv())
     

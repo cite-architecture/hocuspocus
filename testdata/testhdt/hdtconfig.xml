@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="CitationConfiguration.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<!-- On-line configuration for inventory in testinventory2.xml -->
+<CitationConfiguration xmlns="http://chs.harvard.edu/xmlns/hocuspocus">
+   
+    <online
+        urn="urn:cts:greekLit:tlg0016.tlg001.grcTokFull:"
+        type="xml"
+        docname="fu-hdt-grc-tok.xml">
+        
+        <namespaceMapping abbreviation="tei" nsURI="http://www.tei-c.org/ns/1.0"/>
+        <citationMapping>
+            <citation label="Book" scope="/tei:TEI/tei:text/tei:body" xpath="/tei:div[@type='book' and @n='?']">
+                <citation label="Chapter" scope="/tei:TEI/tei:text/tei:body/tei:div[@type='book' and @n='?']"
+                    xpath="/tei:div[@type='chapter' and @n='?']">
+                    <citation label="Token" scope="/tei:TEI/tei:text/tei:body/tei:div[@type='book' and @n='?']/tei:div[@type='chapter' and @n='?']/tei:p"
+                        xpath="/tei:w[@n='?']"/>
+                </citation>
+            </citation>
+        </citationMapping>
+    </online>
+    
+    
+</CitationConfiguration>

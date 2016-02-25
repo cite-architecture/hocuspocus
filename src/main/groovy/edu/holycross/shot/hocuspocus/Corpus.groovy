@@ -114,11 +114,9 @@ class Corpus {
   /** Creates a tabular representation of every document
    * in the corpus.
    * @param ouputDir A writeable directory where tabulated files
-   * will be written.
+   * will be written.  Output files are named "tab[N].txt".
    */
   void tabulateRepository(File outputDir) {
-
-
     citationConfig.fileNameMap.keySet().eachWithIndex { urnVal, idx ->
       CtsUrn urn  = new CtsUrn(urnVal)
       File f = new File(baseDirectory, citationConfig.fileNameMap[urnVal])
@@ -130,16 +128,6 @@ class Corpus {
       System.err.println tabData
       tabFile.setText(tabData,"UTF-8")
     }
-    
-    /*    urnsInInventory().each { u ->
-      CtsUrn urn = new CtsUrn(u)
-      System.err.println "Filename: " + citationConfig.getFileNameForUrn(u)
-      //      File f = new File(baseDirectory, citationConfig.fileNameMap[urn.toString()])
-      if (debug > 0) {
-	//System.err.println "Corpus: tabulating ${urn} with file ${f}..."
-      }
-    */
-      //tabulateFile(f, urn, outputDir)
   }
 
 

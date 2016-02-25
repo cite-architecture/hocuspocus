@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="CitationConfiguration.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<!-- On-line configuration for inventory in testinventory2.xml -->
+<CitationConfiguration xmlns="http://chs.harvard.edu/xmlns/hocuspocus">
+    <online
+        urn="urn:cts:ctstest:pipeline.testfile1:"
+        type="xml"
+        docname="testfile1.xml">
+        
+        <namespaceMapping
+            abbreviation="tei"
+            nsURI="http://www.tei-c.org/ns/1.0"/>
+        <citationMapping>
+            <citation
+                label="book"
+                scope="/tei:TEI/tei:text/tei:body"
+                xpath="/tei:p[@n = '?']">
+            </citation>
+        </citationMapping>
+    </online>
+    
+    
+    <online
+        urn="urn:cts:ctstest:pipeline.testfile2:"
+        type="xml"
+        docname="testfile2.xml">
+        
+        <namespaceMapping
+            abbreviation="tei"
+            nsURI="http://www.tei-c.org/ns/1.0"/>
+        <citationMapping>
+            <citation
+                label="book"
+                scope="/tei:TEI/tei:text/tei:body"
+                xpath="/tei:p[@n = '?']">
+            </citation>
+        </citationMapping>
+    </online>
+    
+    
+    <online
+        urn="urn:cts:ctstest:pipeline.testfile3:"
+        type="xml"
+        docname="testfile3.xml">
+        
+        <namespaceMapping
+            abbreviation="tei"
+            nsURI="http://www.tei-c.org/ns/1.0"/>
+        <citationMapping>
+            <citation
+                label="book"
+                scope="/tei:TEI/tei:text/tei:body"
+                xpath="/tei:p[@n = '?']">
+            </citation>
+        </citationMapping>
+    </online>
+    
+</CitationConfiguration>

@@ -26,6 +26,7 @@ dependencies {
     compile group: 'net.sf.saxon', name: 'saxon-dom', version: versionMap["saxon"]
 
     testCompile "junit:junit:${versionMap['junit']}"
+    testCompile "xmlunit:xmlunit:${versionMap['xmlunit']}"
 }
 
 

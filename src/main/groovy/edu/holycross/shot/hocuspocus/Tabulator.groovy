@@ -187,7 +187,7 @@ class Tabulator {
     xpath.setNamespaceContext(nsc)
     def foundNodes = xpath.evaluate( xpString, queryRoot, XPathConstants.NODESET)
     def limit = foundNodes.getLength()
-    if (debug > 0) {
+    if (debug > 1) {
       String msg =  "nodeIdsForxpath:  for " + xpString + ", found " + limit + " nodes.\n"
       System.err.println msg
       log.append(msg)
@@ -237,7 +237,7 @@ class Tabulator {
 	  this.nodeIdLists.leftShift(nodesForTerminal)
 
 	} else {
-	  if (debug > 0) {
+	  if (debug > 1) {
 	    String msg = "\t... no terminal nodes at level ${idx}\n"
 	    System.err.println  msg
 	    log.append(msg)
@@ -255,7 +255,7 @@ class Tabulator {
       this.tripletIndex.leftShift(cs.size() - 1)
       this.nodeIdLists.leftShift(nodeIdsForXpath(xp,parsedRoot))
 
-      if (debug > 0) {
+      if (debug > 1) {
 	String msg =  "XPATH: ${xp} at num ${xpNum}\nUsing scheme index " + this.schemeIndex + "\nYielded cite scheme " + cs + "\nCollected node ids " + nodeIdsForXpath(xp,parsedRoot) + "\n"
 	System.err.println msg
 	log.append(msg)
@@ -280,7 +280,9 @@ class Tabulator {
 		      File txtFile)
   throws Exception {
     StringBuilder tabularText = new StringBuilder()
-
+    if (debug > 0) {
+      System.err.println "Logging for file ${txtFile} = urn ${txtUrn}"
+    }
     
     this.cm = confFile.getCitationModel(txtUrn.toString())
 
@@ -492,7 +494,7 @@ class Tabulator {
       if (part ==~ TabulatorRegEx.citationPattern) {
 	citeAttr = scheme[tripletIndex].getLeafVariableAttribute()
 	def nodeVal = n.getAttribute(citeAttr)
-	if (debug > 0) {
+	if (debug > 1) {
 	  String msg =  "on node ${n.getLocalName()}\nnodeVal = " + nodeVal + "\n"
 	  System.err.println msg
 	  log.append(msg)
@@ -523,7 +525,9 @@ class Tabulator {
     this.nodeIdLists.each { nlist ->
       nodeMax = nodeMax + nlist.size()  + this.nodesProcessed
     }
-
+    if (debug > 0) {
+      System.err.println "Tabulating: ${this.nodesProcessed} nodes processed up to ${urn}"
+    }
 
     def kids = n.getChildNodes()
     def kidsLimit = kids.getLength()
@@ -761,7 +765,7 @@ class Tabulator {
     // the ancestorParts array.
     def lastIndex = ancestorParts.size() - 1
 
-    if (debug > 0) {
+    if (debug > 1) {
       String msg = "fillAncestorPath: node ${currNode.getLocalName()} with triplet ${triplet}\nLooking for ${tripletIndex} citaion values to substitute in, and have scheme ${scheme}.\n"
       System.err.println  msg
       log.append(msg)
@@ -779,7 +783,7 @@ class Tabulator {
 	def nodeVal = currNode.getAttribute(citeAttr)
 	part = part.replace(/?/,nodeVal)
 	tripletIndex--;
-	if (debug > 0) {
+	if (debug > 1) {
 	  String msg = "\tSubstitute in value ${nodeVal} for part " + part + "\nDecrement triplet index to ${tripletIndex}\n"
 
 	  System.err.println  msg
@@ -787,7 +791,7 @@ class Tabulator {
 	}
       }
       buff.insert(0, "/${part}")
-      if (debug > 0) {
+      if (debug > 1) {
 	
 	String msg = "${lastIndex}: ${part} --> ${buff.toString()} for node ${currNode.getLocalName()}"
 	System.err.println msg
