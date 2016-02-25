@@ -10,7 +10,7 @@ import org.xml.sax.InputSource
 /**
 * Utility class for working with tabulated representations of texts.
 */
-class TabValidator{
+class TablesValidator{
 
   Integer debug = 0
 

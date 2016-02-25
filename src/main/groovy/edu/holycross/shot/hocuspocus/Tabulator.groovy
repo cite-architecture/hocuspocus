@@ -281,7 +281,8 @@ class Tabulator {
   throws Exception {
     StringBuilder tabularText = new StringBuilder()
     if (debug > 0) {
-      System.err.println "Logging for file ${txtFile} = urn ${txtUrn}"
+      System.err.println "Logging for file ${txtFile} = urn ${txtUrn}\n"
+      
     }
     
     this.cm = confFile.getCitationModel(txtUrn.toString())
@@ -328,19 +329,21 @@ class Tabulator {
     if (parsedRoot) {
       parsedRoot.normalize()
 
-      
       //def newFName = "${outFileBaseName}.txt"
       //this.currOutFile = new File(outputDir, newFName)
       //currOutFile.setText("")
       
-
-      if (debug > 0) { println "STEP 1: collecting all node IDs" }
+      if (debug > 0) {
+	// add date stamp here?
+	String msg = "STEP 1: collecting all node IDs\n" 
+	System.err.println msg
+	log.append(msg)
+      }
       collectCitableIds()
 
       // Now walk through entire document, and check for nodes with ids
       // contained in our citableNodes list
       tabularText.append(tabStringFromTree(parsedRoot, txtUrn, nsMapBldr.toString(), tabularText.toString()))
-
 
     } else {
       System.err.println "NO PARSEABLE ROOT FOR FILE ${f}"
@@ -525,9 +528,6 @@ class Tabulator {
     this.nodeIdLists.each { nlist ->
       nodeMax = nodeMax + nlist.size()  + this.nodesProcessed
     }
-    if (debug > 0) {
-      System.err.println "Tabulating: ${this.nodesProcessed} nodes processed up to ${urn}"
-    }
 
     def kids = n.getChildNodes()
     def kidsLimit = kids.getLength()
@@ -614,6 +614,12 @@ class Tabulator {
     
     // 6. Supplied in xmlNsDecls parameter: XML namespace declarations
     // Composite
+    if (debug > 0) {
+      String msg = "At " + urn + refVal + ": ${this.nodesProcessed} nodes processed\n"
+      System.err.println (msg)
+      log.append(msg)
+    }
+    
     return "${urn}${refVal}${columnSeparator}${this.nodesProcessed}${columnSeparator}${prevCount}${columnSeparator}${nextCount}${columnSeparator}${explicitAncPath}${columnSeparator}${nodeText}${columnSeparator}${ancestors}${leafPatt}${columnSeparator}${xmlNsDecls}\n"
   }
 

@@ -10,7 +10,7 @@ import org.xml.sax.InputSource
 /**
 * Utility class for working with tabulated representations of texts.
 */
-class TabUtil {
+class TablesUtil {
 
   Integer debug = 0
 
@@ -27,7 +27,7 @@ class TabUtil {
   def inFileEncoding = "UTF-8"
 
 
-  TabUtil() {
+  TablesUtil() {
   }
 
   /** Sets String value to use as separator in
