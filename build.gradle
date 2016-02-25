@@ -1,36 +1,12 @@
 //import com.github.rjeschke.txtmark.*
-//import org.apache.tools.ant.filters.*
-
+import org.apache.tools.ant.filters.*
 
 apply plugin: "base"
 apply plugin:  "groovy"
 apply plugin:  "maven"
 
 apply from: "versions.gradle"
-
-group = "edu.holycross.shot"
-version = '0.9.0'
-
-repositories {
-    mavenCentral()
-    maven {
-        url "http://beta.hpcc.uh.edu/nexus/content/groups/public"
-    }
-}
-
-dependencies {
-    compile "org.codehaus.groovy:groovy-all:${versionMap['groovy']}"
-    compile group: 'edu.harvard.chs', name : 'cite' , version: versionMap["cite"]
-    compile group: 'commons-io', name: 'commons-io', version: versionMap['commonsio']
-
-    compile group: 'net.sf.saxon', name: 'saxon-dom', version: versionMap["saxon"]
-
-    testCompile "junit:junit:${versionMap['junit']}"
-    testCompile "xmlunit:xmlunit:${versionMap['xmlunit']}"
-}
-
-
-/*
+apply plugin: "edu.holycross.shot.concmd"
 
 if (hasProperty('conf')) {
     System.err.print "Using configuration data from ${conf}"
@@ -51,8 +27,6 @@ if (hasProperty('conf')) {
     }
 }
 
-
-
 if (hasProperty('pub')) {
     System.err.print "Using configuration data from ${pub}"
     File confFile = new File(pub)
@@ -71,22 +45,28 @@ if (hasProperty('pub')) {
         apply from: "pub.gradle"
     }
 }
-*/
 
-/*
+
+group = "edu.holycross.shot"
+version = '1.0.0'
+
+ext {
+  specversion = "1.0.0"
+}
+
 buildscript {
   repositories {
     mavenCentral()
+    maven {
+  	  url "http://beta.hpcc.uh.edu/nexus/content/groups/public"
+  	}
   }
   dependencies {
-    classpath group: 'com.github.rjeschke', name: 'txtmark', version: '0.11'
+    classpath group: "edu.holycross.shot", name: "concmd", version: "1.0.3", classifier: "all"
   }
 }
-*/
 
 
-
-/*
 repositories {
     mavenCentral()
     maven {
@@ -94,7 +74,21 @@ repositories {
     }
 }
 
+dependencies {
+    compile "org.codehaus.groovy:groovy-all:${versionMap['groovy']}"
+    compile group: 'edu.harvard.chs', name : 'cite' , version: versionMap["cite"]
+    compile group: 'commons-io', name: 'commons-io', version: versionMap['commonsio']
 
+    compile group: 'net.sf.saxon', name: 'saxon-dom', version: versionMap["saxon"]
+
+    testCompile "junit:junit:${versionMap['junit']}"
+    testCompile "xmlunit:xmlunit:${versionMap['xmlunit']}"
+    testCompile group: 'org.concordion', name : 'concordion', version: versionMap['concordion']
+}
+
+
+
+/*
 configurations {
     schemas {
         description = 'Manage schemas'
@@ -102,15 +96,9 @@ configurations {
     }
 }
 
-
 dependencies {
-
-
-
   compile group: 'commons-io', name: 'commons-io', version: commonsioversion
   compile group: 'net.sf.saxon', name: 'saxon-dom', version: '8.7'
-
-
 
   testCompile 'org.concordion:concordion:1.4.4'
   testCompile group :'xmlunit', name: 'xmlunit', version: xmlunitversion
@@ -119,15 +107,9 @@ dependencies {
 
 
 
-
-  // DOCUMENT THESE:
-
-  compile group: 'edu.harvard.chs', name : 'greekutils' , version: versionMap["greekutils"]
   schemas group: 'edu.harvard.chs', name: 'cite', version: versionMap["cite"], classifier: 'schemas', ext: 'zip'
 
 }
-
-
 
 task vmap {
   description = "Prints out version info for key dependencies."
@@ -170,100 +152,81 @@ task copySchemas(dependsOn: checkOutSchemas, type: Copy) {
 
 /*
 compileGroovy.dependsOn(copySchemas)
+*/
 
 uploadArchives {
-    repositories.mavenDeployer {
-        repository(url: nexusRepo) {
-            authentication (userName: nexusUser, password: nexusPassword)
-        }
+  repositories.mavenDeployer {
+    repository(url: nexusRepo) {
+      authentication (userName: nexusUser, password: nexusPassword)
     }
-}
-*/
-
-
-/*
-
-// for specs with concordion:
-sourceSets {
-    main {
-        java {
-            srcDir 'src'
-        }
-        resources {
-            srcDir 'src'
-        }
-    }
-    test {
-        java {
-	  srcDir "specs/java"
-        }
-        resources {
-	  srcDir "${buildDir}/specs"
-        }
-    }
-}
-
-task cpResources(type: Copy) {
-  from "specs/resources"
-  into "${buildDir}/specs"
-}
-
-task setUpResources(dependsOn: cpResources) {
-}
-setUpResources.doLast {
-  println "READING FILE TREE FROM " + mdSrc + " DIRECTORY"
-  FileTree tree = fileTree(mdSrc) {
-    include "** / *.md"
   }
-  tree.visit { f ->
-    if (f.relativePath.isFile()) {
-      File inFile = new File("${mdSrc}/${f.relativePath}")
-      println "Need to work on " + inFile
-      def segs = f.relativePath.getSegments()
-      String treePath = "${buildDir}/specs"
-      Integer limit =  segs.size() - 1
-      segs.eachWithIndex { s, i ->
-	if (i < limit) {
-	  treePath = "${treePath}/${s}"
-	  File nxtDir = new File(treePath)
-	  if (! nxtDir.exists()) {
-	    nxtDir.mkdir()
-	  }
-	}
+}
+
+  task cpSpecs(type: Copy) {
+    description "Copies all source for concordion tests to build area."
+    from "specs"
+    into "${buildDir}/specs"
+  }
+
+task prepareConc(type: edu.holycross.shot.ConcMdTask, dependsOn: cpSpecs) {
+      description "Converts source MD to HTML"
+      from "specs/md"
+      into "${buildDir}/specs/md"
+  }
+
+
+  task addVersion(){
+    description "Adds project and dependency versions to list of filterable tokens"
+  }
+
+  addVersion.doLast {
+    tokenMap["version"] = version
+    tokenMap["specversion"] = specversion
+    StringBuilder deps = new StringBuilder()
+    versionMap.keySet().sort().each { k ->
+      deps.append("<tr><td>${k}</td><td>${versionMap[k]}</td></tr>")
+    }
+    tokenMap["deps"] = deps.toString()
+  }
+
+  task conc(type: Copy, dependsOn: [test, addVersion]) {
+    description "Filter-copies concordion output for final formatting"
+    from "${buildDir}/concordion-unfiltered"
+    into "${buildDir}/concordion-formatted"
+    filter(ReplaceTokens, tokens: tokenMap)
+  }
+  conc.doLast {
+    println "\nFormatted output is in ${buildDir}/concordion-formatted"
+  }
+
+  test.dependsOn prepareConc
+  test {
+    systemProperties 'concordion.output.dir': file("${buildDir}/concordion-unfiltered")
+  }
+  test {
+    if (project.hasProperty("abbr")) {
+      systemProperty "shortrun", abbr
+    } else {
+      systemProperty "shortrun", "n"
+    }
+
+  }
+
+  sourceSets {
+      main {
+          java {
+              srcDir 'src'
+          }
+          resources {
+              srcDir 'src'
+          }
       }
-      File outDir = new File(treePath)
-      String htmlFileName = f.relativePath.getLastName().replaceFirst(/.md$/,".html")
-      File htmlFile = new File(outDir, htmlFileName)
-      println "Created ${htmlFile}"
-
-      String body = Processor.process(inFile.getText("UTF-8"),Configuration.DEFAULT)
-      htmlFile.setText("${htmlPreface}${body}${htmlEnd}", "UTF-8")
-    }
+      test {
+          java {
+              srcDir "specs/java"
+          }
+          resources {
+            srcDir "${buildDir}/specs/md"
+          }
+      }
   }
-}
-
-
-test.dependsOn setUpResources
-test {
-    systemProperties 'concordion.output.dir': file("${buildDir}/concordion-results")
-}
-
-task addVersion(){
-}
-addVersion.doLast {
-  tokenMap["version"] = version
-
-  StringBuilder deps = new StringBuilder()
-  versionMap.keySet().sort().each { k ->
-    deps.append("<tr><td>${k}</td><td>${versionMap[k]}</td></tr>")
-  }
-  tokenMap["deps"] = deps.toString()
-}
-
-task conc(type: Copy, dependsOn: [test, addVersion]) {
-//task conc(type: Copy) {
-  from "${buildDir}/concordion-results"
-  into "${buildDir}/concordion-formatted"
-  filter(ReplaceTokens, tokens: tokenMap)
-}
-*/
