@@ -28,7 +28,9 @@ class TestXmlUnit  {
 
   @Test
   void testTtlOneFile() {
-
+    System.err.println "Check on shortrun:"
+    def runsize = System.getProperty("shortrun")
+    System.err.println "${runsize} of type ${runsize.getClass()}"
   }
 
 
