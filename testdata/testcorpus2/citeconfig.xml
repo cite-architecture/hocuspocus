@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CitationConfig
+   xmlns="http://chs.harvard.edu/xmlns/cts"
+    >
+
+               <online
+                   urn="urn:cts:greekLit:tlg0012.tlg001.testlines.lextokens:"
+                   type="xml"
+                  docname="nonexistent.xml">
+                  
+                  <namespaceMapping
+                     abbreviation="tei"
+                     nsURI="http://www.tei-c.org/ns/1.0"/>
+                  <citationMapping>
+                     <citation
+                        label="book"
+                        scope="/tei:TEI/tei:text/tei:body"
+                        xpath="/tei:div[@n = '?']">
+                        <citation
+                           label="line"
+                           scope="/tei:TEI/tei:text/tei:body/tei:div[@n = '?']"
+                           xpath="/tei:l[@n = '?']">
+                           <citation
+                              label="line"
+                              scope="/tei:TEI/tei:text/tei:body/tei:div[@n = '?']/tei:l[@n = '?']"
+                              xpath="/tei:span[@n = '?']">
+                           </citation>
+                        </citation>
+                     </citation>
+                  </citationMapping>
+               </online>
+
+</CitationConfig>
