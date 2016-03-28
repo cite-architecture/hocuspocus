@@ -37,6 +37,14 @@ class Corpus {
   String separatorString = "#"
 
 
+  /** Constructs a corpus from an archive stored
+  * in a local file system, and validates TextInventory
+  * contents against a given schema.
+  * @param invFile File containing a TextInventory document.
+  * @param configFile Citation configuration for the archive.
+  * @param baseDir Root directory of editions.
+  * @param schemaFile File with RNG Schema for a TextInventory.
+  */
   Corpus(File invFile, File configFile, File baseDir, File schemaFile)
   throws Exception {
     try{
@@ -52,14 +60,38 @@ class Corpus {
     this.baseDirectory = baseDir
 
 
-    /*
+
     try {
       validateInventory(schemaFile)
 
     } catch (Exception invException) {
       throw invException
     }
-    */
+
+  }
+
+
+
+  /** Constructs a corpus from an archive stored
+  * in a local file system.
+  * @param invFile File containing a TextInventory document.
+  * @param configFile Citation configuration for the archive.
+  * @param baseDir Root directory of editions.
+  */
+  Corpus(File invFile, File configFile, File baseDir)
+  throws Exception {
+    try{
+      this.inventory = new TextInventory(invFile)
+      this.citationConfig = new CitationConfigurationFileReader(configFile)
+    } catch (Exception e) {
+      throw e
+    }
+
+    if (!baseDir.canRead()) {
+      throw new Exception("Corpus: cannot read directory ${baseDir}")
+    }
+    this.baseDirectory = baseDir
+
   }
 
 
