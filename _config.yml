@@ -21,7 +21,6 @@ paginate:         5
 github:
   repo:           https://github.com/neelsmith/hocuspocus
 
-version:          0.12.0
 
 links:
   - title: Documentation

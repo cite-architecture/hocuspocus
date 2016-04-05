@@ -11,15 +11,17 @@ title: hocuspocus
 
 | From                                      | To                     |
 |:------------------------------------------|:-----------------------|
-| arbitrary XML  files in local file system | Tabular representation |
-| Tabular representation                    | RDF graph in TTL       |
+| arbitrary XML  files in local file system | tabular representation |
+| tabular representation                    | RDF graph in TTL       |
 
+
+See a brief narrative overview of [managing a citable corpus with `hocuspocus`](narrative)
 
 ## Current status
 
 - version: **1.0.0**
 - requires: java version >= 7
-- maven identifiers: group `edu.holycross.shot`, package hocuspocus, available from the repository at http://beta.hpcc.uh.edu/nexus/content/groups/public
+- maven identifiers: group `edu.holycross.shot`, package `hocuspocus`, available from the repository at <http://beta.hpcc.uh.edu/nexus/content/groups/public>
 
 
 
@@ -27,4 +29,4 @@ title: hocuspocus
 
 Specifications for the library are being written using [concordion](http://concordion.org) to specify tests.  The output of testing these specifications is included [here](specs/hocuspocus/Hocuspocus.html).
 
-API documentation is available [here](api). 
+API documentation is available [here](api).
