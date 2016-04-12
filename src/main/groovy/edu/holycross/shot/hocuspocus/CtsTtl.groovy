@@ -62,23 +62,23 @@ class CtsTtl {
 	 * @param namespaceMapList A map of text URNs to a mapping
 	 */
 
-	/*
+	
 	static String xmlNsTtl(LinkedHashMap namespaceMapList) {
-	StringBuilder reply = new StringBuilder()
-	Set nsAbbrTtl = []
-	namespaceMapList.keySet().each { urn ->
-	def nsMap = namespaceMapList[urn]
-	nsMap.keySet().each { nsAbbr ->
-	nsAbbrTtl.add("<${nsMap[nsAbbr]}> cts:abbreviatedBy " + '"' + nsAbbr + '" .\n')
-	nsAbbrTtl.add "<${urn}> cts:xmlns <${nsMap[nsAbbr]}> .\n"
+		StringBuilder reply = new StringBuilder()
+		Set nsAbbrTtl = []
+		namespaceMapList.keySet().each { urn ->
+			def nsMap = namespaceMapList[urn]
+			nsMap.keySet().each { nsAbbr ->
+				nsAbbrTtl.add("<${nsMap[nsAbbr]}> cts:abbreviatedBy " + '"' + nsAbbr + '" .\n')
+				nsAbbrTtl.add "<${urn}> cts:xmlns <${nsMap[nsAbbr]}> .\n"
+			}
+		}
+		nsAbbrTtl.each {
+			reply.append(it)
+		}
+		return reply.toString()
 	}
-	}
-	nsAbbrTtl.each {
-	reply.append(it)
-	}
-	return reply.toString()
-	}
-	 */
+
 
 	static String textGroupTtl(ArrayList tg) {
 		StringBuilder ttl = new StringBuilder()
@@ -167,40 +167,6 @@ class CtsTtl {
 	}
 
 
-	String turtleizeInv() throws Exception {
-		return turtleizeInv(inventory, citationConfig, true)
-	}
-
-	/** Translates the contents of a CTS TextInventory to
-	 * RDF TTL.
-	 * @param inv TextInventory to turtleize.
-	 * @param includePrefix Whether or not to include RDF prefix statements.
-	 * @throws Exception if inventory is not defined.
-	 * @returns A String of TTL statements.
-	 */
-	static String turtleizeInv(TextInventory inv, CitationConfigurationFileReader config, boolean includePrefix) throws Exception {
-
-		StringBuilder reply = new StringBuilder()
-		if (includePrefix) {
-			reply.append(prefixString)
-		}
-		def mapSize =   config.xmlNamespaceData.keySet().size()
-		if (mapSize < 1) {
-			System.err.println "CtsTtl:turtleizeInv:  no texts were mapped to XML namespaces."
-		}
-		// XML namespace information
-		//reply.append(xmlNsTtl(config.xmlNamespaceData))
-		// CTS namespace information
-		reply.append(ctsNsTtl(inv.ctsnamespaces))
-		// Bibliographic hierarchy
-		inv.allOnline().each { urnStr ->
-			System.err.println "this: ${urnStr}"
-			CtsUrn urn = new CtsUrn(urnStr)
-			reply.append(biblTtl(inv))
-		}
-		return reply.toString()
-	}
-
 
 
 	/** Translates the contents of a CTS tabular file to RDF TTL.
@@ -209,7 +175,7 @@ class CtsTtl {
 	 * hmt namespace in the TTL output.
 	 * @returns The TTL representation of tabFile's contents.
 	 */
-	String turtleizeTabs(String stringData, boolean prefix) {
+	/* String turtleizeTabs(String stringData, boolean prefix) {
 		StringBuffer turtles = new StringBuffer()
 		if (prefix) {
 			turtles.append(prefixStr)
@@ -230,15 +196,16 @@ class CtsTtl {
 			}
 
 		}
-		// add prev/next statements:
+
 		turtles.append(turtleizePrevNext(stringData))
 
 
 		if (turtles.toString().size() == 0) {
-			System.err.println "CtsTtl: could not turtelize string " + stringData
+			System.err.println "CtsTtl: could not turtleize string " + stringData
 		}
 		return turtles.toString()
 	}
+	*/
 
 
 	/** Generates ten TTL statements describing the citable text node
@@ -301,7 +268,7 @@ class CtsTtl {
 		def cols = "${tabLine} ".split(separatorValue)
 
 		if (cols.size() < 8) {
-			throw new Exception("CtsTtl:turtelizeLine: wrong number of columns in ${tabLine}")
+			throw new Exception("CtsTtl:turtleizeLine: wrong number of columns in ${tabLine}")
 		} else {
 			String urnVal = cols[0]
 			String seq = cols[1]
@@ -325,7 +292,7 @@ class CtsTtl {
 
 				turtles.append(turtleizeValues(urn,seq,prev,next,xmlAncestor,textContent,xpTemplate,xmlNs))
 			} else {
-				System.err.println "CtsTtl:turtelizeLine: could not form URN from " + urnVal
+				System.err.println "CtsTtl:turtleizeLine: could not form URN from " + urnVal
 			}
 		}
 		return turtles.toString()
@@ -403,8 +370,52 @@ class CtsTtl {
 		return ttl.toString()
 	}
 
-	String turtleizeFile(File tabFile) {
-		StringBuilder ttl =  new StringBuilder(turtleizeInv())
+	/* Methods for generating TTL fragments and complete files */
+
+
+	String turtleizeInv() throws Exception {
+		return turtleizeInv(inventory, citationConfig, true)
+	}
+
+	/** Translates the contents of a CTS TextInventory to
+	 * RDF TTL.
+	 * @param inv TextInventory to turtleize.
+	 * @param includePrefix Whether or not to include RDF prefix statements.
+	 * @throws Exception if inventory is not defined.
+	 * @returns A String of TTL statements.
+	 */
+	static String turtleizeInv(TextInventory inv, CitationConfigurationFileReader config, boolean includePrefix) throws Exception {
+
+		StringBuilder reply = new StringBuilder()
+		if (includePrefix) {
+			reply.append(prefixString)
+		}
+		def mapSize =   config.xmlNamespaceData.keySet().size()
+		if (mapSize < 1) {
+			System.err.println "CtsTtl:turtleizeInv:  no texts were mapped to XML namespaces."
+		}
+		// XML namespace information
+		reply.append(xmlNsTtl(config.xmlNamespaceData))
+		// CTS namespace information
+		reply.append(ctsNsTtl(inv.ctsnamespaces))
+		// Bibliographic hierarchy
+		inv.allOnline().each { urnStr ->
+			CtsUrn urn = new CtsUrn(urnStr)
+			reply.append(biblTtl(inv))
+		}
+		return reply.toString()
+	}
+
+	/** Translates the contents of a single tabuled file to
+	 * RDF TTL.
+	 * @param tabFile tabulaged file to turtleize
+	 * @param includePrefix Whether or not to include RDF prefix statements.
+	 * @throws Exception if inventory is not defined.
+	 * @returns A String of TTL statements.
+	 */
+	String turtleizeFile(File tabFile, boolean includePrefix) {
+		//StringBuilder ttl =  new StringBuilder(turtleizeInv())
+		StringBuilder ttl =  new StringBuilder("")
 
 		String ns = ""
 		String nsabbr = ""
