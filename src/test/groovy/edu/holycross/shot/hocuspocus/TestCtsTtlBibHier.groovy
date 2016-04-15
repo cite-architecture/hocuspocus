@@ -22,4 +22,12 @@ class TestCtsTtlBibHier {
     System.err.println "\nTestCtsTtlBibHier: \n" +  ttl
   }
 
+  @Test
+  void testBiblTtl1() {
+    String ttl = CtsTtl.biblTtl(ti)
+    // 3 texts online:
+
+    System.err.println "\nTestCtsTtlBibHier: \n" +  ttl
+  }
+
 }
