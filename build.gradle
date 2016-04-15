@@ -48,10 +48,10 @@ if (hasProperty('pub')) {
 
 
 group = "edu.holycross.shot"
-version = '1.0.1'
+version = '1.0.2'
 
 ext {
-  specversion = "1.0.1"
+  specversion = "1.0.2"
 }
 
 buildscript {
