@@ -124,7 +124,7 @@ class TestCorpus  {
 
 
     // Clean up all files used in test:
-		//ttl.delete()
+		ttl.delete()
 		File tabDir = new File(outDir, "tabFiles")
 		tabDir.deleteDir()
 

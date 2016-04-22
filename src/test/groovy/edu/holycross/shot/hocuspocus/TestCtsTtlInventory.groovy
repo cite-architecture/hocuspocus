@@ -32,6 +32,14 @@ class TestCtsTtlInventory  {
 		System.err.println "From Inventory File:\n" + ttl
 		File ttlOut = new File("testdata/output/test-cts-inventoryTtl.ttl")
 		ttlOut.setText(ttl, "UTF-8")
+
+		// inspect  contents, count rdf verbs...
+
+
+
+		ttlOut.delete()
+
+
 	}
 
 

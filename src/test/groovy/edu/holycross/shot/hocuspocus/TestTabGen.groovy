@@ -71,5 +71,7 @@ class TestTabGen  {
       //ttloutput.append(tabulated)
     }
 
+    // inspect contents of log file, then clean up:
+    log.delete()
   }
 }

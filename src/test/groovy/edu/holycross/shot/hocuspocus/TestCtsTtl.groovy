@@ -30,6 +30,12 @@ class TestCtsTtl  {
 		System.err.println "From tabFile:\n" + ttl
 		File ttlOut = new File("testdata/output/test-exemplar-file.ttl")
 		ttlOut.setText(ttl, "UTF-8")
+
+
+		// inspect contents, count RDF verbs:
+
+
+		ttlOut.delete()
 	}
 
 
