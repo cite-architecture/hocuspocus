@@ -1,0 +1,448 @@
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.1> cts:xmlns <http://www.tei-c.org/ns/1.0> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.1> cts:xmlnsabbr "tei" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.1> rdf:label """Homeric Epic, Iliad (Allen's Iliad (test ed.)): 1.1 (urn:cts:greekLit:tlg0012.tlg001.testAllen:1.1)""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.1> cts:isPassageOf <urn:cts:greekLit:tlg0012.tlg001.testAllen:> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> cts:hasPassage <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.1> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.1> cts:hasSequence 1 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.1> cts:hasTextContent """<l xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" n="1">Μῆνιν ἄειδε θεὰ Πηληϊάδεω Ἀχιλῆος </l>""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.1> cts:citationDepth 2 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.1> hmt:xmlOpen "/tei:TEI/tei:text/tei:body/tei:div[@n='1']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.1> hmt:xpTemplate "/tei:TEI/tei:text/tei:body/tei:div[@n='?']/tei:l[@n='?']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.1> cts:containedBy <urn:cts:greekLit:tlg0012.tlg001.testAllen:1> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1> cts:contains <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.1>  .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1> cts:citationDepth 1 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.2> cts:xmlns <http://www.tei-c.org/ns/1.0> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.2> cts:xmlnsabbr "tei" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.2> rdf:label """Homeric Epic, Iliad (Allen's Iliad (test ed.)): 1.2 (urn:cts:greekLit:tlg0012.tlg001.testAllen:1.2)""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.2> cts:isPassageOf <urn:cts:greekLit:tlg0012.tlg001.testAllen:> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> cts:hasPassage <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.2> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.2> cts:hasSequence 2 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.2> cts:hasTextContent """<l xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" n="2">οὐλομένην, ἣ μυρί᾽ Ἀχαιοῖς ἄλγε᾽ ἔθηκε, </l>""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.2> cts:citationDepth 2 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.2> hmt:xmlOpen "/tei:TEI/tei:text/tei:body/tei:div[@n='1']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.2> hmt:xpTemplate "/tei:TEI/tei:text/tei:body/tei:div[@n='?']/tei:l[@n='?']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.2> cts:containedBy <urn:cts:greekLit:tlg0012.tlg001.testAllen:1> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1> cts:contains <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.2>  .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1> cts:citationDepth 1 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.3> cts:xmlns <http://www.tei-c.org/ns/1.0> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.3> cts:xmlnsabbr "tei" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.3> rdf:label """Homeric Epic, Iliad (Allen's Iliad (test ed.)): 1.3 (urn:cts:greekLit:tlg0012.tlg001.testAllen:1.3)""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.3> cts:isPassageOf <urn:cts:greekLit:tlg0012.tlg001.testAllen:> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> cts:hasPassage <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.3> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.3> cts:hasSequence 3 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.3> cts:hasTextContent """<l xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" n="3">πολλὰς δ᾽ ἰφθίμους ψυχὰς Ἄϊδι προΐαψεν </l>""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.3> cts:citationDepth 2 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.3> hmt:xmlOpen "/tei:TEI/tei:text/tei:body/tei:div[@n='1']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.3> hmt:xpTemplate "/tei:TEI/tei:text/tei:body/tei:div[@n='?']/tei:l[@n='?']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.3> cts:containedBy <urn:cts:greekLit:tlg0012.tlg001.testAllen:1> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1> cts:contains <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.3>  .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1> cts:citationDepth 1 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.4> cts:xmlns <http://www.tei-c.org/ns/1.0> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.4> cts:xmlnsabbr "tei" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.4> rdf:label """Homeric Epic, Iliad (Allen's Iliad (test ed.)): 1.4 (urn:cts:greekLit:tlg0012.tlg001.testAllen:1.4)""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.4> cts:isPassageOf <urn:cts:greekLit:tlg0012.tlg001.testAllen:> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> cts:hasPassage <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.4> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.4> cts:hasSequence 4 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.4> cts:hasTextContent """<l xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" n="4">ἡρώων, αὐτοὺς δὲ ἑλώρια τεῦχε κύνεσσιν </l>""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.4> cts:citationDepth 2 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.4> hmt:xmlOpen "/tei:TEI/tei:text/tei:body/tei:div[@n='1']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.4> hmt:xpTemplate "/tei:TEI/tei:text/tei:body/tei:div[@n='?']/tei:l[@n='?']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.4> cts:containedBy <urn:cts:greekLit:tlg0012.tlg001.testAllen:1> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1> cts:contains <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.4>  .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1> cts:citationDepth 1 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.5> cts:xmlns <http://www.tei-c.org/ns/1.0> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.5> cts:xmlnsabbr "tei" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.5> rdf:label """Homeric Epic, Iliad (Allen's Iliad (test ed.)): 1.5 (urn:cts:greekLit:tlg0012.tlg001.testAllen:1.5)""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.5> cts:isPassageOf <urn:cts:greekLit:tlg0012.tlg001.testAllen:> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> cts:hasPassage <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.5> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.5> cts:hasSequence 5 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.5> cts:hasTextContent """<l xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" n="5">οἰωνοῖσί τε πᾶσι, Διὸς δ᾽ ἐτελείετο βουλή, </l>""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.5> cts:citationDepth 2 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.5> hmt:xmlOpen "/tei:TEI/tei:text/tei:body/tei:div[@n='1']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.5> hmt:xpTemplate "/tei:TEI/tei:text/tei:body/tei:div[@n='?']/tei:l[@n='?']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.5> cts:containedBy <urn:cts:greekLit:tlg0012.tlg001.testAllen:1> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1> cts:contains <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.5>  .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1> cts:citationDepth 1 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.6> cts:xmlns <http://www.tei-c.org/ns/1.0> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.6> cts:xmlnsabbr "tei" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.6> rdf:label """Homeric Epic, Iliad (Allen's Iliad (test ed.)): 1.6 (urn:cts:greekLit:tlg0012.tlg001.testAllen:1.6)""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.6> cts:isPassageOf <urn:cts:greekLit:tlg0012.tlg001.testAllen:> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> cts:hasPassage <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.6> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.6> cts:hasSequence 6 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.6> cts:hasTextContent """<l xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" n="6">ἐξ οὗ δὴ τὰ πρῶτα διαστήτην ἐρίσαντε </l>""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.6> cts:citationDepth 2 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.6> hmt:xmlOpen "/tei:TEI/tei:text/tei:body/tei:div[@n='1']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.6> hmt:xpTemplate "/tei:TEI/tei:text/tei:body/tei:div[@n='?']/tei:l[@n='?']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.6> cts:containedBy <urn:cts:greekLit:tlg0012.tlg001.testAllen:1> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1> cts:contains <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.6>  .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1> cts:citationDepth 1 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.7> cts:xmlns <http://www.tei-c.org/ns/1.0> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.7> cts:xmlnsabbr "tei" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.7> rdf:label """Homeric Epic, Iliad (Allen's Iliad (test ed.)): 1.7 (urn:cts:greekLit:tlg0012.tlg001.testAllen:1.7)""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.7> cts:isPassageOf <urn:cts:greekLit:tlg0012.tlg001.testAllen:> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> cts:hasPassage <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.7> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.7> cts:hasSequence 7 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.7> cts:hasTextContent """<l xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" n="7">Ἀτρεΐδης τε ἄναξ ἀνδρῶν καὶ δῖος Ἀχιλλεύς. </l>""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.7> cts:citationDepth 2 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.7> hmt:xmlOpen "/tei:TEI/tei:text/tei:body/tei:div[@n='1']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.7> hmt:xpTemplate "/tei:TEI/tei:text/tei:body/tei:div[@n='?']/tei:l[@n='?']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.7> cts:containedBy <urn:cts:greekLit:tlg0012.tlg001.testAllen:1> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1> cts:contains <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.7>  .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1> cts:citationDepth 1 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.8> cts:xmlns <http://www.tei-c.org/ns/1.0> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.8> cts:xmlnsabbr "tei" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.8> rdf:label """Homeric Epic, Iliad (Allen's Iliad (test ed.)): 1.8 (urn:cts:greekLit:tlg0012.tlg001.testAllen:1.8)""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.8> cts:isPassageOf <urn:cts:greekLit:tlg0012.tlg001.testAllen:> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> cts:hasPassage <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.8> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.8> cts:hasSequence 8 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.8> cts:hasTextContent """<l xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" n="8">Τίς τάρ σφωε θεῶν ἔριδι ξυνέηκε μάχεσθαι; </l>""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.8> cts:citationDepth 2 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.8> hmt:xmlOpen "/tei:TEI/tei:text/tei:body/tei:div[@n='1']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.8> hmt:xpTemplate "/tei:TEI/tei:text/tei:body/tei:div[@n='?']/tei:l[@n='?']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.8> cts:containedBy <urn:cts:greekLit:tlg0012.tlg001.testAllen:1> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1> cts:contains <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.8>  .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1> cts:citationDepth 1 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.9> cts:xmlns <http://www.tei-c.org/ns/1.0> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.9> cts:xmlnsabbr "tei" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.9> rdf:label """Homeric Epic, Iliad (Allen's Iliad (test ed.)): 1.9 (urn:cts:greekLit:tlg0012.tlg001.testAllen:1.9)""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.9> cts:isPassageOf <urn:cts:greekLit:tlg0012.tlg001.testAllen:> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> cts:hasPassage <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.9> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.9> cts:hasSequence 9 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.9> cts:hasTextContent """<l xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" n="9">Λητοῦς καὶ Διὸς υἱός· ὃ γὰρ βασιλῆϊ χολωθεὶς </l>""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.9> cts:citationDepth 2 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.9> hmt:xmlOpen "/tei:TEI/tei:text/tei:body/tei:div[@n='1']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.9> hmt:xpTemplate "/tei:TEI/tei:text/tei:body/tei:div[@n='?']/tei:l[@n='?']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.9> cts:containedBy <urn:cts:greekLit:tlg0012.tlg001.testAllen:1> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1> cts:contains <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.9>  .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1> cts:citationDepth 1 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.10> cts:xmlns <http://www.tei-c.org/ns/1.0> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.10> cts:xmlnsabbr "tei" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.10> rdf:label """Homeric Epic, Iliad (Allen's Iliad (test ed.)): 1.10 (urn:cts:greekLit:tlg0012.tlg001.testAllen:1.10)""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.10> cts:isPassageOf <urn:cts:greekLit:tlg0012.tlg001.testAllen:> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> cts:hasPassage <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.10> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.10> cts:hasSequence 10 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.10> cts:hasTextContent """<l xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" n="10">νοῦσον ἀνὰ στρατὸν ὄρσε κακήν, ὀλέκοντο δὲ λαοί, </l>""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.10> cts:citationDepth 2 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.10> hmt:xmlOpen "/tei:TEI/tei:text/tei:body/tei:div[@n='1']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.10> hmt:xpTemplate "/tei:TEI/tei:text/tei:body/tei:div[@n='?']/tei:l[@n='?']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.10> cts:containedBy <urn:cts:greekLit:tlg0012.tlg001.testAllen:1> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1> cts:contains <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.10>  .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1> cts:citationDepth 1 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.1> cts:xmlns <http://www.tei-c.org/ns/1.0> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.1> cts:xmlnsabbr "tei" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.1> rdf:label """Homeric Epic, Iliad (Allen's Iliad (test ed.)): 2.1 (urn:cts:greekLit:tlg0012.tlg001.testAllen:2.1)""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.1> cts:isPassageOf <urn:cts:greekLit:tlg0012.tlg001.testAllen:> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> cts:hasPassage <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.1> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.1> cts:hasSequence 11 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.1> cts:hasTextContent """<l xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" n="1">Ἄλλοι μέν ῥα θεοί τε καὶ ἀνέρες ἱπποκορυσταὶ </l>""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.1> cts:citationDepth 2 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.1> hmt:xmlOpen "/tei:TEI/tei:text/tei:body/tei:div[@n='2']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.1> hmt:xpTemplate "/tei:TEI/tei:text/tei:body/tei:div[@n='?']/tei:l[@n='?']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.1> cts:containedBy <urn:cts:greekLit:tlg0012.tlg001.testAllen:2> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2> cts:contains <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.1>  .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2> cts:citationDepth 1 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.2> cts:xmlns <http://www.tei-c.org/ns/1.0> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.2> cts:xmlnsabbr "tei" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.2> rdf:label """Homeric Epic, Iliad (Allen's Iliad (test ed.)): 2.2 (urn:cts:greekLit:tlg0012.tlg001.testAllen:2.2)""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.2> cts:isPassageOf <urn:cts:greekLit:tlg0012.tlg001.testAllen:> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> cts:hasPassage <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.2> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.2> cts:hasSequence 12 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.2> cts:hasTextContent """<l xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" n="2">εὗδον παννύχιοι, Δία δ᾽ οὐκ ἔχε νήδυμος ὕπνος, </l>""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.2> cts:citationDepth 2 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.2> hmt:xmlOpen "/tei:TEI/tei:text/tei:body/tei:div[@n='2']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.2> hmt:xpTemplate "/tei:TEI/tei:text/tei:body/tei:div[@n='?']/tei:l[@n='?']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.2> cts:containedBy <urn:cts:greekLit:tlg0012.tlg001.testAllen:2> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2> cts:contains <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.2>  .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2> cts:citationDepth 1 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.3> cts:xmlns <http://www.tei-c.org/ns/1.0> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.3> cts:xmlnsabbr "tei" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.3> rdf:label """Homeric Epic, Iliad (Allen's Iliad (test ed.)): 2.3 (urn:cts:greekLit:tlg0012.tlg001.testAllen:2.3)""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.3> cts:isPassageOf <urn:cts:greekLit:tlg0012.tlg001.testAllen:> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> cts:hasPassage <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.3> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.3> cts:hasSequence 13 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.3> cts:hasTextContent """<l xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" n="3">ἀλλ᾽ ὅ γε μερμήριζε κατὰ φρένα ὡς Ἀχιλῆα </l>""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.3> cts:citationDepth 2 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.3> hmt:xmlOpen "/tei:TEI/tei:text/tei:body/tei:div[@n='2']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.3> hmt:xpTemplate "/tei:TEI/tei:text/tei:body/tei:div[@n='?']/tei:l[@n='?']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.3> cts:containedBy <urn:cts:greekLit:tlg0012.tlg001.testAllen:2> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2> cts:contains <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.3>  .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2> cts:citationDepth 1 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.4> cts:xmlns <http://www.tei-c.org/ns/1.0> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.4> cts:xmlnsabbr "tei" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.4> rdf:label """Homeric Epic, Iliad (Allen's Iliad (test ed.)): 2.4 (urn:cts:greekLit:tlg0012.tlg001.testAllen:2.4)""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.4> cts:isPassageOf <urn:cts:greekLit:tlg0012.tlg001.testAllen:> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> cts:hasPassage <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.4> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.4> cts:hasSequence 14 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.4> cts:hasTextContent """<l xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" n="4">τιμήσῃ, ὀλέσῃ δὲ πολέας ἐπὶ νηυσὶν Ἀχαιῶν. </l>""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.4> cts:citationDepth 2 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.4> hmt:xmlOpen "/tei:TEI/tei:text/tei:body/tei:div[@n='2']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.4> hmt:xpTemplate "/tei:TEI/tei:text/tei:body/tei:div[@n='?']/tei:l[@n='?']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.4> cts:containedBy <urn:cts:greekLit:tlg0012.tlg001.testAllen:2> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2> cts:contains <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.4>  .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2> cts:citationDepth 1 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.5> cts:xmlns <http://www.tei-c.org/ns/1.0> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.5> cts:xmlnsabbr "tei" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.5> rdf:label """Homeric Epic, Iliad (Allen's Iliad (test ed.)): 2.5 (urn:cts:greekLit:tlg0012.tlg001.testAllen:2.5)""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.5> cts:isPassageOf <urn:cts:greekLit:tlg0012.tlg001.testAllen:> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> cts:hasPassage <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.5> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.5> cts:hasSequence 15 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.5> cts:hasTextContent """<l xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" n="5">ἧδε δέ οἱ κατὰ θυμὸν ἀρίστη φαίνετο βουλή, </l>""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.5> cts:citationDepth 2 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.5> hmt:xmlOpen "/tei:TEI/tei:text/tei:body/tei:div[@n='2']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.5> hmt:xpTemplate "/tei:TEI/tei:text/tei:body/tei:div[@n='?']/tei:l[@n='?']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.5> cts:containedBy <urn:cts:greekLit:tlg0012.tlg001.testAllen:2> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2> cts:contains <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.5>  .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2> cts:citationDepth 1 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.6> cts:xmlns <http://www.tei-c.org/ns/1.0> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.6> cts:xmlnsabbr "tei" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.6> rdf:label """Homeric Epic, Iliad (Allen's Iliad (test ed.)): 2.6 (urn:cts:greekLit:tlg0012.tlg001.testAllen:2.6)""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.6> cts:isPassageOf <urn:cts:greekLit:tlg0012.tlg001.testAllen:> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> cts:hasPassage <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.6> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.6> cts:hasSequence 16 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.6> cts:hasTextContent """<l xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" n="6">πέμψαι ἐπ᾽ Ἀτρεΐδῃ Ἀγαμέμνονι οὖλον ὄνειρον· </l>""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.6> cts:citationDepth 2 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.6> hmt:xmlOpen "/tei:TEI/tei:text/tei:body/tei:div[@n='2']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.6> hmt:xpTemplate "/tei:TEI/tei:text/tei:body/tei:div[@n='?']/tei:l[@n='?']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.6> cts:containedBy <urn:cts:greekLit:tlg0012.tlg001.testAllen:2> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2> cts:contains <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.6>  .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2> cts:citationDepth 1 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.7> cts:xmlns <http://www.tei-c.org/ns/1.0> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.7> cts:xmlnsabbr "tei" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.7> rdf:label """Homeric Epic, Iliad (Allen's Iliad (test ed.)): 2.7 (urn:cts:greekLit:tlg0012.tlg001.testAllen:2.7)""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.7> cts:isPassageOf <urn:cts:greekLit:tlg0012.tlg001.testAllen:> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> cts:hasPassage <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.7> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.7> cts:hasSequence 17 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.7> cts:hasTextContent """<l xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" n="7">καί μιν φωνήσας ἔπεα πτερόεντα προσηύδα· </l>""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.7> cts:citationDepth 2 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.7> hmt:xmlOpen "/tei:TEI/tei:text/tei:body/tei:div[@n='2']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.7> hmt:xpTemplate "/tei:TEI/tei:text/tei:body/tei:div[@n='?']/tei:l[@n='?']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.7> cts:containedBy <urn:cts:greekLit:tlg0012.tlg001.testAllen:2> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2> cts:contains <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.7>  .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2> cts:citationDepth 1 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.8> cts:xmlns <http://www.tei-c.org/ns/1.0> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.8> cts:xmlnsabbr "tei" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.8> rdf:label """Homeric Epic, Iliad (Allen's Iliad (test ed.)): 2.8 (urn:cts:greekLit:tlg0012.tlg001.testAllen:2.8)""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.8> cts:isPassageOf <urn:cts:greekLit:tlg0012.tlg001.testAllen:> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> cts:hasPassage <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.8> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.8> cts:hasSequence 18 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.8> cts:hasTextContent """<l xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" n="8">βάσκ᾽ ἴθι οὖλε ὄνειρε θοὰς ἐπὶ νῆας Ἀχαιῶν· </l>""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.8> cts:citationDepth 2 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.8> hmt:xmlOpen "/tei:TEI/tei:text/tei:body/tei:div[@n='2']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.8> hmt:xpTemplate "/tei:TEI/tei:text/tei:body/tei:div[@n='?']/tei:l[@n='?']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.8> cts:containedBy <urn:cts:greekLit:tlg0012.tlg001.testAllen:2> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2> cts:contains <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.8>  .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2> cts:citationDepth 1 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.9> cts:xmlns <http://www.tei-c.org/ns/1.0> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.9> cts:xmlnsabbr "tei" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.9> rdf:label """Homeric Epic, Iliad (Allen's Iliad (test ed.)): 2.9 (urn:cts:greekLit:tlg0012.tlg001.testAllen:2.9)""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.9> cts:isPassageOf <urn:cts:greekLit:tlg0012.tlg001.testAllen:> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> cts:hasPassage <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.9> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.9> cts:hasSequence 19 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.9> cts:hasTextContent """<l xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" n="9">ἐλθὼν ἐς κλισίην Ἀγαμέμνονος Ἀτρεΐδαο </l>""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.9> cts:citationDepth 2 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.9> hmt:xmlOpen "/tei:TEI/tei:text/tei:body/tei:div[@n='2']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.9> hmt:xpTemplate "/tei:TEI/tei:text/tei:body/tei:div[@n='?']/tei:l[@n='?']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.9> cts:containedBy <urn:cts:greekLit:tlg0012.tlg001.testAllen:2> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2> cts:contains <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.9>  .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2> cts:citationDepth 1 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.10> cts:xmlns <http://www.tei-c.org/ns/1.0> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.10> cts:xmlnsabbr "tei" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.10> rdf:label """Homeric Epic, Iliad (Allen's Iliad (test ed.)): 2.10 (urn:cts:greekLit:tlg0012.tlg001.testAllen:2.10)""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.10> cts:isPassageOf <urn:cts:greekLit:tlg0012.tlg001.testAllen:> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> cts:hasPassage <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.10> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.10> cts:hasSequence 20 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.10> cts:hasTextContent """<l xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" n="10">πάντα μάλ᾽ ἀτρεκέως ἀγορευέμεν ὡς ἐπιτέλλω· </l>""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.10> cts:citationDepth 2 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.10> hmt:xmlOpen "/tei:TEI/tei:text/tei:body/tei:div[@n='2']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.10> hmt:xpTemplate "/tei:TEI/tei:text/tei:body/tei:div[@n='?']/tei:l[@n='?']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.10> cts:containedBy <urn:cts:greekLit:tlg0012.tlg001.testAllen:2> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2> cts:contains <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.10>  .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2> cts:citationDepth 1 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.1> cts:xmlns <http://www.tei-c.org/ns/1.0> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.1> cts:xmlnsabbr "tei" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.1> rdf:label """Homeric Epic, Iliad (Allen's Iliad (test ed.)): 3.1 (urn:cts:greekLit:tlg0012.tlg001.testAllen:3.1)""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.1> cts:isPassageOf <urn:cts:greekLit:tlg0012.tlg001.testAllen:> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> cts:hasPassage <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.1> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.1> cts:hasSequence 21 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.1> cts:hasTextContent """<l xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" n="1">Αὐτὰρ ἐπεὶ κόσμηθεν ἅμ᾽ ἡγεμόνεσσιν ἕκαστοι, </l>""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.1> cts:citationDepth 2 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.1> hmt:xmlOpen "/tei:TEI/tei:text/tei:body/tei:div[@n='3']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.1> hmt:xpTemplate "/tei:TEI/tei:text/tei:body/tei:div[@n='?']/tei:l[@n='?']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.1> cts:containedBy <urn:cts:greekLit:tlg0012.tlg001.testAllen:3> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3> cts:contains <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.1>  .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3> cts:citationDepth 1 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.2> cts:xmlns <http://www.tei-c.org/ns/1.0> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.2> cts:xmlnsabbr "tei" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.2> rdf:label """Homeric Epic, Iliad (Allen's Iliad (test ed.)): 3.2 (urn:cts:greekLit:tlg0012.tlg001.testAllen:3.2)""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.2> cts:isPassageOf <urn:cts:greekLit:tlg0012.tlg001.testAllen:> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> cts:hasPassage <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.2> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.2> cts:hasSequence 22 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.2> cts:hasTextContent """<l xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" n="2">Τρῶες μὲν κλαγγῇ τ᾽ ἐνοπῇ τ᾽ ἴσαν ὄρνιθες ὣς </l>""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.2> cts:citationDepth 2 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.2> hmt:xmlOpen "/tei:TEI/tei:text/tei:body/tei:div[@n='3']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.2> hmt:xpTemplate "/tei:TEI/tei:text/tei:body/tei:div[@n='?']/tei:l[@n='?']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.2> cts:containedBy <urn:cts:greekLit:tlg0012.tlg001.testAllen:3> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3> cts:contains <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.2>  .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3> cts:citationDepth 1 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.3> cts:xmlns <http://www.tei-c.org/ns/1.0> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.3> cts:xmlnsabbr "tei" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.3> rdf:label """Homeric Epic, Iliad (Allen's Iliad (test ed.)): 3.3 (urn:cts:greekLit:tlg0012.tlg001.testAllen:3.3)""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.3> cts:isPassageOf <urn:cts:greekLit:tlg0012.tlg001.testAllen:> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> cts:hasPassage <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.3> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.3> cts:hasSequence 23 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.3> cts:hasTextContent """<l xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" n="3">ἠΰτε περ κλαγγὴ γεράνων πέλει οὐρανόθι πρό· </l>""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.3> cts:citationDepth 2 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.3> hmt:xmlOpen "/tei:TEI/tei:text/tei:body/tei:div[@n='3']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.3> hmt:xpTemplate "/tei:TEI/tei:text/tei:body/tei:div[@n='?']/tei:l[@n='?']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.3> cts:containedBy <urn:cts:greekLit:tlg0012.tlg001.testAllen:3> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3> cts:contains <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.3>  .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3> cts:citationDepth 1 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.4> cts:xmlns <http://www.tei-c.org/ns/1.0> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.4> cts:xmlnsabbr "tei" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.4> rdf:label """Homeric Epic, Iliad (Allen's Iliad (test ed.)): 3.4 (urn:cts:greekLit:tlg0012.tlg001.testAllen:3.4)""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.4> cts:isPassageOf <urn:cts:greekLit:tlg0012.tlg001.testAllen:> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> cts:hasPassage <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.4> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.4> cts:hasSequence 24 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.4> cts:hasTextContent """<l xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" n="4">αἵ τ᾽ ἐπεὶ οὖν χειμῶνα φύγον καὶ ἀθέσφατον ὄμβρον </l>""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.4> cts:citationDepth 2 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.4> hmt:xmlOpen "/tei:TEI/tei:text/tei:body/tei:div[@n='3']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.4> hmt:xpTemplate "/tei:TEI/tei:text/tei:body/tei:div[@n='?']/tei:l[@n='?']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.4> cts:containedBy <urn:cts:greekLit:tlg0012.tlg001.testAllen:3> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3> cts:contains <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.4>  .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3> cts:citationDepth 1 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.5> cts:xmlns <http://www.tei-c.org/ns/1.0> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.5> cts:xmlnsabbr "tei" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.5> rdf:label """Homeric Epic, Iliad (Allen's Iliad (test ed.)): 3.5 (urn:cts:greekLit:tlg0012.tlg001.testAllen:3.5)""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.5> cts:isPassageOf <urn:cts:greekLit:tlg0012.tlg001.testAllen:> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> cts:hasPassage <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.5> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.5> cts:hasSequence 25 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.5> cts:hasTextContent """<l xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" n="5">κλαγγῇ ταί γε πέτονται ἐπ᾽ ὠκεανοῖο ῥοάων </l>""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.5> cts:citationDepth 2 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.5> hmt:xmlOpen "/tei:TEI/tei:text/tei:body/tei:div[@n='3']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.5> hmt:xpTemplate "/tei:TEI/tei:text/tei:body/tei:div[@n='?']/tei:l[@n='?']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.5> cts:containedBy <urn:cts:greekLit:tlg0012.tlg001.testAllen:3> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3> cts:contains <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.5>  .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3> cts:citationDepth 1 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.6> cts:xmlns <http://www.tei-c.org/ns/1.0> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.6> cts:xmlnsabbr "tei" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.6> rdf:label """Homeric Epic, Iliad (Allen's Iliad (test ed.)): 3.6 (urn:cts:greekLit:tlg0012.tlg001.testAllen:3.6)""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.6> cts:isPassageOf <urn:cts:greekLit:tlg0012.tlg001.testAllen:> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> cts:hasPassage <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.6> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.6> cts:hasSequence 26 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.6> cts:hasTextContent """<l xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" n="6">ἀνδράσι Πυγμαίοισι φόνον καὶ κῆρα φέρουσαι· </l>""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.6> cts:citationDepth 2 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.6> hmt:xmlOpen "/tei:TEI/tei:text/tei:body/tei:div[@n='3']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.6> hmt:xpTemplate "/tei:TEI/tei:text/tei:body/tei:div[@n='?']/tei:l[@n='?']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.6> cts:containedBy <urn:cts:greekLit:tlg0012.tlg001.testAllen:3> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3> cts:contains <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.6>  .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3> cts:citationDepth 1 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.7> cts:xmlns <http://www.tei-c.org/ns/1.0> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.7> cts:xmlnsabbr "tei" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.7> rdf:label """Homeric Epic, Iliad (Allen's Iliad (test ed.)): 3.7 (urn:cts:greekLit:tlg0012.tlg001.testAllen:3.7)""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.7> cts:isPassageOf <urn:cts:greekLit:tlg0012.tlg001.testAllen:> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> cts:hasPassage <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.7> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.7> cts:hasSequence 27 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.7> cts:hasTextContent """<l xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" n="7">ἠέριαι δ᾽ ἄρα ταί γε κακὴν ἔριδα προφέρονται. </l>""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.7> cts:citationDepth 2 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.7> hmt:xmlOpen "/tei:TEI/tei:text/tei:body/tei:div[@n='3']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.7> hmt:xpTemplate "/tei:TEI/tei:text/tei:body/tei:div[@n='?']/tei:l[@n='?']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.7> cts:containedBy <urn:cts:greekLit:tlg0012.tlg001.testAllen:3> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3> cts:contains <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.7>  .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3> cts:citationDepth 1 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.8> cts:xmlns <http://www.tei-c.org/ns/1.0> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.8> cts:xmlnsabbr "tei" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.8> rdf:label """Homeric Epic, Iliad (Allen's Iliad (test ed.)): 3.8 (urn:cts:greekLit:tlg0012.tlg001.testAllen:3.8)""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.8> cts:isPassageOf <urn:cts:greekLit:tlg0012.tlg001.testAllen:> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> cts:hasPassage <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.8> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.8> cts:hasSequence 28 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.8> cts:hasTextContent """<l xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" n="8">οἳ δ᾽ ἄρ᾽ ἴσαν σιγῇ μένεα πνείοντες Ἀχαιοὶ </l>""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.8> cts:citationDepth 2 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.8> hmt:xmlOpen "/tei:TEI/tei:text/tei:body/tei:div[@n='3']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.8> hmt:xpTemplate "/tei:TEI/tei:text/tei:body/tei:div[@n='?']/tei:l[@n='?']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.8> cts:containedBy <urn:cts:greekLit:tlg0012.tlg001.testAllen:3> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3> cts:contains <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.8>  .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3> cts:citationDepth 1 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.9> cts:xmlns <http://www.tei-c.org/ns/1.0> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.9> cts:xmlnsabbr "tei" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.9> rdf:label """Homeric Epic, Iliad (Allen's Iliad (test ed.)): 3.9 (urn:cts:greekLit:tlg0012.tlg001.testAllen:3.9)""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.9> cts:isPassageOf <urn:cts:greekLit:tlg0012.tlg001.testAllen:> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> cts:hasPassage <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.9> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.9> cts:hasSequence 29 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.9> cts:hasTextContent """<l xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" n="9">ἐν θυμῷ μεμαῶτες ἀλεξέμεν ἀλλήλοισιν. </l>""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.9> cts:citationDepth 2 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.9> hmt:xmlOpen "/tei:TEI/tei:text/tei:body/tei:div[@n='3']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.9> hmt:xpTemplate "/tei:TEI/tei:text/tei:body/tei:div[@n='?']/tei:l[@n='?']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.9> cts:containedBy <urn:cts:greekLit:tlg0012.tlg001.testAllen:3> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3> cts:contains <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.9>  .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3> cts:citationDepth 1 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.10> cts:xmlns <http://www.tei-c.org/ns/1.0> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.10> cts:xmlnsabbr "tei" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.10> rdf:label """Homeric Epic, Iliad (Allen's Iliad (test ed.)): 3.10 (urn:cts:greekLit:tlg0012.tlg001.testAllen:3.10)""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.10> cts:isPassageOf <urn:cts:greekLit:tlg0012.tlg001.testAllen:> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> cts:hasPassage <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.10> . 
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.10> cts:hasSequence 30 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.10> cts:hasTextContent """<l xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" n="10">Εὖτ᾽ ὄρεος κορυφῇσι Νότος κατέχευεν ὀμίχλην </l>""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.10> cts:citationDepth 2 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.10> hmt:xmlOpen "/tei:TEI/tei:text/tei:body/tei:div[@n='3']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.10> hmt:xpTemplate "/tei:TEI/tei:text/tei:body/tei:div[@n='?']/tei:l[@n='?']" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.10> cts:containedBy <urn:cts:greekLit:tlg0012.tlg001.testAllen:3> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3> cts:contains <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.10>  .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3> cts:citationDepth 1 .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.1> cts:next <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.2> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.2> cts:prev <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.1> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.2> cts:next <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.3> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.3> cts:prev <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.2> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.3> cts:next <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.4> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.4> cts:prev <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.3> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.4> cts:next <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.5> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.5> cts:prev <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.4> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.5> cts:next <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.6> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.6> cts:prev <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.5> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.6> cts:next <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.7> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.7> cts:prev <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.6> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.7> cts:next <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.8> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.8> cts:prev <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.7> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.8> cts:next <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.9> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.9> cts:prev <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.8> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.9> cts:next <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.10> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.10> cts:prev <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.9> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:1.10> cts:next <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.1> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.1> cts:prev <urn:cts:greekLit:tlg0012.tlg001.testAllen:1.10> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.1> cts:next <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.2> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.2> cts:prev <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.1> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.2> cts:next <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.3> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.3> cts:prev <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.2> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.3> cts:next <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.4> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.4> cts:prev <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.3> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.4> cts:next <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.5> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.5> cts:prev <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.4> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.5> cts:next <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.6> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.6> cts:prev <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.5> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.6> cts:next <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.7> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.7> cts:prev <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.6> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.7> cts:next <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.8> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.8> cts:prev <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.7> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.8> cts:next <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.9> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.9> cts:prev <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.8> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.9> cts:next <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.10> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.10> cts:prev <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.9> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:2.10> cts:next <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.1> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.1> cts:prev <urn:cts:greekLit:tlg0012.tlg001.testAllen:2.10> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.1> cts:next <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.2> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.2> cts:prev <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.1> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.2> cts:next <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.3> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.3> cts:prev <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.2> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.3> cts:next <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.4> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.4> cts:prev <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.3> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.4> cts:next <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.5> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.5> cts:prev <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.4> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.5> cts:next <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.6> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.6> cts:prev <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.5> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.6> cts:next <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.7> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.7> cts:prev <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.6> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.7> cts:next <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.8> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.8> cts:prev <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.7> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.8> cts:next <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.9> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.9> cts:prev <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.8> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.9> cts:next <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.10> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:3.10> cts:prev <urn:cts:greekLit:tlg0012.tlg001.testAllen:3.9> .

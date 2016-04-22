@@ -11,31 +11,40 @@ import edu.harvard.chs.cite.CtsUrn
 */
 class TestCorpus  {
 
-  File tiFile = new File("testdata/testpipe/pipelineinv.xml")
+	File tiFile = new File("testdata/testcorpus2016/testinventory-2016.xml")
 
-  //TextInventory ti = new TextInventory(tiFile)
+	File confFile = new File("testdata/testcorpus2016/citationconfig-2016.xml")
 
-  File confFile = new File("testdata/testpipe/pipelinecite.xml")
+	File baseDir = new File("testdata/testcorpus2016/xml")
 
-  File baseDir = new File("testdata/testpipe/xml")
+	File schemaFile = new File("testdata/conf2016/TextInventory.rng")
 
-  File schemaFile = new File("testdata/testpipe/TextInventory.rng")
-
-  //CitationConfigurationFileReader conf = new CitationConfigurationFileReader(confFile)
-  //TtlGenerator ttler = new TtlGenerator(ti, conf)
+	CitationConfigurationFileReader conf = new CitationConfigurationFileReader(confFile)
 
 
 
-  @Test
-  void testTabCorpus() {
-    File outDir = new File("testdata/output")
-    Corpus corp = new Corpus (tiFile,confFile,baseDir,schemaFile)
-    System.err.println "In archive? " + corp.filesInArchive().size() + " (${corp.filesInArchive()})"
+/*	@Test
+	void testTabCorpus() {
+		File outDir = new File("testdata/output")
+		Corpus corp = new Corpus (tiFile,confFile,baseDir,schemaFile)
+		System.err.println "In archive? " + corp.filesInArchive().size() + " (${corp.filesInArchive()})"
 
-    System.err.println "In inventory? " + corp.filesInArchive().size() + " (${corp.filesInArchive()})"
+		System.err.println "In inventory? " + corp.filesInArchive().size() + " (${corp.filesInArchive()})"
 
-    corp.tabulateRepository(outDir)
-  }
+		corp.tabulateRepository(outDir)
+	}
+*/
+
+	@Test
+	void testTtlCorpus() {
+		File outDir = new File("testdata/output")
+		Corpus corp = new Corpus (tiFile,confFile,baseDir,schemaFile)
+		System.err.println "In archive? " + corp.filesInArchive().size() + " (${corp.filesInArchive()})"
+
+		System.err.println "In inventory? " + corp.filesInArchive().size() + " (${corp.filesInArchive()})"
+
+		corp.turtleizeRepository(outDir,true)
+	}
 
 
 }

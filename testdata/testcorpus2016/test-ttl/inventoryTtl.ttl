@@ -1,0 +1,171 @@
+
+	@prefix hmt:        <http://www.homermultitext.org/hmt/rdf/> .
+	@prefix cts:        <http://www.homermultitext.org/cts/rdf/> .
+	@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+	@prefix dcterms: <http://purl.org/dc/terms/> .
+	<http://www.tei-c.org/ns/1.0> cts:abbreviatedBy "tei" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> cts:xmlns <http://www.tei-c.org/ns/1.0> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen.wt:> cts:xmlns <http://www.tei-c.org/ns/1.0> .
+<urn:cts:greekLit:tlg0016.tlg001.grcTest:> cts:xmlns <http://www.tei-c.org/ns/1.0> .
+<urn:cts:greekLit:tlg0016.tlg001.grcTest.wt:> cts:xmlns <http://www.tei-c.org/ns/1.0> .
+<urn:cts:greekLit:tlg0016.tlg001.engTest:> cts:xmlns <http://www.tei-c.org/ns/1.0> .
+<urn:cts:greekLit:tlg0016.tlg001.engTest.wt:> cts:xmlns <http://www.tei-c.org/ns/1.0> .
+<urn:cts:greekLit:> rdf:type cts:Namespace .
+<urn:cts:greekLit:> cts:fullUri  <urn:cts:http://chs.harvard.edu/ctsns/greekLit> .
+<urn:cts:greekLit:> rdf:label  """ The "First Thousand Years of Greek" project's inventory of Greek      texts. """ .
+<urn:cts:test1:> rdf:type cts:Namespace .
+<urn:cts:test1:> cts:fullUri  <urn:cts:http://dev/null> .
+<urn:cts:test1:> rdf:label  """ Namespace for made up test works.""" .
+<urn:cts:greekLit> cts:possesses <urn:cts:greekLit:tlg0012:> .
+<urn:cts:greekLit:tlg0012:> cts:belongsTo <urn:cts:greekLit> .
+<urn:cts:greekLit:tlg0012:> rdf:type cts:TextGroup .
+<urn:cts:greekLit:tlg0012:> dcterms:title  """Homeric Epic"""  .
+<urn:cts:greekLit:tlg0012:> rdf:label """Homeric Epic""" .
+<urn:cts:greekLit:tlg0012:> cts:possesses <urn:cts:greekLit:tlg0012.tlg001:> .
+<urn:cts:greekLit:tlg0012.tlg001:> cts:belongsTo <urn:cts:greekLit:tlg0012:> .
+<urn:cts:greekLit:tlg0012.tlg001:> rdf:label """Iliad""" .
+<urn:cts:greekLit:tlg0012.tlg001:> dcterms:title """Iliad""" .
+<urn:cts:greekLit:tlg0012.tlg001:> cts:lang "grc" .
+<urn:cts:greekLit:tlg0012.tlg001:> cts:possesses <urn:cts:greekLit:tlg0012.tlg001.testAllen:> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> cts:belongsTo <urn:cts:greekLit:tlg0012.tlg001:> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> rdf:type cts:Edition .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> rdf:label """Allen's Iliad (test ed.)""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> dcterms:title """Allen's Iliad (test ed.)""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> cts:possesses <urn:cts:greekLit:tlg0012.tlg001.testAllen.wt:> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen.wt:> cts:belongsTo <urn:cts:greekLit:tlg0012.tlg001.testAllen:> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen.wt:> rdf:type cts:Exemplar .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen.wt:> rdf:label """Allen. Iliad. Greek. 3 books of 10 lines. Word-tokens wrapped and citable."""  .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen.wt:> dcterms:title """Allen. Iliad. Greek. 3 books of 10 lines. Word-tokens wrapped and citable."""  .
+<urn:cts:greekLit> cts:possesses <urn:cts:greekLit:tlg0016:> .
+<urn:cts:greekLit:tlg0016:> cts:belongsTo <urn:cts:greekLit> .
+<urn:cts:greekLit:tlg0016:> rdf:type cts:TextGroup .
+<urn:cts:greekLit:tlg0016:> dcterms:title  """Herodotus"""  .
+<urn:cts:greekLit:tlg0016:> rdf:label """Herodotus""" .
+<urn:cts:greekLit:tlg0016:> cts:possesses <urn:cts:greekLit:tlg0016.tlg001:> .
+<urn:cts:greekLit:tlg0016.tlg001:> cts:belongsTo <urn:cts:greekLit:tlg0016:> .
+<urn:cts:greekLit:tlg0016.tlg001:> rdf:label """Histories""" .
+<urn:cts:greekLit:tlg0016.tlg001:> dcterms:title """Histories""" .
+<urn:cts:greekLit:tlg0016.tlg001:> cts:lang "grc" .
+<urn:cts:greekLit:tlg0016.tlg001:> cts:possesses <urn:cts:greekLit:tlg0016.tlg001.grcTest:> .
+<urn:cts:greekLit:tlg0016.tlg001.grcTest:> cts:belongsTo <urn:cts:greekLit:tlg0016.tlg001:> .
+<urn:cts:greekLit:tlg0016.tlg001.grcTest:> rdf:type cts:Edition .
+<urn:cts:greekLit:tlg0016.tlg001.grcTest:> rdf:label """Greek. For testing""" .
+<urn:cts:greekLit:tlg0016.tlg001.grcTest:> dcterms:title """Greek. For testing""" .
+<urn:cts:greekLit:tlg0016.tlg001.grcTest:> cts:possesses <urn:cts:greekLit:tlg0016.tlg001.grcTest.wt:> .
+<urn:cts:greekLit:tlg0016.tlg001.grcTest.wt:> cts:belongsTo <urn:cts:greekLit:tlg0016.tlg001.grcTest:> .
+<urn:cts:greekLit:tlg0016.tlg001.grcTest.wt:> rdf:type cts:Exemplar .
+<urn:cts:greekLit:tlg0016.tlg001.grcTest.wt:> rdf:label """Greek. Tokenized. For testing"""  .
+<urn:cts:greekLit:tlg0016.tlg001.grcTest.wt:> dcterms:title """Greek. Tokenized. For testing"""  .
+<urn:cts:greekLit:tlg0016.tlg001:> cts:possesses <urn:cts:greekLit:tlg0016.tlg001.engTest:> .
+<urn:cts:greekLit:tlg0016.tlg001.engTest:> cts:belongsTo <urn:cts:greekLit:tlg0016.tlg001:> .
+<urn:cts:greekLit:tlg0016.tlg001.engTest:> rdf:type cts:Translation .
+<urn:cts:greekLit:tlg0016.tlg001.engTest:> rdf:label """Hdt. English for Testing""" .
+<urn:cts:greekLit:tlg0016.tlg001.engTest:> dcterms:title  """Hdt. English for Testing""" .
+<urn:cts:greekLit:tlg0016.tlg001.engTest:> cts:lang "eng" .
+<urn:cts:greekLit:tlg0016.tlg001.engTest:> cts:possesses <urn:cts:greekLit:tlg0016.tlg001.engTest.wt:> .
+<urn:cts:greekLit:tlg0016.tlg001.engTest.wt:> cts:belongsTo <urn:cts:greekLit:tlg0016.tlg001.engTest:> .
+<urn:cts:greekLit:tlg0016.tlg001.engTest.wt:> rdf:type cts:Exemplar .
+<urn:cts:greekLit:tlg0016.tlg001.engTest.wt:> rdf:label """Greek. Tokenized. For testing"""  .
+<urn:cts:greekLit:tlg0016.tlg001.engTest.wt:> dcterms:title """Greek. Tokenized. For testing"""  .
+<urn:cts:greekLit> cts:possesses <urn:cts:greekLit:tlg0012:> .
+<urn:cts:greekLit:tlg0012:> cts:belongsTo <urn:cts:greekLit> .
+<urn:cts:greekLit:tlg0012:> rdf:type cts:TextGroup .
+<urn:cts:greekLit:tlg0012:> dcterms:title  """Homeric Epic"""  .
+<urn:cts:greekLit:tlg0012:> rdf:label """Homeric Epic""" .
+<urn:cts:greekLit:tlg0012:> cts:possesses <urn:cts:greekLit:tlg0012.tlg001:> .
+<urn:cts:greekLit:tlg0012.tlg001:> cts:belongsTo <urn:cts:greekLit:tlg0012:> .
+<urn:cts:greekLit:tlg0012.tlg001:> rdf:label """Iliad""" .
+<urn:cts:greekLit:tlg0012.tlg001:> dcterms:title """Iliad""" .
+<urn:cts:greekLit:tlg0012.tlg001:> cts:lang "grc" .
+<urn:cts:greekLit:tlg0012.tlg001:> cts:possesses <urn:cts:greekLit:tlg0012.tlg001.testAllen:> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> cts:belongsTo <urn:cts:greekLit:tlg0012.tlg001:> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> rdf:type cts:Edition .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> rdf:label """Allen's Iliad (test ed.)""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> dcterms:title """Allen's Iliad (test ed.)""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> cts:possesses <urn:cts:greekLit:tlg0012.tlg001.testAllen.wt:> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen.wt:> cts:belongsTo <urn:cts:greekLit:tlg0012.tlg001.testAllen:> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen.wt:> rdf:type cts:Exemplar .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen.wt:> rdf:label """Allen. Iliad. Greek. 3 books of 10 lines. Word-tokens wrapped and citable."""  .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen.wt:> dcterms:title """Allen. Iliad. Greek. 3 books of 10 lines. Word-tokens wrapped and citable."""  .
+<urn:cts:greekLit> cts:possesses <urn:cts:greekLit:tlg0016:> .
+<urn:cts:greekLit:tlg0016:> cts:belongsTo <urn:cts:greekLit> .
+<urn:cts:greekLit:tlg0016:> rdf:type cts:TextGroup .
+<urn:cts:greekLit:tlg0016:> dcterms:title  """Herodotus"""  .
+<urn:cts:greekLit:tlg0016:> rdf:label """Herodotus""" .
+<urn:cts:greekLit:tlg0016:> cts:possesses <urn:cts:greekLit:tlg0016.tlg001:> .
+<urn:cts:greekLit:tlg0016.tlg001:> cts:belongsTo <urn:cts:greekLit:tlg0016:> .
+<urn:cts:greekLit:tlg0016.tlg001:> rdf:label """Histories""" .
+<urn:cts:greekLit:tlg0016.tlg001:> dcterms:title """Histories""" .
+<urn:cts:greekLit:tlg0016.tlg001:> cts:lang "grc" .
+<urn:cts:greekLit:tlg0016.tlg001:> cts:possesses <urn:cts:greekLit:tlg0016.tlg001.grcTest:> .
+<urn:cts:greekLit:tlg0016.tlg001.grcTest:> cts:belongsTo <urn:cts:greekLit:tlg0016.tlg001:> .
+<urn:cts:greekLit:tlg0016.tlg001.grcTest:> rdf:type cts:Edition .
+<urn:cts:greekLit:tlg0016.tlg001.grcTest:> rdf:label """Greek. For testing""" .
+<urn:cts:greekLit:tlg0016.tlg001.grcTest:> dcterms:title """Greek. For testing""" .
+<urn:cts:greekLit:tlg0016.tlg001.grcTest:> cts:possesses <urn:cts:greekLit:tlg0016.tlg001.grcTest.wt:> .
+<urn:cts:greekLit:tlg0016.tlg001.grcTest.wt:> cts:belongsTo <urn:cts:greekLit:tlg0016.tlg001.grcTest:> .
+<urn:cts:greekLit:tlg0016.tlg001.grcTest.wt:> rdf:type cts:Exemplar .
+<urn:cts:greekLit:tlg0016.tlg001.grcTest.wt:> rdf:label """Greek. Tokenized. For testing"""  .
+<urn:cts:greekLit:tlg0016.tlg001.grcTest.wt:> dcterms:title """Greek. Tokenized. For testing"""  .
+<urn:cts:greekLit:tlg0016.tlg001:> cts:possesses <urn:cts:greekLit:tlg0016.tlg001.engTest:> .
+<urn:cts:greekLit:tlg0016.tlg001.engTest:> cts:belongsTo <urn:cts:greekLit:tlg0016.tlg001:> .
+<urn:cts:greekLit:tlg0016.tlg001.engTest:> rdf:type cts:Translation .
+<urn:cts:greekLit:tlg0016.tlg001.engTest:> rdf:label """Hdt. English for Testing""" .
+<urn:cts:greekLit:tlg0016.tlg001.engTest:> dcterms:title  """Hdt. English for Testing""" .
+<urn:cts:greekLit:tlg0016.tlg001.engTest:> cts:lang "eng" .
+<urn:cts:greekLit:tlg0016.tlg001.engTest:> cts:possesses <urn:cts:greekLit:tlg0016.tlg001.engTest.wt:> .
+<urn:cts:greekLit:tlg0016.tlg001.engTest.wt:> cts:belongsTo <urn:cts:greekLit:tlg0016.tlg001.engTest:> .
+<urn:cts:greekLit:tlg0016.tlg001.engTest.wt:> rdf:type cts:Exemplar .
+<urn:cts:greekLit:tlg0016.tlg001.engTest.wt:> rdf:label """Greek. Tokenized. For testing"""  .
+<urn:cts:greekLit:tlg0016.tlg001.engTest.wt:> dcterms:title """Greek. Tokenized. For testing"""  .
+<urn:cts:greekLit> cts:possesses <urn:cts:greekLit:tlg0012:> .
+<urn:cts:greekLit:tlg0012:> cts:belongsTo <urn:cts:greekLit> .
+<urn:cts:greekLit:tlg0012:> rdf:type cts:TextGroup .
+<urn:cts:greekLit:tlg0012:> dcterms:title  """Homeric Epic"""  .
+<urn:cts:greekLit:tlg0012:> rdf:label """Homeric Epic""" .
+<urn:cts:greekLit:tlg0012:> cts:possesses <urn:cts:greekLit:tlg0012.tlg001:> .
+<urn:cts:greekLit:tlg0012.tlg001:> cts:belongsTo <urn:cts:greekLit:tlg0012:> .
+<urn:cts:greekLit:tlg0012.tlg001:> rdf:label """Iliad""" .
+<urn:cts:greekLit:tlg0012.tlg001:> dcterms:title """Iliad""" .
+<urn:cts:greekLit:tlg0012.tlg001:> cts:lang "grc" .
+<urn:cts:greekLit:tlg0012.tlg001:> cts:possesses <urn:cts:greekLit:tlg0012.tlg001.testAllen:> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> cts:belongsTo <urn:cts:greekLit:tlg0012.tlg001:> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> rdf:type cts:Edition .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> rdf:label """Allen's Iliad (test ed.)""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> dcterms:title """Allen's Iliad (test ed.)""" .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen:> cts:possesses <urn:cts:greekLit:tlg0012.tlg001.testAllen.wt:> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen.wt:> cts:belongsTo <urn:cts:greekLit:tlg0012.tlg001.testAllen:> .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen.wt:> rdf:type cts:Exemplar .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen.wt:> rdf:label """Allen. Iliad. Greek. 3 books of 10 lines. Word-tokens wrapped and citable."""  .
+<urn:cts:greekLit:tlg0012.tlg001.testAllen.wt:> dcterms:title """Allen. Iliad. Greek. 3 books of 10 lines. Word-tokens wrapped and citable."""  .
+<urn:cts:greekLit> cts:possesses <urn:cts:greekLit:tlg0016:> .
+<urn:cts:greekLit:tlg0016:> cts:belongsTo <urn:cts:greekLit> .
+<urn:cts:greekLit:tlg0016:> rdf:type cts:TextGroup .
+<urn:cts:greekLit:tlg0016:> dcterms:title  """Herodotus"""  .
+<urn:cts:greekLit:tlg0016:> rdf:label """Herodotus""" .
+<urn:cts:greekLit:tlg0016:> cts:possesses <urn:cts:greekLit:tlg0016.tlg001:> .
+<urn:cts:greekLit:tlg0016.tlg001:> cts:belongsTo <urn:cts:greekLit:tlg0016:> .
+<urn:cts:greekLit:tlg0016.tlg001:> rdf:label """Histories""" .
+<urn:cts:greekLit:tlg0016.tlg001:> dcterms:title """Histories""" .
+<urn:cts:greekLit:tlg0016.tlg001:> cts:lang "grc" .
+<urn:cts:greekLit:tlg0016.tlg001:> cts:possesses <urn:cts:greekLit:tlg0016.tlg001.grcTest:> .
+<urn:cts:greekLit:tlg0016.tlg001.grcTest:> cts:belongsTo <urn:cts:greekLit:tlg0016.tlg001:> .
+<urn:cts:greekLit:tlg0016.tlg001.grcTest:> rdf:type cts:Edition .
+<urn:cts:greekLit:tlg0016.tlg001.grcTest:> rdf:label """Greek. For testing""" .
+<urn:cts:greekLit:tlg0016.tlg001.grcTest:> dcterms:title """Greek. For testing""" .
+<urn:cts:greekLit:tlg0016.tlg001.grcTest:> cts:possesses <urn:cts:greekLit:tlg0016.tlg001.grcTest.wt:> .
+<urn:cts:greekLit:tlg0016.tlg001.grcTest.wt:> cts:belongsTo <urn:cts:greekLit:tlg0016.tlg001.grcTest:> .
+<urn:cts:greekLit:tlg0016.tlg001.grcTest.wt:> rdf:type cts:Exemplar .
+<urn:cts:greekLit:tlg0016.tlg001.grcTest.wt:> rdf:label """Greek. Tokenized. For testing"""  .
+<urn:cts:greekLit:tlg0016.tlg001.grcTest.wt:> dcterms:title """Greek. Tokenized. For testing"""  .
+<urn:cts:greekLit:tlg0016.tlg001:> cts:possesses <urn:cts:greekLit:tlg0016.tlg001.engTest:> .
+<urn:cts:greekLit:tlg0016.tlg001.engTest:> cts:belongsTo <urn:cts:greekLit:tlg0016.tlg001:> .
+<urn:cts:greekLit:tlg0016.tlg001.engTest:> rdf:type cts:Translation .
+<urn:cts:greekLit:tlg0016.tlg001.engTest:> rdf:label """Hdt. English for Testing""" .
+<urn:cts:greekLit:tlg0016.tlg001.engTest:> dcterms:title  """Hdt. English for Testing""" .
+<urn:cts:greekLit:tlg0016.tlg001.engTest:> cts:lang "eng" .
+<urn:cts:greekLit:tlg0016.tlg001.engTest:> cts:possesses <urn:cts:greekLit:tlg0016.tlg001.engTest.wt:> .
+<urn:cts:greekLit:tlg0016.tlg001.engTest.wt:> cts:belongsTo <urn:cts:greekLit:tlg0016.tlg001.engTest:> .
+<urn:cts:greekLit:tlg0016.tlg001.engTest.wt:> rdf:type cts:Exemplar .
+<urn:cts:greekLit:tlg0016.tlg001.engTest.wt:> rdf:label """Greek. Tokenized. For testing"""  .
+<urn:cts:greekLit:tlg0016.tlg001.engTest.wt:> dcterms:title """Greek. Tokenized. For testing"""  .

@@ -32,6 +32,9 @@ class Corpus {
 	/** Citation configuration information. */
 	CitationConfigurationFileReader citationConfig
 
+	/** CtsTtl object */
+	CtsTtl ttler
+
 	/** String value defining columns in tabular text format.
 	 */
 	String separatorString = "#"
@@ -49,6 +52,7 @@ class Corpus {
 		try{
 			this.inventory = new TextInventory(invFile)
 			this.citationConfig = new CitationConfigurationFileReader(configFile)
+			this.ttler = new CtsTtl(inventory,citationConfig)
 		} catch (Exception e) {
 			throw e
 		}
@@ -96,10 +100,15 @@ class Corpus {
 	/** Creates TTL representation of the entire corpus
 	 * and writes it to a file in outputDir.
 	 * @param outputDir A writable directory where the TTL file
+	 * @param includePrologue include or exclude ttl prologue
 	 * will be written.
 	 * @throws Exception if unable to write to outputDir.
 	 */
-	void turtleizeRepository(File outputDir) throws Exception {
+	void turtleizeRepository(File outputDir, Boolean includePrologue) throws Exception {
+	    System.err.println "Got here."	
+		System.err.println "${inventory.getClass()}"
+		System.err.println "${citationConfig.getClass()}"
+		//CtsTtl ttler = New CtsTtl(inventory,citationConfig)
 		if (! outputDir.exists()) {
 			try {
 				outputDir.mkdir()
@@ -118,15 +127,21 @@ class Corpus {
 
 
 		this.tabulateRepository(tabDir)
-		/*
+		
 		File ttlFile = new File(outputDir, "corpus.ttl")
-		this.ttl(ttlFile, tabDir)
-		 */
+		ttlFile.setText("","UTF-8")
+		ttlFile.append(this.ttler.turtleizeInv(inventory, citationConfig, includePrologue))
+				
+		tabDir.eachFileMatch(~/.*.txt/) { file ->
+			ttlFile.append(this.ttler.turtleizeFile(file,false))
+		}
+		
+		
 	}
 
 
 
-	/** Creates a Tabulator object and uses it to tabulate
+	/** Creates a Tabulator Object and uses it to tabulate
 	 * a given document.
 	 * @param f The source file in the archive to tabulate.
 	 * @param urn The URN for the file to tabulate.
@@ -158,150 +173,6 @@ class Corpus {
 			tabFile.setText(tabData,"UTF-8")
 		}
 	}
-
-
-
-	/** Cycles through all tabular files in a directory,
-	 * turtleizing each file.
-	 * Output is written to a file named "cts.ttl" in the same directory.
-	 * @param outputDir Directory containing tabular format files with names
-	 * ending in 'txt'.  Must be a writable directory.
-	 */
-	//  void turtleizeTabs(File outputDir) {
-	//    turtleizeTabs(outputDir, false)
-	//  }
-
-
-	/** Cycles through all tabular files in a directory,
-	 * first turtleizing each file.  If destructive is true, it
-	 * then deletes the source file.
-	 * Output is written to a file named "cts.ttl" in the same directory.
-	 * @param outputDir Directory containing tabular format files with names
-	 * ending in 'txt'.  Must be a writable directory.
-	 * @param destructive True if tab files should be deleted
-	 * after turtelizing.
-	 */
-	//void turtleizeTabs(File outputDir, boolean destructive) {
-	//turtleizeTabs(outputDir, "${outputDir}/cts.ttl", destructive)
-	//}
-
-	/** Cycles through all tabular files in a directory,
-	 * first turtleizing each file.  If destructive is true, it
-	 * then deletes the source file.
-	 * Output is written ttlFileName.
-	 * @param outputDir Directory containing tabular format files with names
-	 * ending in 'txt'.  Must be a readable directory.
-	 * @param ttlFileName Name of output file.
-	 * @param destructive True if tab files should be deleted
-	 * after turtelizing.
-	 */
-	//void turtleizeTabs(File outputDir, String ttlFileName, boolean destructive) {
-	// File  ttl = new File(ttlFileName)
-	// turtleizeTabs(outputDir, ttl, destructive)
-	//}
-
-
-	/*
-	void turtleizeTabsFast(File outputDir, File ttl, boolean destructive) {
-	if (debug > 0) {
-	System.err.println "Turtleizing files in ${outputDir}"
-	}
-	TtlGenerator turtler = new TtlGenerator(this.inventory)
-	Integer fileCount = 0
-	outputDir.eachFileMatch(~/.*.txt/) { tab ->
-	if (debug > 0) { System.err.println "Turtleizing " + tab }
-	fileCount++;
-	if (fileCount == 1) {
-	ttl.append(turtler.turtleizeTabs(tab, false), charEnc)
-	} else {
-	ttl.append(turtler.turtleizeTabs(tab, false), charEnc)
-	}
-	if (destructive) {
-	if (debug > 0) { System.err.println "Corpus: deleting file ${tab}" }
-	tab.delete()
-	}
-	}
-	}
-	 */
-
-	/** Cycles through all tabular files in a directory,
-	 * first turtleizing each file.  If destructive is true, it
-	 * then deletes the source file.
-	 * Output is written to a file named "cts.ttl" in the same directory.
-	 * @param outputDir Directory containing tabular format files with names
-	 * ending in 'txt'.  Must be a writable directory.
-	 * @param ttl Output file.
-	 * @param destructive True if tab files should be deleted
-	 * after turtelizing.
-	 */
-
-	/*
-	void turtleizeTabsToFile(File outputDir, File ttl, boolean destructive) {
-	if (debug > 0) {
-	System.err.println "Turtleizing files in ${outputDir}"
-	}
-
-	TtlGenerator turtler = new TtlGenerator(this.inventory)
-	outputDir.eachFileMatch(~/.*.txt/) { tab ->
-	if (debug > 0) {
-	System.err.println "Turtleizing " + tab
-	}
-	turtler.turtleizeTabsToFile(tab, ttl, charEnc, false)
-	if (destructive) {
-	if (debug > 0) { System.err.println "Corpus: deleting file ${tab}" }
-	tab.delete()
-	}
-	}
-	}
-	 */
-
-	/** Writes a RDF TTL representation of the entire CTS repository
-	 * to a file. First generates TTL for the repository's TextInventory,
-	 * then tabulates all files in the repository, and turtleizes
-	 * the resulting tab files.
-	 * @param ttlFile Writable output file.
-	 * @param tabDir Writable directory for generated tab files.
-	 */
-	//void ttl(File outputFile, File tabDir) {
-	// ttl(outputFile, false, tabDir)
-	//}
-
-
-	/** Writes a RDF TTL representation of the entire CTS repository
-	 * to a file. First generates TTL for the repository's TextInventory,
-	 * then tabulates all files in the repository, and turtleizes
-	 * the resulting tab files.  All output is written to outputFile.
-	 * @param ttlFile Writable output file.
-	 * @param includePrefix Whether or not to including prefix statements
-	 * in the output RDF.
-	 * @param tabDir Writable directory for generated tab files.
-	 */
-	/*  void ttl(File ttlFile, boolean includePrefix, File tabDir) {
-		if (debug > 0) {
-		System.err.println "Ttl'ing to ${ttlFile} after tabbing to ${tabDir}"
-		}
-
-		TtlGenerator turtler = new TtlGenerator(this.inventory)
-		ttlFile.append(turtler.turtleizeInv(includePrefix), charEnc)
-
-		tabulateRepository(tabDir)
-	//
-	turtleizeTabsToFile(tabDir, ttlFile, false)
-
-	}
-	 */
-
-	/* * Validates the XML serialization of the corpus's TextInventory
-	 * against the published schema for a CITE TextInventory.
-	 * @throws Exception if the XML does not validate.
-	 */
-	/*
-	void validateInventory()
-	throws Exception {
-// as an alternative, allow a local copy of schmea ...
-	validateInventory(new File("testdata/schemas/TextInventory.rng"))
-	}
-	 */
 
 	/** Validates the XML serialization of the corpus's TextInventory
 	 * against the an RNG schema for a CITE TextInventory.
