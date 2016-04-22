@@ -6,7 +6,7 @@ title: hocuspocus
 
 ## What is it?
 
-`hocuspocus` is a system for managing a corpus of citable texts.  `hocuspocus` follows the [OHCO2](http://cite-architecture.github.io/ohco2/) abstract model of texts, and uses [CTS URNs](http://cite-architecture.github.io/ctsurn/) to identify passages of text.  `hocuspocus` uses the Canonical Text Service's TextInventory to catalog texts in a corpus, and can generate OHCO2-equivalent representations of texts in different forms, as summarized here:
+`hocuspocus` is a library for managing a corpus of citable texts.  `hocuspocus` follows the [OHCO2](http://cite-architecture.github.io/ohco2/) abstract model of texts, and uses [CTS URNs](http://cite-architecture.github.io/ctsurn/) to identify passages of text.  `hocuspocus` uses the Canonical Text Service's TextInventory to catalog texts in a corpus, and can generate OHCO2-equivalent representations of texts in different forms, as summarized here:
 
 
 | From                                      | To                     |
