@@ -21,7 +21,7 @@ class TestCtsTtlSeq  {
 
   TextInventory ti = new TextInventory(tiFile)
 
-  TtlGenerator ttler = new TtlGenerator(ti, conf)
+  CtsTtl ttler = new CtsTtl(ti, conf)
 
   @Test
   void testPrevNext() {

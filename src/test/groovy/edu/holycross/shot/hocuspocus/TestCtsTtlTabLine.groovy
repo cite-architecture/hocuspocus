@@ -22,7 +22,7 @@ class TestTtlTabLine  {
 
   CitationConfigurationFileReader conf = new CitationConfigurationFileReader(confFile)
 
-  TtlGenerator ttler = new TtlGenerator(ti, conf)
+  CtsTtl ttler = new CtsTtl(ti, conf)
 
 
 @Test

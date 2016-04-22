@@ -5,7 +5,7 @@ import edu.harvard.chs.cite.TextInventory
 
 import edu.harvard.chs.cite.VersionType
 
-/** Class managing serialization of a CTS archive as RDF TTL.  
+/** Class managing serialization of a CTS archive as RDF TTL.
 */
 class CtsTtl {
 	static Integer debug = 0
@@ -13,11 +13,11 @@ class CtsTtl {
 
 	/* RDF prefix declarations. */
 	static String prefixString = """
-	@prefix hmt:        <http://www.homermultitext.org/hmt/rdf/> .
-	@prefix cts:        <http://www.homermultitext.org/cts/rdf/> .
-	@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-	@prefix dcterms: <http://purl.org/dc/terms/> .
-	""".toString();
+@prefix hmt:        <http://www.homermultitext.org/hmt/rdf/> .
+@prefix cts:        <http://www.homermultitext.org/cts/rdf/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+""".toString();
 
 	static String ctsNsAbbreviations = """
 	<http://www.homermultitext.org/hmt/rdf> cite:abbreviatedBy "hmt" .
@@ -62,7 +62,7 @@ class CtsTtl {
 	 * @param namespaceMapList A map of text URNs to a mapping
 	 */
 
-	
+
 	static String xmlNsTtl(LinkedHashMap namespaceMapList) {
 		StringBuilder reply = new StringBuilder()
 		Set nsAbbrTtl = []

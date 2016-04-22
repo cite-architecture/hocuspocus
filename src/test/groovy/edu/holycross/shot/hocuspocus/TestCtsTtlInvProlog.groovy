@@ -17,12 +17,13 @@ class TestCtsTtlInvProlog {
   void testPrefix() {
 
     TextInventory ti = new TextInventory(new File("testdata/testcorpus2016/testinventory-2016.xml"))
-    String ttlWPrefix = TtlGenerator.turtleizeInv(ti, confFile, true)
-    String ttlNoPrefix = TtlGenerator.turtleizeInv(ti, confFile, false)
+    String ttlWPrefix = CtsTtl.turtleizeInv(ti, confFile, true)
+    String ttlNoPrefix = CtsTtl.turtleizeInv(ti, confFile, false)
     Integer expectedPrefixLines = 4
     Integer actualPrefixLines = 0
-    ttlWPrefix.eachLine {
-      if (it ==~ '@prefix.+') {
+    ttlWPrefix.eachLine { l ->
+      System.err.println  l
+      if (l ==~ '@prefix.+') {
         actualPrefixLines++
       }
     }
