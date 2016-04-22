@@ -40,6 +40,8 @@ class Corpus {
 	String separatorString = "#"
 
 
+  String ttlFileName
+
 	/** Constructs a corpus from an archive stored
 	 * in a local file system, and validates TextInventory
 	 * contents against a given schema.
@@ -71,6 +73,7 @@ class Corpus {
 			throw invException
 		}
 
+    this.ttlFileName = "cts.ttl"
 	}
 
 
@@ -93,22 +96,30 @@ class Corpus {
 			throw new Exception("Corpus: cannot read directory ${baseDir}")
 		}
 		this.baseDirectory = baseDir
+    this.ttlFileName = "cts.ttl"
 
 	}
 
 
 	/** Creates TTL representation of the entire corpus
-	 * and writes it to a file in outputDir.
+		*  without TTL prologue and writes it to ttlFileName
+		* in outputDir.
 	 * @param outputDir A writable directory where the TTL file
-	 * @param includePrologue include or exclude ttl prologue
 	 * will be written.
 	 * @throws Exception if unable to write to outputDir.
 	 */
+	void turtleizeRepository(File outputDir) throws Exception {
+		turtleizeRepository(outputDir, false)
+	}
+
+	/** Creates TTL representation of the entire corpus
+	 * and writes it to ttlFileName  in outputDir.
+	 * @param outputDir A writable directory where the TTL file
+	 * will be written.
+	 * @param includePrologue True if the file should include ttl prologue.
+	 * @throws Exception if unable to write to outputDir.
+	 */
 	void turtleizeRepository(File outputDir, Boolean includePrologue) throws Exception {
-	    System.err.println "Got here."
-		System.err.println "${inventory.getClass()}"
-		System.err.println "${citationConfig.getClass()}"
-		//CtsTtl ttler = New CtsTtl(inventory,citationConfig)
 		if (! outputDir.exists()) {
 			try {
 				outputDir.mkdir()
@@ -124,19 +135,15 @@ class Corpus {
 			System.err.println "Corpus.turtleizeRepository: could not make directory ${tabDir}"
 			throw e
 		}
-
-
 		this.tabulateRepository(tabDir)
-
-		File ttlFile = new File(outputDir, "corpus.ttl")
+    
+    System.err.println "Make file for ${ttlFileName} in ${outputDir}"
+		File ttlFile = new File(outputDir, ttlFileName)
 		ttlFile.setText("","UTF-8")
 		ttlFile.append(this.ttler.turtleizeInv(inventory, citationConfig, includePrologue))
-
 		tabDir.eachFileMatch(~/.*.txt/) { file ->
 			ttlFile.append(this.ttler.turtleizeFile(file,false))
 		}
-
-
 	}
 
 
@@ -168,8 +175,6 @@ class Corpus {
 			System.err.println "Tabulate " + urnVal + " from " + f + " to " + tabFile
 			Tabulator tabulator = new Tabulator()
 			String tabData = tabulator.tabulateFile(urn, inventory, citationConfig, f)
-			System.err.println "\n\nFOR " + urn
-			System.err.println tabData
 			tabFile.setText(tabData,"UTF-8")
 		}
 	}

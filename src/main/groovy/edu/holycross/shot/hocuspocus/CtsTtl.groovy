@@ -348,9 +348,15 @@ class CtsTtl {
 		return ttl.toString()
 	}
 
-	/* Methods for generating TTL fragments and complete files */
+  ///////////////////////////////////////////////////////////////////
+	///// Methods for generating TTL fragments and complete files
 
 
+
+  /** Translates the contents of the TextInventory to
+   * RDF TTL.
+   * @returns A String of TTL statements.
+   */
 	String turtleizeInv() throws Exception {
 		return turtleizeInv(inventory, citationConfig, true)
 	}
@@ -409,7 +415,6 @@ class CtsTtl {
 		}
 
 		String pnData = turtleizePrevNext(tabFile.getText())
-		System.err.println "PREVNEXT DATA: " + pnData
 		ttl.append(pnData)
 
 		return ttl.toString()
