@@ -32,7 +32,7 @@ class Corpus {
 	/** Citation configuration information. */
 	CitationConfigurationFileReader citationConfig
 
-	/** CtsTtl object */
+	/** CtsTtl object used to generate RDF statements. */
 	CtsTtl ttler
 
 	/** String value defining columns in tabular text format.
@@ -105,7 +105,7 @@ class Corpus {
 	 * @throws Exception if unable to write to outputDir.
 	 */
 	void turtleizeRepository(File outputDir, Boolean includePrologue) throws Exception {
-	    System.err.println "Got here."	
+	    System.err.println "Got here."
 		System.err.println "${inventory.getClass()}"
 		System.err.println "${citationConfig.getClass()}"
 		//CtsTtl ttler = New CtsTtl(inventory,citationConfig)
@@ -127,16 +127,16 @@ class Corpus {
 
 
 		this.tabulateRepository(tabDir)
-		
+
 		File ttlFile = new File(outputDir, "corpus.ttl")
 		ttlFile.setText("","UTF-8")
 		ttlFile.append(this.ttler.turtleizeInv(inventory, citationConfig, includePrologue))
-				
+
 		tabDir.eachFileMatch(~/.*.txt/) { file ->
 			ttlFile.append(this.ttler.turtleizeFile(file,false))
 		}
-		
-		
+
+
 	}
 
 
