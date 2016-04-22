@@ -30,8 +30,16 @@ class TestCtsTtlInventory  {
 
 		String ttl = ttler.turtleizeInv(ti,conf,true)
 		System.err.println "From Inventory File:\n" + ttl
-		File ttlOut = new File("testdata/testcorpus2016/test-ttl/inventoryTtl.ttl")
+		File ttlOut = new File("testdata/output/test-cts-inventoryTtl.ttl")
 		ttlOut.setText(ttl, "UTF-8")
+
+		// inspect  contents, count rdf verbs...
+
+
+
+		ttlOut.delete()
+
+
 	}
 
 

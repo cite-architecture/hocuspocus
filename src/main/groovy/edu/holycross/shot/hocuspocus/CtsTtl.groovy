@@ -5,38 +5,31 @@ import edu.harvard.chs.cite.TextInventory
 
 import edu.harvard.chs.cite.VersionType
 
-/** Class managing serialization of a CTS archive as RDF TTL.
+/** Class managing serialization of a CTS tabular data as RDF TTL.
+* See the complementary Tabulator class to serialization a
+* set of XML files to CTS 7-column tabular format.
 */
 class CtsTtl {
-	static Integer debug = 0
 
-
-	/* RDF prefix declarations. */
+	/** RDF prefix declarations. */
 	static String prefixString = """
 @prefix hmt:        <http://www.homermultitext.org/hmt/rdf/> .
 @prefix cts:        <http://www.homermultitext.org/cts/rdf/> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix rdf:        <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dcterms:    <http://purl.org/dc/terms/> .
 """.toString();
 
-	static String ctsNsAbbreviations = """
-	<http://www.homermultitext.org/hmt/rdf> cite:abbreviatedBy "hmt" .
-	<http://www.homermultitext.org/hmt/rdf> rdf:type cite:DataNs .
-	<urn:cts:greekLit:> rdf:type cts:Namespace .
-	<urn:cts:greekLit:> cts:fullUri <http://chs.harvard.edu/cts/ns/> .
-	"""
-
-	/* TextInventory object for CTS archive to turtleize. */
+	/** TextInventory object for CTS archive to turtleize. */
 	TextInventory inventory
+	/** Citation configuration for CTS archive to turtleize. */
 	CitationConfigurationFileReader citationConfig
-
+	/** String value used as column separator in CTS 7-column data.*/
 	String separatorValue = "#"
 
 	/** Constructor with two parameters.
 	 * @param ti TextInventory object for a CTS archive.
-	 * @param conf CitatioConfigurationReader object for a CTS archive.
+	 * @param conf CitationConfigurationReader object for a CTS archive.
 	 */
-
 	CtsTtl(TextInventory ti, CitationConfigurationFileReader conf) {
 		inventory = ti
 		citationConfig = conf
@@ -61,9 +54,7 @@ class CtsTtl {
 	 * XML namespaces to full URI.
 	 * @param namespaceMapList A map of text URNs to a mapping
 	 */
-
-
-	static String xmlNsTtl(LinkedHashMap namespaceMapList) {
+	 static String xmlNsTtl(LinkedHashMap namespaceMapList) {
 		StringBuilder reply = new StringBuilder()
 		Set nsAbbrTtl = []
 		namespaceMapList.keySet().each { urn ->
@@ -80,6 +71,14 @@ class CtsTtl {
 	}
 
 
+
+
+
+  /** Composes RDF statements for a list of TextGroups.
+  * @param tg List of URNs, as String values, identifying
+  * TextGroups to describe in RDF.
+  * @returns String of TTL statements.
+  */
 	static String textGroupTtl(ArrayList tg) {
 		StringBuilder ttl = new StringBuilder()
 		CtsUrn urn = new CtsUrn(tg[0])
@@ -91,13 +90,17 @@ class CtsTtl {
 		ttl.append("<${urn}> rdf:type cts:TextGroup .\n")
 		ttl.append("<${urn}> dcterms:title  " + '"""' + label.replaceAll(/\n/,'') + '"""  .\n')
 		ttl.append("<${urn}> rdf:label " + '"""' + label.replaceAll(/\n/,'') + '""" .\n')
-
 		return ttl.toString()
 	}
 
 
 
-
+  /** Composes RDF for a specified work in a TextInventory.
+  * @param wk URN, as a String value, for the work to document.
+  * @param parent URN, as a String value, for the parent TextGroup.
+  * @param ti TextInventory in which the work appears.
+  * @returns A String of TTL statements.
+  */
 	static String workTtl(String wk, String parent, TextInventory ti) {
 		StringBuilder ttl = new StringBuilder()
 		ttl.append("<${parent}> cts:possesses <${wk}> .\n")
@@ -113,6 +116,14 @@ class CtsTtl {
 	}
 
 
+
+  /** Composes RDF for a specified version (edition or
+  * translation) in a TextInventory.
+  * @param vers URN, as a String value, for the version to document.
+  * @param parent URN, as a String value, for the parent Work.
+  * @param ti TextInventory in which the version appears.
+  * @returns A String of TTL statements.
+  */
 	static String versionTtl(String vers, String parent, TextInventory ti) {
 		StringBuilder ttl = new StringBuilder()
 		ttl.append("<${parent}> cts:possesses <${vers}> .\n")
@@ -134,6 +145,12 @@ class CtsTtl {
 	}
 
 
+  /** Composes RDF for a specified exemplar in a TextInventory.
+  * @param exempl URN, as a String value, for the exemplar to document.
+  * @param parent URN, as a String value, for the parent version.
+  * @param ti TextInventory in which the version appears.
+  * @returns A String of TTL statements.
+  */
 	static String exemplarTtl(String exempl, String parent, TextInventory ti) {
 		StringBuilder ttl = new StringBuilder()
 
@@ -147,11 +164,15 @@ class CtsTtl {
 		return ttl.toString()
 	}
 
+  /** Composes RDF description of works hierarchy
+  * for all text groups in a TextInventory.
+  * @param ti The TextInventory to document in RDF.
+  * @returns A String of TTL statements.
+  */
 	static String biblTtl(TextInventory ti) {
 		StringBuilder ttl = new StringBuilder()
 		ti.textgroups.each { tg ->
 			ttl.append(textGroupTtl(tg))
-
 			ti.worksForGroup(new CtsUrn(tg[0])).each { wk ->
 				ttl.append(workTtl(wk,tg[0],ti))
 				ti.versionsForWork(wk).each { v ->
@@ -160,7 +181,6 @@ class CtsTtl {
 						ttl.append(exemplarTtl(ex,v,ti))
 					}
 				}
-
 			}
 		}
 		return ttl.toString()
@@ -169,60 +189,7 @@ class CtsTtl {
 
 
 
-	/** Translates the contents of a CTS tabular file to RDF TTL.
-	 * @param tabFile A File in the cite library's 7-column tabular format.
-	 * @param prefix Whether or not to include a declaration of the
-	 * hmt namespace in the TTL output.
-	 * @returns The TTL representation of tabFile's contents.
-	 */
-	/* String turtleizeTabs(String stringData, boolean prefix) {
-		StringBuffer turtles = new StringBuffer()
-		if (prefix) {
-			turtles.append(prefixStr)
-		}
-
-
-		boolean foundIt = false
-		stringData.eachLine { l ->
-			def cols = "${l} ".split(separatorValue)
-
-			if (debug > 0) { System.err.println "CtsTtl: ${l} cols as ${cols}, size ${cols.size()}" }
-			if (cols.size() >= 7) {
-				turtles.append(turtleizeLine(l) + "\n")
-			} else if (cols.size() == 4) {
-				// Ignore namespace declaration in 4 columns
-			} else {
-				System.err.println "CtsTtl: Too few columns! ${cols.size()} for ${cols}"
-			}
-
-		}
-
-		turtles.append(turtleizePrevNext(stringData))
-
-
-		if (turtles.toString().size() == 0) {
-			System.err.println "CtsTtl: could not turtleize string " + stringData
-		}
-		return turtles.toString()
-	}
-	*/
-
-
-	/** Generates ten TTL statements describing the citable text node
-	 * documented in the single input line tabLine.  In addition to these
-	 * ten statements, a complete OHCO2 description of a node in RDF requires
-	 * two further statements identifying next and previous nodes (for a total
-	 * of twelve RDF statements to document an OHCO2 node).  Those are computed
-	 * in a separate pass through a tabulated input source that resolves sequence
-	 * numbers in the input to corresponding URN values for the nodes.
-	 * @param tabLine A delimited String tabulating a citable text node
-	 * in the OHCO2 model.
-	 * @returns A ten-line String composed of ten RDF statements,
-	 * one TTL-formatted statement per line.
-	 */
-
-
-	String turtleizeValues(CtsUrn urn,String seq,String prev,String next,String xmlAncestor,String textContent,String xpTemplate,String xmlNs) {
+	String turtleizeValues(CtsUrn urn, String seq, String prev, String next, String xmlAncestor, String textContent, String xpTemplate, String xmlNs) {
 		StringBuilder turtles = new StringBuilder()
 
 		String urnBase = urn.getUrnWithoutPassage()
@@ -257,6 +224,17 @@ class CtsTtl {
 		return turtles.toString()
 	}
 
+
+
+
+  /** Generates complete set of TTL statements describing a citable text node
+   * documented in the single input line tabLine.
+   * @param tabLine A String in 7-column CTS tabular format.
+   * @param ns Full namespace value for the CTS namespace.
+   * @param nsabbr Abbreviation for namespace, as used in CTS URN strings.
+   * @returns A ten-line String composed of ten RDF statements,
+   * one TTL-formatted statement per line.
+   */
 	String turtleizeLine(String tabLine, String ns, String nsabbr) throws Exception {
 		// buffer for TTL output:
 		StringBuffer turtles = new StringBuffer()
@@ -370,9 +348,15 @@ class CtsTtl {
 		return ttl.toString()
 	}
 
-	/* Methods for generating TTL fragments and complete files */
+  ///////////////////////////////////////////////////////////////////
+	///// Methods for generating TTL fragments and complete files
 
 
+
+  /** Translates the contents of the TextInventory to
+   * RDF TTL.
+   * @returns A String of TTL statements.
+   */
 	String turtleizeInv() throws Exception {
 		return turtleizeInv(inventory, citationConfig, true)
 	}
@@ -431,7 +415,6 @@ class CtsTtl {
 		}
 
 		String pnData = turtleizePrevNext(tabFile.getText())
-		System.err.println "PREVNEXT DATA: " + pnData
 		ttl.append(pnData)
 
 		return ttl.toString()

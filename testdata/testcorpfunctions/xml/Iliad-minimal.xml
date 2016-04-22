@@ -1,0 +1,44 @@
+<?oxygen RNGSchema="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="xml"?>
+<?xml-stylesheet type="text/xsl" href="chs-gp.xsl"?>
+<TEI
+    xmlns="http://www.tei-c.org/ns/1.0"
+    xmlns:tei="http://www.tei-c.org/ns/1.0">
+    <teiHeader
+        xml:lang="eng">
+        <fileDesc>
+            <titleStmt>
+                <title
+                    xml:lang="lat">Iliad (Allen, for testing)</title>
+            </titleStmt>
+            <publicationStmt>
+                <availability>
+                    <p>Born-digital TEI-compliant edition licensed under the Creative Commons
+                        Attribution-Share Alike 3.0 Unported License. For more information, see:
+                        http://creativecommons.org/licenses/by-sa/3.0/ </p>
+                </availability>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Two lines of the Iliad to use in testing corpus serialization.</p>
+                <p>Canonical citation is by book and poetic line.</p>
+            </sourceDesc>
+        </fileDesc>
+        <profileDesc>
+            <langUsage>
+                <language
+                    ident="grc">accented ancient Greek in Unicode-C Greek characters</language>
+            </langUsage>
+        </profileDesc>
+    </teiHeader>
+    <text
+        xml:lang="grc">
+        <body>
+            <div
+                n="1">
+                <l
+                    n="1">Μῆνιν ἄειδε θεὰ Πηληϊάδεω Ἀχιλῆος </l>
+                <l
+                    n="2">οὐλομένην, ἣ μυρί᾽ Ἀχαιοῖς ἄλγε᾽ ἔθηκε, </l>
+            </div>
+        </body>
+    </text>
+</TEI>

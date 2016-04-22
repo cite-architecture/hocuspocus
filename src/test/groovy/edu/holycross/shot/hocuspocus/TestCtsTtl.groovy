@@ -18,7 +18,7 @@ class TestCtsTtl  {
 
 	File confFile = new File("testdata/testcorpus2016/citationconfig-2016.xml")
 
-	File ttlOut = new File("testdata/testcorpus2016/test-ttl/editionTtl.ttl")
+	File ttlOut = new File("testdata/output/test-cts-editionTtl.ttl")
 
 	@Test
 	void testTtlExemplarFile() {
@@ -28,8 +28,14 @@ class TestCtsTtl  {
 		CtsTtl ttler = new CtsTtl(ti, conf)
 		String ttl = ttler.turtleizeFile(exemplarTabFile,true)
 		System.err.println "From tabFile:\n" + ttl
-		File ttlOut = new File("testdata/testcorpus2016/test-ttl/exemplarTtl.ttl")
+		File ttlOut = new File("testdata/output/test-exemplar-file.ttl")
 		ttlOut.setText(ttl, "UTF-8")
+
+
+		// inspect contents, count RDF verbs:
+
+
+		ttlOut.delete()
 	}
 
 
