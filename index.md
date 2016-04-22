@@ -22,11 +22,9 @@ See a brief narrative overview of [managing a citable corpus with `hocuspocus`](
 - version: **1.0.0**
 - requires: java version >= 7
 - maven identifiers: group `edu.holycross.shot`, package `hocuspocus`, available from the repository at <http://beta.hpcc.uh.edu/nexus/content/groups/public>
+- current API documentation is available [here](api).
 
 
+## Further documentation
 
-## Documentation
-
-Specifications for the library are being written using [concordion](http://concordion.org) to specify tests.  The output of testing these specifications is included [here](specs/hocuspocus/Hocuspocus.html).
-
-API documentation is available [here](api).
+Specifications for the library are being written using [concordion](http://concordion.org) to specify tests.  These specifications are **not** current with the version 1.0 release series.  The output of testing these specifications is included [here](specs/hocuspocus/Hocuspocus.html).
