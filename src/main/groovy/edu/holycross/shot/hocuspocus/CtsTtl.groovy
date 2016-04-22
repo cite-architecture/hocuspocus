@@ -5,26 +5,19 @@ import edu.harvard.chs.cite.TextInventory
 
 import edu.harvard.chs.cite.VersionType
 
-/** Class managing serialization of a CTS archive as RDF TTL.
+/** Class managing serialization of a CTS tabular data as RDF TTL.
+* See the complementary Tabulator class to serialization a
+* set of XML files to CTS 7-column tabular format.
 */
 class CtsTtl {
-	static Integer debug = 0
-
 
 	/** RDF prefix declarations. */
 	static String prefixString = """
 @prefix hmt:        <http://www.homermultitext.org/hmt/rdf/> .
 @prefix cts:        <http://www.homermultitext.org/cts/rdf/> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix rdf:        <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dcterms:    <http://purl.org/dc/terms/> .
 """.toString();
-
-	static String ctsNsAbbreviations = """
-	<http://www.homermultitext.org/hmt/rdf> cite:abbreviatedBy "hmt" .
-	<http://www.homermultitext.org/hmt/rdf> rdf:type cite:DataNs .
-	<urn:cts:greekLit:> rdf:type cts:Namespace .
-	<urn:cts:greekLit:> cts:fullUri <http://chs.harvard.edu/cts/ns/> .
-	"""
 
 	/** TextInventory object for CTS archive to turtleize. */
 	TextInventory inventory
@@ -171,9 +164,6 @@ class CtsTtl {
 		return ttl.toString()
 	}
 
-
-
-
   /** Composes RDF description of works hierarchy
   * for all text groups in a TextInventory.
   * @param ti The TextInventory to document in RDF.
@@ -196,46 +186,6 @@ class CtsTtl {
 		return ttl.toString()
 	}
 
-
-
-
-	/** Translates the contents of a CTS tabular file to RDF TTL.
-	 * @param tabFile A File in the cite library's 7-column tabular format.
-	 * @param prefix Whether or not to include a declaration of the
-	 * hmt namespace in the TTL output.
-	 * @returns The TTL representation of tabFile's contents.
-	 */
-	/* String turtleizeTabs(String stringData, boolean prefix) {
-		StringBuffer turtles = new StringBuffer()
-		if (prefix) {
-			turtles.append(prefixStr)
-		}
-
-
-		boolean foundIt = false
-		stringData.eachLine { l ->
-			def cols = "${l} ".split(separatorValue)
-
-			if (debug > 0) { System.err.println "CtsTtl: ${l} cols as ${cols}, size ${cols.size()}" }
-			if (cols.size() >= 7) {
-				turtles.append(turtleizeLine(l) + "\n")
-			} else if (cols.size() == 4) {
-				// Ignore namespace declaration in 4 columns
-			} else {
-				System.err.println "CtsTtl: Too few columns! ${cols.size()} for ${cols}"
-			}
-
-		}
-
-		turtles.append(turtleizePrevNext(stringData))
-
-
-		if (turtles.toString().size() == 0) {
-			System.err.println "CtsTtl: could not turtleize string " + stringData
-		}
-		return turtles.toString()
-	}
-	*/
 
 
 
