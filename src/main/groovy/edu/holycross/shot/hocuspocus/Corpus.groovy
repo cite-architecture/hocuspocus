@@ -15,7 +15,7 @@ import org.apache.commons.io.FilenameUtils
  */
 class Corpus {
 
-	public Integer debug = 1
+	public Integer debug = 0
 
 	/** Character encoding to use for all file output, initialized to
 	 * default value of UTF-8.    */
@@ -136,7 +136,7 @@ class Corpus {
 			throw e
 		}
 		this.tabulateRepository(tabDir)
-    
+
     System.err.println "Make file for ${ttlFileName} in ${outputDir}"
 		File ttlFile = new File(outputDir, ttlFileName)
 		ttlFile.setText("","UTF-8")
