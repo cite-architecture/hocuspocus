@@ -59,6 +59,56 @@ class TablesUtil {
   }
 
 
+  // Sequence number, as string, keyed to urns
+  /* String urnForSequence(File tabFile, String seq) {
+  }
+  */
+
+  // hashmap seqIndex from tabfile
+  /**
+   * Indexes sequence numbers in a tabular file to
+   * their identifying URNs.
+   * @param tabFile The file to index.
+   * @returns A map of sequence numbers to URN values.
+   *  
+   */
+  LinkedHashMap getSequenceIndex(File tabFile) {
+    return getSequenceIndex(tabFile, "#")
+  }
+
+  /**
+   * Indexes sequence numbers in a tabular file to
+   * their identifying URNs.
+   * @param tabFile The file to index.
+   * @param sepStr String value used as column delimiter. 
+   * @returns A map of sequence numbers to URN values.
+   *  
+   */
+  LinkedHashMap getSequenceIndex(File tabFile, String sepStr) {
+    def  idx = [:]
+    tabFile.eachLine  {
+      def cols = it.split(sepStr)
+      if (cols.size() == 8) {
+	// ok
+	def urn = cols[0]
+	def seq = cols[2]
+	idx[seq] = urn
+
+      } else if ((cols.size() == 3) && (cols[0] == "namespace")){
+	  //ok
+      } else {
+	throw new Exception("TablesUtil: invalid row in tabular file: components ${cols}")
+      }
+    }
+    return idx
+  }
+  
+  /** Finds a single line in a tabular file identified
+   * by a given URN value.
+   * @param tabFile The file to search.
+   * @param urnStr The URN value to search for.
+   * @returns A single line of the tabular file.
+   */
   String tabEntryForUrn(File tabFile, String urnStr) {
     String entry  = ""
     entry = tabFile.readLines().find { ln ->
@@ -114,7 +164,6 @@ class TablesUtil {
   }
 
 
-
   ArrayList tabEntriesForDirectory(File tabulatedDir, ArrayList urnList) {
     def total = []
 
@@ -133,6 +182,11 @@ class TablesUtil {
   }
 
 
+  
+
+
+
+  
 /*
 
 # Required for Tabulation
