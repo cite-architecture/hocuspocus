@@ -8,7 +8,7 @@ import static groovy.test.GroovyAssert.shouldFail
 
 
 /** */
-class TestTablesUtilExport {
+class TestTablesUtil82XF {
 
 
   @Test
@@ -17,10 +17,13 @@ class TestTablesUtilExport {
 
     def expectedSize = 760
 
-
     TablesUtil tu = new TablesUtil()
     def seqIdx = tu.getSequenceIndex(tabs)
     assert seqIdx.size() == expectedSize
+
+    String testIndex = "759"
+    String expectedUrnVal = "urn:cts:greekLit:tlg0012.tlg001.msA:17.761"
+    assert seqIdx[testIndex] == expectedUrnVal
 
 
     // tst conversion to 82XF of single line
@@ -34,6 +37,19 @@ class TestTablesUtilExport {
 
   }
 
+
+  @Test
+  void test82XFConvertLine() {
+    File tabs = new File("testdata/il17-tabs.txt")
+    TablesUtil tu = new TablesUtil()
+    def seqIdx = tu.getSequenceIndex(tabs)
+      assert seqIdx.size() == expectedSize
+
+      String testIndex = "759"
+      String expectedUrnVal = "urn:cts:greekLit:tlg0012.tlg001.msA:17.761"
+      assert seqIdx[testIndex] == expectedUrnVal
+
+  }
 
 
 }
