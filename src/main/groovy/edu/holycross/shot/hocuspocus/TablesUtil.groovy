@@ -95,13 +95,62 @@ class TablesUtil {
 	idx[seq] = urn
 
       } else if ((cols.size() == 3) && (cols[0] == "namespace")){
-	  //ok
+	  //ok, but skip
+	
       } else {
 	throw new Exception("TablesUtil: invalid row in tabular file: components ${cols}")
       }
     }
     return idx
   }
+
+
+  /** Converts internal seven-column format to
+   * 82XF format.
+   * @param s String in seven-column internal format.
+   * @returns String in five-column 82XF format.
+   */
+  String sevenTo82XF(File f) {
+    return sevenTo82XF(f,"#")
+  }
+  
+  String sevenTo82XF(File f, String separator) {
+    StringBuilder bldr = new StringBuilder()
+    def idx = getSequenceIndex(f)
+    f.eachLine {
+      def cols = it.split(separator)
+      if (cols.size() == 8) {
+	String urn = cols[0]
+	String seq = cols[1]
+	String prevUrn = idx[cols[2]]
+	String nextUrn = idx[cols[4]]
+	String textVal = idx[cols[5]]
+	bldr.append("${urn}${separator}${prevUrn}${separator}${seq}${separator}${nextUrn}${separator}${textVal}\n")
+
+      } else if ((cols.size() == 3) && (cols[0] == "namespace")){
+	//ok, but skip
+      } else {
+	throw new Exception("TablesUtil: invalid row in tabular file: components ${cols}")
+      }
+    }
+    return bldr.toString()
+  }
+  
+  /** Formats an entry in a tabular file identified by
+   * sequence string in 82XF format.
+   * @param taFile The file to retrieve data from.
+   * @param seqStr Sequence number, as a String. 
+   * @returns A 5-column record in 82FX format.
+   */
+
+    /*String seqStringTo82FX(File tabFile, String seqStr) {
+    def idx = getSequenceIndex(tabFile)
+    String raw = idx[seqStr]
+    return sevenTo82XF(raw)
+    // and continue on...
+    }*/
+  
+
   
   /** Finds a single line in a tabular file identified
    * by a given URN value.

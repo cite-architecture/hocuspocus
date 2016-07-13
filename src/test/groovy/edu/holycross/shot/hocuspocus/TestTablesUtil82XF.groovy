@@ -39,15 +39,13 @@ class TestTablesUtil82XF {
 
 
   @Test
-  void test82XFConvertLine() {
+  void test82XFConversion() {
     File tabs = new File("testdata/il17-tabs.txt")
     TablesUtil tu = new TablesUtil()
-    def seqIdx = tu.getSequenceIndex(tabs)
-      assert seqIdx.size() == expectedSize
 
-      String testIndex = "759"
-      String expectedUrnVal = "urn:cts:greekLit:tlg0012.tlg001.msA:17.761"
-      assert seqIdx[testIndex] == expectedUrnVal
+    def expectedSize = 760
+    String ocho = tu.sevenTo82XF(tabs)
+    assert ocho.readLines().size() == expectedSize
 
   }
 
