@@ -123,8 +123,8 @@ class TablesUtil {
 	String urn = cols[0]
 	String seq = cols[1]
 	String prevUrn = idx[cols[2]]
-	String nextUrn = idx[cols[4]]
-	String textVal = idx[cols[5]]
+	String nextUrn = idx[cols[3]]
+	String textVal = cols[5]
 	bldr.append("${urn}${separator}${prevUrn}${separator}${seq}${separator}${nextUrn}${separator}${textVal}\n")
 
       } else if ((cols.size() == 3) && (cols[0] == "namespace")){
