@@ -105,6 +105,77 @@ class TablesUtil {
   }
 
 
+  /** Converts a two-column source with an ordered listing 
+   * of text nodes described as URN-text contents into an equivalent
+   * 82XF formatted string that can be used without need to 
+   * maintain document order by lines.
+   * @param f File to read two-column data from.
+   * @returns A String in 82XF format.
+   */
+  String twoTo82XF(File f) {
+    return twoTo82XF(f, "#")
+  }
+
+  /** Converts a two-column source with an ordered listing 
+   * of text nodes described as URN-text contents into an equivalent
+   * 82XF formatted string that can be used without need to 
+   * maintain document order by lines.
+   * @param f File to read two-column data from.
+   * @param separator String value used for column delimiter.
+   * @returns A String in 82XF format.
+   */
+  String twoTo82XF(File f, String separator) {
+    StringBuffer xfdata = new StringBuffer()
+
+    
+    // maps of URN to preceding or following URNs
+    def prevToNext = [:]
+    def nextToPrev = [:]
+
+    // previously seen URN
+    String prevUrn = ""
+
+    /// Read through sequence of lines once to index
+    // abitrary URN values to preceding and following URNs
+    def fileLines = f.readLines()
+    fileLines.each {
+      def cols = it.split(separator)
+      String currUrn = cols[0]
+      if (prevUrn != "") {
+	prevToNext[prevUrn] = currUrn
+	nextToPrev[currUrn] = prevUrn
+      }
+      prevUrn = currUrn
+    }
+
+    // Construct 82XF string:
+    xfdata.append("URN#Previous#Sequence#Next#Text\n")
+    def seq = 0
+    fileLines.each { l ->
+      // skip first line:
+      if (seq > 0) {
+	def cols = l.split(separator)
+	if (cols.size() != 2) {
+	  System.err.println("TablesUtil: error parsing ${l}. Wrong number of columns in ${cols}")
+	} else {
+	  def urn = cols[0]
+	  def txt = cols[1]
+	  def prv = ""
+	  def nxt = ""
+	  if (nextToPrev[urn]) {
+	    prv = nextToPrev[urn]
+	  }
+	  if (prevToNext[urn]) {
+	    nxt = prevToNext[urn]
+	  }
+	  xfdata.append("${urn}#${prv}#${seq}#${nxt}#${txt}\n")
+	}
+      }
+      seq++;
+    }
+    return xfdata.toString()
+  }
+
   /** Converts internal seven-column format to
    * 82XF format.
    * @param s String in seven-column internal format.
@@ -237,6 +308,8 @@ class TablesUtil {
 
   
 /*
+
+We should get this comment the heck out of here:
 
 # Required for Tabulation
 
