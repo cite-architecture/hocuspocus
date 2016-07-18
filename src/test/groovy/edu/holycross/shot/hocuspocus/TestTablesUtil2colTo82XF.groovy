@@ -18,7 +18,7 @@ class TestTablesUtil2colTo82XF {
     TablesUtil tu = new TablesUtil()
     String str82xf = tu.twoTo82XF(tabs)
 
-    def lines = str82xf.readLines()
+    def  lines = str82xf.readLines()
     assert lines.size() == tabs.readLines().size()
 
   }

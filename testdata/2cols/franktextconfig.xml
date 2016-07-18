@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<CitationConfiguration xmlns="http://chs.harvard.edu/xmlns/hocuspocus">
+
+    <online urn="urn:cts:aflibre:af.ah.hc:" type="2col" docname="achterhuis.csv">
+        <citationScheme>
+            <citation label="entry">
+                <citation label="section"/>
+            </citation>
+        </citationScheme>
+    </online>
+
+</CitationConfiguration>
