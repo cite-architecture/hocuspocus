@@ -17,7 +17,7 @@ class TestCorpus  {
 
 	File baseDir = new File("testdata/testcorpfunctions/xml")
 
-	File schemaFile = new File("testdata/conf2016/TextInventory.rng")
+	File schemaFile = new File("testdata/schemas/TextInventory.rng")
 
 	CitationConfigurationFileReader conf = new CitationConfigurationFileReader(confFile)
 
