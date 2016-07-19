@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?xml-model href="../schemas/TextInventory.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TextInventory
+  tiid="hmt"
+  tiversion="6.0.0"
+  xmlns="http://chs.harvard.edu/xmlns/cts"
+  xmlns:dc="http://purl.org/dc/elements/1.1/">
+  
+  <ctsnamespace
+    abbr="aflibre"
+    ns="http://neelsmith.github.io/aflibre">
+    <description
+      xml:lang="eng">Anne Frank, Het Achterhuis, in a free, citable, digital edition.</description>
+  </ctsnamespace>
+  
+  
+  
+  <textgroup
+    urn="urn:cts:aflibre:af:">
+    <groupname
+      xml:lang="nel">Anne Frank</groupname>
+    <work
+      urn="urn:cts:aflibre:af.ah:"
+      xml:lang="nel">
+      <title
+        xml:lang="nel">Het Achterhuis</title>
+      <edition
+        urn="urn:cts:aflibre:af.ah.hc:">
+        <label
+          xml:lang="eng">Holy Cross edition</label>
+        <description
+          
+          xml:lang="eng">Citable, digital edition of Het Achterhuis, from Holy Cross</description>
+        <online/>
+      </edition>
+    </work>
+  </textgroup>
+  
+</TextInventory>
