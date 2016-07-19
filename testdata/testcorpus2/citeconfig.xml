@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?xml-model href="../schemas/CitationConfiguration.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<CitationConfig
-   xmlns="http://chs.harvard.edu/xmlns/cts"
+<CitationConfiguration
+   xmlns="http://chs.harvard.edu/xmlns/hocuspocus"
     >
 
                <online
@@ -32,4 +32,4 @@
                   </citationMapping>
                </online>
 
-</CitationConfig>
+</CitationConfiguration>
