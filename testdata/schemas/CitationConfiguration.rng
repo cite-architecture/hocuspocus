@@ -5,7 +5,6 @@
 	xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
 	xmlns:hp="http://chs.harvard.edu/xmlns/hocuspocus">
-	
 	<define
 		name="citationstruct">
 		<element
@@ -52,65 +51,94 @@
 			</optional>
 		</element>
 	</define>
-	
 	<define
 		name="onlinestruct">
-		<element
-			name="hp:online">
-			
-				
-			<attribute
-				name="urn">
-				
-			</attribute>
-			<attribute
-				name="type">
-				
-			</attribute>
-			<attribute
-				name="docname">
-				
-			</attribute>
-			<optional>
-				<oneOrMore>
+		<choice>
+			<group>
+				<element
+					name="hp:online">
+					<attribute
+						name="urn"> </attribute>
+					<attribute
+						name="type">
+						<value>xml</value>
+					</attribute>
+					<attribute
+						name="docname"> </attribute>
+					<optional>
+						<oneOrMore>
+							<element
+								name="hp:namespaceMapping">
+								<attribute
+									name="abbreviation">
+									<data
+										type="string">
+										<param
+											name="pattern">.+</param>
+									</data>
+								</attribute>
+								<attribute
+									name="nsURI">
+									<data
+										type="anyURI">
+										<param
+											name="pattern">.+</param>
+									</data>
+								</attribute>
+							</element>
+						</oneOrMore>
+					</optional>
 					<element
-						name="hp:namespaceMapping">
-						<attribute
-							name="abbreviation">
-							<data
-								type="string">
-								<param
-									name="pattern">.+</param>
-							</data>
-						</attribute>
-						<attribute
-							name="nsURI">
-							<data
-								type="anyURI">
-								<param
-									name="pattern">.+</param>
-							</data>
-						</attribute>
+						name="hp:citationMapping">
+						<oneOrMore>
+							<ref
+								name="citationstruct"/>
+						</oneOrMore>
 					</element>
-				</oneOrMore>
-			</optional>
-			<element
-				name="hp:citationMapping">
-				<oneOrMore>
-					<ref
-						name="citationstruct"/>
-				</oneOrMore>
-			</element>
-		</element>
+				</element>
+			</group>
+			<group>
+				<element
+					name="hp:online">
+					<attribute
+						name="urn"> </attribute>
+					<attribute
+						name="type">
+						<value>2col</value>
+					</attribute>
+					<attribute
+						name="nodeformat">
+						<choice>
+							<value>text</value>
+							<value>markdown</value>
+							<value>xml</value>
+						</choice>
+					</attribute>
+					<attribute
+						name="docname"> </attribute>
+					<element
+						name="hp:citationScheme">
+						<oneOrMore>
+							<ref
+								name="citationstruct"/>
+						</oneOrMore>
+					</element>
+				</element>
+			</group>
+		</choice>
 	</define>
-	
 	<start>
 		<element
 			name="hp:CitationConfiguration">
-			
-			
+			<attribute
+				name="tiversion">
+				<choice>
+					<value>6.0.0</value>
+				</choice>
+			</attribute>
 			<oneOrMore>
-				<ref name="onlinestruct"></ref>
+				<ref
+					name="onlinestruct"/>
 			</oneOrMore>
 		</element>
 	</start>
