@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
+<?xml-model href="../schemas/CitationConfiguration.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <CitationConfiguration xmlns="http://chs.harvard.edu/xmlns/hocuspocus">
 
-    <online urn="urn:cts:aflibre:af.ah.hc:" type="2col" docname="achterhuis.csv">
+    <online urn="urn:cts:aflibre:af.ah.hc:" type="2col" docname="achterhuis_2cols.txt">
         <citationScheme>
             <citation label="entry">
                 <citation label="section"/>
