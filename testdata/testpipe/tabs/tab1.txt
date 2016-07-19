@@ -1,3 +1,0 @@
-namespace#tei#http://www.tei-c.org/ns/1.0#
-namespace#tei#http://www.tei-c.org/ns/1.0#
-urn:cts:ctstest:pipeline.testfile2:1#1##2#/tei:TEI/tei:text/tei:body#<p xmlns="http://www.tei-c.org/ns/1.0" n="1">File 2.</p>#/tei:TEI/tei:text/tei:body/tei:p[@n = '?']# xmlns:tei='http://www.tei-c.org/ns/1.0'
