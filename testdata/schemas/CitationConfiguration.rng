@@ -104,7 +104,11 @@
 						name="urn"> </attribute>
 					<attribute
 						name="type">
+						<choice>
 						<value>2col</value>
+						<value>82XF</value>
+						</choice>
+						
 					</attribute>
 					<attribute
 						name="nodeformat">
@@ -125,6 +129,27 @@
 					</element>
 				</element>
 			</group>
+		
+			<group>
+				<element
+					name="hp:online">
+					<attribute
+						name="urn"> </attribute>
+					<attribute
+						name="type">
+						<choice>
+							<value>markdown</value>
+						</choice>
+						
+					</attribute>
+					
+					<attribute
+						name="docname"> </attribute>
+					
+				</element>
+			</group>
+		
+		
 		</choice>
 	</define>
 	<start>
