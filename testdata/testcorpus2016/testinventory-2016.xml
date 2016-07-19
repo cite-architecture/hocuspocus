@@ -3,7 +3,7 @@
 <?xml-model href="../schemas/TextInventory.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <TextInventory
   tiid="hmt"
-  tiversion="5.0.rc.1"
+  tiversion="6.0.0"
   xmlns="http://chs.harvard.edu/xmlns/cts"
   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <ctsnamespace

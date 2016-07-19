@@ -3,7 +3,7 @@
 
 <!-- On-line configuration for inventory in testinventory2.xml -->
 <?xml-model href="../schemas/CitationConfiguration.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<CitationConfiguration xmlns="http://chs.harvard.edu/xmlns/hocuspocus">
+<CitationConfiguration xmlns="http://chs.harvard.edu/xmlns/hocuspocus" tiversion="6.0.0">
     <online
         urn="urn:cts:greekLit:tlg0012.tlg001.testAllen:"
         type="xml"
