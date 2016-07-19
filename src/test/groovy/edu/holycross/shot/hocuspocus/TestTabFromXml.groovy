@@ -23,7 +23,7 @@ class TestTabFromXml  {
 
     Tabulator tab = new Tabulator()
     CtsUrn txtUrn = new CtsUrn("urn:cts:test1:test.unclassified.unittest:")
-    File txtFile = new File("testdata/testcorpus2/xml/no-namespace.xml")
+    File txtFile = new File("testdata/conf2016/xml/no-namespace.xml")
 
     def taboutput = tab.tabulateFile(txtUrn, inv, conf, txtFile).readLines()
     assert taboutput.size() == 2
