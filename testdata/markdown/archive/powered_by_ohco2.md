@@ -38,4 +38,4 @@ The OHCO2 eXchange Format (82XF) was designed to fully express the OHCO2 model. 
 ### 2-column delimited format
 
 
-It is also possible to express the OCHO2 model with simple pairings of URNs and text contents, *provided that the pairings are ordered*.  
+It is also possible to express the OCHO2 model with simple pairings of URNs and text contents, *provided that the pairings are ordered*.    
