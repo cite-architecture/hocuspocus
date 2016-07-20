@@ -11,29 +11,23 @@ import edu.harvard.chs.cite.CtsUrn
 */
 class TestCorpus  {
 
-	File tiFile = new File("testdata/testcorpfunctions/testinventory-2016.xml")
-
-	File confFile = new File("testdata/testcorpfunctions/citationconfig-2016.xml")
-
-	File baseDir = new File("testdata/testcorpfunctions/xml")
-
-	File schemaFile = new File("testdata/schemas/TextInventory.rng")
-
-	CitationConfigurationFileReader conf = new CitationConfigurationFileReader(confFile)
+  File tiFile = new File("testdata/testcorpfunctions/testinventory-2016.xml")
+  File confFile = new File("testdata/testcorpfunctions/citationconfig-2016.xml")
+  File baseDir = new File("testdata/testcorpfunctions/xml")
+  File schemaFile = new File("testdata/schemas/TextInventory.rng")
+  CitationConfigurationFileReader conf = new CitationConfigurationFileReader(confFile)
 
 
+  @Test
+  void testTtlCorpus() {
+    File outDir = new File("testdata/output")
+    Corpus corp = new Corpus (tiFile,confFile,baseDir,schemaFile)
+    assert corp.filesInArchive().size()  == 1
+    assert corp.filesInArchive().size()  == 1
 
+    corp.turtleizeRepository(outDir,true)
 
-	@Test
-	void testTtlCorpus() {
-		File outDir = new File("testdata/output")
-		Corpus corp = new Corpus (tiFile,confFile,baseDir,schemaFile)
-		assert corp.filesInArchive().size()  == 1
-		assert corp.filesInArchive().size()  == 1
-
-		corp.turtleizeRepository(outDir,true)
-
-		File ttl = new File(outDir,"cts.ttl")
+    File ttl = new File(outDir,"cts.ttl")
 
     // Count occurrences of RDF verbs in output:
     def lines = 0
@@ -56,80 +50,67 @@ class TestCorpus  {
     def ed = 0
 
 
-		ttl.eachLine { l ->
-      lines++
+    ttl.eachLine { l ->
+      lines++;
       if (l ==~ '@prefix.+') {
-        prefix++
-      } else if (l ==~ '.+cts:prev.+') {
-        prev++
+	prefix++
+	  } else if (l ==~ '.+cts:prev.+') {
+        prev++;
       } else if (l ==~ '.+cts:next.+') {
-        nxt++
+        nxt++;
 
       } else if (l ==~ '.+cts:possesses.+') {
-        possess++
+        possess++;
       } else if (l ==~ '.+cts:belongsTo.+') {
-        belongs++
+        belongs++;
       } else if (l ==~ '.+dcterms:title.+') {
-        dcterms++
+        dcterms++;
       } else if (l ==~ '.+cts:isPassageOf.+') {
-        isPsg++
+        isPsg++;
       } else if (l ==~ '.+cts:hasPassage.+') {
-        hasPsg++
+        hasPsg++;
       } else if (l ==~ '.+cts:hasTextContent.+') {
-        txtContent++
+        txtContent++;
       } else if (l ==~ '.+cts:hasSequence.+') {
-        seq++
+        seq++;
       }  else if (l ==~ '.+cts:contains.+') {
-        contains++
+        contains++;
       } else if (l ==~ '.+cts:containedBy.+') {
-        containedBy++
+        containedBy++;
       } else if (l ==~ '.+cts:abbreviatedBy.+') {
-        abbr++
+        abbr++;
       } else if (l ==~ '.+cts:Namespace.+') {
-        ctsns++
+        ctsns++;
       } else if (l ==~ '.+cts:fullUri.+') {
-        ctsuri++
+        ctsuri++;
       } else if (l ==~ '.+cts:Edition.+') {
-        ed++
+        ed++;
       } else if (l ==~ '.+cts:lang.+') {
-        lang++
+        lang++;
       }
-
-		}
+    }
 
     assert prefix == 4
-
     assert possess == 3
     assert belongs == 3
     assert dcterms == 3
-
     assert isPsg == 2
     assert hasPsg == 2
     assert seq == 2
     assert txtContent == 2
     assert contains == 2
     assert containedBy == 2
-
     assert prev == 1
     assert nxt == 1
-
     assert abbr == 1
     assert ctsns == 1
     assert ctsuri == 1
-
     assert lang == 1
     assert ed == 1
 
-
-
-
     // Clean up all files used in test:
-		ttl.delete()
-		File tabDir = new File(outDir, "tabFiles")
-		tabDir.deleteDir()
-
-
-	}
-
-
+    ttl.delete()
+    File tabDir = new File(outDir, "tabFiles")
+    tabDir.deleteDir()
+  }
 }
