@@ -8,7 +8,7 @@ import static groovy.test.GroovyAssert.shouldFail
 
 
 /** */
-class TestTtlXmlNs {
+class TestCtsTtlXmlNs {
 
 
   File confFile = new File("testdata/testcorpus2016/citationconfig-2016.xml")
@@ -25,8 +25,10 @@ class TestTtlXmlNs {
     def nsMappings = CitationConfigurationFileReader.collectXmlNamespaceData(root)
 
     CtsTtl ttler = new CtsTtl(inv, conf)
+    /*
     System.err.println "Xml NS Mappings: \n"  
-	System.err.println ttler.xmlNsTtl(nsMappings)
+    System.err.println ttler.xmlNsTtl(nsMappings)
+    */
   }
 
 }

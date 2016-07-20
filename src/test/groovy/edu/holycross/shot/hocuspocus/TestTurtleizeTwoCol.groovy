@@ -11,27 +11,27 @@ import edu.harvard.chs.cite.CtsUrn
 */
 class TestTurtleizeTwoCol {
 
-	File tiFile = new File("testdata/2cols/franktextinventory.xml")
+  File tiFile = new File("testdata/2cols/franktextinventory.xml")
+  
+  File confFile = new File("testdata/2cols/franktextconfig.xml")
 
-	File confFile = new File("testdata/2cols/franktextconfig.xml")
+  File baseDir = new File("testdata/2cols/archive")
 
-	File baseDir = new File("testdata/2cols/archive")
+  File schemaFile = new File("testdata/schemas/TextInventory.rng")
 
-	File schemaFile = new File("testdata/schemas/TextInventory.rng")
+  CitationConfigurationFileReader conf = new CitationConfigurationFileReader(confFile)
 
-	CitationConfigurationFileReader conf = new CitationConfigurationFileReader(confFile)
+  @Test
+  void testTtlCorpus() {
+    File outDir = new File("testdata/output")
+    Corpus corp = new Corpus (tiFile,confFile,baseDir,schemaFile)
+    println "For archive ${baseDir}, files in archive: " + corp.filesInArchive()
+    //assert corp.filesInArchive().size()  == 1
 
-	@Test
-	void testTtlCorpus() {
-		File outDir = new File("testdata/output")
-		Corpus corp = new Corpus (tiFile,confFile,baseDir,schemaFile)
-		println "For archive ${baseDir}, files in archive: " + corp.filesInArchive()
-		//assert corp.filesInArchive().size()  == 1
-
-		assert shouldFail { // because haven't implemented non-XML!
-			corp.turtleizeRepository(outDir,true)
-		}
-		File ttl = new File(outDir,"cts.ttl")
+    assert shouldFail { // because haven't implemented non-XML!
+      corp.turtleizeRepository(outDir,true)
+    }
+    File ttl = new File(outDir,"cts.ttl")
 
 
 /*

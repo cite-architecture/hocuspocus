@@ -22,18 +22,15 @@ class TestTabWNs  {
   void testXmlTabulator() {
 
     Tabulator tab = new Tabulator()
-    //tab.debug = 10
 
     CtsUrn txtUrn = new CtsUrn("urn:cts:greekLit:tlg0012.tlg001.testlines:")
     File txtFile = new File("testdata/conf2016/xml/A_Iliad_testlines.xml")
 
     def taboutput = tab.tabulateFile(txtUrn, inv, conf, txtFile).readLines()
-    System.err.println "Got " + taboutput.size() + " nodes."
 
     Integer citableNodes = 0
     taboutput.eachWithIndex { l, i ->
       def cols = l.split(/#/)
-      //assert cols[0] == expectedUrns[i]
       if (cols[0] != "namespace") {
         citableNodes++
       }
