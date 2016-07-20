@@ -31,13 +31,10 @@ class TestMarkdown82XF {
     // skip header line:
     def lineCount = 0
     o2xf.eachLine {  l ->
-      println "${lineCount}: " + l
       if (lineCount > 0) {
 	def cols = l.split("#")
-	println "${l.getClass()} " + l
-	println "${l} splits to " + cols
 	if (cols.size() != 5) {
-	  System.err.println ("Wrong size for line " + cols)
+	  throw new Exception ("Wrong size for line " + cols)
 	}
 	actualUrns.add(cols[0])
       }
@@ -66,18 +63,16 @@ class TestMarkdown82XF {
     "urn:cts:aflibre:af.ah.hc:1.2.2.n1"
     ]
 
-    actualUrns.each {
-      println it
-    }
     assert actualUrns.size() == expectedUrns.size()
     assert actualUrns == expectedUrns
-/*
-    String actualLine = lines[1]
+
+
+    def lines = o2xf.readLines()
+    String actualLine = lines[2]
     def parts = actualLine.split(/#/)
     String actualEntry = parts[4]
     String expectedEntry = """The [OHCO2 model of citable text](http://cite-architecture.github.io/ohco2/) can be implemented in many ways.  The `hocuspocus` library can create a directed graph in RDF for repositories of texts available in local files in any of the following formats:"""
-
-    assert actualEntry == expectedEntry */
+    assert actualEntry == expectedEntry
   }
 
 
