@@ -110,6 +110,8 @@ class TestCorpus  {
 
     // Clean up all files used in test:
     ttl.delete()
+    // This is sloppily creawted by Tabulator, and
+    // should be properly cleaned up there. :-(
     File tabDir = new File(outDir, "tabFiles")
     tabDir.deleteDir()
   }
