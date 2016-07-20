@@ -134,8 +134,9 @@ class Corpus {
       throw e
     }
     this.tabulateRepository(tabDir)
-
-    System.err.println "Make file for ${ttlFileName} in ${outputDir}"
+    if (debug > 0) {
+      System.err.println "Make file for ${ttlFileName} in ${outputDir}"
+    }
     File ttlFile = new File(outputDir, ttlFileName)
     ttlFile.setText("","UTF-8")
     ttlFile.append(this.ttler.turtleizeInv(inventory, citationConfig, includePrologue))
@@ -170,7 +171,9 @@ class Corpus {
       CtsUrn urn  = new CtsUrn(urnVal)
       File f = new File(baseDirectory, citationConfig.fileNameMap[urnVal])
       File tabFile = new File(outputDir, "tab${idx}.txt")
-      System.err.println "Tabulate " + urnVal + " from " + f + " to " + tabFile
+      if (debug > 0) {
+	System.err.println "Tabulate " + urnVal + " from " + f + " to " + tabFile
+      }
       Tabulator tabulator = new Tabulator()
       String tabData = tabulator.tabulateFile(urn, inventory, citationConfig, f)
       tabFile.setText(tabData,"UTF-8")
