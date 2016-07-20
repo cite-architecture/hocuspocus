@@ -18,16 +18,16 @@ class TestCtsTtlBibHier {
   void testExemplar() {
     String ttl = CtsTtl.turtleizeInv(ti, confFile, false)
     // 3 texts online:
-
-    System.err.println "\nTestCtsTtlBibHier: \n" +  ttl
+    // find in the ttl, and test against expected:
+    //System.err.println "\nTestCtsTtlBibHier: \n" +  ttl
   }
 
   @Test
   void testBiblTtl1() {
     String ttl = CtsTtl.biblTtl(ti)
     // 3 texts online:
-
-    System.err.println "\nTestCtsTtlBibHier: \n" +  ttl
+    // find in the ttl, and test against expected:
+    //System.err.println "\nTestCtsTtlBibHier: \n" +  ttl
   }
 
 }

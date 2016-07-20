@@ -25,9 +25,7 @@ class TestCtsTtlSeq  {
 
   @Test
   void testPrevNext() {
-
-    System.err.println ttler.turtleizePrevNext(tabFile.getText())
-
+    //System.err.println ttler.turtleizePrevNext(tabFile.getText())
   }
 
 
