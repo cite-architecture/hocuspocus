@@ -30,8 +30,18 @@ class TestConfCitation {
   void testRetrieval() {
     CitationConfigurationFileReader config = new CitationConfigurationFileReader(confFile)
     String urnVal = "urn:cts:greekLit:tlg0012.tlg001.test2:"
-    System.err.println "For " + urnVal + ", got " + config.getCitationModel(urnVal)
+    CitationModel cm =  config.getCitationModel(urnVal)
 
+    def expectedLabels = ["book", "line"]
+    def actualLabels = []
+    // each mapping is an arraylsit:
+    cm.mappings.each { m ->
+      m.each { triple ->
+	assert triple instanceof edu.holycross.shot.hocuspocus.CitationTriplet
+	actualLabels.add(triple.label)
+      }
+    }
+    assert actualLabels == expectedLabels
   }
 
 }
