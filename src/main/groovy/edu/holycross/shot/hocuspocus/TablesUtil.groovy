@@ -112,7 +112,7 @@ class TablesUtil {
    * @param f File to read two-column data from.
    * @returns A String in 82XF format.
    */
-  String twoTo82XF(File f) {
+  static String twoTo82XF(File f) {
     return twoTo82XF(f, "#")
   }
 
@@ -124,23 +124,42 @@ class TablesUtil {
    * @param separator String value used for column delimiter.
    * @returns A String in 82XF format.
    */
-  String twoTo82XF(File f, String separator) {
+  static String twoTo82XF(File f, String separator) {
+    //println "TablesUtil: twoTo82XF file ${f} has contents"
+    //println f.getText()
+    return twoTo82XF(f.getText(), separator)
+  }
+  static String twoTo82XF(String s) {
+    return twoTo82XF(s, "#")
+  }
+
+
+
+  /** Converts a two-column source with an ordered listing 
+   * of text nodes described as URN-text contents into an equivalent
+   * 82XF formatted string that can be used without need to 
+   * maintain document order by lines.
+   * @param s String of two-column data.
+   * @param separator String value used for column delimiter.
+   * @returns A String in 82XF format.
+   */
+  static String twoTo82XF(String s, String separator) {
     StringBuffer xfdata = new StringBuffer()
 
-    
     // maps of URN to preceding or following URNs
     def prevToNext = [:]
     def nextToPrev = [:]
-
+    def urnSequence = []
+    
     // previously seen URN
     String prevUrn = ""
-
     /// Read through sequence of lines once to index
     // abitrary URN values to preceding and following URNs
-    def fileLines = f.readLines()
-    fileLines.each {
+    def sLines = s.readLines()
+    sLines.each {
       def cols = it.split(separator)
       String currUrn = cols[0]
+      urnSequence.add(currUrn)
       if (prevUrn != "") {
 	prevToNext[prevUrn] = currUrn
 	nextToPrev[currUrn] = prevUrn
@@ -151,25 +170,22 @@ class TablesUtil {
     // Construct 82XF string:
     xfdata.append("URN#Previous#Sequence#Next#Text\n")
     def seq = 0
-    fileLines.each { l ->
-      // skip first line:
-      if (seq > 0) {
-	def cols = l.split(separator)
-	if (cols.size() != 2) {
-	  System.err.println("TablesUtil: error parsing ${l}. Wrong number of columns in ${cols}")
-	} else {
-	  def urn = cols[0]
-	  def txt = cols[1]
-	  def prv = ""
-	  def nxt = ""
-	  if (nextToPrev[urn]) {
-	    prv = nextToPrev[urn]
-	  }
-	  if (prevToNext[urn]) {
-	    nxt = prevToNext[urn]
-	  }
-	  xfdata.append("${urn}#${prv}#${seq}#${nxt}#${txt}\n")
+    sLines.each { l ->
+      def cols = l.split(separator)
+      if (cols.size() != 2) {
+	System.err.println("TablesUtil: error parsing ${l}. Wrong number of columns in ${cols}")
+      } else {
+	def urn = cols[0]
+	def txt = cols[1]
+	def prv = ""
+	def nxt = ""
+	if (nextToPrev[urn]) {
+	  prv = nextToPrev[urn]
 	}
+	if (prevToNext[urn]) {
+	  nxt = prevToNext[urn]
+	}
+	xfdata.append("${urn}#${prv}#${seq}#${nxt}#${txt}\n")
       }
       seq++;
     }

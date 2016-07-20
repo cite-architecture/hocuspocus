@@ -8,16 +8,41 @@ import static groovy.test.GroovyAssert.shouldFail
 
 
 /** */
-class TestMarkdownTabulator {
+class TestMarkdown82XF {
 
 
   @Test
   void testFileTab() {
     File md = new File("testdata/markdown/archive/powered_by_ohco2.md")
-
     String urn = "urn:cts:aflibre:af.ah.hc:"
-    String twocols = MdTabulator.tabulateMdFile(md,urn)
-    def lines = twocols.readLines()
+
+
+    String o2xf =  MdTabulator.mdFileTo82XF(md,urn)
+    /*
+    println "o2xf is " + o2xf.getClass()
+    println "with val " + o2xf
+    String lines = o2xf.split(/\n/)
+    println "read lines as " + lines.getClass()
+    println "with val " + lines */
+
+
+    
+    def actualUrns = []
+    // skip header line:
+    def lineCount = 0
+    o2xf.eachLine {  l ->
+      println "${lineCount}: " + l
+      if (lineCount > 0) {
+	def cols = l.split("#")
+	println "${l.getClass()} " + l
+	println "${l} splits to " + cols
+	if (cols.size() != 5) {
+	  System.err.println ("Wrong size for line " + cols)
+	}
+	actualUrns.add(cols[0])
+      }
+      lineCount++
+    }
 
     def expectedUrns = [
     "urn:cts:aflibre:af.ah.hc:1.h1",
@@ -41,18 +66,18 @@ class TestMarkdownTabulator {
     "urn:cts:aflibre:af.ah.hc:1.2.2.n1"
     ]
 
-    def actualUrns = []
-    lines.each {
-      def cols = it.split(/#/)
-      actualUrns.add(cols[0])
+    actualUrns.each {
+      println it
     }
-    assert expectedUrns == actualUrns
+    assert actualUrns.size() == expectedUrns.size()
+    assert actualUrns == expectedUrns
+/*
     String actualLine = lines[1]
     def parts = actualLine.split(/#/)
-    String actualEntry = parts[1]
+    String actualEntry = parts[4]
     String expectedEntry = """The [OHCO2 model of citable text](http://cite-architecture.github.io/ohco2/) can be implemented in many ways.  The `hocuspocus` library can create a directed graph in RDF for repositories of texts available in local files in any of the following formats:"""
 
-    assert actualEntry == expectedEntry
+    assert actualEntry == expectedEntry */
   }
 
 

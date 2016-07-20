@@ -13,6 +13,17 @@ class MdTabulator {
   }
 
 
+
+  static String mdFileTo82XF(File f, String urn) {
+    return mdFileTo82XF(f,  urn, "#")
+  }
+  static String mdFileTo82XF(File f, String urn, String delimiter) {
+    String twoColumns = mdFileToTwoColumns(f,urn,delimiter)
+    String o2xf = TablesUtil.twoTo82XF(twoColumns,delimiter)
+    return o2xf
+  }
+
+  
   /** Converts a bare markdown file to an ordered
   * list of URN-text content pairings. URN and
   * text content in the output are delimted by "#".
@@ -20,8 +31,8 @@ class MdTabulator {
   * @param urn Version-level URN for the text.
   * @returns A list of URN-text content pairings.
   */
-  static String tabulateMdFile(File f, String urn){
-      return tabulateMdFile(f,urn,"#")
+  static String mdFileToTwoColumns(File f, String urn){
+      return mdFileToTwoColumns(f,urn,"#")
 
   }
   /** Converts a bare markdown file to an ordered
@@ -32,7 +43,7 @@ class MdTabulator {
   * URN and text content.
   * @returns A list of URN-text content pairings.
   */
-  static String tabulateMdFile(File f, String urn, String delimiter){
+  static String mdFileToTwoColumns(File f, String urn, String delimiter){
     StringBuffer twoColumns = new StringBuffer()
     
     // depth in citation hierarchy
