@@ -1,19 +1,13 @@
 package edu.holycross.shot.hocuspocus
 
-class CitationConfigurationFileReader{
-
+class CitationConfigurationFileReader {
 
   /** XML namespace for the CitationConfiguration vocabulary.    */
   static groovy.xml.Namespace hp = new groovy.xml.Namespace("http://chs.harvard.edu/xmlns/hocuspocus")
 
-  groovy.util.Node root
 
-      // responsible for:
-    /*
-      1. map of URNs to citation models
-      2. map of URNs to XML namespaces since that's what we're actually working with
-      3. file name since that's what we're actually working with
-    */
+  /** Parsed root of a citation configure file. */
+  groovy.util.Node root
 
   /** Map of Cts Urns to corresponding CitationModel object.
    * The map should include an entry for every citable work in
@@ -42,7 +36,11 @@ class CitationConfigurationFileReader{
   }
 
 
-
+  /** Finds name of file in local file system for a 
+   * text identified by URN.
+   * @param urnValue URN value, as a String, of text to find.
+   * @returns Name of local file, or null if no match.
+   */
   String getFileNameForUrn(String urnValue) {
     String fName = null
     fileNameMap.keySet().each { k ->
@@ -101,15 +99,15 @@ class CitationConfigurationFileReader{
 
 
 
-    /**
-    * Finds a CitationModel object for a work identified by URN.
-    * @param The URN the work for which to find the CitationModel.
-    * @returns A CitationModel derived from the online node corresponding
-    * to this URN, or null if no match found.
-    */
+  /**
+   * Finds a CitationModel object for a work identified by URN.
+   * @param The URN the work for which to find the CitationModel.
+   * @returns A CitationModel derived from the online node corresponding
+   * to this URN, or null if no match found.
+   */
   /*
     CitationModel getCitationModel(CtsUrn urn)  {
-        return getCitationModel(urn.toString())
+    return getCitationModel(urn.toString())
     }
   */
 
@@ -124,28 +122,27 @@ class CitationConfigurationFileReader{
         return getCitationModel(urn.toString())
     }
   */
-    /**
-    * Finds a CitationModel object for a work identified by URN, as a String.
-    * @param The URN, as a String, of the work for which to find
-    * the CitationModel.
-    * @returns A CitationModel derived from the online node corresponding
-    * to this URN, or null if no match found.
-    */
-    CitationModel getCitationModel(String urnStr)
-    throws Exception {
-      if (! this.citationModelMap[urnStr]) {
-        throw new Exception("CitationConfigurationFileReader: no citaiton model for URN value " + urnStr)
-      }
-      return this.citationModelMap[urnStr]
+  /**
+   * Finds a CitationModel object for a work identified by URN, as a String.
+   * @param The URN, as a String, of the work for which to find
+   * the CitationModel.
+   * @returns A CitationModel derived from the online node corresponding
+   * to this URN, or null if no match found.
+   */
+  CitationModel getCitationModel(String urnStr)
+  throws Exception {
+    if (! this.citationModelMap[urnStr]) {
+      throw new Exception("CitationConfigurationFileReader: no citaiton model for URN value " + urnStr)
     }
+    return this.citationModelMap[urnStr]
+  }
 
-    Object getXmlNsData(String urnStr)
-    throws Exception {
-      if (! this.xmlNamespaceData[urnStr]) {
-        throw new Exception("CitationConfigurationFileReader: no xml namespace data for URN value " + urnStr)
-      }
-      return this.xmlNamespaceData[urnStr]
+  Object getXmlNsData(String urnStr)
+  throws Exception {
+    if (! this.xmlNamespaceData[urnStr]) {
+      throw new Exception("CitationConfigurationFileReader: no xml namespace data for URN value " + urnStr)
     }
-
+    return this.xmlNamespaceData[urnStr]
+  }
 
 }

@@ -4,7 +4,7 @@ import org.junit.Test
 import static groovy.test.GroovyAssert.shouldFail
 
 
-import edu.harvard.chs.cite.TextInventory
+
 import edu.harvard.chs.cite.CtsUrn
 
 class TestCtsTtlInventory  {
@@ -26,7 +26,7 @@ class TestCtsTtlInventory  {
     File outDir = new File("testdata/output")
 
     String ttl = ttler.turtleizeInv(ti,conf,true)
-    
+
     File ttlOut = new File("testdata/output/test-cts-inventoryTtl.ttl")
     ttlOut.setText(ttl, "UTF-8")
 

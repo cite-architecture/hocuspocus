@@ -1,6 +1,6 @@
 package edu.holycross.shot.hocuspocus
 
-import edu.harvard.chs.cite.TextInventory
+
 import edu.harvard.chs.cite.CtsUrn
 
 import org.apache.commons.io.FilenameUtils
@@ -28,7 +28,7 @@ import javax.xml.transform.stream.StreamResult
  * in the OHCO2 model, and converting representations in XML files  to a
  * tabular format.
  *
- * 
+ *
 */
 class Tabulator {
 
@@ -36,7 +36,7 @@ class Tabulator {
 
   // add a log file??
   File log
-  
+
   /** Keep regular expressions that destroy the beautiful formatting
    * of my editor in a separate file. */
   // make static?
@@ -270,7 +270,7 @@ class Tabulator {
   //
   /** Converts one XML file to tabular representation.
    * @param txtUrn Urn of document to tabulate.
-   * @param inv TextInventory cataloging the document. 
+   * @param inv TextInventory cataloging the document.
    * @param confFile Configuration object mapping URN to file and citation scheme.
    * @param txtFile The XML file to tabulate.
    */
@@ -282,17 +282,17 @@ class Tabulator {
     StringBuilder tabularText = new StringBuilder()
     if (debug > 0) {
       System.err.println "Logging for file ${txtFile} = urn ${txtUrn}\n"
-      
+
     }
-    
+
     this.cm = confFile.getCitationModel(txtUrn.toString())
 
-    StringBuilder nsMapBldr = new StringBuilder("")    
+    StringBuilder nsMapBldr = new StringBuilder("")
 
     try {
       LinkedHashMap xmlNs = confFile.getXmlNsData(txtUrn.toString())
       // CHECK FOR UNIQUENESS?
-      //Begin by blindly adding every namespace record in the service to our output buffer: 
+      //Begin by blindly adding every namespace record in the service to our output buffer:
       xmlNs?.keySet().each {
 	nsMapBldr.append " xmlns:${it}='" + xmlNs[it] + "'"
 	// We're trying to write this pattern:
@@ -305,7 +305,7 @@ class Tabulator {
       System.err.println "Tabulator:tabulateFile:  no namespace data on " + txtFile
       System.err.println "Continuing to tabulate anyway."
     }
-    
+
 
     // Create parsed document from local file source:
     def docBuilderFac = DocumentBuilderFactory.newInstance()
@@ -318,7 +318,7 @@ class Tabulator {
     // can work around that if we construct an InputSource
     InputSource is = new InputSource(fr)
     is.setEncoding(this.inFileEncoding)
-    
+
     try {
       parsedRoot = docBuilder.parse(is).documentElement
     } catch (Exception e) {
@@ -332,10 +332,10 @@ class Tabulator {
       //def newFName = "${outFileBaseName}.txt"
       //this.currOutFile = new File(outputDir, newFName)
       //currOutFile.setText("")
-      
+
       if (debug > 0) {
 	// add date stamp here?
-	String msg = "STEP 1: collecting all node IDs\n" 
+	String msg = "STEP 1: collecting all node IDs\n"
 	System.err.println msg
 	log.append(msg)
       }
@@ -351,7 +351,7 @@ class Tabulator {
 
     return tabularText.toString()
   }
-  
+
   /**
    * Retrieves the text identified by urn, and writes
    * a representation of the text in tabular format to one or more files
@@ -378,7 +378,7 @@ class Tabulator {
   }
 
   */
-  
+
   /**
    * Writes a tabulated representation of a canonically citable XML file.
    * @param urn CTS URN of the document to tabulate.
@@ -434,11 +434,11 @@ class Tabulator {
       def newFName = "${outFileBaseName}.txt"
       this.currOutFile = new File(outputDir, newFName)
       currOutFile.setText("")
-      // Begin by blindly adding every namespace record in the service to our output buffer: 
+      // Begin by blindly adding every namespace record in the service to our output buffer:
       //      oneMap?.keySet().each {
 	// We're trying to write this pattern:
 	// namespace#ABBR#FULLURI#LABEL
-	
+
 	this.currOutFile.append("namespace${columnSeparator}${it}${columnSeparator}${oneMap[it]}${columnSeparator}\n",this.outFileEncoding)
       }
 
@@ -520,7 +520,7 @@ class Tabulator {
 				   CtsUrn urn,
 				   String xmlNsDecls,
 				   String compositeString) {
-    
+
 
 
     // total matching nodes in all our lists:
@@ -565,7 +565,7 @@ class Tabulator {
     return compositeString
   }
 
-  /** Formats a single line for a tabular representation of a citable node. 
+  /** Formats a single line for a tabular representation of a citable node.
    */
   String formatRecord(CtsUrn urn, Node parent, Node kid, Integer idx,  String prevCount, String nextCount, String xmlNsDecls) {
     // De-reference scheme and triplet indices to load relevant triplet :
@@ -581,12 +581,12 @@ class Tabulator {
     def currentTriplet = currentScheme[tIdx]
 
 
-    
+
     // we need to do xpath transforms in this method ...
     TransformerFactory tf = TransformerFactory.newInstance()
     Transformer xform = tf.newTransformer()
     xform.setOutputProperty("omit-xml-declaration", "yes")
-	  
+
     // 2. get text content of node
     // Man, the w3c DOM makes you work to do something obvious!
     StreamResult res = new StreamResult(new StringWriter())
@@ -611,7 +611,7 @@ class Tabulator {
     // to get the refVal, we need to check both leaf node URNs,
     // and any possible terminal nodes
     def refVal = fillRefValue(currentScheme, tIdx, kid)
-    
+
     // 6. Supplied in xmlNsDecls parameter: XML namespace declarations
     // Composite
     if (debug > 0) {
@@ -619,12 +619,12 @@ class Tabulator {
       System.err.println (msg)
       log.append(msg)
     }
-    
+
     return "${urn}${refVal}${columnSeparator}${this.nodesProcessed}${columnSeparator}${prevCount}${columnSeparator}${nextCount}${columnSeparator}${explicitAncPath}${columnSeparator}${nodeText}${columnSeparator}${ancestors}${leafPatt}${columnSeparator}${xmlNsDecls}\n"
   }
 
-  
-  
+
+
   /** Creates an ordered tabular representation of all nodes in a given (sub)document
    * with nodeIds appearing in the list of desired nodes.  Walks the tree of all nodes
    * below n, and checks their nodeId against idList:  if the nodeId appears there,
@@ -798,7 +798,7 @@ class Tabulator {
       }
       buff.insert(0, "/${part}")
       if (debug > 1) {
-	
+
 	String msg = "${lastIndex}: ${part} --> ${buff.toString()} for node ${currNode.getLocalName()}"
 	System.err.println msg
 	log.append(msg)

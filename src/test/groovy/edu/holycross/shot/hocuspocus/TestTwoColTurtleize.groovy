@@ -4,12 +4,12 @@ import org.junit.Test
 import static groovy.test.GroovyAssert.shouldFail
 
 
-import edu.harvard.chs.cite.TextInventory
+
 import edu.harvard.chs.cite.CtsUrn
 
 /**
 */
-class TestTurtleizeTwoCol {
+class TestTwoColTurtleize {
 
   File tiFile = new File("testdata/2cols/franktextinventory.xml")
 

@@ -1,7 +1,7 @@
 package edu.holycross.shot.hocuspocus
 
 import edu.harvard.chs.cite.CtsUrn
-import edu.harvard.chs.cite.TextInventory
+
 
 import org.junit.Test
 import static groovy.test.GroovyAssert.shouldFail
@@ -26,7 +26,7 @@ class TestTablesUtil2colTo82XF {
     // no prev, no next:
     assert cols[1] == ""
     assert cols[3] == ""
-    // sequence number is an integer, but have to do a 
+    // sequence number is an integer, but have to do a
     // stupid test to force evaluation as boolean since groovy will take a value of 0
     // to mean false in boolean context!
     assert cols[2].toInteger() + 1 == (2 - 1 + cols[2].toInteger())
@@ -64,7 +64,7 @@ urn:cts:aflibre:af.ah.hc:19420614.p1#Vrijdag 12 Juni was ik al om 6 uur wakker e
     String lns = """urn:cts:aflibre:af.ah.hc:19420614.h1#Zondag, 14 Juni 1942
 urn:cts:aflibre:af.ah.hc:19420614.p1#Vrijdag 12 Juni was ik al om 6 uur wakker en dat is heel begrijpelijk, daar ik jarig was. Maar om 6 uur mocht ik toch nog niet opstaan, dus moest ik mijn nieuwsgierigheid bedwingen tot kwart voor zeven. Toen ging het niet langer, ik ging naar de eetkamer, waar ik door Moortje (de kat) met kopjes verwelkomd werd.
 urn:cts:aflibre:af.ah.hc:19420614.p2#Om even na zevenen ging ik naar papa en mama en dan naar de huiskamer, om mijn cadeautjes uit te pakken. Het was in de eerste plaats jou die ik te zien kreeg, wat misschien wel een van mijn jnste cadeau's is. Dan een bos rozen, een plantje, twee takken pinkster-rozen, dat waren die ochtend de kinderen van Flora, die op mijn tafel stonden, maar er kwam nog veel meer."""
-    
+
     TablesUtil tu = new TablesUtil()
     String str82xf = tu.twoTo82XF(lns)
     def lines82xf = str82xf.readLines()
@@ -90,7 +90,7 @@ urn:cts:aflibre:af.ah.hc:19420614.p2#Om even na zevenen ging ik naar papa en mam
   }
 
 
-  
+
   @Test
   void test2ColFileto82() {
     File twoCol = new File("testdata/2cols/archive/achterhuis_2cols.txt")

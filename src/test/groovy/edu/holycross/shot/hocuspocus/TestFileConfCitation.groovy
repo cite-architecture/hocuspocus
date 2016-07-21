@@ -1,14 +1,14 @@
 package edu.holycross.shot.hocuspocus
 
 import edu.harvard.chs.cite.CtsUrn
-import edu.harvard.chs.cite.TextInventory
+
 
 import org.junit.Test
 import static groovy.test.GroovyAssert.shouldFail
 
 
 /** */
-class TestConfCitation {
+class TestFileConfCitation {
 
   File confFile = new File("testdata/conf2016/citationconfig3.xml")
   def root = new XmlParser().parseText(confFile.getText("UTF-8"))

@@ -120,13 +120,13 @@
 					</attribute>
 					<attribute
 						name="docname"> </attribute>
-					<element
+					<optional><element
 						name="hp:citationScheme">
 						<oneOrMore>
 							<ref
 								name="citationstruct"/>
 						</oneOrMore>
-					</element>
+					</element></optional>
 				</element>
 			</group>
 		
@@ -147,6 +147,13 @@
 						name="docname"> </attribute>
 					
 				</element>
+				<optional><element
+					name="hp:citationScheme">
+					<oneOrMore>
+						<ref
+							name="citationstruct"/>
+					</oneOrMore>
+				</element></optional>
 			</group>
 		
 		

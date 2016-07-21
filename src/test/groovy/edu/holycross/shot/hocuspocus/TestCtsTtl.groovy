@@ -4,7 +4,7 @@ import org.junit.Test
 import static groovy.test.GroovyAssert.shouldFail
 
 
-import edu.harvard.chs.cite.TextInventory
+
 import edu.harvard.chs.cite.CtsUrn
 
 class TestCtsTtl  {

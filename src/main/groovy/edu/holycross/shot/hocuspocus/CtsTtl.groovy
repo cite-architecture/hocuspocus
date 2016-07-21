@@ -1,7 +1,7 @@
 package edu.holycross.shot.hocuspocus
 
 import edu.harvard.chs.cite.CtsUrn
-import edu.harvard.chs.cite.TextInventory
+
 
 import edu.harvard.chs.cite.VersionType
 

@@ -1,7 +1,7 @@
 package edu.holycross.shot.hocuspocus
 
 import edu.harvard.chs.cite.CtsUrn
-import edu.harvard.chs.cite.TextInventory
+
 
 import org.junit.Test
 import static groovy.test.GroovyAssert.shouldFail
@@ -51,7 +51,7 @@ class TestTablesUtil82XF {
 
 
     String expectedFirst = """urn:cts:greekLit:tlg0012.tlg001.msA:17.1#urn:cts:greekLit:tlg0012.tlg001.msA:17.1#1#urn:cts:greekLit:tlg0012.tlg001.msA:17.3#<l xmlns="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" n="1" part="N"> οὐδ᾽ ἔλαθ᾽ <persName full="yes" instant="false" n="urn:cite:hmt:pers.pers23">Ἀτρέος</persName> υἱὸν ἀρηΐφιλον <persName full="yes" instant="false" n="urn:cite:hmt:pers.pers119">Μενέλαον</persName></l>"""
-  def actualFirst = ochoLines[0]  
+  def actualFirst = ochoLines[0]
   assert actualFirst == expectedFirst
 
   }

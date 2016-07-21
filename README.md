@@ -6,9 +6,8 @@ Additional documentation is available from the project web site at <http://cite-
 
 ##Usage and prerequisites##
 
-The hocus-pocus library sets the system property `javax.xml.validation.SchemaFactory` to use `com.thaiopensource.relaxng.jaxp.XMLSyntaxSchemaFactory` so `jing` must be available on the class path to use the hocus-pocus library.
+When parsing XML texts, the hocuspocus library sets the system property `javax.xml.validation.SchemaFactory` to use `com.thaiopensource.relaxng.jaxp.XMLSyntaxSchemaFactory` so `jing` must be available on the class path to use the hocus-pocus library.
 
 ##Naive assumptions##
 
 XML abbreviations will be unique in a corpus.
-

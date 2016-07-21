@@ -1,6 +1,6 @@
 package edu.holycross.shot.hocuspocus
 
-import edu.harvard.chs.cite.TextInventory
+
 import edu.harvard.chs.cite.CtsUrn
 
 import javax.xml.XMLConstants
@@ -10,8 +10,10 @@ import javax.xml.validation.SchemaFactory
 import org.apache.commons.io.FilenameUtils
 
 /**
- * Fundamental class representing the archival version of atext corpus
- * as a collection of XML documents cataloged by a CTS TextInventory.
+ * Class for working with a repository of citable texts stored
+ * in a local file system, and documented with a text inventory
+ * and a text configuration file.
+ *
  */
 class Corpus {
 
@@ -58,7 +60,7 @@ class Corpus {
     } catch (Exception e) {
       throw e
     }
-    
+
     if (!baseDir.canRead()) {
       throw new Exception("Corpus: cannot read directory ${baseDir}")
     }
@@ -70,7 +72,7 @@ class Corpus {
     } catch (Exception invException) {
       throw invException
     }
-    
+
     this.ttlFileName = "cts.ttl"
   }
 
@@ -205,7 +207,7 @@ class Corpus {
 
   /** Determines if the set of online documents in the corpus'
    * TextInventory has a one-to-one correspondence with the set of
-   * .xml files in the corpus' file storage.
+   * files in the corpus' file storage.
    * @returns True if the two sets are equal, otherwise false.
    */
   boolean filesAndInventoryMatch() {
@@ -286,29 +288,54 @@ class Corpus {
     return onlineList
   }
 
-  /**  Recursively walks through the file system where archival
-   * files are kepts, and finds all finds with names ending in '.xml'.
-   * @returns A list of file names, with paths relative to the
-   * base directory of this corpus' file storage.
-   */
-  ArrayList filesInArchive() {
+  ArrayList filesInDir(File dir) {
     def fileList = []
-    def relativeBase = baseDirectory.toString()
-    baseDirectory.eachFileMatch(~/.*.xml/) { file ->
+    def relativeBase = dir.toString()
+    dir.eachFileMatch(~/.*.xml/) { file ->
       def stripped = file.toString().replaceFirst(relativeBase,'')
       if (stripped[0] == '/') {
 	stripped = stripped.replaceFirst('/','')
       }
       fileList.add(stripped)
     }
-    baseDirectory.eachDirRecurse() { d ->
-      d.eachFileMatch(~/.*.xml/) { file ->
-	def stripped = file.toString().replaceFirst(relativeBase,'')
-	if (stripped[0] == '/') {
-	  stripped = stripped.replaceFirst('/','')
-	}
-	fileList.add(stripped)
+
+    dir.eachFileMatch(~/.*.csv/) { file ->
+      def stripped = file.toString().replaceFirst(relativeBase,'')
+      if (stripped[0] == '/') {
+	stripped = stripped.replaceFirst('/','')
       }
+      fileList.add(stripped)
+    }
+
+    dir.eachFileMatch(~/.*.txt/) { file ->
+      def stripped = file.toString().replaceFirst(relativeBase,'')
+      if (stripped[0] == '/') {
+	stripped = stripped.replaceFirst('/','')
+      }
+      fileList.add(stripped)
+    }
+
+    dir.eachFileMatch(~/.*.md/) { file ->
+      def stripped = file.toString().replaceFirst(relativeBase,'')
+      if (stripped[0] == '/') {
+	stripped = stripped.replaceFirst('/','')
+      }
+      fileList.add(stripped)
+    }
+
+    return fileList
+  }
+
+  /**  Recursively walks through the file system where archival
+   * files are kepts, and finds all finds with names ending in '.xml',
+   * '.txt', '.csv', or 'md'.
+   * @returns A list of file names, with paths relative to the
+   * base directory of this corpus' file storage.
+   */
+  ArrayList filesInArchive() {
+    def fileList = filesInDir(baseDirectory)
+    baseDirectory.eachDirRecurse() { d ->
+      fileList += filesInDir(d)
     }
     return fileList
   }

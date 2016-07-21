@@ -1,7 +1,7 @@
 package edu.holycross.shot.hocuspocus
 
 import edu.harvard.chs.cite.CtsUrn
-import edu.harvard.chs.cite.TextInventory
+
 
 import org.junit.Test
 import static groovy.test.GroovyAssert.shouldFail
@@ -26,7 +26,7 @@ class TestMarkdown82XF {
     println "with val " + lines */
 
 
-    
+
     def actualUrns = []
     // skip header line:
     def lineCount = 0

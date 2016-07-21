@@ -1,7 +1,7 @@
 package edu.holycross.shot.hocuspocus
 
 import edu.harvard.chs.cite.CtsUrn
-import edu.harvard.chs.cite.TextInventory
+
 
 import org.junit.Test
 import static groovy.test.GroovyAssert.shouldFail
@@ -22,7 +22,7 @@ class TestTablesUtil {
     def cols = oneEntry.split("#")
     assert cols.size() == expectedColumns
 
-  
+
 
   }
 
