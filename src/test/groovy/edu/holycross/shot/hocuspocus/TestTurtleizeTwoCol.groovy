@@ -12,7 +12,7 @@ import edu.harvard.chs.cite.CtsUrn
 class TestTurtleizeTwoCol {
 
   File tiFile = new File("testdata/2cols/franktextinventory.xml")
-  
+
   File confFile = new File("testdata/2cols/franktextconfig.xml")
 
   File baseDir = new File("testdata/2cols/archive")
@@ -26,12 +26,12 @@ class TestTurtleizeTwoCol {
     File outDir = new File("testdata/output")
     Corpus corp = new Corpus (tiFile,confFile,baseDir,schemaFile)
     println "For archive ${baseDir}, files in archive: " + corp.filesInArchive()
-    //assert corp.filesInArchive().size()  == 1
+    assert corp.filesInArchive().size()  == 1
 
-    assert shouldFail { // because haven't implemented non-XML!
-      corp.turtleizeRepository(outDir,true)
-    }
-    File ttl = new File(outDir,"cts.ttl")
+
+    //corp.turtleizeRepository(outDir,true)
+
+    //File ttl = new File(outDir,"cts.ttl")
 
 
 /*
@@ -119,18 +119,18 @@ class TestTurtleizeTwoCol {
 
     assert lang == 1
     assert ed == 1
-
 */
 
 
     // Clean up all files used in test:
-		/*
-		ttl.delete()
-		File tabDir = new File(outDir, "tabFiles")
-		tabDir.deleteDir()
-*/
+    /*
+      ttl.delete()
+    */
 
-	}
-
+    // This is sloppily creawted by Tabulator, and
+    // should be properly cleaned up there. :-(
+    File tabDir = new File(outDir, "tabFiles")
+    tabDir.deleteDir()
+  }
 
 }
