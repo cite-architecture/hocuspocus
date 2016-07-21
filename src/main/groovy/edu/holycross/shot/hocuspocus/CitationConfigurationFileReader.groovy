@@ -51,6 +51,43 @@ class CitationConfigurationFileReader {
     return fName
   }
 
+
+  /*
+82XF and 2cols have a nodeformat attr:
+
+<online urn="urn:cts:aflibre:af.ah.hc82XF:"  type="82XF" docname="achterhuis_82XF.txt" nodeformat="text">
+
+Markdown is simple:    
+    <online urn="urn:cts:citedemo:easycts.intro.md" type="markdown" docname="intro.md"/>
+
+XML is hairy
+
+ <online
+        urn="urn:cts:greekLit:tlg0012.tlg001.test2:"
+        type="xml"
+        docname="B_Iliad_test2.xml">
+        
+        <namespaceMapping
+            abbreviation="tei"
+            nsURI="http://www.tei-c.org/ns/1.0"/>
+        <citationMapping>
+            <citation
+                label="book"
+                scope="/tei:TEI/tei:text/tei:body"
+                xpath="/tei:div[@n = '?']">
+                <citation
+                    label="line"
+                    scope="/tei:TEI/tei:text/tei:body/tei:div[@n = '?']"
+                    xpath="/tei:l[@n = '?']"/>
+            </citation>
+        </citationMapping>
+    </online>
+
+  */
+
+  ArrayList allOnline() {
+  }
+  
   /** Creates a map of URNs to XML namespace info by
   * reading a parsed XML configuration.  The XML namespace
   * info is a map of abbreviations to full URIs.

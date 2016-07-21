@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="TextInventory.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+<?xml-model href="../schemas/TextInventory.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <TextInventory
    tiid="hmt"
-   tiversion="5.0.rc.1"
+   tiversion="6.0.0"
    xmlns="http://chs.harvard.edu/xmlns/cts"
    xmlns:dc="http://purl.org/dc/elements/1.1/">
    <ctsnamespace
@@ -26,16 +27,18 @@
          xml:lang="grc">
          <title
             xml:lang="eng"> Iliad </title>
-         <translation
-            urn="urn:cts:greekLit:tlg0012.tlg001.testtranslation:" xml:lang="eng">
+         <edition
+            urn="urn:cts:greekLit:tlg0012.tlg001.testlines:">
             <label
-               xml:lang="eng"> English translation </label>
-            
-        <online />
-                  
-                 
-            
-         </translation>
+               xml:lang="eng"> testlines </label>
+            <description
+               xml:lang="eng"> testlines</description>
+          
+            <exemplar urn="urn:cts:greekLit:tlg0012.tlg001.testlines.lextokens:">
+               <label xml:lang="eng">Analysis as lexical tokens</label>
+               <online></online>
+            </exemplar>
+         </edition>
          
       </work>
    </textgroup>

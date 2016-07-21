@@ -203,6 +203,8 @@ class TextInventory {
     * known to the inventory.
     * @returns A List of version-level URNs.
     */
+  // MOVE TO CITATION CONFIG
+  /*
     def allOnline() {
         def onlineList = []
         allDataOnline().each { vers ->
@@ -210,7 +212,9 @@ class TextInventory {
         }
         return onlineList
     }
+  */
 
+  
     /** Determines whether a version is an edition or
     * translation.
     * @param urnStr URN, as a String, of the version to examine.
