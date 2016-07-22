@@ -1,0 +1,10 @@
+strict digraph flow {
+concentrate=true
+XML->Internal_7_column [label=" XmlTabulator" ]
+URN_Text_Columns->O2XF
+O2XF->Internal_7_column
+Markdown->O2XF [label=" MdTabulator"]
+
+Internal_7_column->RDF [label=" CtsTtl"]
+
+}
