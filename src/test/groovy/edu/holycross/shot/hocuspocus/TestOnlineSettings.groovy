@@ -17,6 +17,7 @@ class TestOnlineSettings  {
       OnlineSettings online = new OnlineSettings("filename", DocumentFormat.O2XF, NodeFormat.XML)
       assert online.docFormat.getLabel() == "82xf"
       assert online.nodeFormat.getLabel() == "xml"
+      assert online.fileName == "filename"
 
       // check invalid combos:
       assert shouldFail {
@@ -42,8 +43,6 @@ class TestOnlineSettings  {
 
       OnlineSettings onlineMd = new OnlineSettings("filename", DocumentFormat.MARKDOWN)
       assert onlineMd.nodeFormat == NodeFormat.MARKDOWN
-
-
     }
 
 

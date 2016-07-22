@@ -1,5 +1,9 @@
 package edu.holycross.shot.hocuspocus
 
+
+/** Class modelling all the information in a citation
+* configuration file.
+*/
 class CitationConfigurationFileReader {
 
   /** XML namespace for the CitationConfiguration vocabulary.    */
@@ -22,11 +26,11 @@ class CitationConfigurationFileReader {
   /** Map of Cts Urns to names of local files. */
   def fileNameMap = [:]
 
+  OnlineSettings online
 
-  
-  String onlineDocname(String urn) {
-    return fileNameMap[urn]
-  }
+
+
+
 
   /** Constructor with one parameter for configuration file.
   *  @param confFile XML configuration file validating against
@@ -41,7 +45,7 @@ class CitationConfigurationFileReader {
   }
 
 
-  /** Finds name of file in local file system for a 
+  /** Finds name of file in local file system for a
    * text identified by URN.
    * @param urnValue URN value, as a String, of text to find.
    * @returns Name of local file, or null if no match.
@@ -55,14 +59,18 @@ class CitationConfigurationFileReader {
     }
     return fName
   }
-
+  /** Alternate method name for backward compatibility.
+  */
+  String onlineDocname(String urn) {
+      return getFileNameForUrn(urn)
+  }
 
   /*
 82XF and 2cols have a nodeformat attr:
 
 <online urn="urn:cts:aflibre:af.ah.hc82XF:"  type="82XF" docname="achterhuis_82XF.txt" nodeformat="text">
 
-Markdown is simple:    
+Markdown is simple:
     <online urn="urn:cts:citedemo:easycts.intro.md" type="markdown" docname="intro.md"/>
 
 XML is hairy
@@ -71,7 +79,7 @@ XML is hairy
         urn="urn:cts:greekLit:tlg0012.tlg001.test2:"
         type="xml"
         docname="B_Iliad_test2.xml">
-        
+
         <namespaceMapping
             abbreviation="tei"
             nsURI="http://www.tei-c.org/ns/1.0"/>
@@ -98,7 +106,7 @@ XML is hairy
   ArrayList allOnline() {
     return fileNameMap.keySet()
   }
-  
+
   /** Creates a map of URNs to XML namespace info by
   * reading a parsed XML configuration.  The XML namespace
   * info is a map of abbreviations to full URIs.
@@ -136,7 +144,7 @@ XML is hairy
   }
 
 
-  
+
   static LinkedHashMap collectCitationModels(groovy.util.Node confRoot) {
     def citationData = [:]
     confRoot[hp.online].each { conf ->

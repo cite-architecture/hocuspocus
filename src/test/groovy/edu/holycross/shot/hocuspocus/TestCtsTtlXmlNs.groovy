@@ -21,14 +21,15 @@ class TestCtsTtlXmlNs {
   @Test
   void testXmlNsMapping() {
     def root = new XmlParser().parseText(confFile.getText("UTF-8"))
-
     def nsMappings = CitationConfigurationFileReader.collectXmlNamespaceData(root)
 
     CtsTtl ttler = new CtsTtl(inv, conf)
-    /*
-    System.err.println "Xml NS Mappings: \n"
-    System.err.println ttler.xmlNsTtl(nsMappings)
-    */
+    def nsTtl = ttler.xmlNsTtl(nsMappings).readLines()
+    def expectedStatements = 7
+    assert nsTtl.size() == expectedStatements
+    def expectedNamespaceStatements = 6
+    def ctsNsStatements = nsTtl.findAll {it ==~ /.+cts:xmlns.+/}
+    assert ctsNsStatements.size() == expectedNamespaceStatements
   }
 
 }
