@@ -21,24 +21,15 @@ class TestCtsTtlTabLine  {
 
   CtsTtl ttler = new CtsTtl(ti, conf)
 
-  @Test
-  void testThreeLines() {
-  String threeLines = """
-urn:cts:greekLit:tlg0012.tlg001.testAllen:1.1#1##2#/tei:TEI/tei:text/tei:body/tei:div[@n='1']#<l xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" n="1">Μῆνιν ἄειδε θεὰ Πηληϊάδεω Ἀχιλῆος </l>#/tei:TEI/tei:text/tei:body/tei:div[@n='?']/tei:l[@n='?']# xmlns:tei='http://www.tei-c.org/ns/1.0'
-urn:cts:greekLit:tlg0012.tlg001.testAllen:1.2#2#1#3#/tei:TEI/tei:text/tei:body/tei:div[@n='1']#<l xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" n="2">οὐλομένην, ἣ μυρί᾽ Ἀχαιοῖς ἄλγε᾽ ἔθηκε, </l>#/tei:TEI/tei:text/tei:body/tei:div[@n='?']/tei:l[@n='?']# xmlns:tei='http://www.tei-c.org/ns/1.0'
-urn:cts:greekLit:tlg0012.tlg001.testAllen:1.3#3#2#4#/tei:TEI/tei:text/tei:body/tei:div[@n='1']#<l xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" n="3">πολλὰς δ᾽ ἰφθίμους ψυχὰς Ἄϊδι προΐαψεν </l>#/tei:TEI/tei:text/tei:body/tei:div[@n='?']/tei:l[@n='?']# xmlns:tei='http://www.tei-c.org/ns/1.0'
-"""
 
 
-//System.err.println "Three-line test:"
-//System.err.println ttler.turtleizeLine(threeLines, "http://www.tei-c.org/ns/1.0", "tei",)
 
-}
+
   @Test
   void testOneLine() {
     String testLine = """urn:cts:greekLit:tlg0012.tlg001.testAllen:1.1#1##2#/tei:TEI/tei:text/tei:body/tei:div[@n='1']#<l xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" n="1">Μῆνιν ἄειδε θεὰ Πηληϊάδεω Ἀχιλῆος </l>#/tei:TEI/tei:text/tei:body/tei:div[@n='?']/tei:l[@n='?']# xmlns:tei='http://www.tei-c.org/ns/1.0'"""
 
-    def oneLineRdf = ttler.turtleizeLine(testLine, "http://www.tei-c.org/ns/1.0", "tei",).readLines()
+    def oneLineRdf = ttler.turtleizeLine(testLine, "http://www.tei-c.org/ns/1.0", "tei").readLines()
 
     def verbs = ["cts:isPassageOf", "cts:hasPassage",
 		 "cts:hasSequence", "cts:hasTextContent",
@@ -46,14 +37,9 @@ urn:cts:greekLit:tlg0012.tlg001.testAllen:1.3#3#2#4#/tei:TEI/tei:text/tei:body/t
 		 "hmt:xmlOpen", "hmt:xpTemplate"
 		]
 
-
-    oneLineRdf.each {
-      println it
-    }
-    
     // should be one occurrence of each:
     verbs.eachWithIndex { v, i ->
-      def matchLines = oneLineRdf.findAll { it ==~ /.+${verbs[i]}.+/ }
+      def matchLines = oneLineRdf.findAll { it ==~ /.+${v}.+/ }
       assert matchLines.size() == 1
     }
 
@@ -61,6 +47,29 @@ urn:cts:greekLit:tlg0012.tlg001.testAllen:1.3#3#2#4#/tei:TEI/tei:text/tei:body/t
     def depthLines = oneLineRdf.findAll {it ==~ /.+cts:citationDepth.+/}
     assert depthLines.size() == 2
   }
+  
+  @Test
+  void testThreeLines() {
+    String threeLines = """urn:cts:greekLit:tlg0012.tlg001.testAllen:1.1#1##2#/tei:TEI/tei:text/tei:body/tei:div[@n='1']#<l xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" n="1">Μῆνιν ἄειδε θεὰ Πηληϊάδεω Ἀχιλῆος </l>#/tei:TEI/tei:text/tei:body/tei:div[@n='?']/tei:l[@n='?']# xmlns:tei='http://www.tei-c.org/ns/1.0'
+urn:cts:greekLit:tlg0012.tlg001.testAllen:1.2#2#1#3#/tei:TEI/tei:text/tei:body/tei:div[@n='1']#<l xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" n="2">οὐλομένην, ἣ μυρί᾽ Ἀχαιοῖς ἄλγε᾽ ἔθηκε, </l>#/tei:TEI/tei:text/tei:body/tei:div[@n='?']/tei:l[@n='?']# xmlns:tei='http://www.tei-c.org/ns/1.0'
+urn:cts:greekLit:tlg0012.tlg001.testAllen:1.3#3#2#4#/tei:TEI/tei:text/tei:body/tei:div[@n='1']#<l xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" n="3">πολλὰς δ᾽ ἰφθίμους ψυχὰς Ἄϊδι προΐαψεν </l>#/tei:TEI/tei:text/tei:body/tei:div[@n='?']/tei:l[@n='?']# xmlns:tei='http://www.tei-c.org/ns/1.0'
+"""
+
+   def threeLineRdf = ttler.turtleizeLines(threeLines, "http://www.tei-c.org/ns/1.0", "tei").readLines()
+ 
+   def verbs = ["cts:isPassageOf", "cts:hasPassage",
+	     "cts:hasSequence", "cts:hasTextContent",
+	     "cts:containedBy", "cts:contains",
+	     "hmt:xmlOpen", "hmt:xpTemplate"
+	    ]
+
+   verbs.eachWithIndex { v, i ->
+     def matchLines = threeLineRdf.findAll { it ==~ /.+${v}.+/ }
+     assert matchLines.size() == 3
+   }
+   def depthLines = threeLineRdf.findAll {it ==~ /.+cts:citationDepth.+/}
+   assert depthLines.size() == 6
+ }
 
 
 }

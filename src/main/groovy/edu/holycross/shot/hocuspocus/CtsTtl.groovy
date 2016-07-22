@@ -218,6 +218,13 @@ class CtsTtl {
 
 
 
+  String turtleizeLines(String tabs, String ns, String nsabbr) throws Exception {
+    StringBuilder turtles = new StringBuilder()
+    tabs.readLines().each { l ->
+      turtles.append(turtleizeLine(l, ns, nsabbr))
+    }
+    return turtles.toString()
+  }
 
   /** Generates complete set of TTL statements describing a citable text node
    * documented in the single input line tabLine.
@@ -238,7 +245,7 @@ class CtsTtl {
     def cols = "${tabLine} ".split(separatorValue)
     
     if (cols.size() < 8) {
-      throw new Exception("CtsTtl:turtleizeLine: wrong number of columns in ${tabLine}")
+      throw new Exception("CtsTtl:turtleizeLine: wrong number of columns in #${tabLine}#")
     } else {
       String urnVal = cols[0]
       String seq = cols[1]
