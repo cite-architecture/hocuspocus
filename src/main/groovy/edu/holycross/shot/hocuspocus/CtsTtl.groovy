@@ -3,8 +3,6 @@ package edu.holycross.shot.hocuspocus
 import edu.harvard.chs.cite.CtsUrn
 
 
-import edu.harvard.chs.cite.VersionType
-
 /** Class managing serialization of a CTS tabular data as RDF TTL.
 * See the complementary Tabulator class to serialization a
 * set of XML files to CTS 7-column tabular format.
