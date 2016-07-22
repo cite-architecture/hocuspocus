@@ -37,7 +37,7 @@ class TestTwoColTabulate{
       ttl.delete()
     */
 
-    // This is sloppily created by Tabulator, and
+    // This is sloppily created by XmlTabulator, and
     // should be properly cleaned up there. :-(
     File tabDir = new File(outDir, "tabFiles")
     tabDir.deleteDir()

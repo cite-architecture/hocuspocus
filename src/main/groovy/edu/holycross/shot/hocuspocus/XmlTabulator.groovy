@@ -24,13 +24,13 @@ import javax.xml.transform.stream.StreamResult
 
 
 /**
- * Tabulator is a utility class for working with canonically citable texts
+ * XmlTabulator is a utility class for working with canonically citable texts
  * in the OHCO2 model, and converting representations in XML files  to a
  * tabular format.
  *
  *
 */
-class Tabulator {
+class XmlTabulator {
 
   Integer debug = 0
 
@@ -151,7 +151,7 @@ class Tabulator {
 
   /** Constructor with no parameters.
    */
-  Tabulator() {
+  XmlTabulator() {
   }
 
 
@@ -302,7 +302,7 @@ class Tabulator {
       }
 
     } catch (Exception e) {
-      System.err.println "Tabulator:tabulateFile:  no namespace data on " + txtFile
+      System.err.println "XmlTabulator:tabulateFile:  no namespace data on " + txtFile
       System.err.println "Continuing to tabulate anyway."
     }
 
@@ -392,7 +392,7 @@ class Tabulator {
   throws java.io.FileNotFoundException,IOException,SecurityException,Exception  {
     this.outFileBaseName = FilenameUtils.getName(srcFile.getAbsolutePath()).replace(/.xml/,'')
     if (debug > 0) {
-      System.err.println "Tabulator: TABULATING urn ${urn} to fileBase " + outputDir + " using base file name " + this.outFileBaseName
+      System.err.println "XmlTabulator: TABULATING urn ${urn} to fileBase " + outputDir + " using base file name " + this.outFileBaseName
     }
 
     this.cm = inv.getCitationModel(urn)
@@ -400,7 +400,7 @@ class Tabulator {
       if (debug > 0) {System.err.println "CitationModel is ${cm}"}
     } else {
       System.err.println "Could not find citation model for urn ${urn}!"
-      throw new Exception("Tabulator:  could not find citation model for ${urn}")
+      throw new Exception("XmlTabulator:  could not find citation model for ${urn}")
     }
     def nsMaps = inv.getNsMapList()
     def oneMap = nsMaps[urn.toString()]

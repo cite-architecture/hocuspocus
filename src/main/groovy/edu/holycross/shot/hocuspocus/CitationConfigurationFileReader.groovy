@@ -26,9 +26,8 @@ class CitationConfigurationFileReader {
   /** Map of Cts Urns to names of local files. */
   def fileNameMap = [:]
 
-  OnlineSettings online
-
-
+  /** Map of OnlineSettings objects with configuration info */
+  def onlineMap = [:]
 
 
 
@@ -42,6 +41,7 @@ class CitationConfigurationFileReader {
     xmlNamespaceData  = collectXmlNamespaceData(root)
     fileNameMap = collectFileNames(root)
     citationModelMap = collectCitationModels(root)
+    onlineMap = collectOnlineSettings(root)
   }
 
 
@@ -155,6 +155,25 @@ XML is hairy
 
 
 
+
+
+  static LinkedHashMap collectOnlineSettings(groovy.util.Node confRoot) {
+    def onlineMap = [:]
+    confRoot[hp.online].each { ol ->
+      OnlineSettings settings
+      DocumentFormat df = DocumentFormat.getByLabel(ol.'@type') 
+      if (ol.'@nodeformat') {
+	NodeFormat nf = NodeFormat.getByLabel(ol.'@nodeformat')
+	settings = new OnlineSettings(ol.'@docname', df, nf)
+      } else {
+	settings = new OnlineSettings(ol.'@docname', df)
+      }
+      onlineMap[ol.'@urn'] = settings
+    }
+    return onlineMap
+  }
+
+  
   /**
    * Finds a CitationModel object for a work identified by URN.
    * @param The URN the work for which to find the CitationModel.

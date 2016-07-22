@@ -21,7 +21,7 @@ class TestTabWNs  {
   @Test
   void testXmlTabulator() {
 
-    Tabulator tab = new Tabulator()
+    XmlTabulator tab = new XmlTabulator()
 
     CtsUrn txtUrn = new CtsUrn("urn:cts:greekLit:tlg0012.tlg001.testlines:")
     File txtFile = new File("testdata/conf2016/xml/A_Iliad_testlines.xml")

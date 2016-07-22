@@ -4,7 +4,7 @@ import edu.harvard.chs.cite.CtsUrn
 
 
 /** Class managing serialization of a CTS tabular data as RDF TTL.
-* See the complementary Tabulator class to serialization a
+* See the complementary XmlTabulator class to serialization a
 * set of XML files to CTS 7-column tabular format.
 */
 class CtsTtl {

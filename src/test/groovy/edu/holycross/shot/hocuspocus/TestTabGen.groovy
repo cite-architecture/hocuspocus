@@ -22,7 +22,7 @@ class TestTabGen  {
 /*
   void oldOne() {
 
-    Tabulator tab = new Tabulator()
+    XmlTabulator tab = new XmlTabulator()
     CtsUrn txtUrn = new CtsUrn("urn:cts:greekLit:tlg0012.tlg001.testAllen:")
     File txtFile = new File("testdata/testcorpus2016/xml/Iliad-Allen.xml")
 
@@ -36,7 +36,7 @@ class TestTabGen  {
 */
   @Test
   void testGenTestSet() {
-    Tabulator tab = new Tabulator()
+    XmlTabulator tab = new XmlTabulator()
     File log = new File("testdata/output/log.txt")
     log.text = ""
     tab.log = log

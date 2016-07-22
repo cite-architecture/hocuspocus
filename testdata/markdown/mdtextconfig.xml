@@ -4,7 +4,5 @@
 <CitationConfiguration xmlns="http://chs.harvard.edu/xmlns/hocuspocus" tiversion="6.0.0">
 
     <online urn="urn:cts:mddemo:demo.powered.cite:" type="markdown" docname="powered_by_ohco2.md"/>
-        
-    
 
 </CitationConfiguration>

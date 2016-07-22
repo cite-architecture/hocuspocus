@@ -149,7 +149,7 @@ class Corpus {
 
 
 
-  /** Creates a Tabulator Object and uses it to tabulate
+  /** Creates a XmlTabulator Object and uses it to tabulate
    * a given document.
    * @param f The source file in the archive to tabulate.
    * @param urn The URN for the file to tabulate.
@@ -157,7 +157,7 @@ class Corpus {
    */
   /*
     void tabulateFile(File f, CtsUrn urn, File outputDir) {
-    Tabulator tab = new Tabulator()
+    XmlTabulator tab = new XmlTabulator()
     tab.tabulate(urn, inventory, f, outputDir)
     }
   */
@@ -176,9 +176,18 @@ class Corpus {
       if (debug > 0) {
 	System.err.println "Tabulate " + urnVal + " from " + f + " to " + tabFile
       }
-      Tabulator tabulator = new Tabulator()
+
+
+      // HERE: test for document type:
+      // LOOK AT onlineMap of citationConfig.
+      //      switch () {
+      //}
+
+      /*
+      XmlTabulator tabulator = new XmlTabulator()
       String tabData = tabulator.tabulateFile(urn, inventory, citationConfig, f)
       tabFile.setText(tabData,"UTF-8")
+      */
     }
   }
 

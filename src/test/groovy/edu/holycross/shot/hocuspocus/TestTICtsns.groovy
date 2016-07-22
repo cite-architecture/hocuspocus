@@ -24,6 +24,12 @@ class TestTICtsns {
     assert expectedLabelNoWhite == labelNoWhite
   }
 
-
-
+  @Test
+  void testMarkdown() {
+    TextInventory ti = new TextInventory(new File("testdata/markdown/mdtextinventory.xml"))
+    assert ti.ctsnamespaces.size() == 1
+    def triple = ti.ctsnamespaces[0]
+    assert triple[0] == "mddemo"
+    assert triple[1] == "http://cite-architecture.github.io/mddemo"
+  }
 }

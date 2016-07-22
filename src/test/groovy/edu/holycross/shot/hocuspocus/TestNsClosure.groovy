@@ -13,7 +13,7 @@ class TestNsClosure extends GroovyTestCase {
 
 
     void testNsMapping() {
-      Tabulator t = new Tabulator()
+      XmlTabulator t = new XmlTabulator()
 
       String expectedKey = "tei"
       String expectedValue = "http://www.tei-c.org/ns/1.0"

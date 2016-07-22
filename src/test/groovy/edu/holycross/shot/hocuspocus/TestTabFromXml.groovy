@@ -21,7 +21,7 @@ class TestTabFromXml  {
   @Test
   void testXmlTabulator() {
 
-    Tabulator tab = new Tabulator()
+    XmlTabulator tab = new XmlTabulator()
     CtsUrn txtUrn = new CtsUrn("urn:cts:test1:test.unclassified.unittest:")
     File txtFile = new File("testdata/conf2016/xml/no-namespace.xml")
 
