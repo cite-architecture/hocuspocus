@@ -7,7 +7,7 @@ public enum DocumentFormat {
 
   XML("xml"),
   TWO_COLS("2cols"),
-  O2XF("82XF"),
+  O2XF("82xf"),
   MARKDOWN("markdown")
 
   private String label
