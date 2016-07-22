@@ -105,6 +105,46 @@ class TablesUtil {
   }
 
 
+
+  // converts an 82XF file to internal, 7-col format
+  // used by CtsTtl.
+  
+  static String o2xfToSeven(File f) {
+    return o2xfToSeven(f, "#")
+  }
+
+  static String o2xfToSeven(File f, String delimiter) {
+    return o2xfToSeven(f.getText(), delimiter)
+  }
+  
+
+
+  static String o2xfToSeven(String  s) {
+    return o2xfToSeven(s, "#")
+  }
+
+  static String o2xfToSeven(String s, String delimiter) {
+    StringBuilder sevenCols = new StringBuilder()
+    
+    s.readLines().eachWithIndex { l, i ->
+      if (i > 0) {
+	def cols = l.split(/${delimiter}/)
+	if (cols.size() != 5) {
+	  throw new Exception("TablesUtils: wrong number of columns for 82XF in " + l)
+	}
+	String urn = cols[0]
+	String prevUrn = cols[1]
+	String seq = cols[2]
+	String nextUrn = cols[3]
+	String textContents = cols[4]
+
+	sevenCols.append(urn + delimiter + seq + delimiter + prevUrn + delimiter + nextUrn + delimiter + "" + delimiter + textContents + delimiter + "\n")
+      }
+    }
+    return sevenCols.toString()
+  }
+
+  
   /** Converts a two-column source with an ordered listing 
    * of text nodes described as URN-text contents into an equivalent
    * 82XF formatted string that can be used without need to 

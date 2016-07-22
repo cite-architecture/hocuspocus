@@ -193,7 +193,7 @@ class Corpus {
       break
 
       case DocumentFormat.O2XF:
-      case DocumentFormat.TWO_COLUMNS:
+      case DocumentFormat.TWO_COL:
       break
       
       }

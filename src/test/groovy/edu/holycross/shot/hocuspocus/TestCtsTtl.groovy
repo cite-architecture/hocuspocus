@@ -7,7 +7,7 @@ import static groovy.test.GroovyAssert.shouldFail
 
 import edu.harvard.chs.cite.CtsUrn
 
-class TestCtsTtl  {
+class TestCtsTtlCycle  {
 
 
   File tabFile = new File("testdata/testcorpus2016/derivs/testcorpus2016.tab")
@@ -30,6 +30,7 @@ class TestCtsTtl  {
     File ttlOut = new File("testdata/output/test-exemplar-file.ttl")
     ttlOut.setText(ttl, "UTF-8")
 
+    System.err.println "EXMAINE:\n"  + ttl
 
     // inspect contents, count RDF verbs:
 

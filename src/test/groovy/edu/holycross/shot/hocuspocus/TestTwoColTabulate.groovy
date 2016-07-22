@@ -23,15 +23,15 @@ class TestTwoColTabulate{
     File outDir = new File("testdata/output")
     
     CitationConfigurationFileReader conf = new CitationConfigurationFileReader(confFile)
-    //Corpus corp = new Corpus (tiFile,confFile,baseDir,schemaFile)
+    Corpus corp = new Corpus (tiFile,confFile,baseDir,schemaFile)
     //println "For archive ${baseDir}, files in archive: " + corp.filesInArchive()
     //println "For archive ${baseDir}, files in inventory: " + corp.filesInInventory()
-
-    /*
     assert corp.filesInArchive().size()  == 1
     assert corp.filesAndInventoryMatch()
-    */
+    
 
+    //corp.turtleizeRepository(outDir, true)
+    
     // Clean up all files used in test:
     /*
       ttl.delete()
