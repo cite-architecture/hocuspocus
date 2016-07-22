@@ -14,19 +14,10 @@ class TestMarkdown82XF {
   @Test
   void testFileTab() {
     File md = new File("testdata/markdown/archive/powered_by_ohco2.md")
-    String urn = "urn:cts:aflibre:af.ah.hc:"
+    String urn = "urn:cts:mddemo:demo.powered:"
 
 
     String o2xf =  MdTabulator.mdFileTo82XF(md,urn)
-    /*
-    println "o2xf is " + o2xf.getClass()
-    println "with val " + o2xf
-    String lines = o2xf.split(/\n/)
-    println "read lines as " + lines.getClass()
-    println "with val " + lines */
-
-
-
     def actualUrns = []
     // skip header line:
     def lineCount = 0
@@ -42,25 +33,25 @@ class TestMarkdown82XF {
     }
 
     def expectedUrns = [
-    "urn:cts:aflibre:af.ah.hc:1.h1",
-    "urn:cts:aflibre:af.ah.hc:1.n1",
-    "urn:cts:aflibre:af.ah.hc:1.n2",
-    "urn:cts:aflibre:af.ah.hc:1.n3",
-    "urn:cts:aflibre:af.ah.hc:1.n4",
-    "urn:cts:aflibre:af.ah.hc:1.n5",
-    "urn:cts:aflibre:af.ah.hc:1.1.h1",
-    "urn:cts:aflibre:af.ah.hc:1.1.1.h1",
-    "urn:cts:aflibre:af.ah.hc:1.1.1.n1",
-    "urn:cts:aflibre:af.ah.hc:1.1.2.h1",
-    "urn:cts:aflibre:af.ah.hc:1.1.2.n1",
-    "urn:cts:aflibre:af.ah.hc:1.1.2.n2",
-    "urn:cts:aflibre:af.ah.hc:1.1.2.n3",
-    "urn:cts:aflibre:af.ah.hc:1.1.2.n4",
-    "urn:cts:aflibre:af.ah.hc:1.2.h1",
-    "urn:cts:aflibre:af.ah.hc:1.2.1.h1",
-    "urn:cts:aflibre:af.ah.hc:1.2.1.n1",
-    "urn:cts:aflibre:af.ah.hc:1.2.2.h1",
-    "urn:cts:aflibre:af.ah.hc:1.2.2.n1"
+    "urn:cts:mddemo:demo.powered:1.h1",
+    "urn:cts:mddemo:demo.powered:1.n1",
+    "urn:cts:mddemo:demo.powered:1.n2",
+    "urn:cts:mddemo:demo.powered:1.n3",
+    "urn:cts:mddemo:demo.powered:1.n4",
+    "urn:cts:mddemo:demo.powered:1.n5",
+    "urn:cts:mddemo:demo.powered:1.1.h1",
+    "urn:cts:mddemo:demo.powered:1.1.1.h1",
+    "urn:cts:mddemo:demo.powered:1.1.1.n1",
+    "urn:cts:mddemo:demo.powered:1.1.2.h1",
+    "urn:cts:mddemo:demo.powered:1.1.2.n1",
+    "urn:cts:mddemo:demo.powered:1.1.2.n2",
+    "urn:cts:mddemo:demo.powered:1.1.2.n3",
+    "urn:cts:mddemo:demo.powered:1.1.2.n4",
+    "urn:cts:mddemo:demo.powered:1.2.h1",
+    "urn:cts:mddemo:demo.powered:1.2.1.h1",
+    "urn:cts:mddemo:demo.powered:1.2.1.n1",
+    "urn:cts:mddemo:demo.powered:1.2.2.h1",
+    "urn:cts:mddemo:demo.powered:1.2.2.n1"
     ]
 
     assert actualUrns.size() == expectedUrns.size()
