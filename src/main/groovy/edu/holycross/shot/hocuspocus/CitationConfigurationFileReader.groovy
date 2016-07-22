@@ -23,6 +23,11 @@ class CitationConfigurationFileReader {
   def fileNameMap = [:]
 
 
+  
+  String onlineDocname(String urn) {
+    return fileNameMap[urn]
+  }
+
   /** Constructor with one parameter for configuration file.
   *  @param confFile XML configuration file validating against
   * the CitationConfiguration RNG schema.
@@ -85,7 +90,13 @@ XML is hairy
 
   */
 
+
+
+  /** Compiles a list of version-level URNs for all
+   * texts listed as online in the configuration file.
+   */
   ArrayList allOnline() {
+    return fileNameMap.keySet()
   }
   
   /** Creates a map of URNs to XML namespace info by
