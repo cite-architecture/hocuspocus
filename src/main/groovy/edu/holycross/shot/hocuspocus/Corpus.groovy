@@ -56,7 +56,7 @@ class Corpus {
     try{
       this.inventory = new TextInventory(invFile)
       this.citationConfig = new CitationConfigurationFileReader(configFile)
-      this.ttler = new CtsTtl(inventory,citationConfig)
+      this.ttler = new CtsTtl(inventory, citationConfig)
     } catch (Exception e) {
       throw e
     }
@@ -213,8 +213,8 @@ class Corpus {
   boolean filesAndInventoryMatch() {
     def invList = []
     try {
-      this.inventory.allOnline().each { urn ->
-	invList.add(this.inventory.onlineDocname(urn))
+      this.citationConfig.allOnline().each { urn ->
+	invList.add(this.citationConfig.onlineDocname(urn))
       }
       def invSet = invList as Set
       def fileSet = this.filesInArchive() as Set
@@ -232,8 +232,8 @@ class Corpus {
     def missing = []
     def fileSet = this.filesInArchive()
     def invList = []
-    this.inventory.allOnline().each { urn ->
-      invList.add(this.inventory.onlineDocname(urn))
+    this.citationConfig.allOnline().each { urn ->
+      invList.add(this.citationConfig.onlineDocname(urn))
     }
 
     invList.each { urn ->
@@ -253,8 +253,8 @@ class Corpus {
   ArrayList filesMissingFromInventory() {
     def missing = []
     def invList = []
-    this.inventory.allOnline().each { urn ->
-      invList.add(this.inventory.onlineDocname(urn))
+    this.citationConfig.allOnline().each { urn ->
+      invList.add(this.citationConfig.onlineDocname(urn))
     }
 
     this.filesInArchive().each { urn ->
@@ -271,8 +271,8 @@ class Corpus {
    */
   ArrayList filesInInventory() {
     def onlineList = []
-    this.inventory.allOnline().each { urn ->
-      onlineList.add(this.inventory.onlineDocname(urn))
+    this.citationConfig.allOnline().each { urn ->
+      onlineList.add(this.citationConfig.onlineDocname(urn))
     }
     return onlineList
   }
@@ -282,7 +282,7 @@ class Corpus {
    */
   ArrayList urnsInInventory() {
     def onlineList = []
-    this.inventory.allOnline().each {
+    this.citationConfig.allOnline().each {
       onlineList.add(it)
     }
     return onlineList
