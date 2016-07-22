@@ -34,7 +34,7 @@ class TestOnlineSettings  {
       OnlineSettings online82xf = new OnlineSettings("filename", DocumentFormat.O2XF)
       assert online82xf.nodeFormat == NodeFormat.PLAIN_TEXT
 
-      OnlineSettings online2cols = new OnlineSettings("filename", DocumentFormat.TWO_COLS)
+      OnlineSettings online2cols = new OnlineSettings("filename", DocumentFormat.TWO_COL)
       assert online2cols.nodeFormat == NodeFormat.PLAIN_TEXT
 
 

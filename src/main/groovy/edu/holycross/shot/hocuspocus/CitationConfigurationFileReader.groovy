@@ -161,8 +161,8 @@ XML is hairy
     def onlineMap = [:]
     confRoot[hp.online].each { ol ->
       OnlineSettings settings
-      DocumentFormat df = DocumentFormat.getByLabel(ol.'@type') 
-      if (ol.'@nodeformat') {
+      DocumentFormat df = DocumentFormat.getByLabel(ol.'@type')
+      if (ol.'@nodeformat' != null) {
 	NodeFormat nf = NodeFormat.getByLabel(ol.'@nodeformat')
 	settings = new OnlineSettings(ol.'@docname', df, nf)
       } else {

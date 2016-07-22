@@ -177,17 +177,28 @@ class Corpus {
 	System.err.println "Tabulate " + urnVal + " from " + f + " to " + tabFile
       }
 
-
+      
+      
       // HERE: test for document type:
       // LOOK AT onlineMap of citationConfig.
-      //      switch () {
-      //}
-
-      /*
+      OnlineSettings settings = citationConfig.onlineMap[urnVal]
+      switch (settings.docFormat) {
+      case DocumentFormat.XML:
       XmlTabulator tabulator = new XmlTabulator()
       String tabData = tabulator.tabulateFile(urn, inventory, citationConfig, f)
       tabFile.setText(tabData,"UTF-8")
-      */
+      break
+
+      case DocumentFormat.MARKDOWN:
+      break
+
+      case DocumentFormat.O2XF:
+      case DocumentFormat.TWO_COLUMNS:
+      break
+      
+      }
+
+
     }
   }
 

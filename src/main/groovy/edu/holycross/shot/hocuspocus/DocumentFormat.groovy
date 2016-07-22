@@ -6,7 +6,7 @@ public enum DocumentFormat {
 
 
   XML("xml"),
-  TWO_COLS("2cols"),
+  TWO_COL("2col"),
   O2XF("82xf"),
   MARKDOWN("markdown")
 

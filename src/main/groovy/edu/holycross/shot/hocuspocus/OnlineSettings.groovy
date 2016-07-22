@@ -7,11 +7,12 @@ class OnlineSettings {
   DocumentFormat docFormat
   NodeFormat nodeFormat
 
-  def acceptsNode = [DocumentFormat.O2XF, DocumentFormat.TWO_COLS]
+  def acceptsNode = [DocumentFormat.O2XF, DocumentFormat.TWO_COL]
 
   // ERROR CHECKING:  NodeFormat only allowed with
   // docformat 82xf and 2cols.  Exception otherwise.
   OnlineSettings(String fName, DocumentFormat df, NodeFormat nf) {
+    
     if (! acceptsNode.contains(df)) {
       throw new Exception("OnlineSettings:  cannot override node format for document format " + df)
     }
@@ -35,7 +36,7 @@ class OnlineSettings {
       this.nodeFormat = NodeFormat.MARKDOWN
       break
       case DocumentFormat.O2XF:
-      case DocumentFormat.TWO_COLS:
+      case DocumentFormat.TWO_COL:
       this.nodeFormat = NodeFormat.PLAIN_TEXT
       break
     }
