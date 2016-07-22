@@ -23,13 +23,13 @@ class TestDocumentFormat  {
       }
     }
 
-/*
+
     @Test
     void testIndex() {
-      assert Mood.getByToken("<indic>") == Mood.INDICATIVE
-      assert Mood.getByToken("<subj>") == Mood.SUBJUNCTIVE
-      assert Mood.getByToken("<opt>") == Mood.OPTATIVE
-      assert Mood.getByToken("<imptv>") == Mood.IMPERATIVE
+      assert DocumentFormat.getByLabel("xml") == DocumentFormat.XML
+      assert DocumentFormat.getByLabel("82xf") == DocumentFormat.O2XF
+      assert DocumentFormat.getByLabel("2cols") == DocumentFormat.TWO_COLS
+      assert DocumentFormat.getByLabel("markdown") == DocumentFormat.MARKDOWN
     }
-    */
+
 }
