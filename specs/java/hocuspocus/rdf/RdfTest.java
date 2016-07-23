@@ -5,7 +5,7 @@ import org.concordion.integration.junit3.ConcordionTestCase;
 import  edu.holycross.shot.hocuspocus.Corpus;
 
 import  edu.harvard.chs.cite.CtsUrn;
-import  edu.harvard.chs.cite.TextInventory;
+
 
 import java.io.File;
 import java.io.FileReader;
@@ -25,7 +25,7 @@ public class RdfTest extends ConcordionTestCase {
     /** Path in concordion build to RNG schema for Text Inventory.*/
     String schema = "../../../resources/test/schemas/TextInventory.rng";
 
-    
+
     /** Hands back a String parameter so we can save links using concordion's
      * #Href variable for use in later computations. */
     public String setHref(String path) {
@@ -49,7 +49,7 @@ public class RdfTest extends ConcordionTestCase {
 	}
     }
 
-    
+
     public Iterable<String>  shouldGetVerbs(String ti, String archive, String outDir) {
 	SortedSet<String> verbs = new TreeSet<String>();
 	String delims = "[ \t]+";
@@ -72,11 +72,11 @@ public class RdfTest extends ConcordionTestCase {
 
 	//System.err.println ("Get verbs for ti " + ti + ", archive " + archive +" out dir " + outDir);
 	//System.err.println ("\n\nCORPUS FILE IS " + ttl + "\n\n") ;
-	
+
 	String buildPath = new java.io.File( "." ).getCanonicalPath() + docPath;
 	    File inv =  new File(buildPath + ti);
 	    File archiveDir = new File(buildPath + archive);
-	    File schemaFile = new File(buildPath + schema);	    
+	    File schemaFile = new File(buildPath + schema);
 	    Corpus c = new Corpus(inv, archiveDir, schemaFile);
 	    c.debug = 0;
 	    //System.err.println ("Turtleize to " + tabDir);
@@ -98,7 +98,7 @@ public class RdfTest extends ConcordionTestCase {
 
 	    //System.err.println ("\n\nLooked at a total of " + count + " lines in "   + ttl.toString());
 
-	    
+
 	} catch (Exception e) {
 	    System.err.println ("Your test failed miserably: "  + e.toString());
 	}
@@ -115,13 +115,13 @@ public class RdfTest extends ConcordionTestCase {
 	    File archiveDir = new File(buildPath + archive);
 	    File schemaFile = new File(buildPath + schema);
 	    Corpus c = new Corpus(inv, archiveDir, schemaFile);
-	    
+
 	    File tabDir = new File(outDir);
 	    if (! tabDir.exists()) {
 		tabDir.mkdir();
 	    }
 	    c.turtleizeRepository(tabDir);
-		
+
 	} catch (Exception e) {
 	    System.err.println("Unable to write TTL: " + e.toString());
 	}
@@ -139,12 +139,12 @@ public class RdfTest extends ConcordionTestCase {
 	    File archiveDir = new File(buildPath + archive);
 	    File schemaFile = new File(buildPath + schema);
 	    Corpus c = new Corpus(inv, archiveDir, schemaFile);
-		    
+
 	    File tabDir = new File(outDir);
 	    if (! tabDir.exists()) {
 		tabDir.mkdir();
 	    }
-	    
+
 	    File ttl = new File(tabDir, "corpus.ttl");
 	    if (ttl.exists()) {
 		ttl.delete();
@@ -162,7 +162,7 @@ public class RdfTest extends ConcordionTestCase {
 	    }
 	    reader.close();
 	    return count;
-		
+
 	} catch (Exception e) {
 	    System.err.println("Unable to write TTL: " + e.toString());
 	    return  -1;
@@ -171,5 +171,3 @@ public class RdfTest extends ConcordionTestCase {
 
     */
 }
-
-

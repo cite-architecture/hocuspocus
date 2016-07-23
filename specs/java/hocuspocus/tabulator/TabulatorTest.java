@@ -5,7 +5,7 @@ import org.concordion.integration.junit3.ConcordionTestCase;
 import  edu.holycross.shot.hocuspocus.Corpus;
 
 import  edu.harvard.chs.cite.CtsUrn;
-import  edu.harvard.chs.cite.TextInventory;
+
 
 import java.io.File;
 import java.io.FileReader;
@@ -25,7 +25,7 @@ public class TabulatorTest extends ConcordionTestCase {
     String schema = "../../../resources/test/schemas/TextInventory.rng";
 
 
-    
+
     /** Hands back a String parameter so we can save links using concordion's
      * #Href variable for use in later computations. */
     public String setHref(String path) {
@@ -36,7 +36,7 @@ public class TabulatorTest extends ConcordionTestCase {
     public Integer shouldCountTabs(String ti, String archive, String outDir) {
 
 	Integer count = 0;
-	
+
 	File tabDir = new File("build/tabulated");
 	if (! tabDir.exists()) {
 	    tabDir.mkdir();
@@ -61,11 +61,11 @@ public class TabulatorTest extends ConcordionTestCase {
 	} catch(Exception e) {
 	    System.err.println ("Failed to count tabs: " + e.toString());
 	}
-	
+
 	return count;
     }
 
-    
+
     public String shouldGetFileNameForUrn(String ti, String archive, String urnStr) {
 	try {
 	    String buildPath = new java.io.File( "." ).getCanonicalPath() + docPath;
@@ -73,18 +73,18 @@ public class TabulatorTest extends ConcordionTestCase {
 	    File archiveDir = new File(buildPath + archive);
 	    File schemaFile = new File(buildPath + schema);
 	    Corpus c = new Corpus(inv, archiveDir, schemaFile);
-	
+
 	    CtsUrn urn = new CtsUrn(urnStr);
 
 	    String xmlName = c.getInventory().onlineDocname(urn);
 	    String txtName = xmlName.replaceFirst(".xml",".txt");
 	    return txtName;
-	    
+
 	} catch (Exception e) {
 	    return ("Failed: " + e.toString());
 	}
     }
-    
+
     public Integer shouldCountTabulatedLines(String ti, String archive, String urnStr) {
 
 
@@ -112,14 +112,12 @@ public class TabulatorTest extends ConcordionTestCase {
 	    }
 	    reader.close();
 	    return count;
-	    
+
 	} catch (Exception e) {
 	    System.err.println ("Failed: " + e);
 	}
-	
+
 	return -1;
     }
     */
 }
-
-
