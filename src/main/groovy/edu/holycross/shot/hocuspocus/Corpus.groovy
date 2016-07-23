@@ -180,7 +180,7 @@ class Corpus {
       
       
 
-      // CtsTtl only knows about internal 7-column format.
+      // CtsTtl only knows about internal 8-column format.
       // Way to generate that depends on source document format.
       OnlineSettings settings = citationConfig.onlineMap[urnVal]
       switch (settings.docFormat) {
@@ -198,13 +198,18 @@ class Corpus {
       break
 
       case DocumentFormat.O2XF:
-      // TablesUtil converts directly to 7-column format:
+      TablesUtil tu = new TablesUtil()
+      String tabData = tu.o2xfToEight(f.getText())
+      tabFile.setText(tabData,"UTF-8")
+
       break
       
       case DocumentFormat.TWO_COL:
-      // TablesUtil converts to 82xf -> 7cols
+      TablesUtil tu = new TablesUtil()
+      String o2xf = twoTo82XF(f)
+      String tabData = tu.o2xfToEight(f)
+      tabFile.setText(tabData,"UTF-8")
       break
-      
       }
 
 
