@@ -13,7 +13,18 @@ class MdTabulator {
   }
 
 
+  static String mdFileToTabular(File f, String urn) {
+    return mdFileToTabular(f,  urn, "#")
+  }
 
+  static String mdFileToTabular(File f, String urn, String delimiter) {
+    String o2xf =  mdFileTo82XF(f,  urn, "#")
+    TablesUtil tu = new TablesUtil()
+    return tu.o2xfToEight(o2xf)
+  }
+
+  
+  
   static String mdFileTo82XF(File f, String urn) {
     return mdFileTo82XF(f,  urn, "#")
   }

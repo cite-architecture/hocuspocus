@@ -245,7 +245,7 @@ class CtsTtl {
     def cols = "${tabLine} ".split(separatorValue)
     
     if (cols.size() < 8) {
-      throw new Exception("CtsTtl:turtleizeLine: wrong number of columns in #${tabLine}#")
+      throw new Exception("CtsTtl:turtleizeLine: wrong number of columns (${cols.size()}) in #${tabLine}#")
     } else {
       String urnVal = cols[0]
       String seq = cols[1]

@@ -8,7 +8,7 @@ import static groovy.test.GroovyAssert.shouldFail
 
 
 /** */
-class TestTablesUtil82XFto7col {
+class TestTablesUtil82XFto8col {
 
   @Test
   void testSingleLine() {
@@ -16,11 +16,11 @@ class TestTablesUtil82XFto7col {
 urn:cts:aflibre:aflibre.ah.hc:19420614.h1##1#urn:cts:aflibre:aflibre.ah.hc:19420614.p1#Zondag, 14 Juni 1942
 """
     TablesUtil tu = new TablesUtil()
-    String actualSevenCols = tu.o2xfToSeven(o2data)
+    String actualEightCols = tu.o2xfToEight(o2data)
 
-    String expectedSevelCols = "urn:cts:aflibre:aflibre.ah.hc:19420614.h1#1##urn:cts:aflibre:aflibre.ah.hc:19420614.p1##Zondag, 14 Juni 1942#\n"
+    String expectedEightlCols = "urn:cts:aflibre:aflibre.ah.hc:19420614.h1#1##urn:cts:aflibre:aflibre.ah.hc:19420614.p1##Zondag, 14 Juni 1942##\n"
     
-    assert actualSevenCols == expectedSevelCols
+    assert actualEightCols == expectedEightlCols
   }
 
 

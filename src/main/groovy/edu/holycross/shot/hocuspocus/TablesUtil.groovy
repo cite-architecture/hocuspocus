@@ -109,21 +109,21 @@ class TablesUtil {
   // converts an 82XF file to internal, 7-col format
   // used by CtsTtl.
   
-  static String o2xfToSeven(File f) {
-    return o2xfToSeven(f, "#")
+  static String o2xfToEight(File f) {
+    return o2xfToEight(f, "#")
   }
 
-  static String o2xfToSeven(File f, String delimiter) {
-    return o2xfToSeven(f.getText(), delimiter)
+  static String o2xfToEight(File f, String delimiter) {
+    return o2xfToEight(f.getText(), delimiter)
   }
   
 
 
-  static String o2xfToSeven(String  s) {
-    return o2xfToSeven(s, "#")
+  static String o2xfToEight(String  s) {
+    return o2xfToEight(s, "#")
   }
 
-  static String o2xfToSeven(String s, String delimiter) {
+  static String o2xfToEight(String s, String delimiter) {
     StringBuilder sevenCols = new StringBuilder()
     
     s.readLines().eachWithIndex { l, i ->
@@ -138,7 +138,7 @@ class TablesUtil {
 	String nextUrn = cols[3]
 	String textContents = cols[4]
 
-	sevenCols.append(urn + delimiter + seq + delimiter + prevUrn + delimiter + nextUrn + delimiter + "" + delimiter + textContents + delimiter + "\n")
+	sevenCols.append(urn + delimiter + seq + delimiter + prevUrn + delimiter + nextUrn + delimiter + "" + delimiter + textContents + delimiter + delimiter + "\n")
       }
     }
     return sevenCols.toString()

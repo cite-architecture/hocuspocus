@@ -1,11 +1,11 @@
 strict digraph flow {
 concentrate=true
-XML->Internal_7_column [label=" XmlTabulator" ]
+XML->Internal_8_column [label=" XmlTabulator" ]
 URN_Text_Columns->O2XF [label=" TablesUtil" ]
-O2XF->Internal_7_column  [label=" TablesUtil" ]
-Internal_7_column->O2XF [label=" TablesUtil" ]
+O2XF->Internal_8_column  [label=" TablesUtil" ]
+Internal_8_column->O2XF [label=" TablesUtil" ]
 Markdown->O2XF [label=" MdTabulator"]
 
-Internal_7_column->RDF [label=" CtsTtl"]
+Internal_8_column->RDF [label=" CtsTtl"]
 
 }

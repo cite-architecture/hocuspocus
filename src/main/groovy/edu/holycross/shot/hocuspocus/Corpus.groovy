@@ -179,10 +179,12 @@ class Corpus {
 
       
       
-      // HERE: test for document type:
-      // LOOK AT onlineMap of citationConfig.
+
+      // CtsTtl only knows about internal 7-column format.
+      // Way to generate that depends on source document format.
       OnlineSettings settings = citationConfig.onlineMap[urnVal]
       switch (settings.docFormat) {
+	
       case DocumentFormat.XML:
       XmlTabulator tabulator = new XmlTabulator()
       String tabData = tabulator.tabulateFile(urn, inventory, citationConfig, f)
@@ -190,10 +192,17 @@ class Corpus {
       break
 
       case DocumentFormat.MARKDOWN:
+      MdTabulator tabulator = new MdTabulator()
+      String tabData = tabulator.mdFileToTabular(f, urnVal)
+      tabFile.setText(tabData,"UTF-8")
       break
 
       case DocumentFormat.O2XF:
+      // TablesUtil converts directly to 7-column format:
+      break
+      
       case DocumentFormat.TWO_COL:
+      // TablesUtil converts to 82xf -> 7cols
       break
       
       }
