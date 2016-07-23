@@ -13,8 +13,8 @@ ext {
   "saxon" : '8.7',
   "xmlunit" : '1.6',
   "concordion" : "1.5.1",
-  
-  "cite" : "2.+"
+
+  "cite" : "3.+"
 
  ]
 

@@ -29,6 +29,7 @@ class TestCorpusTwoCols  {
     File ttl = new File(outDir,"cts.ttl")
 
     // Count occurrences of RDF verbs in output:
+    
     def lines = 0
     def  prefix = 0
     def prev = 0
