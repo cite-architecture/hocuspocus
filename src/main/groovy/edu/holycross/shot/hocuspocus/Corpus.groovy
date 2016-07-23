@@ -206,8 +206,8 @@ class Corpus {
       
       case DocumentFormat.TWO_COL:
       TablesUtil tu = new TablesUtil()
-      String o2xf = twoTo82XF(f)
-      String tabData = tu.o2xfToEight(f)
+      String o2xf = tu.twoTo82XF(f)
+      String tabData = tu.o2xfToEight(o2xf)
       tabFile.setText(tabData,"UTF-8")
       break
       }
