@@ -106,7 +106,7 @@
 						name="type">
 						<choice>
 						<value>2col</value>
-						<value>82XF</value>
+						<value>82xf</value>
 						</choice>
 						
 					</attribute>

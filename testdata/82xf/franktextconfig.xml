@@ -3,7 +3,7 @@
 <?xml-model href="../schemas/CitationConfiguration.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <CitationConfiguration xmlns="http://chs.harvard.edu/xmlns/hocuspocus" tiversion="6.0.0">
 
-    <online urn="urn:cts:aflibre:af.ah.hc:" type="82XF" docname="achterhuis_82XF.txt" nodeformat="text">
+    <online urn="urn:cts:aflibre:af.ah.hc:" type="82xf" docname="achterhuis_82XF.txt" nodeformat="text">
         <citationScheme>
             <citation label="entry">
                 <citation label="section"/>
