@@ -6,7 +6,7 @@ ext {
  // of cite dependencies
  versionMap = [
 
-  "groovy" : '2.4.5',
+  "groovy" : '2.+',
   "junit": "4.11",
 
   "commonsio" : '1.4',
