@@ -111,15 +111,6 @@ class TextInventory {
     def translationLanguages = [:]
 
 
-    // MOVE TO CIATION CONFIG
-    /** Map of Cts Urns to corresponding value of online attribute.
-    * The map should include an entry for every online version in the
-    * inventory.
-    */
-    //def onlineMap = [:]
-
-
-
     /** Generates listing of data validation errors.
     * @returns String with list of validation errors.
     */
@@ -137,17 +128,17 @@ class TextInventory {
     */
     TextInventory (URL capsUrl)
     throws Exception {
-        def capsText = capsUrl.getText("UTF-8")
-        groovy.util.Node capsRoot = new XmlParser().parseText(capsText)
+      def capsText = capsUrl.getText("UTF-8")
+      groovy.util.Node capsRoot = new XmlParser().parseText(capsText)
 
-        def repl = capsRoot[ctsns.reply][0]
-        def tiRoot = repl[ti.TextInventory][0]
+      def repl = capsRoot[ctsns.reply][0]
+      def tiRoot = repl[ti.TextInventory][0]
 
-        try {
-            this.initFromParsedTextInv(tiRoot)
-        } catch (Exception e) {
-            throw e
-        }
+      try {
+	this.initFromParsedTextInv(tiRoot)
+      } catch (Exception e) {
+	throw e
+      n}
     }
 
 
@@ -159,9 +150,9 @@ class TextInventory {
     TextInventory (String str)
     throws Exception {
         try {
-            this.initFromTextInvString(str)
+	  this.initFromTextInvString(str)
         } catch (Exception e) {
-            throw e
+	  throw e
         }
     }
 
@@ -171,11 +162,11 @@ class TextInventory {
     */
     TextInventory (File f)
     throws Exception {
-        try {
-            this.initFromTextInvString(f.getText(enc))
-        } catch (Exception e) {
-            throw e
-        }
+      try {
+	this.initFromTextInvString(f.getText(enc))
+      } catch (Exception e) {
+	throw e
+      }
     }
 
 
@@ -185,12 +176,12 @@ class TextInventory {
     */
     TextInventory(groovy.util.Node docRoot) {
         try {
-            this.initFromParsedTextInv(docRoot)
+	  this.initFromParsedTextInv(docRoot)
         } catch (Exception e) {
-            System.err.println "There were errors initializing the inventory:"
-            this.errorList.each {
-                System.err.println "\t${it}"
-            }
+	  System.err.println "There were errors initializing the inventory:"
+	  this.errorList.each {
+	    System.err.println "\t${it}"
+	  }
         }
     }
 
@@ -199,166 +190,111 @@ class TextInventory {
     TextInventory() {
     }
 
-    /** Finds all online versions of all texts
-    * known to the inventory.
-    * @returns A List of version-level URNs.
-    */
-  // MOVE TO CITATION CONFIG
-  /*
-    def allOnline() {
-        def onlineList = []
-        allDataOnline().each { vers ->
-            onlineList.add(vers[0])
-        }
-        return onlineList
-    }
-  */
 
   
-    /** Determines whether a version is an edition or
+  /** Determines whether a version is an edition or
     * translation.
     * @param urnStr URN, as a String, of the version to examine.
     * @returns A VersionType value.
     * @throws Exception if urnStr is not a valid CTS URN string.
     */
-    VersionType typeForVersion(String urnStr)
-    throws Exception {
-        try {
-            def u = new CtsUrn(urnStr)
-            return typeForVersion(urnStr)
-        } catch (Exception e) {
-            throw e
-        }
+  VersionType typeForVersion(String urnStr)
+  throws Exception {
+    try {
+      def u = new CtsUrn(urnStr)
+      return typeForVersion(urnStr)
+    } catch (Exception e) {
+      throw e
+    }
+  }
+
+
+  /** Determines whether a version is an edition or
+   * translation.
+   * @param urnStr URN, as a String, of the version to examine.
+   * @returns A VersionType value.
+   */
+  VersionType typeForVersion(CtsUrn urn) {
+    def edLabel = editionLabel(urn)
+    def xlatLabel = translationLabel(urn)
+    if (edLabel) {
+      if (debug > 1) {
+	println "typeForVersion: edLabel ${edLabel}, so return "  + VersionType.EDITION
+      }
+      return VersionType.EDITION
+    } else if (xlatLabel) {
+      return VersionType.TRANSLATION
+    } else {
+      return null
+    }
+  }
+
+
+  /** Determines if a URN represents a text in the inventory.
+   * @param urn The URN to test.
+   * @returns true if the URN is in the inventory.
+   */
+  boolean urnInInventory(CtsUrn urn) {
+    def nsStruct = this.ctsnamespaces.find { it[0] == urn.getCtsNamespace()}
+
+    switch (urn.getWorkLevel()) {
+
+    case CtsUrn.WorkLevel.VERSION:
+
+    switch (typeForVersion(urn)) {
+    case VersionType.EDITION:
+    CtsUrn noPsg = new CtsUrn(urn.getUrnWithoutPassage())
+    String ed = noPsg.reduceToVersion()
+    
+    def edStruct = this.editions.find {it[0] == ed}
+    String tg = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}:"
+    def tgStruct = this.textgroups.find {it[0] == tg}
+    String wk = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}.${urn.getWork()}:"
+    def wkStruct = this.works.find {it[0] == wk }
+    return ((nsStruct != null) && (tgStruct != null) && (wkStruct != null))
+    break
+
+
+    case VersionType.TRANSLATION:
+    String trans = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}.${urn.getWork()}.${urn.getVersion()}:"
+    def transStruct = this.translations.find {it[0] == trans}
+    String tg = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}:"
+    def tgStruct = this.textgroups.find {it[0] == tg}
+    String wk = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}.${urn.getWork()}:"
+    def wkStruct = this.works.find {it[0] == wk }
+    return ((nsStruct != null) && (tgStruct != null) && (wkStruct != null))
+    break
+
+    default:
+    if (debug > 1) {
+      System.err.println "TextInventory:urnInInventory: for urn ${urn}, type is " + typeForVersion(urn)
+    }
+    break
     }
 
+    case CtsUrn.WorkLevel.WORK:
+    String tg = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}:"
+    def tgStruct = this.textgroups.find {it[0] == tg}
+    String wk = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}.${urn.getWork()}:"
+    def wkStruct = this.works.find {it[0] == wk }
+    boolean answer = ((nsStruct != null) && (tgStruct != null) && (wkStruct != null))
+    return answer
+    
+    break
 
-    /** Determines whether a version is an edition or
-    * translation.
-    * @param urnStr URN, as a String, of the version to examine.
-    * @returns A VersionType value.
-    */
-    VersionType typeForVersion(CtsUrn urn) {
-        def edLabel = editionLabel(urn)
-        def xlatLabel = translationLabel(urn)
-        if (edLabel) {
-	  if (debug > 1) {
-	    println "typeForVersion: edLabel ${edLabel}, so return "  + VersionType.EDITION
-	  }
-	  return VersionType.EDITION
-        } else if (xlatLabel) {
-            return VersionType.TRANSLATION
-        } else {
-            return null
-        }
+    case CtsUrn.WorkLevel.GROUP:
+    String tg = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}:"
+    def tgStruct = this.textgroups.find {it[0] == tg}
+    return ((nsStruct != null) && (tgStruct != null))
+    break
+    
+    default:
+    System.err.println "Level " + urn.getWorkLevel()
+    return true
+    break
     }
-
-
-    /** Finds a map of the XML namespace abbreviations
-    * used in a specific version of a document to full
-    * URIs for the XML namespace.
-    * @param urnStr Version-level Cts Urn string for
-    * the document in question.
-    * @returns A map of XML namespace abbreviations to URI values.
-    * @throws Exception if urnStr is not a valid Cts Urn value.
-    */
-  // MOVE TO CITATION CONFIG
-  /*
-    LinkedHashMap xmlNsForVersion(String urnStr)
-    throws Exception {
-        try {
-            CtsUrn urn = new CtsUrn(urnStr)
-            return xmlNsForVersion(urn)
-        } catch (Exception e) {
-            throw e
-        }
-    }
-  */
-
-
-
-    /** Finds a map of the XML namespace abbreviations
-    * used in a specific version of a document to full
-    * URIs for the XML namespace.
-    * @param urn Version-level Cts Urn for the document in question.
-    * @returns A map of XML namespace abbreviations to URI values.
-    */
-
-
-  /// MOVE TO CITATION CONFIG
-  /*
-    LinkedHashMap xmlNsForVersion(CtsUrn urn) {
-        return nsMapList[urn.toString()]
-    }
-  */
-
-
-    /** Determines if a URN represents a text in the inventory.
-    * @param urn The URN to test.
-    * @returns true if the URN is in the inventory.
-    */
-    boolean urnInInventory(CtsUrn urn) {
-        def nsStruct = this.ctsnamespaces.find { it[0] == urn.getCtsNamespace()}
-
-        switch (urn.getWorkLevel()) {
-
-	case CtsUrn.WorkLevel.VERSION:
-
-	switch (typeForVersion(urn)) {
-	case VersionType.EDITION:
-	//	String ed = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}.${urn.getWork()}.${urn.getVersion()}"
-	CtsUrn noPsg = new CtsUrn(urn.getUrnWithoutPassage())
-	String ed = noPsg.reduceToVersion()
-
-	println "CHECKING FOR " + ed + " in " + editions
-
-
-	def edStruct = this.editions.find {it[0] == ed}
-	String tg = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}:"
-	def tgStruct = this.textgroups.find {it[0] == tg}
-	String wk = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}.${urn.getWork()}:"
-	def wkStruct = this.works.find {it[0] == wk }
-	return ((nsStruct != null) && (tgStruct != null) && (wkStruct != null))
-	break
-
-
-	case VersionType.TRANSLATION:
-	String trans = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}.${urn.getWork()}.${urn.getVersion()}:"
-	def transStruct = this.translations.find {it[0] == trans}
-	String tg = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}:"
-	def tgStruct = this.textgroups.find {it[0] == tg}
-	String wk = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}.${urn.getWork()}:"
-	def wkStruct = this.works.find {it[0] == wk }
-	return ((nsStruct != null) && (tgStruct != null) && (wkStruct != null))
-	break
-
-	default:
-	if (debug > 1) {
-	  System.err.println "TextInventory:urnInInventory: for urn ${urn}, type is " + typeForVersion(urn)
-	}
-	break
-	}
-
-	case CtsUrn.WorkLevel.WORK:
-                String tg = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}"
-            def tgStruct = this.textgroups.find {it[0] == tg}
-            String grp = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}.${urn.getWork()}"
-            def wkStruct = this.works.find {it[0] == grp }
-            return ((nsStruct != null) && (tgStruct != null) && (wkStruct != null))
-            break
-
-            case CtsUrn.WorkLevel.GROUP:
-            String tg = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}"
-            def tgStruct = this.textgroups.find {it[0] == tg}
-            return ((nsStruct != null) && (tgStruct != null))
-            break
-
-            default:
-                System.err.println "Level " + urn.getWorkLevel()
-            return true
-            break
-        }
-        return false
-    }
+    return false
+  }
 
 
 
