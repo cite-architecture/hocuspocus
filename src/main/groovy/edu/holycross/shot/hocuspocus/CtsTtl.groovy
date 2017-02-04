@@ -194,8 +194,6 @@ class CtsTtl {
 
 		String escapedTextContent = textContent.replaceAll('\\"',/\\"/)
 
-		System.err.println(escapedTextContent)
-
     turtles.append("<${urn.toString()}> rdf:label " + '"""' +  label.replaceAll(/\n/,'') + '""" .\n')
 
     /* explicitly express version hierarchy */

@@ -48,7 +48,7 @@ if (hasProperty('pub')) {
 
 
 group = "edu.holycross.shot"
-version = '2.1.1'
+version = '2.1.2'
 
 ext {
   specversion = "1.0.2"
