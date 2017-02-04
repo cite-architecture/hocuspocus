@@ -67,7 +67,7 @@ class CtsTtl {
     }
     return reply.toString()
   }
-  
+
 
   /** Composes RDF statements for a list of TextGroups.
    * @param tg List of URNs, as String values, identifying
@@ -99,11 +99,11 @@ class CtsTtl {
     StringBuilder ttl = new StringBuilder()
     ttl.append("<${parent}> cts:possesses <${wk}> .\n")
     ttl.append("<${wk}> cts:belongsTo <${parent}> .\n")
-    
+
     String label = ti.workTitle(wk)
     ttl.append("<${wk}> rdf:label " + '"""' + label.replaceAll(/\n/,'') + '""" .\n')
     ttl.append("<${wk}> dcterms:title " + '"""' + label.replaceAll(/\n/,'') + '""" .\n')
-    
+
     String lang = ti.worksLanguages[wk]
     ttl.append("""<${wk}> cts:lang "${lang}" .\n""")
     return ttl.toString()
@@ -121,18 +121,18 @@ class CtsTtl {
     StringBuilder ttl = new StringBuilder()
     ttl.append("<${parent}> cts:possesses <${vers}> .\n")
     ttl.append("<${vers}> cts:belongsTo <${parent}> .\n")
-    
+
     if (ti.typeForVersion(new CtsUrn(vers)) == VersionType.EDITION) {
       ttl.append("<${vers}> rdf:type cts:Edition .\n")
       ttl.append("<${vers}> rdf:label " +   '"""' + ti.editionLabel(vers).replaceAll(/\n/,'') + '""" .\n')
       ttl.append("<${vers}> dcterms:title " +   '"""' + ti.editionLabel(vers).replaceAll(/\n/,'') + '""" .\n')
-      
+
     } else {
       ttl.append("<${vers}> rdf:type cts:Translation .\n")
       ttl.append("<${vers}> rdf:label " +  '"""' + ti.translationLabel(vers).replaceAll(/\n/,'') + '""" .\n')
       ttl.append("<${vers}> dcterms:title  " +  '"""' + ti.translationLabel(vers).replaceAll(/\n/,'') + '""" .\n')
       ttl.append("""<${vers}> cts:lang "${ti.languageForVersion(vers)}" .\n""")
-      
+
     }
     return ttl.toString()
   }
@@ -153,7 +153,7 @@ class CtsTtl {
     ttl.append("<${exempl}> rdf:type cts:Exemplar .\n")
     ttl.append("<${exempl}> rdf:label " + '"""' +   ti.exemplarLabel(exUrn).replaceAll(/\n/,'') + '"""  .\n')
     ttl.append("<${exempl}> dcterms:title " + '"""' +   ti.exemplarLabel(exUrn).replaceAll(/\n/,'') + '"""  .\n')
-    
+
     return ttl.toString()
   }
 
@@ -180,7 +180,7 @@ class CtsTtl {
   }
 
 
-  
+
   String turtleizeValues(CtsUrn urn, String seq, String prev, String next, String xmlAncestor, String textContent, String xpTemplate, String xmlNs) {
     StringBuilder turtles = new StringBuilder()
 
@@ -190,6 +190,11 @@ class CtsTtl {
     String workStr = "urn:cts:${urn.getCtsNamespace()}:${urn.getTextGroup()}.${urn.getWork()}:"
     String workLabel = "${groupLabel}, ${this.inventory.workTitle(workStr)}"
     String label = "${workLabel} (${this.inventory.versionLabel(urnBase)}): ${urn.getPassageComponent()} (${urn})"
+
+
+		String escapedTextContent = textContent.replaceAll('\\"',/\\"/)
+
+		System.err.println(escapedTextContent)
 
     turtles.append("<${urn.toString()}> rdf:label " + '"""' +  label.replaceAll(/\n/,'') + '""" .\n')
 
@@ -202,7 +207,7 @@ class CtsTtl {
     int max =  urn.getCitationDepth()
     String containedUrn = urn.toString()
     turtles.append("<${urn.toString()}> cts:hasSequence ${seq} .\n")
-    turtles.append("<${urn.toString()}> cts:hasTextContent " + '"""' + textContent + '"""' +  " .\n")
+    turtles.append("<${urn.toString()}> cts:hasTextContent " + '"""' + escapedTextContent + '"""' +  " .\n")
     turtles.append("<${urn.toString()}> cts:citationDepth ${max} .\n")
     turtles.append("<${urn.toString()}> hmt:xmlOpen " +  '"' + xmlAncestor + '" .\n')
     turtles.append("<${urn.toString()}> hmt:xpTemplate "  + '"' + xpTemplate + '" .\n')
@@ -237,13 +242,13 @@ class CtsTtl {
   String turtleizeLine(String tabLine, String ns, String nsabbr) throws Exception {
     // buffer for TTL output:
     StringBuffer turtles = new StringBuffer()
-    
+
     /* Incredible kludge to handles groovy's String split behavior.
        See note here for explanation:
        http://jermdemo.blogspot.de/2009/07/beware-groovy-split-and-tokenize-dont.html
     */
     def cols = "${tabLine} ".split(separatorValue)
-    
+
     if (cols.size() < 8) {
       throw new Exception("CtsTtl:turtleizeLine: wrong number of columns (${cols.size()}) in #${tabLine}#")
     } else {
@@ -264,7 +269,7 @@ class CtsTtl {
       if (urn) {
 	turtles.append("<${urn}> cts:xmlns <${ns}> .\n")
 	turtles.append("""<${urn}> cts:xmlnsabbr "${nsabbr}" .\n""")
-	
+
 	turtles.append(turtleizeValues(urn,seq,prev,next,xmlAncestor,textContent,xpTemplate,xmlNs))
       } else {
 	System.err.println "CtsTtl:turtleizeLine: could not form URN from " + urnVal
@@ -304,12 +309,12 @@ class CtsTtl {
 	  def currentMapping =  seqMapsForWorks[workNoPsg]
 	  currentMapping[seq] = urnVal
 	  seqMapsForWorks[workNoPsg] = currentMapping
-	  
+
 	} catch (Exception e) {
 	  System.err.println "CtsTtl: failed to get record for ${urnVal}."
 	  System.err.println "err ${e}"
 	}
-	
+
 
       } else {
 	// ??
@@ -344,7 +349,7 @@ class CtsTtl {
     }
     return ttl.toString()
   }
-  
+
   ///////////////////////////////////////////////////////////////////
   ///// Methods for generating TTL fragments and complete files
 
@@ -366,7 +371,7 @@ class CtsTtl {
    * @returns A String of TTL statements.
    */
   static String turtleizeInv(TextInventory inv, CitationConfigurationFileReader config, boolean includePrefix) throws Exception {
-    
+
     StringBuilder reply = new StringBuilder()
     if (includePrefix) {
       reply.append(prefixString)
