@@ -19,6 +19,7 @@ class TestCtsTtlCycle  {
 
   File ttlOut = new File("testdata/output/test-cts-editionTtl.ttl")
 
+	/*
   @Test
   void testTtlExemplarFile() {
 
@@ -30,12 +31,37 @@ class TestCtsTtlCycle  {
     File ttlOut = new File("testdata/output/test-exemplar-file.ttl")
     ttlOut.setText(ttl, "UTF-8")
 
-    System.err.println "EXMAINE:\n"  + ttl
+		//    System.err.println "EXMAINE:\n"  + ttl
 
     // inspect contents, count RDF verbs:
 
 
     ttlOut.delete()
-  }
+	}
+	*/
+
+  @Test
+  void testTtl2ColFile2() {
+
+  	File twoColTiFile = new File("testdata/textinvtests/testinventory-cwb.xml")
+	  File twoColConfFile = new File("testdata/conf2016/citationconfig-cwb.xml")
+	  File twocolTabFile = new File("testdata/tabdir/latin_liad-2col.txt")
+
+    CitationConfigurationFileReader conf = new CitationConfigurationFileReader(twoColConfFile)
+    TextInventory ti = new TextInventory(twoColTiFile)
+    CtsTtl ttler = new CtsTtl(ti, conf)
+    String ttl = ttler.turtleizeFile(twocolTabFile,true)
+    //System.err.println "From tabFile:\n" + ttl
+    File ttlOut = new File("testdata/output/cwb-test-2col-file.ttl")
+    ttlOut.setText(ttl, "UTF-8")
+
+    //System.err.println "EXAMINE:\n"  + ttl
+
+    // inspect contents, count RDF verbs:
+
+
+//    ttlOut.delete()
+	}
+
 
 }

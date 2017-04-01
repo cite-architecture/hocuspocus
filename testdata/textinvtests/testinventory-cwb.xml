@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../schemas/cts/TextInventory.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TextInventory tiid="hmt" tiversion="5.0.rc.1" xmlns="http://chs.harvard.edu/xmlns/cts"
+  xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <ctsnamespace abbr="greekLit" ns="http://chs.harvard.edu/ctsns/greekLit">
+    <description xml:lang="eng"> The &quot;First Thousand Years of Greek&quot; project's inventory
+      of Greek texts. </description>
+  </ctsnamespace>
+
+
+  <ctsnamespace abbr="hmtDemo" ns="http://chs.harvard.edu/ctsns/hmtDemo">
+    <description xml:lang="eng"> Namespace for demonstration texts. </description>
+  </ctsnamespace>
+  
+  <ctsnamespace abbr="croala" ns="http://www.ffzg.unizg.hr/klafil/croala">
+    <description xml:lang="lat">Croatiae auctores Latini (CroALa) Collectio electronica</description>
+  </ctsnamespace>
+  
+  
+  <textgroup urn="urn:cts:croala:kunicr:">
+    <groupname xml:lang="lat">Kunić, Rajmund</groupname>
+    
+    <work urn="urn:cts:croala:kunicr.ilias:" xml:lang="lat">
+      <title xml:lang="lat">Homeri Ilias, Latinis versibus expressa</title>
+      <edition urn="urn:cts:croala:kunicr.ilias.croala_ohco2:">
+        <label xml:lang="lat">Latin. CroALa: Curavit Neven Jovanović.</label>        
+        <description xml:lang="lat">Latin. Hanc editionem electronicam curavit Neven Jovanović. CroALa 2013.  Modified and distributed under the terms of the CC BY-NC-SA 3.0 HR licence.</description>
+        <online/>
+      </edition>
+    </work>
+  </textgroup>
+
+ 
+
+</TextInventory>

@@ -289,64 +289,73 @@ class CtsTtl {
    * @returns RDF statements in TTL expressing prev/next
    * relations of all citable nodes in the source data.
    */
-  String turtleizePrevNext(String tabData) {
-    // 1. Collect maps of sequences, keyed by work:
-    def seqMapsForWorks = [:]
-    tabData.eachLine { l ->
-      def cols = "${l} ".split(separatorValue)
-      if (cols.size() >= 7) {
-	String urnVal = cols[0]
-	String seq = cols[1]
-	CtsUrn u
-	try {
-	  u = new CtsUrn(urnVal)
-	  String workNoPsg = u.getUrnWithoutPassage()
-	  if (! seqMapsForWorks.keySet().contains(workNoPsg) ) {
-	    seqMapsForWorks[workNoPsg] = [:]
-	  }
-	  def currentMapping =  seqMapsForWorks[workNoPsg]
-	  currentMapping[seq] = urnVal
-	  seqMapsForWorks[workNoPsg] = currentMapping
+	 String turtleizePrevNext(String tabData) {
+		 // 1. Collect maps of sequences, keyed by work:
+		 def seqMapsForWorks = [:]
+		 tabData.eachLine { l ->
+			 def cols = "${l} ".split(separatorValue)
+			 //System.err.println(cols[0])
+			 //System.err.println(cols[1])
+			 //if (cols.size() >= 7) {
+				 String urnVal = cols[0]
+				 String seq = cols[1]
+				 CtsUrn u
+				 try {
+					 u = new CtsUrn(urnVal)
+					 String workNoPsg = u.getUrnWithoutPassage()
+					 if (! seqMapsForWorks.keySet().contains(workNoPsg) ) {
+						 seqMapsForWorks[workNoPsg] = [:]
+					 }
+					 def currentMapping =  seqMapsForWorks[workNoPsg]
+					 currentMapping[seq] = urnVal
+					 seqMapsForWorks[workNoPsg] = currentMapping
 
-	} catch (Exception e) {
-	  System.err.println "CtsTtl: failed to get record for ${urnVal}."
-	  System.err.println "err ${e}"
-	}
+					 } catch (Exception e) {
+						 System.err.println "CtsTtl: failed to get record for ${urnVal}."
+						 System.err.println "err ${e}"
+					 }
 
 
-      } else {
-	// ??
-      }
-    }
+					// }
+				 }
 
-    // 2. Now generate P/N statements
-    StringBuilder ttl = new StringBuilder()
-    tabData.eachLine { l ->
-      def cols = "${l} ".split(separatorValue)
-      if (cols.size() >= 7) {
-	String urnVal = cols[0]
-	String seq = cols[1]
-	String prv = cols[2]
-	String nxt = cols[3]
-	CtsUrn u
-	try {
-	  u = new CtsUrn(urnVal)
-	  String workNoPsg = u.getUrnWithoutPassage()
-	  LinkedHashMap currentMapping =  seqMapsForWorks[workNoPsg]
-	  if ((prv != "") && (currentMapping[prv] != null)) {
-	    ttl.append( "<${u}> cts:prev <${currentMapping[prv]}> .\n")
-	  }
-	  if ( (nxt != "") && (currentMapping[nxt] != null)) {
-	    ttl.append( "<${u}> cts:next <${currentMapping[nxt]}> .\n")
-	  }
-	}  catch (Exception e) {
-	  System.err.println "CtsTtl: failed to get record for ${urnVal}."
-	  System.err.println "err ${e}"
-	}
-      }
-    }
-    return ttl.toString()
-  }
+
+				 // 2. Now generate P/N statements
+				 StringBuilder ttl = new StringBuilder()
+				 tabData.eachLine { l ->
+					 def cols = "${l} ".split(separatorValue)
+					 if (cols.size() >= 7) {
+						 String urnVal = cols[0]
+						 String seq = cols[1]
+						 String prv = cols[2]
+						 String nxt = cols[3]
+						 CtsUrn u
+						 try {
+							 u = new CtsUrn(urnVal)
+							 String workNoPsg = u.getUrnWithoutPassage()
+							 LinkedHashMap currentMapping =  seqMapsForWorks[workNoPsg]
+							 if ((prv != "") && (currentMapping[prv] != null)) {
+								 ttl.append( "<${u}> cts:prev <${currentMapping[prv]}> .\n")
+							 }
+							 if (prv.contains("urn:cts:")){
+								 ttl.append( "<${u}> cts:prev <${prv}> .\n")
+							 }
+							 if ( (nxt != "") && (currentMapping[nxt] != null)) {
+								 ttl.append( "<${u}> cts:next <${currentMapping[nxt]}> .\n")
+							 }
+							 if (nxt.contains("urn:cts:")){
+								 ttl.append( "<${u}> cts:next <${nxt}> .\n")
+							 }
+							 }  catch (Exception e) {
+								 System.err.println "CtsTtl: failed to get record for ${urnVal}."
+								 System.err.println "err ${e}"
+							 }
+						 } else {
+							 System.err.println("not 7")
+						 }
+					 }
+					 return ttl.toString()
+				 }
 
   ///////////////////////////////////////////////////////////////////
   ///// Methods for generating TTL fragments and complete files

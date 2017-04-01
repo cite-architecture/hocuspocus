@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- On-line configuration for inventory in testinventory2.xml -->
+<?xml-model href="../schemas/CitationConfiguration.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<CitationConfiguration xmlns="http://chs.harvard.edu/xmlns/hocuspocus" tiversion="6.0.0">
+
+    
+    <online urn="urn:cts:croala:kunicr.ilias.croala_ohco2:" docname="Kunićilias.txt" nodeformat="text" type="2col">
+        <citationScheme>
+            <citation label="Book">
+                <citation label="Line"></citation>
+            </citation>
+            <citation label="Book">
+                <citation label="Catalogue">
+                    <citation label="Line"></citation>
+                </citation>
+            </citation>
+        </citationScheme>
+    </online> 
+    
+    
+    
+</CitationConfiguration>
